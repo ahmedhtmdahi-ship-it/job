@@ -1,0 +1,98 @@
+[
+  {
+    "original_name": "Ahmed Hatem Dahi CV (1).pdf",
+    "path": "assets/cv/master.pdf",
+    "bytes": 215410,
+    "sha256": "25e598dd115a7a8f41153da5bb01f32359653369f764bad8afaf5ab8d2e3c7db"
+  },
+  {
+    "original_name": "Ahmed Hatem Dahi CV .docx",
+    "path": "assets/cv/master.docx",
+    "bytes": 38971,
+    "sha256": "d64c429d8a4758bf1cb0d50a4667ae576f63a14a29aa6ae987a60c4047f8f4ed"
+  },
+  {
+    "original_name": "Ahmed_Hatem_Dahi_CV_Legal_Admin.docx",
+    "path": "assets/cv/legal_admin_original.docx",
+    "bytes": 10447,
+    "sha256": "e5fa4250f8d2b95b138a81cad702badbf421d478afa8ca069171700c79132a2c"
+  },
+  {
+    "original_name": "Ahmed_Hatem_Dahi_CV_Virtual_Assistant_Admin.docx",
+    "path": "assets/cv/assistant_original.docx",
+    "bytes": 10504,
+    "sha256": "da3884488ca894b6c7f2dbbba500ca261f231d8a3195156408ecbf0040b0bf1d"
+  },
+  {
+    "original_name": "Ahmed_Hatem_Dahi_CV_Trainer_LD.docx",
+    "path": "assets/cv/trainer_original.docx",
+    "bytes": 10391,
+    "sha256": "bc5554eca64ecfb62e6f09a98ce2726a93168e0103f83f589d1692aa2295f20e"
+  },
+  {
+    "original_name": "Ahmed_Hatem_Dahi_CV_Operations_Coordinator.docx",
+    "path": "assets/cv/operations_original.docx",
+    "bytes": 10430,
+    "sha256": "47bbd346d92b4c568e5491d9006c8fc15964877cd8d8c9eb7ecedb07e30456c8"
+  },
+  {
+    "original_name": "شهادات حاتم.pdf",
+    "path": "assets/certificates/all_certificates.pdf",
+    "bytes": 4562803,
+    "sha256": "80900f938cd3ecd26bd28f7aafa8383f9677baaa06924e12edfe667f2ffd4b7e"
+  },
+  {
+    "original_name": "JobPilot_Windows(1).zip",
+    "path": "assets/legacy/JobPilot_Windows_original.zip",
+    "bytes": 256161,
+    "sha256": "4b4678dc8ab91f059b935c9beae88837ff4c8d3b6f8225cc8718ef0bf5dcab31"
+  },
+  {
+    "original_name": "صياد_الشغل (6).zip",
+    "path": "assets/legacy/Job_Hunter_original.zip",
+    "bytes": 10526,
+    "sha256": "929ca5e337a448c0a432b2ce7d11003e595287152cef7d4bf1b8bcb8467e8f95"
+  },
+  {
+    "original_name": "خطة_رفع_المشاريع (2).xlsx",
+    "path": "assets/planning/upload_plan_original.xlsx",
+    "bytes": 15211,
+    "sha256": "b562fa663da2bd68fe7fbb04a4c91246f9e54ceb5b8817b5ee8861d472807e55"
+  },
+  {
+    "original_name": "Ahmed_Hatem_FINAL_BI_Operations_3_Projects (1).zip",
+    "path": "assets/portfolio/legacy_bi_3.zip",
+    "bytes": 555466,
+    "sha256": "f0ed23b2a5377b8524ac7aad05ac930d3b2d157737c2d1642d2c6cabbc393b42"
+  },
+  {
+    "original_name": "Ahmed_Hatem_6_Data_Analysis_Portfolio_Projects 1.zip",
+    "path": "assets/portfolio/legacy_data_6.zip",
+    "bytes": 153874,
+    "sha256": "ec9cd40bfa227d2dca3986597ff1a2ce69d2c27bce1201e4504d3cb2ff1fb694"
+  },
+  {
+    "original_name": "مشاريع_حقيقية_الدفعة_2 (1).zip",
+    "path": "assets/portfolio/public_batch_2.zip",
+    "bytes": 5941437,
+    "sha256": "b05cecce92c818d21e7ed33c3b77ce177b025e32f643baa7a4762a4b0fa1ef56"
+  },
+  {
+    "original_name": "مشاريع_حقيقية_الدفعة_3 (1).zip",
+    "path": "assets/portfolio/public_batch_3.zip",
+    "bytes": 1630681,
+    "sha256": "58512aa4cb75c2a8460d7699f7b4b384d169922e1654b34060e013584a407cb1"
+  },
+  {
+    "original_name": "مشاريع_حقيقية_الدفعة_4.zip",
+    "path": "assets/portfolio/public_batch_4.zip",
+    "bytes": 3375922,
+    "sha256": "1ab533d6f913558739f28d5e8020018b8131ec91b05f10d5bd934d81b5fda5d3"
+  },
+  {
+    "original_name": "OULAD_Early_Warning_Analysis.xlsx",
+    "path": "assets/portfolio/OULAD_Early_Warning_Analysis.xlsx",
+    "bytes": 2627453,
+    "sha256": "88eccbf076568d1bf7715983fe92ab6a2904a1d40c0ccb847d34ae030da8345e"
+  }
+]

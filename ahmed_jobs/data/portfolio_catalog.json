@@ -1,0 +1,206 @@
+[
+  {
+    "id": "05_fpa",
+    "archive": "assets/portfolio/public_batch_2.zip",
+    "title": "FP&A Revenue Forecast with Back-testing — real marketplace data (Olist)",
+    "upload_text": "TITLE\nFP&A Revenue Forecast with Back-testing — real marketplace data (Olist)\n\nSHORT DESCRIPTION\nReal data, not demo: monthly revenue of Olist, a Brazilian marketplace (public dataset, MIT licence). Instead of drawing a trend line, I back-tested three transparent methods on Mar–Aug 2018, picked the one with the lowest error, added Black Friday and December factors from 2017, and gave Sep–Dec 2018 as a range. Finding: the 2017 trend line badly over-forecasts 2018 as growth flattened; the latest run-rate wins (9% error vs 25%). Fully formula-driven in Excel with an assumptions table finance can change.\n\nSKILLS / TAGS\nFP&A, Forecasting, Financial Planning, Excel Modelling, Back-testing, Business Analysis\n",
+    "members": [
+      "05_fpa/FPA_Revenue_Forecast_Dashboard.png",
+      "05_fpa/UPLOAD_TEXT.txt",
+      "05_fpa/FPA_Revenue_Forecast.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "06_recon",
+    "archive": "assets/portfolio/public_batch_2.zip",
+    "title": "Three-way Data Reconciliation — orders vs items vs payments (real Olist data)",
+    "upload_text": "TITLE\nThree-way Data Reconciliation — orders vs items vs payments (real Olist data)\n\nSHORT DESCRIPTION\nReal data, not demo: all 99,441 orders from Olist, a Brazilian marketplace (public dataset, MIT licence). I rebuilt each order's value from its items and freight, matched it to payment lines, and classified every order into six reconciliation statuses with an exceptions list. Result: 99.6% match to the cent; 775 orders (about R$163k) were paid but never shipped and need confirmed refunds; 94% of over-payments are instalment interest. Delivered as a repeatable monthly control in Excel.\n\nSKILLS / TAGS\nData Reconciliation, Data Quality, Finance Operations, Excel, Controls, Audit Support\n",
+    "members": [
+      "06_recon/UPLOAD_TEXT.txt",
+      "06_recon/Data_Reconciliation_Dashboard.png",
+      "06_recon/Data_Reconciliation.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "07_ops",
+    "archive": "assets/portfolio/public_batch_2.zip",
+    "title": "Operations Efficiency — seller fulfilment performance (real Olist data)",
+    "upload_text": "TITLE\nOperations Efficiency — seller fulfilment performance (real Olist data)\n\nSHORT DESCRIPTION\nReal data, not demo: 788 sellers with 20+ orders on Olist, a Brazilian marketplace (public dataset, MIT licence), covering 88% of delivered orders. I measured each seller's hand-over time and shipping cut-off misses and linked them to late deliveries and reviews. Findings: the worst 10% of sellers cause a third of cut-off misses; sellers missing 20%+ of cut-offs have twice the late rate; Friday–Saturday approvals wait over a day longer; seller size makes no difference. Formula-driven Excel with a performance-management plan.\n\nSKILLS / TAGS\nOperations Analytics, Process Improvement, SLA Management, Vendor Performance, Excel, Dashboard\n",
+    "members": [
+      "07_ops/Operations_Efficiency_Sellers_Dashboard.png",
+      "07_ops/Operations_Efficiency_Sellers.xlsx",
+      "07_ops/UPLOAD_TEXT.txt"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "08_pmo",
+    "archive": "assets/portfolio/public_batch_3.zip",
+    "title": "PMO Portfolio Analytics — budget growth and schedule slippage (real Government of Canada IT projects)",
+    "upload_text": "TITLE\nPMO Portfolio Analytics — budget growth and schedule slippage (real Government of Canada IT projects)\n\nSHORT DESCRIPTION\nReal data, not demo: 1,126 Government of Canada IT projects over C$1M reported to Parliament in 2016, 2019 and 2022. I tracked the 192 projects reported more than once and compared their first and latest budgets and end dates. Findings: budgets grew 37% (C$4.0B to C$5.5B); 86% finish later than first promised (median 2 years); projects that slipped 2+ years grew their budget about 75%; the top 10 overruns are over half of all added cost. Formula-driven Excel with a PMO dashboard and governance recommendations.\n\nSKILLS / TAGS\nPMO, Project Portfolio Management, Project Controls, Excel Dashboard, Governance, Data Analysis\n",
+    "members": [
+      "08_pmo/PMO_Portfolio_Analytics.xlsx",
+      "08_pmo/UPLOAD_TEXT.txt",
+      "08_pmo/PMO_Portfolio_Analytics_Dashboard.png"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "09_crm",
+    "archive": "assets/portfolio/public_batch_3.zip",
+    "title": "CRM & Sales Ops — from lead to first sale (real Olist funnel data)",
+    "upload_text": "TITLE\nCRM & Sales Ops — from lead to first sale (real Olist funnel data)\n\nSHORT DESCRIPTION\nReal data, not demo: Olist's seller-acquisition funnel (public dataset) — about 6,000 marketing-qualified leads and 842 closed deals, joined to real marketplace sales. I measured conversion by channel and, more importantly, whether signed sellers ever started selling. Findings: 13% of leads close; search converts about 15% vs 4–6% for email and social; about half of won sellers never made a sale; activation and revenue differ strongly by lead type and sales rep. Formula-driven Excel with a rep scorecard and onboarding recommendations.\n\nSKILLS / TAGS\nCRM Analytics, Sales Operations, Funnel Analysis, Sales Rep Scorecard, Excel Dashboard, Lead Management\n",
+    "members": [
+      "09_crm/CRM_Sales_Ops_Funnel_Dashboard.png",
+      "09_crm/CRM_Sales_Ops_Funnel.xlsx",
+      "09_crm/UPLOAD_TEXT.txt"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "10_report",
+    "archive": "assets/portfolio/public_batch_3.zip",
+    "title": "Automated Monthly Report — one cell updates the whole report (real Olist data)",
+    "upload_text": "TITLE\nAutomated Monthly Report — one cell updates the whole report (real Olist data)\n\nSHORT DESCRIPTION\nReal data, not demo: 20 months of Olist marketplace sales (public dataset, MIT licence). Pick a month in one yellow cell and the full report recalculates: revenue, orders, average order value, late-delivery rate, reviews, change vs previous month and vs last year, top 10 categories, state view, 12-month trend charts — and the commentary rewrites itself with text formulas, including an alert when late deliveries pass 10%. Built to replace hours of manual monthly copy-paste reporting.\n\nSKILLS / TAGS\nAutomated Reporting, Excel, Dashboard, KPI Reporting, Management Reporting, Data Modelling\n",
+    "members": [
+      "10_report/UPLOAD_TEXT.txt",
+      "10_report/Automated_Monthly_Report_Dashboard.png",
+      "10_report/Automated_Monthly_Report.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "11_process",
+    "archive": "assets/portfolio/public_batch_3.zip",
+    "title": "Process Improvement — IT incident handling: where the time goes (real Volvo IT event log)",
+    "upload_text": "TITLE\nProcess Improvement — IT incident handling: where the time goes (real Volvo IT event log)\n\nSHORT DESCRIPTION\nReal data, not demo: 7,554 IT incidents and 65,000+ status changes from Volvo IT's incident-management process (public BPI Challenge 2013 event log). I rebuilt each incident's path from the raw log and measured hand-offs between support groups, \"ping-pong\" bounces and time in each status. Findings: incidents with no hand-off average 5 days open vs 44 with five or more hand-offs; bounced incidents stay open about 3x longer; about 70% of the time before resolution is spent waiting or queued. Delivered as an Excel analysis with dashboard and concrete process changes.\n\nSKILLS / TAGS\nProcess Improvement, Process Mining, Lean, IT Service Management, Root Cause Analysis, Excel Dashboard\n",
+    "members": [
+      "11_process/Process_Improvement_Incidents_Dashboard.png",
+      "11_process/Process_Improvement_Incidents.xlsx",
+      "11_process/UPLOAD_TEXT.txt"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "12_me",
+    "archive": "assets/portfolio/public_batch_3.zip",
+    "title": "M&E Results Framework — tracking a global programme against its targets (real WHO / Our World in Data)",
+    "upload_text": "TITLE\nM&E Results Framework — tracking a global programme against its targets (real WHO / Our World in Data)\n\nSHORT DESCRIPTION\nReal data, not demo: COVID-19 vaccination coverage for 203 countries (Our World in Data, CC BY) tracked against the WHO global milestones of 10%, 40% and 70% fully vaccinated. I built a results framework with achievement rates, disaggregation by income group and continent, trend lines and a traffic-light gap rating. Findings: 56% of countries met 40% by end-2021 and only 30% met 70% by mid-2022; no low-income country met either on time; the 60% world average hid 13% in low-income countries. Formula-driven Excel M&E dashboard.\n\nSKILLS / TAGS\nMonitoring & Evaluation, Results Framework, Indicator Tracking, Development Data, Excel Dashboard, Reporting\n",
+    "members": [
+      "12_me/ME_Results_Framework_Dashboard.png",
+      "12_me/UPLOAD_TEXT.txt",
+      "12_me/ME_Results_Framework.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "13_retail",
+    "archive": "assets/portfolio/public_batch_4.zip",
+    "title": "Retail Sales Analysis — products, orders and markets (real UK online retailer data)",
+    "upload_text": "TITLE\nRetail Sales Analysis — products, orders and markets (real UK online retailer data)\n\nSHORT DESCRIPTION\nReal data, not demo: 541,909 raw transaction lines from a UK online gift retailer (UCI Online Retail dataset, CC BY 4.0). I cleaned duplicates, postage/fee lines, stock adjustments and cancellations (including orders reversed in full), then built product and order tables and analysed seasonality, product concentration (Pareto), order size, export markets and weekday pattern. Findings: revenue peaks in November at about 2.5 times January; the top 20% of products bring 78% of revenue; orders of £1,000+ are under 9% of orders but about 45% of sales. Formula-driven Excel with dashboard and actions.\n\nSKILLS / TAGS\nRetail Analytics, Sales Analysis, Pareto / ABC Analysis, Data Cleaning, Excel Dashboard, Seasonality\n",
+    "members": [
+      "13_retail/Retail_Sales_Analysis_Dashboard.png",
+      "13_retail/Retail_Sales_Analysis.xlsx",
+      "13_retail/UPLOAD_TEXT.txt"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "14_marketing",
+    "archive": "assets/portfolio/public_batch_4.zip",
+    "title": "Marketing Campaign Analysis — who to call, how often, and on which channel (real bank campaign data)",
+    "upload_text": "TITLE\nMarketing Campaign Analysis — who to call, how often, and on which channel (real bank campaign data)\n\nSHORT DESCRIPTION\nReal data, not demo: 41,188 clients contacted in a Portuguese bank's term-deposit phone campaigns, 2008–2010 (UCI Bank Marketing, CC BY 4.0). I measured conversion, calls per sale and lift by previous outcome, channel, occupation, age and number of calls, and modelled a 3-call cap. Findings: past \"yes\" clients convert at about 65% vs 11% overall; conversion drops from 13% on the first call to 3% after 11+; mobile beats landline almost 3x; a 3-call cap saves about a quarter of calls. Formula-driven Excel with a targeting plan.\n\nSKILLS / TAGS\nMarketing Analytics, Campaign Analysis, Customer Segmentation, Telemarketing, Excel Dashboard, Targeting\n",
+    "members": [
+      "14_marketing/UPLOAD_TEXT.txt",
+      "14_marketing/Marketing_Campaign_Analysis_Dashboard.png",
+      "14_marketing/Marketing_Campaign_Analysis.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "15_churn",
+    "archive": "assets/portfolio/public_batch_4.zip",
+    "title": "Customer Churn & Retention — who stops buying, and who is about to (real online retail data)",
+    "upload_text": "TITLE\nCustomer Churn & Retention — who stops buying, and who is about to (real online retail data)\n\nSHORT DESCRIPTION\nReal data, not demo: 4,300+ registered customers of a UK online retailer (UCI Online Retail, CC BY 4.0). I built a customer table (orders, spend, recency, usual buying gap), measured 90-day lapse by order count and spend, built a monthly cohort retention matrix and an early-warning list of regulars who are late for their next order. Findings: 43% of customers lapsed but they are only about 11% of revenue; lapse falls from 49% at two orders to 2% at 10+; about 1 in 5 new customers buys again the next month; 92 overdue regulars (about £310k lifetime spend) to contact now.\n\nSKILLS / TAGS\nChurn Analysis, Customer Retention, Cohort Analysis, CRM Analytics, Excel Dashboard, Customer Segmentation\n",
+    "members": [
+      "15_churn/Customer_Churn_Retention_Dashboard.png",
+      "15_churn/UPLOAD_TEXT.txt",
+      "15_churn/Customer_Churn_Retention.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "16_mfg",
+    "archive": "assets/portfolio/public_batch_4.zip",
+    "title": "Manufacturing Productivity — garment lines vs daily targets (real factory data)",
+    "upload_text": "TITLE\nManufacturing Productivity — garment lines vs daily targets (real factory data)\n\nSHORT DESCRIPTION\nReal data, not demo: 1,197 team-days from the sewing and finishing lines of a garment factory, Jan–Mar 2015 (UCI dataset, CC BY 4.0). I cleaned the data and measured how often each department and team met its daily productivity target, with weekly trend, idle-time and style-change analysis. Findings: target met on 73% of team-days — sewing about 83%, finishing about 60%. finishing teams 6–8 meet target on only about a third of days; on idle-time days sewing met target only 1 day in 5. Formula-driven Excel with dashboard and improvement plan.\n\nSKILLS / TAGS\nManufacturing Analytics, Productivity Analysis, Operations, Lean, Excel Dashboard, KPI Tracking\n",
+    "members": [
+      "16_mfg/Manufacturing_Productivity_Dashboard.png",
+      "16_mfg/UPLOAD_TEXT.txt",
+      "16_mfg/Manufacturing_Productivity.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "17_hr",
+    "archive": "assets/portfolio/public_batch_4.zip",
+    "title": "HR Analytics — workforce mix and gender pay benchmark (real US Census data)",
+    "upload_text": "TITLE\nHR Analytics — workforce mix and gender pay benchmark (real US Census data)\n\nSHORT DESCRIPTION\nReal data, not demo: US Census median earnings of full-time workers for 522 occupations, 2013–2016, plus BLS history since 1979. I built worker-weighted pay ratios by occupation group, by how female-dominated a job is, and over time, and listed the widest gaps among large occupations. Findings: within the same occupations women earned about 83% of men's median pay in 2016, almost unchanged since 2013; financial managers are among the widest gaps (about 62%); female-dominated jobs pay much less on average. Built as a benchmark an HR team can compare its own pay data against.\n\nSKILLS / TAGS\nHR Analytics, Pay Equity, Compensation Benchmarking, Workforce Analytics, Excel Dashboard, People Analytics\n",
+    "members": [
+      "17_hr/HR_Pay_Equity_Benchmark_Dashboard.png",
+      "17_hr/UPLOAD_TEXT.txt",
+      "17_hr/HR_Pay_Equity_Benchmark.xlsx"
+    ],
+    "provenance_status": "source and licence claims supplied by upload text; not independently verified",
+    "analytical_validation": "not audited",
+    "publish_status": "needs_review",
+    "project_type": "independent portfolio case study, not paid client engagement"
+  },
+  {
+    "id": "oulad",
+    "title": "OULAD Early Warning Analysis",
+    "file": "assets/portfolio/OULAD_Early_Warning_Analysis.xlsx",
+    "publish_status": "needs_review",
+    "provenance_status": "not independently verified",
+    "analytical_validation": "not audited",
+    "project_type": "portfolio case study"
+  }
+]

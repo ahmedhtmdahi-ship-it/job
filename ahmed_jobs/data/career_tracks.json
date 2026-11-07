@@ -1,0 +1,225 @@
+[
+  {
+    "id": "operations",
+    "name": "Operations & programme coordination",
+    "keywords_en": [
+      "operations coordinator",
+      "program coordinator",
+      "programme coordinator",
+      "project coordinator",
+      "PMO coordinator",
+      "project administrator",
+      "operations specialist"
+    ],
+    "keywords_ar": [
+      "تنسيق العمليات",
+      "منسق برامج",
+      "منسق مشروعات"
+    ],
+    "evidence_and_limits": "CV operations experience",
+    "candidate_cv": "assets/cv/operations_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "training",
+    "name": "Training & L&D coordination",
+    "keywords_en": [
+      "training coordinator",
+      "L&D coordinator",
+      "learning operations",
+      "training administrator",
+      "learner support"
+    ],
+    "keywords_ar": [
+      "منسق تدريب",
+      "إدارة التدريب"
+    ],
+    "evidence_and_limits": "CV training logistics; trainer delivery claims need confirmation",
+    "candidate_cv": "assets/cv/trainer_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "assistant",
+    "name": "Virtual & administrative assistance",
+    "keywords_en": [
+      "virtual assistant",
+      "administrative assistant",
+      "executive assistant",
+      "operations assistant",
+      "document controller"
+    ],
+    "keywords_ar": [
+      "مساعد افتراضي",
+      "مساعد إداري",
+      "تنظيم ملفات"
+    ],
+    "evidence_and_limits": "CV operations/documentation; US-hours availability must be confirmed",
+    "candidate_cv": "assets/cv/assistant_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "data",
+    "name": "Data analysis & BI reporting",
+    "keywords_en": [
+      "junior data analyst",
+      "reporting analyst",
+      "BI analyst",
+      "Power BI",
+      "Excel dashboard",
+      "KPI reporting",
+      "SQL reporting"
+    ],
+    "keywords_ar": [
+      "محلل بيانات",
+      "تحليل بيانات",
+      "لوحات متابعة",
+      "تقارير إكسل"
+    ],
+    "evidence_and_limits": "Master CV and portfolio; not senior analytics/data science",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "data_quality",
+    "name": "Data cleaning & reconciliation",
+    "keywords_en": [
+      "data cleaning",
+      "data reconciliation",
+      "data quality assistant",
+      "data entry",
+      "spreadsheet cleanup"
+    ],
+    "keywords_ar": [
+      "تنظيف بيانات",
+      "إدخال بيانات",
+      "مطابقة بيانات"
+    ],
+    "evidence_and_limits": "Portfolio-supported tasks; not a claim of a past job title",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "sales_ops",
+    "name": "CRM & sales operations",
+    "keywords_en": [
+      "sales operations coordinator",
+      "CRM assistant",
+      "sales support",
+      "sales coordinator",
+      "customer retention analyst"
+    ],
+    "keywords_ar": [
+      "تنسيق مبيعات",
+      "تحليل المبيعات",
+      "إدارة علاقات العملاء"
+    ],
+    "evidence_and_limits": "Retail sales experience and CRM/retention portfolio",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "business",
+    "name": "Business development & partnerships",
+    "keywords_en": [
+      "business development coordinator",
+      "partnerships coordinator",
+      "business development representative",
+      "market research assistant"
+    ],
+    "keywords_ar": [
+      "تطوير أعمال",
+      "تنسيق شراكات",
+      "أبحاث سوق"
+    ],
+    "evidence_and_limits": "Master CV wholesale relationship and market research",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "community",
+    "name": "Community & programme support",
+    "keywords_en": [
+      "community coordinator",
+      "community specialist",
+      "programme assistant",
+      "ecosystem coordinator"
+    ],
+    "keywords_ar": [
+      "منسق مجتمع",
+      "مساعد برامج"
+    ],
+    "evidence_and_limits": "IdeaSpace community coordination; not automatic community-head eligibility",
+    "candidate_cv": "assets/cv/operations_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "me",
+    "name": "Monitoring & evaluation support",
+    "keywords_en": [
+      "M&E assistant",
+      "monitoring and evaluation assistant",
+      "monitoring officer",
+      "programme reporting assistant"
+    ],
+    "keywords_ar": [
+      "متابعة وتقييم",
+      "مساعد متابعة وتقييم"
+    ],
+    "evidence_and_limits": "Transferable KPI experience plus public-data M&E case study; NGO experience not assumed",
+    "candidate_cv": "assets/cv/operations_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "hr",
+    "name": "HR & recruitment administration",
+    "keywords_en": [
+      "HR assistant",
+      "HR coordinator",
+      "recruitment coordinator",
+      "talent acquisition assistant",
+      "people operations assistant"
+    ],
+    "keywords_ar": [
+      "مساعد موارد بشرية",
+      "منسق توظيف"
+    ],
+    "evidence_and_limits": "UCCD HR/media volunteer experience; not HR manager",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "legal",
+    "name": "Legal administration",
+    "keywords_en": [
+      "legal assistant",
+      "legal administrator",
+      "legal operations assistant",
+      "case management assistant"
+    ],
+    "keywords_ar": [
+      "مساعد قانوني",
+      "إدارة قانونية"
+    ],
+    "evidence_and_limits": "Law degree and Shield experience; foreign bar admission never assumed",
+    "candidate_cv": "assets/cv/legal_admin_original.docx",
+    "cv_publishable": false
+  },
+  {
+    "id": "marketing",
+    "name": "Marketing coordination & analysis",
+    "keywords_en": [
+      "marketing coordinator",
+      "marketing assistant",
+      "campaign reporting",
+      "marketing analyst junior"
+    ],
+    "keywords_ar": [
+      "منسق تسويق",
+      "تقارير حملات",
+      "تحليل حملات"
+    ],
+    "evidence_and_limits": "Master CV and marketing portfolio; not expert paid-media execution by default",
+    "candidate_cv": "assets/cv/master.docx",
+    "cv_publishable": false
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "archive_name": "AhmedHatemJobs-Windows-x64.zip",
+  "archive_bytes": 147880717,
+  "archive_sha256": "da7a8ab7492c80bd44863c35ff6ea8e04f361dc8678cb0a10461eb8704caa050",
+  "parts": [
+    {
+      "name": "windows-x64.zip.part001",
+      "bytes": 16777216,
+      "sha256": "00fc51c2ab2291edceeee9b2d61aa32aec1dc6b563c268abae15db0c5758a024"
+    },
+    {
+      "name": "windows-x64.zip.part002",
+      "bytes": 16777216,
+      "sha256": "1d3c21b8f715c49ddf1392fa006aee84db73ea1697d3af36fae443c544627b1c"
+    },
+    {
+      "name": "windows-x64.zip.part003",
+      "bytes": 16777216,
+      "sha256": "09adaa1780bb7fe62d96d8886fbd4cf52471db8d595336ab733cb5a9607b0dfa"
+    },
+    {
+      "name": "windows-x64.zip.part004",
+      "bytes": 16777216,
+      "sha256": "5330e7faa0c36e5bc8d2109b4fa87fd8a162e025fbd1b64886a425c297998efe"
+    },
+    {
+      "name": "windows-x64.zip.part005",
+      "bytes": 16777216,
+      "sha256": "2756309b86aca53ac6e26b4a7d0bdcbdc6606ece5cf4b9372922c92d89725b81"
+    },
+    {
+      "name": "windows-x64.zip.part006",
+      "bytes": 16777216,
+      "sha256": "69385f55ca554fa846ffe4ad4f004221d3f3de14d4cbe426c60a0d0d6d48a2cf"
+    },
+    {
+      "name": "windows-x64.zip.part007",
+      "bytes": 16777216,
+      "sha256": "652c69f4d5beb8978d19c41e79af2247204cfa74fccb9094e16c9c50ff1c95f4"
+    },
+    {
+      "name": "windows-x64.zip.part008",
+      "bytes": 16777216,
+      "sha256": "c73b0da3508791408154a7837106ebf2eb6b391fe621dd29e2d41757a469f716"
+    },
+    {
+      "name": "windows-x64.zip.part009",
+      "bytes": 13662989,
+      "sha256": "3694375de4b725c62d4a87787dac04b59448ae666c00e6f3a2d49bcb1194ba4a"
+    }
+  ]
+}

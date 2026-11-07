@@ -1,0 +1,27 @@
+{
+  "preferred_candidates": [
+    "Python",
+    "PySide6",
+    "SQLite",
+    "Playwright",
+    "APScheduler",
+    "RapidFuzz"
+  ],
+  "evaluate_optional": [
+    "JobSpy",
+    "Crawlee Python",
+    "Scrapy",
+    "Trafilatura"
+  ],
+  "not_default_for_zero_ai_runtime": [
+    "ApplyPilot full pipeline",
+    "browser-use AI agent",
+    "Skyvern AI agent",
+    "Dify",
+    "Flowise",
+    "Ollama",
+    "LiteLLM",
+    "LangGraph"
+  ],
+  "notes": "A repo may have deterministic parts; inspect actual runtime and licence. Do not install every candidate. No dependency or site claimed tested by this handoff."
+}

@@ -1,0 +1,11 @@
+{
+  "runner": "Wine 10 on Linux with Xvfb",
+  "real_windows_kernel": false,
+  "launcher_exit_code": 0,
+  "smoke_report": {
+    "tabs": 10,
+    "platforms": 24,
+    "version": "0.3.0",
+    "network_started": false
+  }
+}

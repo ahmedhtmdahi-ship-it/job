@@ -1,0 +1,16 @@
+# Exact Windows runtime wheel versions verified against PyPI metadata.
+APScheduler==3.11.0
+PySide6_Essentials==6.8.3
+et_xmlfile==2.0.0
+greenlet==3.5.6
+openpyxl==3.1.5
+playwright==1.51.0
+pyee==12.1.1
+pypdf==5.4.0
+rapidfuzz==3.12.2
+shiboken6==6.8.3
+typing_extensions==4.16.0
+tzdata==2025.2
+tzlocal==5.4.5
+PySide6==6.8.3
+PySide6-Addons==6.8.3

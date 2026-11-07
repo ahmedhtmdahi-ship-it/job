@@ -1,0 +1,3 @@
+title,url,company,description,location,currency,pay_unit,pay_min,pay_max,eligibility
+Excel dashboard,https://example.org/jobs/1,Example,Excel dashboard and KPI reporting,Worldwide,USD,hour,3,8,unknown
+Legal assistant,https://example.org/jobs/2,Example,Document preparation,Egypt,,,,,eligible

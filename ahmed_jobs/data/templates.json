@@ -1,0 +1,4 @@
+{
+  "ar": "السادة {company}،\n\nأتقدم لفرصة {title}. {role_evidence}\n\nأرفق السيرة الذاتية والأعمال التي اخترتها للمراجعة، ويسعدني مناقشة متطلبات الدور معكم.\n\nمع التحية،\n{name}",
+  "en": "Dear {company},\n\nI am applying for {title}. {role_evidence}\n\nPlease find my selected CV and portfolio attached for your review. I would welcome the opportunity to discuss the role requirements.\n\nBest regards,\n{name}"
+}

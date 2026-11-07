@@ -1,0 +1,16 @@
+{
+  "runner": "Wine 10 on Linux with Xvfb",
+  "real_windows_kernel": false,
+  "launcher_exit_code": 0,
+  "smoke_report": {
+    "runner": "Windows CPython/Qt under Wine 10",
+    "real_windows_kernel": false,
+    "assets": 100,
+    "draft_export": true,
+    "cv_phone_corrected": true,
+    "certificate_page_11": true,
+    "backup_restore_and_file_roles": true,
+    "arabic_path": true,
+    "external_actions": 0
+  }
+}

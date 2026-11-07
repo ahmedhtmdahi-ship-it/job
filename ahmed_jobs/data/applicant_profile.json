@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "identity": {
+    "full_name": "Ahmed Hatem Dahi",
+    "email": "ahmedhtmdahi@gmail.com",
+    "phone": "+201144064593",
+    "city": "Assiut",
+    "country": "Egypt",
+    "linkedin": "https://www.linkedin.com/in/ahmed-hatem-dahi-95bab71ba"
+  },
+  "evidence": {
+    "identity": "assets/cv/master.docx and master.pdf",
+    "phone": "Master CV and earlier explicit user confirmation",
+    "degree": "Bachelor of Laws (English Section), Assiut University, 2024",
+    "employment_end": "IdeaSpace end 2026-10 from earlier explicit user confirmation; master CV still says Present"
+  },
+  "preferences": {
+    "os": "Windows",
+    "hosting": false,
+    "runtime_ai": false,
+    "monthly_service_budget_usd": 0,
+    "paid_application_budget_usd": 0,
+    "minimum_hourly_usd": 5,
+    "daily_application_count_cap": null,
+    "review_before_submit": true,
+    "review_before_publish": true,
+    "work_mode": "remote preferred from existing plan; onsite/hybrid separate review queue",
+    "salary_unknown_policy": "manual review; never fabricate or reject solely because unknown",
+    "fixed_price_policy": "manual quote; never derive hourly rate without user-provided effort estimate"
+  },
+  "question_answers": {},
+  "unknowns": [
+    "work authorization for each foreign country",
+    "notice period",
+    "availability and time-zone commitments",
+    "current profile URLs except LinkedIn",
+    "certificate alternate-name relationship",
+    "precise IdeaSpace title chronology and team-size/training-delivery claims"
+  ]
+}

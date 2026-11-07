@@ -1,0 +1,436 @@
+[
+  {
+    "id": "1",
+    "name": "LinkedIn",
+    "candidate_base_url": "https://www.linkedin.com",
+    "url_verified_live": false,
+    "profile_url": "https://www.linkedin.com/in/ahmed-hatem-dahi-95bab71ba",
+    "requested_capabilities": [
+      "discover",
+      "apply",
+      "featured",
+      "certificates"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified",
+      "featured": "unverified",
+      "certificates": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "2",
+    "name": "Indeed",
+    "candidate_base_url": "https://www.indeed.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "3",
+    "name": "Workable",
+    "candidate_base_url": "https://apply.workable.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "4",
+    "name": "Wuzzuf",
+    "candidate_base_url": "https://wuzzuf.net",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "5",
+    "name": "Bayt",
+    "candidate_base_url": "https://www.bayt.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "6",
+    "name": "GulfTalent",
+    "candidate_base_url": "https://www.gulftalent.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "7",
+    "name": "Dr.Job",
+    "candidate_base_url": "https://www.drjobpro.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "8",
+    "name": "Turing",
+    "candidate_base_url": "https://www.turing.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "9",
+    "name": "micro1",
+    "candidate_base_url": "https://www.micro1.ai",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "10",
+    "name": "Welo Data",
+    "candidate_base_url": null,
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "needs_url",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "11",
+    "name": "20four7VA",
+    "candidate_base_url": "https://20four7va.breezy.hr",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "12",
+    "name": "CS Outsource",
+    "candidate_base_url": null,
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "needs_url",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "13",
+    "name": "Justlife",
+    "candidate_base_url": "https://career.justlife.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "14",
+    "name": "Sira",
+    "candidate_base_url": null,
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "needs_url",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "15",
+    "name": "SLICEY",
+    "candidate_base_url": null,
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "apply"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "apply": "unverified"
+    },
+    "status": "needs_url",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "16",
+    "name": "Upwork",
+    "candidate_base_url": "https://www.upwork.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio",
+      "certificates"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified",
+      "certificates": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "17",
+    "name": "Freelancer",
+    "candidate_base_url": "https://www.freelancer.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio",
+      "certificates"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified",
+      "certificates": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "18",
+    "name": "أريد",
+    "candidate_base_url": "https://ureed.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "19",
+    "name": "مستقل",
+    "candidate_base_url": "https://mostaql.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "20",
+    "name": "PeoplePerHour",
+    "candidate_base_url": "https://www.peopleperhour.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "21",
+    "name": "Contra",
+    "candidate_base_url": "https://contra.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "portfolio"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "portfolio": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "22",
+    "name": "كفيل",
+    "candidate_base_url": "https://kafiil.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover",
+      "proposal",
+      "service",
+      "portfolio"
+    ],
+    "capability_status": {
+      "discover": "unverified",
+      "proposal": "unverified",
+      "service": "unverified",
+      "portfolio": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "23",
+    "name": "خمسات",
+    "candidate_base_url": "https://khamsat.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "discover_requests",
+      "service",
+      "service_gallery"
+    ],
+    "capability_status": {
+      "discover_requests": "unverified",
+      "service": "unverified",
+      "service_gallery": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  },
+  {
+    "id": "24",
+    "name": "Fiverr",
+    "candidate_base_url": "https://www.fiverr.com",
+    "url_verified_live": false,
+    "profile_url": null,
+    "requested_capabilities": [
+      "service",
+      "service_gallery"
+    ],
+    "capability_status": {
+      "service": "unverified",
+      "service_gallery": "unverified"
+    },
+    "status": "not_tested",
+    "notes": "Capabilities requested for investigation, not claims that the platform offers all of them. No browser login state assumed."
+  }
+]
