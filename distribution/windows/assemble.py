@@ -11,8 +11,9 @@ def assemble(folder,output=None):
     output=Path(output) if output else folder/name
     if output.exists():raise FileExistsError('Output exists; preserving it: '+str(output))
     digest=hashlib.sha256();total=0
+    target=output.open('xb')
     try:
-        with output.open('xb') as target:
+        with target:
             for entry in manifest['parts']:
                 name=entry['name']
                 if Path(name).name!=name:raise ValueError('Invalid part name')

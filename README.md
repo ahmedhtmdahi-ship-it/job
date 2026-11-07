@@ -1,5 +1,14 @@
 # أحمد حاتم — الوظائف والبورتفليو
 
+## تنزيل النسخة الأصلية من GitHub
+
+من فرع `codex/job-desktop-0.3` اختر **Code → Download ZIP**، ثم فك ملفات المستودع كاملة.
+شغّل `distribution/windows/INSTALL_WINDOWS.cmd` ليجمع أجزاء حزمة Windows ويتحقق من بصمتها ويفكها.
+بعدها افتح `distribution/windows/ready/AhmedHatemJobs-Windows-x64/AhmedHatemJobs.exe`.
+لا تحتاج تثبيت Python لهذه الطريقة. الأجزاء التسعة تحفظ نفس حزمة Windows الأصلية دون تغيير محتواها.
+حزمة المدخلات الأصلية كاملة موجودة في `inputs/Ahmed_Hatem_Codex_Handoff.zip`.
+المراجعة التفصيلية والتكاملات الحية ما زالت مفتوحة؛ راجع `UPLOAD_STATUS.md` و`docs/VALIDATION.md`.
+
 برنامج محلي لـWindows 10/11 بنواة x64، بواجهة عربية RTL، دون AI أثناء التشغيل أو استضافة أو اشتراك. بياناتك تُحفظ تحت `%LOCALAPPDATA%\AhmedHatemJobs`.
 
 ## تشغيل الحزمة المحمولة
