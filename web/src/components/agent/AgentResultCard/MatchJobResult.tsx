@@ -26,7 +26,7 @@ export function MatchJobResult({ output }: { output: AgentMatchJobResult }) {
   if (output.status === "needs_selection") {
     return (
       <ResumeSelectionPrompt
-        prompt="Which resume should I match against?"
+        prompt={tr("md518cea09cf1")}
         resumes={output.resumes}
         messageFor={(title) => `Match this job against my resume "${title}"`}
       />

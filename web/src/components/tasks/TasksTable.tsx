@@ -150,7 +150,7 @@ function groupTasksByActivityType(tasks: Task[]): Record<string, Task[]> {
   const groups: Record<string, Task[]> = {};
 
   tasks.forEach((task) => {
-    const key = task.activityType?.label || "No Activity Type";
+    const key = task.activityType?.label || message("m737a61481e11");
     if (!groups[key]) {
       groups[key] = [];
     }

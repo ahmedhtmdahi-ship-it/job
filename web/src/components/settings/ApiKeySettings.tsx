@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import {
@@ -123,7 +124,7 @@ function ApiKeySettings() {
     setVerifying(true);
     try {
       const verifyRes = await fetch("/api/settings/api-keys/verify", {
-        method: "POST",
+        method: message("m9aee6b1bcdf6"),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ provider, key: inputValue }),
       });
@@ -133,8 +134,8 @@ function ApiKeySettings() {
         const title =
           verifyData.reason === "unreachable"
             ? `Cannot reach ${PROVIDERS.find((p) => p.id === provider)?.name ?? provider}`
-            : "Verification failed";
-        toastError(verifyData.error || "Could not verify the key", title);
+            : message("mf0f2383f8af8");
+        toastError(verifyData.error || message("m9d216344d134"), title);
         return;
       }
 
@@ -145,12 +146,12 @@ function ApiKeySettings() {
         sensitive: providerConfig?.sensitive ?? true,
       });
       if (saveResult.success) {
-        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key verified and saved.`, "API key saved");
+        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key verified and saved.`, tr("m934b6af41253"));
         setEditingProvider(null);
         setInputValue("");
         await fetchKeys();
       } else {
-        toastError(saveResult.message || "Failed to save API key", "Save failed");
+        toastError(saveResult.message || message("me2446d6606fb"), tr("m53ad6f999b1f"));
       }
     } catch (error) {
       console.error("Error saving API key:", error);
@@ -165,10 +166,10 @@ function ApiKeySettings() {
     try {
       const result = await deleteApiKey(provider);
       if (result.success) {
-        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key removed.`, "API key deleted");
+        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key removed.`, tr("m2a2e2a1a3644"));
         await fetchKeys();
       } else {
-        toastError(result.message || "Failed to delete API key");
+        toastError(result.message || message("mcb4de8d755c7"));
       }
     } catch (error) {
       console.error("Error deleting API key:", error);

@@ -33,7 +33,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
   if (output.status === "needs_selection") {
     return (
       <ResumeSelectionPrompt
-        prompt="Which resume should the letter draw on?"
+        prompt={tr("mf46de24bdfa1")}
         resumes={output.resumes}
         messageFor={(title) =>
           `Write a cover letter for this job using my resume "${title}"`

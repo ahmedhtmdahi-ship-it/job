@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
@@ -54,7 +55,7 @@ function CopyButton({ text }: { text: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toastError(tr("ma09b8cc378ef"), "Copy failed");
+      toastError(tr("ma09b8cc378ef"), tr("m5b50e7a693fe"));
     }
   };
   return (
@@ -197,7 +198,7 @@ export default function McpAccessSettings() {
     const result = await revokeMcpToken(id);
     setRevoking(null);
     if (!result.success) {
-      toastError(result.message ?? "Failed to revoke");
+      toastError(result.message ?? message("m804251d10e8a"));
       return;
     }
     setTokens((prev) => prev.filter((t) => t.id !== id));

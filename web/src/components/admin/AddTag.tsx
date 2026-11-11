@@ -65,7 +65,7 @@ function AddTag({ reloadTags }: AddTagProps) {
         reset();
         reloadTags();
       } else {
-        toastError(result?.message ?? "Failed to create skill tag.");
+        toastError(result?.message ?? message("m8cb9c68b3a31"));
       }
     });
   };

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Loader, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
@@ -62,10 +63,10 @@ function CreateResume({
   const [selectedModel, setSelectedModel] = useState<AiModel>(defaultModel);
   const router = useRouter();
 
-  const pageTitle = resumeToEdit ? "Edit Resume Title" : "Create Resume";
+  const pageTitle = resumeToEdit ? message("m34676bbb6a74") : message("m2ed68e68826c");
   const pageDescription = resumeToEdit
-    ? "Update the title of this resume."
-    : "Create a new resume for your profile.";
+    ? message("m2a122eaae566")
+    : message("m0d997911de86");
 
   const form = useForm<z.infer<typeof CreateResumeFormSchema>>({
     resolver: zodResolver(CreateResumeFormSchema),
@@ -144,7 +145,7 @@ function CreateResume({
 
     startTransition(async () => {
       const res = await fetch("/api/profile/resume", {
-        method: "POST",
+        method: message("m9aee6b1bcdf6"),
         body: formData,
       });
       const response = await res.json();

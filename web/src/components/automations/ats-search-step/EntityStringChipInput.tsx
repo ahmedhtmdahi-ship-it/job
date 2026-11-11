@@ -147,7 +147,7 @@ export function EntityStringChipInput({
                       value={o.value}
                       onSelect={() => addLabel(o.label)}
                     >
-                      {o.label}
+                      {tr(o.label)}
                     </CommandItem>
                   ))}
                 </CommandGroup>

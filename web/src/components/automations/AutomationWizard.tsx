@@ -107,7 +107,7 @@ export function AutomationWizard({
             }, (errors) => {
               const firstError = Object.values(errors)[0];
               if (firstError?.message) {
-                toastError(firstError.message as string, "Validation Error");
+                toastError(firstError.message as string, tr("m142762b3bdf8"));
               }
             })}
           >

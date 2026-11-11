@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
@@ -92,8 +93,8 @@ export function StageDetailPanel({
               {interviewerCount > 0 && prepCount > 0
                 ? tr("m23a258553921")
                 : interviewerCount > 0
-                  ? "Nothing is removed from the job's Contacts tab."
-                  : "Nothing is removed from your question bank."}
+                  ? tr("m1f36d280f2bf")
+                  : tr("m30d78f957b2f")}
             </p>
           </>
         )}
@@ -105,7 +106,7 @@ export function StageDetailPanel({
     startTransition(async () => {
       const res = await deleteJobStage(stage.id);
       toastActionResult(res, {
-        success: "Stage has been deleted",
+        success: message("m128a78913cd0"),
         onSuccess: onChanged,
       });
     });

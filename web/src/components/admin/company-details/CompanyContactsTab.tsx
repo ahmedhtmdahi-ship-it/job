@@ -106,7 +106,7 @@ export function CompanyContactsTab({
           icon={Users}
           title={tr("mb22b3fdfe2a2")}
           description={tr("m64cc9e87e240")}
-          actionLabel="Add Contact"
+          actionLabel={tr("maeb71d6de03b")}
           onAction={onAdd}
         />
       )}

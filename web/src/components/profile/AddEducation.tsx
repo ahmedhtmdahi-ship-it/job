@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { AddEducationFormSchema } from "@/models/AddEductionForm.schema";
 import { Education, ResumeSection } from "@/models/profile.model";
@@ -49,10 +50,10 @@ function AddEducation({
 }: AddEducationProps) {
   const tr = useT();
 
-  const pageTitle = educationToEdit ? "Edit Education" : "Add Education";
+  const pageTitle = educationToEdit ? message("mb56cfd35ea93") : message("m67806223d5e6");
   const pageDescription = educationToEdit
-    ? "Update this education entry on your resume."
-    : "Add an education entry to your resume.";
+    ? message("m004ed42856a6")
+    : message("m92bdac35c81f");
   const [isPending, startTransition] = useTransition();
   const [locations, setLocations] = useState<JobLocation[]>([]);
 

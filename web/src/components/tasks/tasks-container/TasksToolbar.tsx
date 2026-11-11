@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { PlusCircle, SlidersHorizontal } from "lucide-react";
@@ -20,11 +21,11 @@ import {
 import { TaskGroupBy, TaskStatus, TASK_STATUSES } from "@/models/task.model";
 
 const GROUP_BY_OPTIONS: Record<TaskGroupBy, string> = {
-  none: "None",
-  createdDate: "Created Date",
-  dueDate: "Due Date",
-  updatedDate: "Updated Date",
-  activityType: "Activity Type",
+  none: message("mdc937b598926"),
+  createdDate: message("m95061d3a51cd"),
+  dueDate: message("m57870fd03032"),
+  updatedDate: message("m2352b34cc92c"),
+  activityType: message("mf7b447cd9688"),
 };
 
 // Presentational: the Tasks card header — title/count, search, the combined

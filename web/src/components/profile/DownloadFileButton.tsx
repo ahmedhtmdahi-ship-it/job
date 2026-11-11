@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Paperclip } from "lucide-react";
 
@@ -13,7 +14,7 @@ export function DownloadFileButton(
     const response = await fetch(
       `/api/profile/resume?resumeId=${encodeURIComponent(resumeId)}`,
       {
-        method: "GET",
+        method: message("m14e30cd163c7"),
         headers: {
           "Content-Type": "application/json",
         },

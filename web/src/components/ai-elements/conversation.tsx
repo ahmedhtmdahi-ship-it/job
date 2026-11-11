@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { UIMessage } from "ai";
@@ -42,8 +43,8 @@ export type ConversationEmptyStateProps = ComponentProps<"div"> & {
 
 export const ConversationEmptyState = ({
   className,
-  title = "No messages yet",
-  description = "Start a conversation to see messages here",
+  title = message("mf42e0f66017d"),
+  description = message("m49d3ce2ba5e7"),
   icon,
   children,
   ...props

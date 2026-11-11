@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { X } from "lucide-react";
 import { EMPTY_JOB_FACETS, hasJobFacets } from "@/lib/jobs/jobFacets";
@@ -28,7 +29,7 @@ export function JobsFilterChips({
     ...facets.statuses.map(
       (value) => statuses.find((s) => s.value === value)?.label ?? value,
     ),
-    ...(facets.acceptedDiscovered ? ["Accepted (discovered)"] : []),
+    ...(facets.acceptedDiscovered ? [message("m7adaa3b7bbd7")] : []),
   ];
 
   const chips = [
@@ -49,7 +50,7 @@ export function JobsFilterChips({
     },
     {
       name: tr("m9d74727714db"),
-      value: facets.includeDismissed ? "Included" : "",
+      value: facets.includeDismissed ? message("mba829a98b799") : "",
       clear: { includeDismissed: false },
     },
   ].filter((chip) => chip.value);

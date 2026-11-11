@@ -72,8 +72,8 @@ export function CompanyJobsTab({ jobs }: CompanyJobsTabProps) {
               {job.appliedDate
                 ? format(new Date(job.appliedDate), "PP")
                 : job.applied
-                  ? "Applied"
-                  : "Not applied"}
+                  ? tr("m0c79a9c22284")
+                  : tr("m3de0546b8c29")}
             </TableCell>
             <TableCell>
               {job.matchScore != null ? (

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useRef, useState } from "react";
 import { format } from "date-fns";
@@ -69,7 +70,7 @@ export function JobContactsTab({
     const res = await removeJobContact(removeTarget.id);
     setRemoveTarget(null);
     toastActionResult(res, {
-      success: "Contact has been unlinked from this job",
+      success: message("me17b15ce746b"),
       onSuccess: reload,
     });
   };
@@ -110,7 +111,7 @@ export function JobContactsTab({
           icon={Users}
           title={tr("m64985766d4d8")}
           description={tr("m44538d133a17")}
-          actionLabel="Add Contact"
+          actionLabel={tr("maeb71d6de03b")}
           onAction={openForm}
         />
       )}
@@ -183,7 +184,7 @@ export function JobContactsTab({
         open={!!removeTarget}
         onOpenChange={(open) => !open && setRemoveTarget(null)}
         onDelete={onRemove}
-        alertDescription="Removing this only unlinks the contact from this job. The contact itself is kept."
+        alertDescription={tr("m3b68c0f946af")}
       />
     </div>
   );

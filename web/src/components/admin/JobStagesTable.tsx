@@ -118,7 +118,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
           {types.map((type: JobStageTypeRef, index: number) => {
             return (
               <TableRow key={type.id}>
-                <TableCell className="font-medium">{type.label}</TableCell>
+                <TableCell className="font-medium">{tr(type.label)}</TableCell>
                 <TableCell>
                   {type.Status && (
                     <StatusBadge

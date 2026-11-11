@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { ChevronDown, Plus, X } from "lucide-react";
@@ -49,7 +50,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await setPrepQuestionAsked(linkId, next);
       toastActionResult(res, {
-        success: next ? "Marked as asked" : "Marked as not asked",
+        success: next ? message("m97a0d6ac958e") : message("m58e4fbc8420f"),
         onSuccess: onChanged,
       });
       // Rolled back only on failure: on success the reload lands on the same
@@ -64,7 +65,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await removeStagePrepQuestion(linkId);
       toastActionResult(res, {
-        success: "Question removed from the prep list",
+        success: message("mcb74c320c673"),
         onSuccess: onChanged,
       });
     });
@@ -190,7 +191,7 @@ export function StagePrepList({
                       size="icon"
                       className="h-7 w-7 shrink-0 cursor-pointer"
                       aria-expanded={isOpen}
-                      aria-label={tr("mec9dfde032b2", {v0: isOpen ? "Hide" : "Show", v1: row.Question.question})}
+                      aria-label={tr("mec9dfde032b2", {v0: isOpen ? tr("mac20a57bfde0") : tr("m0df6f1cad36c"), v1: row.Question.question})}
                       onClick={() => setOpen(row.id, !isOpen)}
                     >
                       <ChevronDown

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
@@ -59,7 +60,7 @@ function TasksContainer({
   const onDeleteTask = async (taskId: string) => {
     const result = await deleteTaskById(taskId);
     toastActionResult(result, {
-      success: "Task has been deleted successfully",
+      success: message("m48f8d0a9c511"),
       onSuccess: () => reloadTasks(),
     });
   };
@@ -83,7 +84,7 @@ function TasksContainer({
     requestStart(async () => {
       const result = await startActivityFromTask(taskId);
       toastActionResult(result, {
-        success: "Activity started from task",
+        success: message("m4b6e5b84f49d"),
         onSuccess: () => refreshCurrentActivity(),
       });
       return result.success;

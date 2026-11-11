@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Download, History, Loader2, Upload } from "lucide-react";
@@ -89,22 +90,22 @@ export default function DataSettings() {
     setBusy(true);
     try {
       const res = await fetch("/api/backup/rollback", {
-        method: "POST",
+        method: message("m9aee6b1bcdf6"),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ snapshotId }),
       });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, "Rollback failed");
+        toastError(json.error, tr("m69b0b69b890c"));
         return;
       }
       toastSuccess(
         tr("m9882c47d87a1"),
-        "Rollback complete",
+        tr("m475e8eafe881"),
       );
       await loadSnapshots();
     } catch {
-      toastError(tr("m111ff6e1879b"), "Rollback failed");
+      toastError(tr("m111ff6e1879b"), tr("m69b0b69b890c"));
     } finally {
       setBusy(false);
     }
@@ -124,15 +125,15 @@ export default function DataSettings() {
     try {
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/backup/import/preflight", { method: "POST", body });
+      const res = await fetch("/api/backup/import/preflight", { method: message("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, "Could not read that backup");
+        toastError(json.error, tr("mf7f9715fc63c"));
         return;
       }
       setPreflight(json as PreflightResult);
     } catch {
-      toastError(tr("m111ff6e1879b"), "Could not read that backup");
+      toastError(tr("m111ff6e1879b"), tr("mf7f9715fc63c"));
     } finally {
       setBusy(false);
     }
@@ -146,10 +147,10 @@ export default function DataSettings() {
       const body = new FormData();
       body.append("file", selected);
       body.append("confirmWipe", "true");
-      const res = await fetch("/api/backup/import", { method: "POST", body });
+      const res = await fetch("/api/backup/import", { method: message("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, "Import failed");
+        toastError(json.error, tr("m0a26f41abd00"));
         return;
       }
       const total = Object.values(json.counts as Record<string, number>).reduce(
@@ -164,14 +165,14 @@ export default function DataSettings() {
             ? " Your previous data was saved as a snapshot you can restore below."
             : ""
         } Re-enter your AI provider API keys, reissue MCP tokens, and reload the page.`,
-        "Import complete",
+        tr("ma9c747fe220f"),
       );
       setPreflight(null);
       setSelected(null);
       if (fileInput.current) fileInput.current.value = "";
       await loadSnapshots();
     } catch {
-      toastError(tr("m111ff6e1879b"), "Import failed");
+      toastError(tr("m111ff6e1879b"), tr("m0a26f41abd00"));
     } finally {
       setBusy(false);
     }

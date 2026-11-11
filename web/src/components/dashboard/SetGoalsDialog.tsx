@@ -84,7 +84,7 @@ export default function SetGoalsDialog({
     startTransition(async () => {
       const result = await updateGoalTargets({ month, ...values });
       toastActionResult(result, {
-        success: "Daily goals saved.",
+        success: message("mfb3a0d9e8e4a"),
         onSuccess: (data) => {
           if (!data) return;
           onSaved(data);

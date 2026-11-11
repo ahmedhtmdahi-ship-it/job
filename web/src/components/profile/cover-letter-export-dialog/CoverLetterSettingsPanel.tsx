@@ -62,7 +62,7 @@ export function CoverLetterSettingsPanel({
       {hasLetterhead && (
         <DisclosureGroup
           title={tr("mcf9f77fb000e")}
-          summary={headline.trim() || "No headline"}
+          summary={headline.trim() || tr("m230d987225f7")}
         >
           <div className={ROW}>
             <Label

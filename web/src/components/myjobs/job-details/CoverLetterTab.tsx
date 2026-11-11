@@ -27,7 +27,7 @@ export function CoverLetterTab({
         icon={FileText}
         title={tr("m0f0ba449d458")}
         description={tr("mdf678405b117")}
-        actionLabel="Generate Cover Letter"
+        actionLabel={tr("m72fff13251e9")}
         onAction={onGenerate}
         actionDisabled={!!blockedReason}
         actionTitle={blockedReason}

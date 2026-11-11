@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition, useState, useEffect } from "react";
 import { Button } from "../ui/button";
@@ -52,7 +53,7 @@ function AddCompany({
 
   const [isPending, startTransition] = useTransition();
 
-  const pageTitle = editCompany ? "Edit Company" : "Add Company";
+  const pageTitle = editCompany ? message("m5b5fc3eeb5e6") : message("mcf291af13fcf");
 
   const form = useForm<z.infer<typeof AddCompanyFormSchema>>({
     resolver: zodResolver(AddCompanyFormSchema),

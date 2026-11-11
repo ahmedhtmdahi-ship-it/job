@@ -66,8 +66,8 @@ function Sidebar({ user, signOutAction }: SidebarProps) {
             }
             return (
               <NavLink
-                key={item.label}
-                label={item.label}
+                key={tr(item.label)}
+                label={tr(item.label)}
                 Icon={item.icon}
                 route={item.route}
                 pathname={path}

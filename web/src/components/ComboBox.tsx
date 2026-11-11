@@ -185,7 +185,7 @@ export function Combobox({
               setNewOption(val);
               onSearchChange?.(val);
             }}
-            placeholder={tr("ma4b0e8811bd6", {v0: creatable ? "Create or " : "", v1: displayName})}
+            placeholder={tr("ma4b0e8811bd6", {v0: creatable ? tr("m5a5684f36c43") : "", v1: displayName})}
             onKeyDown={(e) => handleEnterKey(e)}
           />
           <CommandList>
@@ -229,7 +229,7 @@ export function Combobox({
                       option.id === field.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {option.label}
+                  {tr(option.label)}
                 </CommandItem>
               ))}
             </CommandGroup>

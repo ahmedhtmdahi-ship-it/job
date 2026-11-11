@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -100,7 +101,7 @@ function AddContact({
 
   const [isPending, startTransition] = useTransition();
 
-  const pageTitle = editContact ? "Edit Contact" : "Add Contact";
+  const pageTitle = editContact ? message("m6b243902699b") : message("maeb71d6de03b");
 
   const prefilled: ContactFormValues = {
     ...EMPTY_CONTACT,

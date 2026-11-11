@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -134,10 +135,10 @@ export function TaskForm({
     onSubmit(data, true),
   );
 
-  const pageTitle = editTask ? "Edit Task" : "Add Task";
+  const pageTitle = editTask ? message("mdda79d5a0e25") : message("m402df3f5878b");
   const pageDescription = editTask
-    ? "Update the details of this task."
-    : "Add a new task to track.";
+    ? message("mb95c24be6d5a")
+    : message("m5220de3dc310");
 
   const closeDialog = () => {
     reset();

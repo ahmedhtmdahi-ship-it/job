@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import {
@@ -30,7 +31,7 @@ export function DeleteAlertDialog({
   onOpenChange,
   onDelete,
   alertTitle,
-  alertDescription = "This action cannot be undone. This will permanently delete and remove data from server.",
+  alertDescription = message("m15c6b9cb370e"),
   deleteAction = true,
   actionLabel = "Delete",
   actionVariant = "destructive",
@@ -56,7 +57,7 @@ export function DeleteAlertDialog({
               className={buttonVariants({ variant: actionVariant })}
               onClick={onDelete}
             >
-              {actionLabel}
+              {tr(actionLabel)}
             </AlertDialogAction>
           )}
         </AlertDialogFooter>

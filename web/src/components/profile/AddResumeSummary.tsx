@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import {
@@ -46,10 +47,10 @@ function AddResumeSummary({
 
   const [isPending, startTransition] = useTransition();
 
-  const pageTitle = summaryToEdit ? "Edit Summary" : "Add Summary";
+  const pageTitle = summaryToEdit ? message("m2d2eb4b30434") : message("md1d875005932");
   const pageDescription = summaryToEdit
-    ? "Update the professional summary on your resume."
-    : "Add a professional summary to your resume.";
+    ? message("mbdf655d7f3f7")
+    : message("mb88b8314e786");
 
   const form = useForm<z.infer<typeof AddSummarySectionFormSchema>>({
     resolver: zodResolver(AddSummarySectionFormSchema),

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { FileDown, Loader } from "lucide-react";
 import { Button } from "../ui/button";
@@ -55,11 +56,11 @@ function CreateCoverLetter({
   const [exportOpen, setExportOpen] = useState(false);
 
   const pageTitle = coverLetterToEdit
-    ? "Edit Cover Letter"
-    : "Create Cover Letter";
+    ? message("m12d3470daa0a")
+    : message("m9cd2d2a46d12");
   const pageDescription = coverLetterToEdit
-    ? "Update this cover letter."
-    : "Create a new cover letter for your profile.";
+    ? message("mda4020ca4fdf")
+    : message("mde7120c10720");
 
   const form = useForm<z.infer<typeof CoverLetterFormSchema>>({
     resolver: zodResolver(CoverLetterFormSchema),

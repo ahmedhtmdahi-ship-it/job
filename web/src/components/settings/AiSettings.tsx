@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -118,7 +119,7 @@ function AiSettings() {
             if (!connResult.isConnected) {
               if (!cancelled) {
                 setFetchedModels(fallback);
-                setConnectionError(connResult.error || "Ollama is not reachable.");
+                setConnectionError(connResult.error || message("me120afebb965"));
               }
               return;
             }
@@ -188,10 +189,10 @@ function AiSettings() {
         model: selectedModel.model,
       });
       if (result.success) {
-        toastSuccess(tr("m1efa5c4966d7"), "Saved!");
+        toastSuccess(tr("m1efa5c4966d7"), tr("med9b760289e6"));
         if (isAgentChatOpen) void refreshPreflight();
       } else {
-        toastError(result.message || "Failed to save AI settings.");
+        toastError(result.message || message("mf5c69cb7585d"));
       }
     } catch (error) {
       console.error("Error saving AI settings:", error);
@@ -283,7 +284,7 @@ function AiSettings() {
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       {tr("m802435241f0a")}</span>
                   ) : (
-                    "Select Model"
+                    tr("me4813fd58ccf")
                   )
                 }
               />

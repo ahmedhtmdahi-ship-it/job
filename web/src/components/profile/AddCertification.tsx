@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { AddCertificationFormSchema } from "@/models/addCertificationForm.schema";
 import { LicenseOrCertification, ResumeSection } from "@/models/profile.model";
@@ -49,11 +50,11 @@ function AddCertification({
   const tr = useT();
 
   const pageTitle = certificationToEdit
-    ? "Edit Certification / License"
-    : "Add Certification / License";
+    ? message("m5b232c102802")
+    : message("m66f8e8fe4883");
   const pageDescription = certificationToEdit
-    ? "Update this certification or license on your resume."
-    : "Add a certification or license to your resume.";
+    ? message("meef81924621b")
+    : message("m450126645882");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof AddCertificationFormSchema>>({

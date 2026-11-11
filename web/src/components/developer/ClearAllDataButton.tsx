@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -27,7 +28,7 @@ export function ClearAllDataButton() {
   const handleClear = async () => {
     setIsClearing(true);
     const result = await clearAllDataAction();
-    toastActionResult(result, { success: "All data cleared" });
+    toastActionResult(result, { success: message("m3bcf9e070b26") });
     setIsClearing(false);
     setOpen(false);
     router.refresh();

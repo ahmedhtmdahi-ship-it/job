@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition } from "react";
 import { Check, Loader, X } from "lucide-react";
@@ -9,12 +10,12 @@ import type { PendingCard } from "./pendingCards";
 
 function cardSectionLabel(type: ImportCardPayload["type"]): string {
   const map: Record<string, string> = {
-    contactInfo: "Contact Info",
-    summary: "Summary",
-    experience: "Experience",
-    education: "Education",
-    certification: "Certification",
-    skills: "Skills",
+    contactInfo: message("mfcf1b494db06"),
+    summary: message("m8e76a94ac832"),
+    experience: message("m8eab0f09df01"),
+    education: message("m512ab3c6b986"),
+    certification: message("m86846f67dd19"),
+    skills: message("m66d0f523a379"),
   };
   return map[type] ?? type;
 }

@@ -120,7 +120,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
           >
             {data.map((item, index) => (
               <button
-                key={item.label}
+                key={tr(item.label)}
                 onClick={() => selectTab(index)}
                 className={cn(
                   "px-2 py-1 transition-colors",
@@ -131,7 +131,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                     : "hover:bg-muted",
                 )}
               >
-                {item.label}
+                {tr(item.label)}
               </button>
             ))}
           </div>

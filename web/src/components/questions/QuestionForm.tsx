@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -58,7 +59,7 @@ export function QuestionForm({
     resolver: zodResolver(AddQuestionFormSchema),
     defaultValues: {
       question: "",
-      answer: "TBD",
+      answer: message("m03626549a59a"),
       tagIds: [],
     },
   });
@@ -88,7 +89,7 @@ export function QuestionForm({
     } else {
       reset({
         question: "",
-        answer: "TBD",
+        answer: message("m03626549a59a"),
         tagIds: [],
       });
     }
@@ -112,10 +113,10 @@ export function QuestionForm({
     });
   }
 
-  const pageTitle = editQuestion ? "Edit Question" : "Add Question";
+  const pageTitle = editQuestion ? message("m9e26d3777ad5") : message("m1dc7ec5f8aed");
   const pageDescription = editQuestion
-    ? "Update this question in your question bank."
-    : "Add a question to your question bank.";
+    ? message("m88402768e9d2")
+    : message("mc2b3662fab85");
 
   const closeDialog = () => {
     reset();

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Company,
@@ -169,9 +170,9 @@ function JobDetails({
   // Regenerate all key on this one reason.
   const coverLetterBlockedReason =
     job.descriptionCompleteness === "title-only"
-      ? "Add a job description first"
+      ? message("m1b1b80d5a268")
       : chatBusy
-        ? "The assistant is busy"
+        ? message("m529a808b8ac0")
         : undefined;
 
   const onEditJob = () => {
@@ -282,7 +283,7 @@ function JobDetails({
                   icon={Sparkles}
                   title={tr("m9e1d8409a936")}
                   description={tr("m25d2f0dd01f8")}
-                  actionLabel="Match with AI"
+                  actionLabel={tr("mdc3588931ab1")}
                   onAction={onMatch}
                   actionDisabled={chatBusy}
                   actionTitle={chatBusy ? tr("m529a808b8ac0") : undefined}

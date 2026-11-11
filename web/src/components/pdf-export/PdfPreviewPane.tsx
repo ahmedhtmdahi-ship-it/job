@@ -1,5 +1,7 @@
 "use client";
 
+import {message} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { Toggle } from "@/components/ui/toggle";
@@ -52,6 +54,8 @@ export function PdfPreviewPane({
   onPageCountChange,
   className,
 }: PdfPreviewPaneProps) {
+ const tr = useT();
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const pagesRef = useRef<HTMLDivElement>(null);
@@ -230,9 +234,9 @@ export function PdfPreviewPane({
   const status = showEmpty
     ? emptyMessage
     : showError
-      ? "Preview unavailable"
+      ? message("mb99fa6c06150")
       : isGenerating
-        ? "Generating preview…"
+        ? message("m843c063e712c")
         : hasPages
           ? `Preview ready, ${pageLabel(pageCount)}`
           : "";
@@ -248,7 +252,7 @@ export function PdfPreviewPane({
                 size="sm"
                 pressed={fitMode === "page"}
                 onPressedChange={() => onChangeFitMode("page")}
-                aria-label="Fit whole page"
+                aria-label={tr("m6f3ec441537e")}
                 className="h-6 px-2 text-xs"
               >
                 Fit page
@@ -257,7 +261,7 @@ export function PdfPreviewPane({
                 size="sm"
                 pressed={fitMode === "width"}
                 onPressedChange={() => onChangeFitMode("width")}
-                aria-label="Fit page width"
+                aria-label={tr("mf19974d2fe57")}
                 className="h-6 px-2 text-xs"
               >
                 Fit width
@@ -293,7 +297,7 @@ export function PdfPreviewPane({
             {showEmpty ? (
               emptyMessage
             ) : showError ? (
-              "Preview unavailable"
+              tr("mb99fa6c06150")
             ) : (
               <Spinner className="size-6" />
             )}

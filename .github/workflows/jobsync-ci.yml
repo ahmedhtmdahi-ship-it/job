@@ -51,10 +51,23 @@ jobs:
         id: migrate
         run: npx prisma migrate deploy
       - name: Run original tests
-        run: npm test
+        run: |
+          status=0
+          npm test -- --reporter=json --outputFile="$RUNNER_TEMP/unit-tests.json" || status=$?
+          node ../.github/scripts/m1-report-tests.cjs "$RUNNER_TEMP/unit-tests.json"
+          exit "$status"
       - name: Build application
         if: ${{ !cancelled() && steps.migrate.outcome == 'success' }}
-        run: npm run build
+        run: |
+          if ! npm run build > "$RUNNER_TEMP/build.log" 2>&1; then
+            python3 - <<'PYCODE'
+          import os
+          from pathlib import Path
+          text = Path(os.environ['RUNNER_TEMP'], 'build.log').read_text()[-12000:]
+          print('::error title=Build failed::' + text.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+          PYCODE
+            exit 1
+          fi
       - name: Package production build
         run: tar -czf "$RUNNER_TEMP/jobsync-build.tar.gz" .next
       - uses: actions/upload-artifact@v4

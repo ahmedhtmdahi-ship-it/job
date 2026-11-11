@@ -63,7 +63,7 @@ export function CompanySummaryCard({
                 )}
               </>
             ) : (
-              "Not watched"
+              tr("m48a91de207a0")
             )}
           </Fact>
           <Fact label={tr("m4816cbfd74aa")}>

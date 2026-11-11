@@ -83,7 +83,7 @@ function TasksSidebar({
                     )}
                   >
                     <span className="flex justify-between items-center">
-                      <span className="truncate">{type.label}</span>
+                      <span className="truncate">{tr(type.label)}</span>
                       <span className="text-muted-foreground text-xs">
                         {type.taskCount}
                       </span>

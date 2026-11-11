@@ -73,14 +73,14 @@ export default async function Dashboard() {
                 label: message("m2f17a0f8d518"),
                 data: weeklyData,
                 keys: ["value"],
-                axisLeftLegend: "JOBS APPLIED",
+                axisLeftLegend: tr("m1510dc88cb5d"),
               },
               {
                 label: message("m4d0076e6b4c7"),
                 data: activitiesData.data,
                 keys: activitiesData.keys,
                 groupMode: "stacked",
-                axisLeftLegend: "TIME SPENT (Hours)",
+                axisLeftLegend: tr("m0a00c63bdff1"),
               },
             ]}
           />

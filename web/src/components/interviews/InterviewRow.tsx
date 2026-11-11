@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import {
@@ -69,7 +70,7 @@ function InterviewRow({
   const saveOutcome = async (value: string | null) => {
     const res = await setStageOutcome(interview.id, value);
     toastActionResult(res, {
-      success: "Outcome saved",
+      success: message("mfa10b8eccf2e"),
       onSuccess: () => onOutcomeSaved(),
     });
   };
@@ -82,7 +83,7 @@ function InterviewRow({
             variant="ghost"
             size="icon"
             onClick={onToggle}
-            aria-label={`${expanded ? "Collapse" : "Expand"} ${title}`}
+            aria-label={`${expanded ? tr("mbe6eb1fc3b05") : tr("m07548c2c6511")} ${title}`}
           >
             {expanded ? (
               <ChevronDown className="h-4 w-4" />
@@ -157,7 +158,7 @@ function InterviewRow({
                       className="cursor-pointer"
                       onClick={() => saveOutcome(option.value)}
                     >
-                      {option.label}
+                      {tr(option.label)}
                     </DropdownMenuItem>
                   ))}
                   {interview.outcome && (

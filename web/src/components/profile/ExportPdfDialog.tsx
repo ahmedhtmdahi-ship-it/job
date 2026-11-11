@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
@@ -15,7 +16,7 @@ import { useResumeExportSettings } from "./resume-container/useResumeExportSetti
 import { useResumePdfPreview } from "./resume-container/useResumePdfPreview";
 
 const EMPTY_MESSAGE =
-  "Add your contact info and at least one section to preview.";
+  message("md1e2e509a357");
 
 type ExportPdfDialogProps = {
   open: boolean;
@@ -56,7 +57,7 @@ export function ExportPdfDialog({
       onOpenChange={onOpenChange}
       title={tr("mccd4fda2f607")}
       description={tr("m1932fa58694c")}
-      previewLabel="Resume preview"
+      previewLabel={tr("md093c02e989b")}
       emptyMessage={EMPTY_MESSAGE}
       blob={blob}
       filename={filename}

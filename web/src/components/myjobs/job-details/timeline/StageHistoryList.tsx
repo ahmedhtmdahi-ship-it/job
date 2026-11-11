@@ -130,7 +130,7 @@ export function StageHistoryList({
               nextReached={false}
             />
             <span className="flex-1 truncate text-[13px] font-semibold">
-              {type.label}
+              {tr(type.label)}
             </span>
             <span className="text-xs">—</span>
           </li>

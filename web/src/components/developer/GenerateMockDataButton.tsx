@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,7 +42,7 @@ export function GenerateMockDataButton() {
       result = await step();
       if (!result.success) break;
     }
-    toastActionResult(result, { success: "Mock data generated" });
+    toastActionResult(result, { success: message("m6e515cd0d253") });
     setIsGenerating(false);
     setOpen(false);
     router.refresh();

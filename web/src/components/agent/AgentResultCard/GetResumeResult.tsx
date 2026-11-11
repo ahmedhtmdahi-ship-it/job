@@ -23,7 +23,7 @@ export function GetResumeResult({ output }: { output: AgentGetResumeResult }) {
   }
 
   if (output.status === "needs_selection") {
-    return <ResumeSelectionPrompt prompt="Which resume?" resumes={output.resumes} />;
+    return <ResumeSelectionPrompt prompt={tr("m2d25aa1daf45")} resumes={output.resumes} />;
   }
 
   const sourceNote =

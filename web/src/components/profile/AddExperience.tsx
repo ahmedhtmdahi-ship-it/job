@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { AddExperienceFormSchema } from "@/models/addExperienceForm.schema";
 import { ResumeSection, WorkExperience } from "@/models/profile.model";
@@ -54,10 +55,10 @@ function AddExperience({
   const [companies, setCompanies] = useState<Company[]>([]);
   const [locations, setLocations] = useState<JobLocation[]>([]);
   const [jobTitles, setJobTitles] = useState<JobTitle[]>([]);
-  const pageTitle = experienceToEdit ? "Edit Experience" : "Add Experience";
+  const pageTitle = experienceToEdit ? message("m7306416e8db8") : message("m6de239cb77e9");
   const pageDescription = experienceToEdit
-    ? "Update this work experience on your resume."
-    : "Add a work experience to your resume.";
+    ? message("mf74f49a7dcfd")
+    : message("m427019ffbe87");
   const [isPending, startTransition] = useTransition();
   const getTitleCompanyAndLocationData = useCallback(async () => {
     const [_companies, _titles, _locations] = await Promise.all([

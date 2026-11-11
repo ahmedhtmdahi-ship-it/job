@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {LanguageToggle} from "./LanguageToggle";
 import { useState } from "react";
@@ -43,7 +44,7 @@ export function ProfileDropdown({
   const [supportDialogOpen, setSupportDialogOpen] = useState(false);
   const version = useAppVersion();
   const { summary } = useNotifications();
-  const label = user?.email ?? "My Account";
+  const label = user?.email ?? message("mad0187add790");
 
   return (
     <>

@@ -76,8 +76,8 @@ export function JobSummaryCard({
               {job.appliedDate
                 ? format(new Date(job.appliedDate), "PP")
                 : job.applied
-                  ? "Yes, no date"
-                  : "Not applied"}
+                  ? tr("m1c3963c19724")
+                  : tr("m3de0546b8c29")}
             </p>
           </div>
           <div>

@@ -190,9 +190,9 @@ export function JobsToolbar({
         open={exportOpen}
         onOpenChange={setExportOpen}
         onDelete={onDownload}
-        alertTitle="Export jobs?"
-        alertDescription="This downloads your jobs as a file."
-        actionLabel="Export"
+        alertTitle={tr("mc6f7ea6e4e3e")}
+        alertDescription={tr("mc1c23100e472")}
+        actionLabel={tr("m3664895579f0")}
         actionVariant="default"
       />
       <JobsFilterChips

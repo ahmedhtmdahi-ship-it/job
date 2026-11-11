@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   createContext,
@@ -157,7 +158,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
           ? `Activity auto-stopped after reaching maximum duration of ${
               APP_CONSTANTS.ACTIVITY_MAX_DURATION_MINUTES / 60
             } hours`
-          : "Activity stopped successfully"
+          : message("m412e38d1b47a")
       );
       return true;
     },

@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   createContext,
@@ -264,7 +265,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
       ok: result.isConnected,
       error: result.isConnected
         ? undefined
-        : (result.error ?? "Ollama is not reachable."),
+        : (result.error ?? message("me120afebb965")),
       provider,
       model: ai.model,
     });

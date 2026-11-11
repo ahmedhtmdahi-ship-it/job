@@ -72,7 +72,7 @@ export default function RecentCallsTable({ recent }: { recent: AiCallRow[] }) {
                       status.className,
                     )}
                   >
-                    {status.label}
+                    {tr(status.label)}
                   </span>
                 </span>
               </div>

@@ -68,7 +68,7 @@ function ContactRow({
             variant="ghost"
             size="icon"
             onClick={onToggle}
-            aria-label={`${expanded ? "Collapse" : "Expand"} ${contact.name}`}
+            aria-label={`${expanded ? tr("mbe6eb1fc3b05") : tr("m07548c2c6511")} ${contact.name}`}
           >
             {expanded ? (
               <ChevronDown className="h-4 w-4" />

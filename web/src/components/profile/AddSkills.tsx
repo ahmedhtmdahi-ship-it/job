@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -58,7 +59,7 @@ function AddSkills({
     resolver: zodResolver(AddSkillsFormSchema),
     defaultValues: {
       resumeId: resumeId ?? "",
-      sectionTitle: "Core Skills",
+      sectionTitle: message("mf0518e5e8dfc"),
       categories: [{ label: "", tagIds: [] }],
     },
   });
@@ -103,7 +104,7 @@ function AddSkills({
     } else {
       form.reset({
         resumeId: resumeId ?? "",
-        sectionTitle: "Core Skills",
+        sectionTitle: message("mf0518e5e8dfc"),
         categories: [{ label: "", tagIds: [] }],
       });
     }

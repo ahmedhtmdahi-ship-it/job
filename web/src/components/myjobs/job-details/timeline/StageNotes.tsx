@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,7 @@ export function StageNotes({ stage, onChanged }: StageNotesProps) {
   const save = () => {
     startTransition(async () => {
       const res = await setStageNotes(stage.id, draft);
-      toastActionResult(res, { success: "Note saved", onSuccess: onChanged });
+      toastActionResult(res, { success: message("m123e3c0af800"), onSuccess: onChanged });
     });
   };
 

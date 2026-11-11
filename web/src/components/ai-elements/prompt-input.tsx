@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Command,
@@ -416,7 +417,7 @@ export type PromptInputActionAddAttachmentsProps = ComponentProps<
 };
 
 export const PromptInputActionAddAttachments = ({
-  label = "Add photos or files",
+  label = message("m555359916cdf"),
   ...props
 }: PromptInputActionAddAttachmentsProps) => {
   const attachments = usePromptInputAttachments();
@@ -443,7 +444,7 @@ export type PromptInputActionAddScreenshotProps = ComponentProps<
 };
 
 export const PromptInputActionAddScreenshot = ({
-  label = "Take screenshot",
+  label = message("m9c118198e693"),
   onSelect,
   ...props
 }: PromptInputActionAddScreenshotProps) => {
@@ -960,7 +961,7 @@ export const PromptInputTextarea = ({
   onChange,
   onKeyDown,
   className,
-  placeholder = "What would you like to know?",
+  placeholder = message("m7b3091d59ac7"),
   ...props
 }: PromptInputTextareaProps) => {
   const controller = useOptionalPromptInputController();

@@ -76,7 +76,7 @@ export function DiscoveredJobsHeader({
                     toggleStatusFilter(status.value, checked)
                   }
                 >
-                  {status.label}
+                  {tr(status.label)}
                 </DropdownMenuCheckboxItem>
               ))}
             </DropdownMenuContent>

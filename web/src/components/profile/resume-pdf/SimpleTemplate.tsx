@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import React from "react";
 import { Document, Link, Page, Text, View } from "@react-pdf/renderer";
@@ -8,7 +9,7 @@ import type { SimpleStyles } from "./styles/simple.styles";
 import { ResumeHtmlNodes } from "./generateResumePdf";
 
 function formatDate(date: Date | undefined | null): string {
-  if (!date) return "Present";
+  if (!date) return message("m43f9b89c0b9d");
   return format(new Date(date), "MMM yyyy");
 }
 

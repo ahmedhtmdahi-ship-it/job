@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -43,7 +44,7 @@ export function AutomationContainer({ resumes }: AutomationContainerProps) {
     if (result.success && result.data) {
       setAutomations(result.data);
     } else {
-      toastError(result.message || "Failed to load automations");
+      toastError(result.message || message("m0538f7e8d1c5"));
     }
     setLoading(false);
   }, []);

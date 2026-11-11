@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -40,7 +41,7 @@ function groupJobsByDate(jobs: JobResponse[]) {
   for (const job of jobs) {
     const key = job.appliedDate
       ? format(job.appliedDate, "EEE MMMM d, yyyy")
-      : "No date";
+      : message("m4214c2fd737c");
     const existing = groups.get(key);
     if (existing) {
       existing.push(job);
@@ -56,7 +57,7 @@ function groupActivitiesByDate(activities: RecentActivity[]) {
   for (const activity of activities) {
     const key = activity.endTime
       ? format(activity.endTime, "EEE MMMM d, yyyy")
-      : "In progress";
+      : message("mc1f88e9d6c41");
     const existing = groups.get(key);
     if (existing) {
       existing.push(activity);
@@ -67,7 +68,7 @@ function groupActivitiesByDate(activities: RecentActivity[]) {
   return Array.from(groups.entries());
 }
 
-const tabs = ["Jobs", "Activities"] as const;
+const tabs = [message("m2f17a0f8d518"), message("m4d0076e6b4c7")] as const;
 
 export default function RecentCardToggle({
   jobs,

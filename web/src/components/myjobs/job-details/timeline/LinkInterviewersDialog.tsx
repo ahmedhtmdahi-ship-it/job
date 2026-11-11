@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Check, Search } from "lucide-react";
@@ -104,7 +105,7 @@ export function LinkInterviewersDialog({
     startTransition(async () => {
       const res = await linkStageInterviewer(stage.id, contactId);
       toastActionResult(res, {
-        success: "Interviewer has been linked successfully",
+        success: message("m88952f330428"),
         onSuccess: () => {
           setLinkedIds((prev) => [...prev, contactId]);
           setLinkedCount((n) => n + 1);
@@ -117,7 +118,7 @@ export function LinkInterviewersDialog({
     startTransition(async () => {
       const res = await createContact(contactPayload(newContact));
       toastActionResult(res, {
-        success: "Contact has been created successfully",
+        success: message("m5a4307adf00a"),
         onSuccess: () => {
           const row: ContactRow = {
             id: res.data.id,
@@ -135,7 +136,7 @@ export function LinkInterviewersDialog({
 
   const doneLabel =
     linkedCount === 0
-      ? "Done"
+      ? message("m11a6767d5674")
       : `Done — ${linkedCount} interviewer${linkedCount === 1 ? "" : "s"} linked`;
 
   return (

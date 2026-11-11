@@ -57,7 +57,7 @@ function SigninForm() {
     <>
       <Form {...form}>
         <form
-          method="POST"
+          method={tr("m9aee6b1bcdf6")}
           onSubmit={form.handleSubmit(onSubmit)}
           // className="w-2/3 space-y-6"
         >

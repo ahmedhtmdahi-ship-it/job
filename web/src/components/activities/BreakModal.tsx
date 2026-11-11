@@ -249,9 +249,9 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
             open={confirmStopOpen}
             onOpenChange={setConfirmStopOpen}
             onDelete={handleStop}
-            alertTitle="Stop this activity?"
-            alertDescription="This ends and logs the activity, break time included. It cannot be resumed afterwards."
-            actionLabel="Stop Activity"
+            alertTitle={tr("m5066821b630c")}
+            alertDescription={tr("m50c3598d804f")}
+            actionLabel={tr("m477c50badb21")}
           />
         </DialogPrimitive.Content>
       </DialogPortal>

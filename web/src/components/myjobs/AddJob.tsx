@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -139,7 +140,7 @@ export function AddJob({
   const newStatusId = jobStatuses.find((s) => s.value === "new")?.id;
   const newJobDefaultValues = {
     type: Object.keys(JOB_TYPES)[0],
-    workplaceType: "ONSITE",
+    workplaceType: message("m860e56f57145"),
     dueDate: addDays(new Date(), APP_CONSTANTS.DEFAULT_JOB_DUE_DAYS),
     status: draftStatusId,
     salaryRange: "",
@@ -244,9 +245,9 @@ export function AddJob({
     });
   }
 
-  const pageTitle = editJob ? "Edit Job" : "Add Job";
+  const pageTitle = editJob ? message("mc492f013040b") : message("mfc2ab2389516");
   const pageDescription = editJob ? (
-    "Update the details of this job application."
+    message("me4f82ce1fd41")
   ) : (
     <>
       {tr("md69c611aa906")}{" "}

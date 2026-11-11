@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -144,7 +145,7 @@ const ActivityFormComponent = ({
       };
       const response = await createActivity(payload);
       toastActionResult(response, {
-        success: "Activity has been created successfully",
+        success: message("mfc0862243fca"),
         onSuccess: () => {
           onClose();
           reloadActivities();

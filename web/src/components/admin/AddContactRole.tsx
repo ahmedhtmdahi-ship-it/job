@@ -60,7 +60,7 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
     startTransition(async () => {
       const res = await createContactRole(values.label);
       toastActionResult(res, {
-        success: "Role has been added successfully.",
+        success: message("m459302d39f9b"),
         onSuccess: () => {
           setDialogOpen(false);
           reset();

@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Copy,
@@ -136,7 +137,7 @@ function DocumentTable({
         : await deleteCoverLetterById(doc.id);
 
     if (success) {
-      const label = doc.type === "resume" ? "Resume" : "Cover letter";
+      const label = doc.type === "resume" ? message("md640c7421da0") : message("md9adba2207cb");
       toastSuccess(`${label} has been deleted successfully`);
       reloadDocuments();
     } else {
@@ -299,13 +300,13 @@ function DocumentTable({
         open={setDefaultConfirmOpen}
         onOpenChange={setSetDefaultConfirmOpen}
         onDelete={() => performSetDefault(documentToSetDefault!)}
-        alertTitle="Change default resume?"
+        alertTitle={tr("m525c79604b21")}
         alertDescription={
           currentDefault
             ? `This will make "${documentToSetDefault?.title}" your default resume, replacing "${currentDefault.title}".`
             : `This will make "${documentToSetDefault?.title}" your default resume, replacing your current default.`
         }
-        actionLabel="Set as default"
+        actionLabel={tr("md09b4dd6265a")}
         actionVariant="default"
       />
     </>

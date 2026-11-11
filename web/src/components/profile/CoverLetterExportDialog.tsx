@@ -1,5 +1,6 @@
 "use client";
 
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
@@ -20,7 +21,7 @@ import { canExportCoverLetter } from "./cover-letter-export-dialog/canExportCove
 
 type PreviewInput = CoverLetterExportSettings & { headline: string };
 
-const EMPTY_MESSAGE = "Add some content to this cover letter to preview it.";
+const EMPTY_MESSAGE = message("m389ccc9fb879");
 
 type CoverLetterExportDialogProps = {
   open: boolean;
@@ -103,7 +104,7 @@ export function CoverLetterExportDialog({
     prepared: { blob: Blob; filename: string } | null,
   ) => {
     if (!letter || !canExportCoverLetter(letter.content)) {
-      toastError(tr("m19f3a7487ec4"), "Nothing to export");
+      toastError(tr("m19f3a7487ec4"), tr("mfd3032d65fb2"));
       return;
     }
     try {
@@ -111,7 +112,7 @@ export function CoverLetterExportDialog({
       // failed preview.
       const output = prepared ?? (await generate(previewInput));
       triggerDownload(output.blob, output.filename);
-      toastSuccess(tr("m147c208c6b5c"), "PDF exported");
+      toastSuccess(tr("m147c208c6b5c"), tr("mbd10bc3e9447"));
     } catch {
       toastError(tr("mcc047b292207"));
     }
@@ -123,7 +124,7 @@ export function CoverLetterExportDialog({
       onOpenChange={onOpenChange}
       title={tr("mccd4fda2f607")}
       description={tr("m1932fa58694c")}
-      previewLabel="Cover letter preview"
+      previewLabel={tr("mc71075397b2e")}
       emptyMessage={EMPTY_MESSAGE}
       blob={blob}
       filename={filename}

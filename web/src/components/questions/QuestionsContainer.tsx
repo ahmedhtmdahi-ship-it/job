@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -71,7 +72,7 @@ function QuestionsContainer({
         setTotalQuestions(result.total);
         setPage(pageNum);
       } else {
-        toastError(result?.message || "Failed to load questions.");
+        toastError(result?.message || message("m2619febe618c"));
       }
       setLoading(false);
     },
@@ -86,7 +87,7 @@ function QuestionsContainer({
   const onDeleteQuestion = async (questionId: string) => {
     const result = await deleteQuestion(questionId);
     toastActionResult(result, {
-      success: "Question has been deleted successfully",
+      success: message("m9676c1b6d087"),
       onSuccess: () => reloadQuestions(),
     });
   };

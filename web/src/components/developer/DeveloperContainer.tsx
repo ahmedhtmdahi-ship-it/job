@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -63,8 +64,8 @@ export function MockActivitiesCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock activities generated successfully"
-          : "Failed to generate mock activities"),
+          ? message("m4dd7cd6ea6fb")
+          : message("m5a9848b370d9")),
     });
     setIsGenerating(false);
   };
@@ -72,7 +73,7 @@ export function MockActivitiesCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        "Are you sure you want to delete all mock activities? This action cannot be undone.",
+        message("m4e729af3895f"),
       )
     )
       return;
@@ -85,8 +86,8 @@ export function MockActivitiesCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock activities cleared successfully"
-          : "Failed to clear mock activities"),
+          ? message("mad8237b83faf")
+          : message("m3620c5665f3b")),
     });
     setIsClearing(false);
   };
@@ -153,8 +154,8 @@ export function MockProfileCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock profile data generated successfully"
-          : "Failed to generate mock profile data"),
+          ? message("m88d319411429")
+          : message("m921fd7ce4986")),
     });
     setIsGenerating(false);
   };
@@ -162,7 +163,7 @@ export function MockProfileCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        "Are you sure you want to delete all mock profile data (resumes, companies, locations, job titles)? This cannot be undone.",
+        message("m7a1fa8b0c6b5"),
       )
     )
       return;
@@ -175,8 +176,8 @@ export function MockProfileCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock profile data cleared successfully"
-          : "Failed to clear mock profile data"),
+          ? message("m7f45aacc9f5f")
+          : message("me05d226e20e8")),
     });
     setIsClearing(false);
   };
@@ -243,8 +244,8 @@ export function MockJobsCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock jobs generated successfully"
-          : "Failed to generate mock jobs"),
+          ? message("m980a894f3e53")
+          : message("mad3fde30155a")),
     });
     setIsGenerating(false);
   };
@@ -252,7 +253,7 @@ export function MockJobsCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        "Are you sure you want to delete all mock jobs? This action cannot be undone.",
+        message("m1e5ee73590e4"),
       )
     )
       return;
@@ -265,8 +266,8 @@ export function MockJobsCard() {
       text:
         result.message ||
         (result.success
-          ? "Mock jobs cleared successfully"
-          : "Failed to clear mock jobs"),
+          ? message("m1d4191a90f70")
+          : message("m2293ba504223")),
     });
     setIsClearing(false);
   };

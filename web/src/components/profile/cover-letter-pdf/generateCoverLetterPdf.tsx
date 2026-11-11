@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import React from "react";
 import { format } from "date-fns";
 import { htmlToPdfNodes } from "@/components/pdf-export/html-to-pdf";
@@ -40,6 +41,6 @@ export async function generateCoverLetterPdfBlob(
   const blob = await pdf(document as any).toBlob();
   // A letter has exactly one style, so the suffix names the document type
   // rather than a layout — it is what tells the two exports apart on disk.
-  const filename = `${sanitizeFilename(letter.title, "Untitled")}_cover_letter.pdf`;
+  const filename = `${sanitizeFilename(letter.title, message("mf59ab8d1331b"))}_cover_letter.pdf`;
   return { blob, filename };
 }

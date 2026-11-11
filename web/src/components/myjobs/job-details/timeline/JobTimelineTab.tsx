@@ -42,7 +42,7 @@ export function JobTimelineTab({
         icon={CalendarClock}
         title={tr("m05b88078acf2")}
         description={tr("m1a723c8a2106")}
-        actionLabel="Add stage"
+        actionLabel={tr("m76fa771d57f8")}
         onAction={onAddStage}
         actionTestId="timeline-add-stage-btn"
       />

@@ -66,7 +66,7 @@ export function DiscoveredJobDetail({
     try {
       const result = await analyzeDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess(tr("m54751aec92ef"), "Match analyzed");
+        toastSuccess(tr("m54751aec92ef"), tr("mbe3340dd6555"));
         onOpenChange(false);
         onRefresh();
       } else {
@@ -84,7 +84,7 @@ export function DiscoveredJobDetail({
     try {
       const result = await acceptDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess(tr("m0f6a733982d7"), "Job accepted");
+        toastSuccess(tr("m0f6a733982d7"), tr("m39a29e67b0b4"));
         onOpenChange(false);
         onRefresh();
       } else {

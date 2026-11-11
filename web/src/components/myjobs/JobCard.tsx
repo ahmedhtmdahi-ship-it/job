@@ -103,8 +103,8 @@ export function JobCard({
           {job.appliedDate
             ? format(job.appliedDate, "PP")
             : job.applied
-              ? "Applied"
-              : "Not applied"}
+              ? tr("m0c79a9c22284")
+              : tr("m3de0546b8c29")}
         </span>
         {job.JobSource?.label && (
           <span className="flex min-w-0 items-center gap-1">

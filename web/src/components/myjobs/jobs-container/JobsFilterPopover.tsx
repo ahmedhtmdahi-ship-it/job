@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
@@ -22,7 +23,7 @@ import {
 import { useJobFilterCounts } from "./useJobFilterCounts";
 
 const STATUS_ORDER: string[] = JOB_STATUSES.map((s) => s.value);
-const ACCEPTED_LABEL = "Accepted (discovered)";
+const ACCEPTED_LABEL = message("m7adaa3b7bbd7");
 const SECTION_LABEL =
   "text-xs font-semibold uppercase tracking-wide text-muted-foreground";
 
@@ -88,7 +89,7 @@ export function JobsFilterPopover({
   const total = counts?.total;
   const applyLabel =
     total === undefined
-      ? "Show jobs"
+      ? message("mad9e86751605")
       : `Show ${total} ${total === 1 ? "job" : "jobs"}`;
 
   const segmented = (

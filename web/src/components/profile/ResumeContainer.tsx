@@ -1,4 +1,5 @@
 "use client";
+import {message} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Resume, ResumeSection, SectionType } from "@/models/profile.model";
 import { Card, CardHeader, CardTitle } from "../ui/card";
@@ -158,7 +159,7 @@ function ResumeContainer({
     if (!skillsSection?.id) return;
     const result = await deleteSkillsSection(skillsSection.id);
     toastActionResult(result, {
-      success: "Skills section has been deleted successfully",
+      success: message("m16166883d62c"),
       onSuccess: () => router.refresh(),
     });
   };
@@ -176,7 +177,7 @@ function ResumeContainer({
   const handleDeleteCertification = async (certificationId: string) => {
     const result = await deleteCertification(certificationId);
     toastActionResult(result, {
-      success: "Certification has been deleted successfully",
+      success: message("m2b3764302c9d"),
       onSuccess: () => router.refresh(),
     });
   };
@@ -215,9 +216,9 @@ function ResumeContainer({
         open={setDefaultConfirmOpen}
         onOpenChange={setSetDefaultConfirmOpen}
         onDelete={handleSetDefault}
-        alertTitle="Change default resume?"
-        alertDescription="This will make this resume your default, replacing any current default."
-        actionLabel="Set as default"
+        alertTitle={tr("m525c79604b21")}
+        alertDescription={tr("m23a0975b1087")}
+        actionLabel={tr("md09b4dd6265a")}
         actionVariant="default"
       />
 
