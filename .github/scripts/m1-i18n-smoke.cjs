@@ -14,6 +14,7 @@ const base = 'http://localhost:3737';
 const output = path.join(process.env.RUNNER_TEMP, 'm1-screenshots');
 const email = 'demo@example.com';
 const password = randomBytes(32).toString('hex');
+let pageChecks = 0;
 const pages = [
   '/dashboard', '/dashboard/myjobs', '/dashboard/admin?tab=companies',
   '/dashboard/admin?tab=contacts', '/dashboard/activities', '/dashboard/tasks',
@@ -34,6 +35,7 @@ async function verify(page, locale, url) {
     const leaked = cleaned.split('\n').filter(line => /[A-Za-z]{2,}/.test(line));
     if (leaked.length) throw new Error(`English UI on ${url}: ${leaked.join(' | ')}`);
   }
+  pageChecks++;
   console.log(`PASS ${locale} ${url}`);
 }
 async function signIn(page, locale='ar') {
@@ -103,7 +105,7 @@ async function main() {
     const visitorPage=await visitor.newPage();
     for(const route of ['/signin','/signup']) {await visitorPage.goto(base+route);await verify(visitorPage,'en',route);}
     await visitor.close();await context.close();
-    console.log('PASS all M1 locale, persistence and screenshot checks');
+    console.log(`::notice title=M1 acceptance passed::${pageChecks} locale/page checks; saved language across sessions; five screenshots`);
   } finally {await db.$disconnect();await browser.close();}
 }
 main().catch(error=>{

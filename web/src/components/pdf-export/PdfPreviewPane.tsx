@@ -244,7 +244,7 @@ export function PdfPreviewPane({
   return (
     <div className={cn("flex min-h-0 flex-col gap-2", className)}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium">Preview</span>
+        <span className="text-sm font-medium">{tr("m324b134f57c7")}</span>
         <div className="flex items-center gap-2">
           {hasPages && (
             <div className="flex items-center rounded-md border p-0.5">
@@ -255,7 +255,7 @@ export function PdfPreviewPane({
                 aria-label={tr("m6f3ec441537e")}
                 className="h-6 px-2 text-xs"
               >
-                Fit page
+                {tr("m3626161a4685")}
               </Toggle>
               <Toggle
                 size="sm"
@@ -264,7 +264,7 @@ export function PdfPreviewPane({
                 aria-label={tr("mf19974d2fe57")}
                 className="h-6 px-2 text-xs"
               >
-                Fit width
+                {tr("mb911c419e49d")}
               </Toggle>
             </div>
           )}
