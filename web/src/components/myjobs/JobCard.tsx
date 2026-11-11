@@ -1,4 +1,6 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import {
   Calendar,
   DollarSign,
@@ -41,6 +43,10 @@ export function JobCard({
   onAddNote,
   onDeleteJob,
 }: JobCardProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const notesCount = job._count?.Notes ?? 0;
 
   return (
@@ -63,7 +69,7 @@ export function JobCard({
                 variant="secondary"
                 className="h-5 shrink-0 px-1.5 py-0 text-xs"
               >
-                <StickyNote className="mr-0.5 h-3 w-3" />
+                <StickyNote className="me-0.5 h-3 w-3" />
                 {notesCount}
               </Badge>
             )}
@@ -98,10 +104,10 @@ export function JobCard({
         <span className="flex items-center gap-1 whitespace-nowrap">
           <Calendar className="h-3.5 w-3.5 shrink-0" />
           {job.appliedDate
-            ? format(job.appliedDate, "PP")
+            ? formatLocalized(job.appliedDate, "PP")
             : job.applied
-              ? "Applied"
-              : "Not applied"}
+              ? tr("m0c79a9c22284")
+              : tr("m3de0546b8c29")}
         </span>
         {job.JobSource?.label && (
           <span className="flex min-w-0 items-center gap-1">
@@ -133,8 +139,8 @@ export function JobCard({
           <Button
             variant="ghost"
             size="icon"
-            title="Edit Job"
-            aria-label="Edit Job"
+            title={tr("mc492f013040b")}
+            aria-label={tr("mc492f013040b")}
             onClick={() => editJob(job.id)}
           >
             <Pencil className="h-4 w-4" />
@@ -142,8 +148,8 @@ export function JobCard({
           <Button
             variant="ghost"
             size="icon"
-            title="Delete Job"
-            aria-label="Delete Job"
+            title={tr("mb58e4ff842e4")}
+            aria-label={tr("mb58e4ff842e4")}
             className="text-destructive hover:text-destructive"
             onClick={() => onDeleteJob(job.id)}
           >

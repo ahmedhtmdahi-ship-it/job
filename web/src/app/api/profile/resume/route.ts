@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { editResume } from "@/actions/profile.actions";
@@ -35,7 +36,7 @@ export const POST = async (req: NextRequest) => {
     if (!session || !session.user) {
       return NextResponse.json(
         {
-          error: "Not Authenticated",
+          error: uiMessage("m13d9eb180ca2"),
         },
         {
           status: 401,
@@ -52,14 +53,14 @@ export const POST = async (req: NextRequest) => {
     if (file && file.name && file.size > 0) {
       // Server-side validation: size, MIME type, and magic bytes
       if (file.size > APP_CONSTANTS.MAX_RESUME_FILE_SIZE_BYTES) {
-        return NextResponse.json({ error: "File size must be less than 5MB" }, { status: 400 });
+        return NextResponse.json({ error: uiMessage("mbac2111f02d5") }, { status: 400 });
       }
       if (!ALLOWED_MIME.has(file.type)) {
-        return NextResponse.json({ error: "Only PDF and .docx files are supported" }, { status: 400 });
+        return NextResponse.json({ error: uiMessage("mecf81772058b") }, { status: 400 });
       }
       const fileBytes = Buffer.from(await file.arrayBuffer());
       if (!validateFileBytes(fileBytes, file.type)) {
-        return NextResponse.json({ error: "File content does not match declared type" }, { status: 400 });
+        return NextResponse.json({ error: uiMessage("m38ef85cd05af") }, { status: 400 });
       }
 
       upload = await saveResumeUpload(file.name, fileBytes);
@@ -97,7 +98,7 @@ export const GET = async (req: NextRequest) => {
     if (!session || !session.user || !userId) {
       return NextResponse.json(
         {
-          error: "Not Authenticated",
+          error: uiMessage("m13d9eb180ca2"),
         },
         {
           status: 401,
@@ -110,7 +111,7 @@ export const GET = async (req: NextRequest) => {
 
     if (!resumeId) {
       return NextResponse.json(
-        { error: "Resume id is required" },
+        { error: uiMessage("m237526a28dc9") },
         { status: 400 }
       );
     }
@@ -127,7 +128,7 @@ export const GET = async (req: NextRequest) => {
       !isResumeFilePath(storedPath) ||
       !fs.existsSync(path.resolve(storedPath))
     ) {
-      return NextResponse.json({ error: "File not found" }, { status: 404 });
+      return NextResponse.json({ error: uiMessage("m3521021a2e87") }, { status: 404 });
     }
     const fullFilePath = path.resolve(storedPath);
 
@@ -143,7 +144,7 @@ export const GET = async (req: NextRequest) => {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     } else {
       return NextResponse.json(
-        { error: "Unsupported file type" },
+        { error: uiMessage("mc24bdea9bf1a") },
         { status: 400 }
       );
     }

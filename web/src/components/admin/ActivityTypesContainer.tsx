@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -11,6 +12,8 @@ import ActivityTypesTable from "./ActivityTypesTable";
 import AddActivityType from "./AddActivityType";
 
 function ActivityTypesContainer() {
+  const tr = useT();
+
   const [activityTypes, setActivityTypes] = useState<any[]>([]);
   const [totalActivityTypes, setTotalActivityTypes] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -46,12 +49,12 @@ function ActivityTypesContainer() {
         <Card>
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Activity Types / Projects</CardTitle>
+              <CardTitle>{tr("m0382a17a303f")}</CardTitle>
               {!loading && totalActivityTypes > 0 && (
-                <RecordsCount count={activityTypes.length} total={totalActivityTypes} label="activity types" />
+                <RecordsCount count={activityTypes.length} total={totalActivityTypes} label={tr("m0d91ff79c2a7")} />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
               <AddActivityType reloadActivityTypes={reloadActivityTypes} />
             </div>
           </ResponsiveCardHeader>
@@ -74,7 +77,7 @@ function ActivityTypesContainer() {
                   disabled={loading}
                   className="btn btn-primary"
                 >
-                  {loading ? "Loading..." : "Load More"}
+                  {loading ? tr("m47d2a515ef2f") : tr("m3f06cd334f48")}
                 </Button>
               </div>
             )}

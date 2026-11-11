@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useId, useRef, useState, useTransition } from "react";
 import { Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +38,7 @@ const BANK_PAGE_SIZE = 200;
 
 // The question bank requires an answer; "TBD" is the app's own placeholder
 // for one that has not been written yet (QuestionForm).
-const UNANSWERED = "TBD";
+const UNANSWERED = uiMessage("m03626549a59a");
 
 export function AddPrepQuestionsDialog({
   open,
@@ -44,6 +46,8 @@ export function AddPrepQuestionsDialog({
   onOpenChange,
   onAdded,
 }: AddPrepQuestionsDialogProps) {
+  const tr = useT();
+
   const [bank, setBank] = useState<BankQuestion[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [search, setSearch] = useState("");
@@ -98,7 +102,7 @@ export function AddPrepQuestionsDialog({
         tagIds: newTagIds,
       });
       toastActionResult(res, {
-        success: "Question has been added to your bank",
+        success: uiMessage("mc89e4a88358c"),
         onSuccess: () => {
           // Banked and selected in one click: the user asked for it here.
           setBank((prev) => [res.data, ...prev]);
@@ -117,7 +121,7 @@ export function AddPrepQuestionsDialog({
     startTransition(async () => {
       const res = await addStagePrepQuestions(stage.id, selected);
       toastActionResult(res, {
-        success: "Prep list has been updated successfully",
+        success: uiMessage("me1b1b15325f5"),
         onSuccess: () => {
           onAdded();
           onOpenChange(false);
@@ -128,30 +132,26 @@ export function AddPrepQuestionsDialog({
 
   const doneLabel =
     selected.length === 0
-      ? "Done"
-      : `Done — ${selected.length} question${
-          selected.length === 1 ? "" : "s"
-        } added to prep list`;
+      ? uiMessage("m11a6767d5674")
+      : tr("m9940b9dc4bd6", {v0: selected.length, v1: selected.length === 1 ? "" : "s"});
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[760px] max-h-[800px] overflow-hidden">
         <DialogHeader>
-          <DialogTitle>Add Questions to Prep List</DialogTitle>
+          <DialogTitle>{tr("m2c1104132835")}</DialogTitle>
           <DialogDescription>{stageHeading(stage)}</DialogDescription>
         </DialogHeader>
 
         <div className="max-h-[60vh] space-y-4 overflow-y-auto p-1">
           <p className="text-[13px] text-muted-foreground">
-            Select questions you expect to be asked. After the interview, check
-            them off as &quot;asked&quot; from the Timeline tab.
-          </p>
+            {tr("m92f2a424d67a")}</p>
 
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              className="pl-9"
-              placeholder="Search question bank…"
+              className="ps-9"
+              placeholder={tr("m7d8308fb4824")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -165,12 +165,12 @@ export function AddPrepQuestionsDialog({
                 return (
                   <span
                     key={id}
-                    className="flex max-w-full items-center gap-1.5 rounded-full bg-primary/10 py-1 pl-3 pr-1.5 text-xs"
+                    className="flex max-w-full items-center gap-1.5 rounded-full bg-primary/10 py-1 ps-3 pe-1.5 text-xs"
                   >
                     <span className="truncate">{q.question}</span>
                     <button
                       type="button"
-                      aria-label={`Remove ${q.question}`}
+                      aria-label={tr("m9fc9271b9acf", {v0: q.question})}
                       className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full hover:bg-primary/20"
                       onClick={() => toggle(id, false)}
                     >
@@ -185,8 +185,7 @@ export function AddPrepQuestionsDialog({
           <ul className="overflow-hidden rounded-lg border">
             {visible.length === 0 && (
               <li className="px-3.5 py-4 text-[13px] text-muted-foreground">
-                No questions match that search.
-              </li>
+                {tr("m4043806f3725")}</li>
             )}
             {visible.map((q, index) => {
               const isLinked = alreadyLinked.has(q.id);
@@ -228,8 +227,7 @@ export function AddPrepQuestionsDialog({
                   </div>
                   {isLinked && (
                     <span className="shrink-0 text-[11px] text-muted-foreground">
-                      On prep list
-                    </span>
+                      {tr("mf147a00f7bcd")}</span>
                   )}
                 </li>
               );
@@ -237,15 +235,15 @@ export function AddPrepQuestionsDialog({
           </ul>
 
           <div className="space-y-3 rounded-lg border border-dashed p-3.5">
-            <p className="text-[13px] font-semibold">Add a new question</p>
+            <p className="text-[13px] font-semibold">{tr("m6bc0c1421822")}</p>
             <Input
-              placeholder="Type a new interview question…"
-              aria-label="New question"
+              placeholder={tr("m0aa15ad6bf50")}
+              aria-label={tr("mbef593642651")}
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
             />
             <div className="space-y-1.5">
-              <p className="text-[13px] font-medium">Skill Tags</p>
+              <p className="text-[13px] font-medium">{tr("m1f7cbb22bb10")}</p>
               <TagInput
                 availableTags={tags}
                 selectedTagIds={newTagIds}
@@ -259,15 +257,13 @@ export function AddPrepQuestionsDialog({
               disabled={isPending || !newQuestion.trim()}
               onClick={addQuestion}
             >
-              Add Question
-            </Button>
+              {tr("m1dc7ec5f8aed")}</Button>
           </div>
         </div>
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
-          </Button>
+            {tr("m19766ed6ccb2")}</Button>
           <Button onClick={submit} disabled={isPending}>
             {doneLabel}
           </Button>

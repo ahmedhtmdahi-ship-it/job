@@ -1,5 +1,6 @@
 "use server";
 
+import {message as uiMessage} from "@/i18n/message";
 import { format } from "date-fns";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
@@ -103,7 +104,7 @@ export async function getDailyGoalValues(
     );
     // Client-supplied: only the browsable window is queryable
     if (!isValidMonth(month) || month < minMonth || month > maxMonth) {
-      return { success: false, message: "Invalid month." };
+      return { success: false, message: uiMessage("mfe962c38e95b") };
     }
     const { start, end } = monthBounds(month);
     const [values, targets] = await Promise.all([
@@ -135,7 +136,7 @@ export async function updateGoalTargets(input: {
     if (input.month !== format(new Date(), "yyyy-MM")) {
       return {
         success: false,
-        message: "The month has changed — reload the page.",
+        message: uiMessage("m90f05a365507"),
       };
     }
     const parsed = GoalTargetsSchema.safeParse({
@@ -143,7 +144,7 @@ export async function updateGoalTargets(input: {
       hours: input.hours,
     });
     if (!parsed.success) {
-      return { success: false, message: "Invalid goal targets." };
+      return { success: false, message: uiMessage("macfdcf67dd32") };
     }
     const { settings, targets: current } = await loadStoredTargets(user.id);
     const targets = { ...current, [input.month]: parsed.data };

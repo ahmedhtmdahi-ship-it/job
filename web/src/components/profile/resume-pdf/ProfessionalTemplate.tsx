@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import React from "react";
 import { Document, Link, Page, Text, View } from "@react-pdf/renderer";
 import { format } from "date-fns";
@@ -6,7 +7,7 @@ import type { ProfessionalStyles } from "./styles/professional.styles";
 import { ResumeHtmlNodes } from "./generateResumePdf";
 
 function formatDate(date: Date | undefined | null): string {
-  if (!date) return "Present";
+  if (!date) return uiMessage("m43f9b89c0b9d");
   return format(new Date(date), "MMM yyyy");
 }
 
@@ -16,7 +17,7 @@ function formatLocation(label: string | undefined): string {
 
 function yearRange(startDate: Date, endDate?: Date | null): string {
   const start = format(new Date(startDate), "yyyy");
-  const end = endDate ? format(new Date(endDate), "yyyy") : "Present";
+  const end = endDate ? format(new Date(endDate), "yyyy") : uiMessage("m43f9b89c0b9d");
   return `${start} – ${end}`;
 }
 

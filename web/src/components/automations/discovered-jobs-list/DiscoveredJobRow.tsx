@@ -1,5 +1,7 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +42,10 @@ export function DiscoveredJobRow({
   onAccept,
   onDismiss,
 }: DiscoveredJobRowProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const analyzed = isAnalyzed(job);
   const prerankPercent = getPrerankPercent(job);
 
@@ -74,7 +80,7 @@ export function DiscoveredJobRow({
       <TableCell>
         <div className="flex items-center gap-2">
           <MapPin className="h-4 w-4 text-muted-foreground" />
-          {job.Location?.label || "N/A"}
+          {job.Location?.label || tr("me2f79e5b6033")}
           {job.workplaceType && (
             <Badge variant="outline" className="text-xs">
               {getWorkplaceTypeLabel(job.workplaceType, job.workplaceType)}
@@ -86,7 +92,7 @@ export function DiscoveredJobRow({
         {prerankPercent != null ? (
           <span
             className="font-mono text-sm text-muted-foreground"
-            title="Internal lexical relevance score (not an AI match)"
+            title={tr("ma254e694486d")}
           >
             {prerankPercent}%
           </span>
@@ -110,7 +116,7 @@ export function DiscoveredJobRow({
             disabled={isLoading || runInProgress}
             title={
               runInProgress
-                ? "A run is in progress. Wait until it completes."
+                ? tr("mc1c7a2ae7ed8")
                 : undefined
             }
           >
@@ -118,9 +124,8 @@ export function DiscoveredJobRow({
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
               <>
-                <Sparkles className="h-3.5 w-3.5 mr-1" />
-                Analyze
-              </>
+                <Sparkles className="h-3.5 w-3.5 me-1" />
+                {tr("mcad5bf29c702")}</>
             )}
           </Button>
         )}
@@ -134,8 +139,8 @@ export function DiscoveredJobRow({
           color={getDiscoveryStatusBadgeColor(job.discoveryStatus)}
         />
       </TableCell>
-      <TableCell>{format(new Date(job.discoveredAt), "MMM d, yyyy")}</TableCell>
-      <TableCell className="text-right">
+      <TableCell>{formatLocalized(new Date(job.discoveredAt), "MMM d, yyyy")}</TableCell>
+      <TableCell className="text-end">
         {job.discoveryStatus === "new" && (
           <div className="flex justify-end gap-2">
             <Button

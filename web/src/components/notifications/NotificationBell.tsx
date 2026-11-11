@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import Link from "next/link";
 import { Bell, CheckCheck, X } from "lucide-react";
@@ -21,12 +23,14 @@ import { isErrorNotification } from "./notificationDisplay";
 type PopoverTab = "all" | "errors" | "runs";
 
 const TABS: { id: PopoverTab; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "errors", label: "Errors" },
-  { id: "runs", label: "Runs" },
+  { id: "all", label: uiMessage("ma52ace420f21") },
+  { id: "errors", label: uiMessage("mcb702378f315") },
+  { id: "runs", label: uiMessage("m848f54e89660") },
 ];
 
 export function NotificationBell() {
+  const tr = useT();
+
   const { summary, refresh } = useNotifications();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<NotificationItem[]>([]);
@@ -80,13 +84,13 @@ export function NotificationBell() {
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="icon" className="relative" aria-label="Notifications">
+        <Button variant="outline" size="icon" className="relative" aria-label={tr("m788011833a5a")}>
           <Bell className="h-[18px] w-[18px]" />
           {summary.unread > 0 && (
             <span
               data-testid="notification-badge"
               className={cn(
-                "absolute -right-1.5 -top-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-background px-1 text-[11px] font-semibold text-white",
+                "absolute -end-1.5 -top-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-background px-1 text-[11px] font-semibold text-white",
                 summary.unreadErrors > 0 ? "bg-destructive" : "bg-primary",
               )}
             >
@@ -97,7 +101,7 @@ export function NotificationBell() {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[min(408px,calc(100vw-2rem))] p-0">
         <div className="flex items-center gap-2 px-4 pb-2.5 pt-3.5">
-          <h2 className="flex-grow text-[15px] font-semibold">Notifications</h2>
+          <h2 className="flex-grow text-[15px] font-semibold">{tr("m788011833a5a")}</h2>
           <Button
             variant="ghost"
             size="sm"
@@ -105,8 +109,7 @@ export function NotificationBell() {
             onClick={onMarkAll}
           >
             <CheckCheck className="h-3.5 w-3.5" />
-            Mark all read
-          </Button>
+            {tr("m3bc62a9e6a39")}</Button>
           <Button
             variant="ghost"
             size="sm"
@@ -114,8 +117,7 @@ export function NotificationBell() {
             onClick={onClearAll}
           >
             <X className="h-3.5 w-3.5" />
-            Clear all
-          </Button>
+            {tr("m29a390f9237e")}</Button>
         </div>
         <div role="tablist" className="flex gap-1 border-b px-4">
           {TABS.map((t) => (
@@ -132,7 +134,7 @@ export function NotificationBell() {
                   : "border-transparent font-medium text-muted-foreground",
               )}
             >
-              {t.label}
+              {tr(t.label)}
               {t.id === "errors" && errorCount > 0 && (
                 <span className="rounded-full bg-red-100 px-1.5 text-[11px] font-semibold text-red-700 dark:bg-red-950 dark:text-red-300">
                   {errorCount}
@@ -144,8 +146,7 @@ export function NotificationBell() {
         <ul className="flex max-h-[60vh] flex-col overflow-y-auto py-1">
           {visible.length === 0 ? (
             <li className="px-4 py-8 text-center text-[13px] text-muted-foreground">
-              You’re all caught up.
-            </li>
+              {tr("m47aa1e80a7c7")}</li>
           ) : (
             visible.map((item) => (
               <NotificationRow
@@ -164,9 +165,8 @@ export function NotificationBell() {
             onClick={() => setOpen(false)}
             className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:underline"
           >
-            View all notifications
-          </Link>
-          <span className="text-muted-foreground">Kept 30 days</span>
+            {tr("m13af64d66849")}</Link>
+          <span className="text-muted-foreground">{tr("m20619e752a6a")}</span>
         </div>
       </PopoverContent>
     </Popover>

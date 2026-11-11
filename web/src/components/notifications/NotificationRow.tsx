@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { AlertTriangle, CheckCircle2, X, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,8 @@ interface NotificationRowProps {
 const ICONS = { run: CheckCircle2, warn: AlertTriangle, fail: XCircle };
 
 export function NotificationRow({ item, variant, onRemove, onOpenLink }: NotificationRowProps) {
+  const tr = useT();
+
   const d = describeNotification(item);
   const isError = isErrorNotification(item);
   const unread = item.readAt === null;
@@ -31,7 +34,7 @@ export function NotificationRow({ item, variant, onRemove, onOpenLink }: Notific
   return (
     <li
       className={cn(
-        "flex gap-3 py-3 pl-4 pr-2",
+        "flex gap-3 py-3 ps-4 pe-2",
         unread && (isError ? "bg-red-50 dark:bg-red-950/40" : "bg-blue-50 dark:bg-blue-950/40"),
       )}
     >
@@ -57,7 +60,7 @@ export function NotificationRow({ item, variant, onRemove, onOpenLink }: Notific
         <div className="flex items-center gap-1.5">
           {unread && (
             <span
-              aria-label="Unread"
+              aria-label={tr("m1b9f384c1436")}
               className="h-[7px] w-[7px] shrink-0 rounded-full bg-primary"
             />
           )}
@@ -105,20 +108,20 @@ export function NotificationRow({ item, variant, onRemove, onOpenLink }: Notific
             onClick={() => onOpenLink(item.id)}
             className="self-start pt-1 text-[13px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:underline"
           >
-            {d.link.label}
+            {tr(d.link.label)}
           </Link>
         )}
       </div>
       {isPage && (
-        <span className="hidden w-[110px] shrink-0 pt-1.5 text-right text-xs text-muted-foreground sm:block">
+        <span className="hidden w-[110px] shrink-0 pt-1.5 text-end text-xs text-muted-foreground sm:block">
           {formatClock(item.occurredAt)}
         </span>
       )}
       <Button
         variant="ghost"
         size="icon"
-        aria-label={isPage ? "Delete notification" : "Dismiss notification"}
-        title={isPage ? "Delete" : "Dismiss"}
+        aria-label={isPage ? tr("m511c885008e4") : tr("mb7bb3f342402")}
+        title={isPage ? tr("me2d0a54968ea") : tr("m48845bff334a")}
         className="h-7 w-7 shrink-0 text-muted-foreground"
         onClick={() => onRemove(item.id)}
       >

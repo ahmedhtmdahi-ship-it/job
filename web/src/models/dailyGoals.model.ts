@@ -1,10 +1,11 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 import { DAILY_GOALS } from "@/lib/constants";
 
 const wholeNumber = (min: number, max: number) =>
   z
-    .number({ error: "Enter a number." })
-    .int({ message: "Use a whole number." })
+    .number({ error: uiMessage("m7b2968fb595b") })
+    .int({ message: uiMessage("m21ab939249fd") })
     .min(min, { message: `Must be at least ${min}.` })
     .max(max, { message: `Must be at most ${max}.` });
 

@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -99,6 +101,8 @@ export function AddJob({
   hideTrigger,
   redirectPath,
 }: AddJobProps) {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [dialogOpen, setDialogOpen] = useState(initialOpen ?? false);
@@ -136,7 +140,7 @@ export function AddJob({
   const newStatusId = jobStatuses.find((s) => s.value === "new")?.id;
   const newJobDefaultValues = {
     type: Object.keys(JOB_TYPES)[0],
-    workplaceType: "ONSITE",
+    workplaceType: uiMessage("m860e56f57145"),
     dueDate: addDays(new Date(), APP_CONSTANTS.DEFAULT_JOB_DUE_DAYS),
     status: draftStatusId,
     salaryRange: "",
@@ -217,13 +221,13 @@ export function AddJob({
   function onSubmit(data: z.infer<typeof AddJobFormSchema>) {
     const selected = resumes.find((r) => r.id === data.resume);
     if (selected && !hasMinResumeSections(selected._count?.ResumeSections)) {
-      toastError(buildIncompleteResumeHint());
+      toastError(tr(buildIncompleteResumeHint()));
       return;
     }
     startTransition(async () => {
       const result = editJob ? await updateJob(data) : await addJob(data);
       toastActionResult(result, {
-        success: `Job has been ${editJob ? "updated" : "created"} successfully`,
+        success: editJob ? tr("m1c144f3d787c") : tr("m9c5a5ecb91b6"),
         onSuccess: () => {
           saveToLocalStorage(
             APP_CONSTANTS.LAST_JOB_LOCATION_STORAGE_KEY,
@@ -241,14 +245,13 @@ export function AddJob({
     });
   }
 
-  const pageTitle = editJob ? "Edit Job" : "Add Job";
+  const pageTitle = editJob ? uiMessage("mc492f013040b") : uiMessage("mfc2ab2389516");
   const pageDescription = editJob ? (
-    "Update the details of this job application."
+    uiMessage("me4f82ce1fd41")
   ) : (
     <>
-      Track a new job application. Fields marked{" "}
-      <span className="text-destructive">*</span> are required.
-    </>
+      {tr("md69c611aa906")}{" "}
+      <span className="text-destructive">*</span> {" "}{tr("m4a694330d6c4")}</>
   );
 
   const addJobForm = () => {
@@ -308,7 +311,7 @@ export function AddJob({
   // Validation runs before the transition starts, so isPending alone is late
   const isSaving = form.formState.isSubmitting || isPending;
   const lastUsedHint = (
-    <span className="ml-auto text-xs leading-none text-muted-foreground">last used</span>
+    <span className="ms-auto text-xs leading-none text-muted-foreground">{tr("mb5ed3ee11645")}</span>
   );
 
   // Combobox does not forward field.ref, so focus via the wrapper instead
@@ -347,8 +350,7 @@ export function AddJob({
         >
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            New Job
-          </span>
+            {tr("mddacafb76972")}</span>
         </Button>
       )}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -356,9 +358,9 @@ export function AddJob({
           <DialogContent className="flex max-h-[95vh] flex-col gap-0 p-0 lg:max-w-[880px]">
             <DialogHeader className="px-8 pt-6 pb-5">
               <DialogTitle data-testid="add-job-dialog-title">
-                {pageTitle}
+                {tr(pageTitle)}
               </DialogTitle>
-              <DialogDescription>{pageDescription}</DialogDescription>
+              <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form
@@ -367,7 +369,7 @@ export function AddJob({
                 className="flex min-h-0 flex-1 flex-col"
               >
                 <div className="flex-1 space-y-7 overflow-y-auto px-8 py-6">
-                  <FormSection id="add-job-role" title="Role details">
+                  <FormSection id="add-job-role" title={tr("mae50d6596507")}>
                     {/* Job URL */}
                     <FormField
                       control={form.control}
@@ -375,10 +377,9 @@ export function AddJob({
                       render={({ field }) => (
                         <FormItem className="flex flex-col">
                           <div className="flex items-baseline gap-1">
-                            <FormLabel>Job URL</FormLabel>
+                            <FormLabel>{tr("mee787b30cf0e")}</FormLabel>
                             <span className="text-xs leading-none text-muted-foreground">
-                              · optional, keeps the posting one click away
-                            </span>
+                              {tr("m479610d9647f")}</span>
                           </div>
                           <InputGroup>
                             <InputGroupAddon align="inline-start">
@@ -386,7 +387,7 @@ export function AddJob({
                             </InputGroupAddon>
                             <FormControl>
                               <InputGroupInput
-                                placeholder="Copy and paste job link here"
+                                placeholder={tr("m20e9efc484dc")}
                                 {...field}
                               />
                             </FormControl>
@@ -404,7 +405,7 @@ export function AddJob({
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
                               <div className="flex items-baseline gap-1">
-                                <FormLabel>Job Title</FormLabel>
+                                <FormLabel>{tr("mde2c88352242")}</FormLabel>
                                 {requiredMark}
                               </div>
                               <FormControl>
@@ -428,7 +429,7 @@ export function AddJob({
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
                               <div className="flex items-baseline gap-1">
-                                <FormLabel>Company</FormLabel>
+                                <FormLabel>{tr("mde4743c87973")}</FormLabel>
                                 {requiredMark}
                               </div>
                               <FormControl>
@@ -452,7 +453,7 @@ export function AddJob({
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
                               <div className="flex items-baseline gap-1">
-                                <FormLabel>Job Location</FormLabel>
+                                <FormLabel>{tr("mdc04497effc8")}</FormLabel>
                                 {requiredMark}
                                 {!editJob &&
                                   location &&
@@ -478,13 +479,13 @@ export function AddJob({
                         name="salaryRange"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
-                            <FormLabel>Salary Range</FormLabel>
+                            <FormLabel>{tr("m8c03c4ca21ce")}</FormLabel>
                             <Combobox
                               options={SALARY_RANGES}
                               field={field}
                               creatable
                               freeText
-                              label="Salary Range"
+                              label={tr("m8c03c4ca21ce")}
                               fullWidth
                             />
                             <FormMessage />
@@ -497,9 +498,9 @@ export function AddJob({
                         name="workplaceType"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
-                            <FormLabel>Workplace Type</FormLabel>
+                            <FormLabel>{tr("m4e7dc8ef67c9")}</FormLabel>
                             <SegmentedRadio
-                              aria-label="Workplace Type"
+                              aria-label={tr("m4e7dc8ef67c9")}
                               options={Object.entries(WORKPLACE_TYPES).map(
                                 ([value, label]) => ({ value, label }),
                               )}
@@ -517,11 +518,11 @@ export function AddJob({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div className="flex items-baseline gap-1">
-                              <FormLabel>Job Type</FormLabel>
+                              <FormLabel>{tr("mbc89262d832e")}</FormLabel>
                               {requiredMark}
                             </div>
                             <SegmentedRadio
-                              aria-label="Job Type"
+                              aria-label={tr("mbc89262d832e")}
                               options={Object.entries(JOB_TYPES).map(
                                 ([value, label]) => ({ value, label }),
                               )}
@@ -535,7 +536,7 @@ export function AddJob({
                     </div>
                   </FormSection>
 
-                  <FormSection id="add-job-tracking" title="Tracking" muted>
+                  <FormSection id="add-job-tracking" title={tr("m36b6ca188619")} muted>
                     {/* Status */}
                     <FormField
                       control={form.control}
@@ -543,7 +544,7 @@ export function AddJob({
                       render={({ field }) => (
                         <FormItem className="flex flex-col">
                           <div className="flex items-baseline gap-1">
-                            <FormLabel>Status</FormLabel>
+                            <FormLabel>{tr("m920e413c7d41")}</FormLabel>
                             {requiredMark}
                           </div>
                           <StatusSegment
@@ -565,7 +566,7 @@ export function AddJob({
                         name="dateApplied"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
-                            <FormLabel>Date Applied</FormLabel>
+                            <FormLabel>{tr("md9609181b7d9")}</FormLabel>
                             <DatePicker
                               field={{
                                 ...field,
@@ -580,8 +581,7 @@ export function AddJob({
                             />
                             {isAutoFilledDate && (
                               <p className="text-xs text-primary">
-                                Set to today when you marked it Applied
-                              </p>
+                                {tr("m459324edd4cd")}</p>
                             )}
                             <FormMessage />
                           </FormItem>
@@ -594,7 +594,7 @@ export function AddJob({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div className="flex items-baseline gap-1">
-                              <FormLabel>Due Date</FormLabel>
+                              <FormLabel>{tr("m57870fd03032")}</FormLabel>
                               {requiredMark}
                             </div>
                             <DatePicker
@@ -605,7 +605,7 @@ export function AddJob({
                             />
                             {dueDate && (
                               <p className="text-xs text-muted-foreground">
-                                {dueDateHint(dueDate, new Date())}
+                                {dueDateHint(dueDate, new Date(), tr)}
                               </p>
                             )}
                             <FormMessage />
@@ -620,7 +620,7 @@ export function AddJob({
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
                               <div className="flex items-baseline gap-1">
-                                <FormLabel>Job Source</FormLabel>
+                                <FormLabel>{tr("med130db27021")}</FormLabel>
                                 {requiredMark}
                                 {!editJob &&
                                   source &&
@@ -641,14 +641,14 @@ export function AddJob({
                     </div>
                   </FormSection>
 
-                  <FormSection id="add-job-docs" title="Skills & documents">
+                  <FormSection id="add-job-docs" title={tr("m1cc36ad5cc48")}>
                     {/* Add Skill Tags */}
                     <FormField
                       control={form.control}
                       name="tags"
                       render={({ field }) => (
                         <FormItem className="flex flex-col">
-                          <FormLabel>Add Skill</FormLabel>
+                          <FormLabel>{tr("mf01ec050eca5")}</FormLabel>
                           <FormControl>
                             <TagInput
                               availableTags={availableTags}
@@ -668,13 +668,12 @@ export function AddJob({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div className="flex items-baseline gap-1">
-                              <FormLabel>Resume</FormLabel>
+                              <FormLabel>{tr("md640c7421da0")}</FormLabel>
                               <span className="text-xs leading-none text-muted-foreground">
-                                · Resumes are built on your Profile
-                              </span>
+                                {tr("mb7437d50cae6")}</span>
                             </div>
                             <SelectFormCtrl
-                              label="Resume"
+                              label={tr("md640c7421da0")}
                               fullWidth
                               options={resumes?.map((r) =>
                                 hasMinResumeSections(r._count?.ResumeSections)
@@ -697,9 +696,9 @@ export function AddJob({
                         name="coverLetter"
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
-                            <FormLabel>Cover Letter</FormLabel>
+                            <FormLabel>{tr("m1120f0ed04fb")}</FormLabel>
                             <SelectFormCtrl
-                              label="Cover Letter"
+                              label={tr("m1120f0ed04fb")}
                               fullWidth
                               options={coverLetters}
                               field={field}
@@ -719,11 +718,9 @@ export function AddJob({
                       <FormItem className="flex flex-col">
                         <div className="flex items-baseline justify-between gap-2">
                           <FormLabel id="job-description-label">
-                            Job Description
-                          </FormLabel>
+                            {tr("meddf43c6d489")}</FormLabel>
                           <span className="text-xs leading-none text-muted-foreground">
-                            Paste the full posting · powers Job Match
-                          </span>
+                            {tr("mb63de0e8a242")}</span>
                         </div>
                         <FormControl>
                           <TiptapEditor field={field} />

@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import {
   Check,
@@ -57,6 +59,8 @@ function InterviewRow({
   onEdit,
   onOutcomeSaved,
 }: InterviewRowProps) {
+  const tr = useT();
+
   const when = whenParts(interview.occurredAt);
   const outcome = outcomeLabel(interview.occurredAt, interview.outcome);
   const FormatIcon = FORMAT_ICONS[formatIconKind(interview.format)];
@@ -66,7 +70,7 @@ function InterviewRow({
   const saveOutcome = async (value: string | null) => {
     const res = await setStageOutcome(interview.id, value);
     toastActionResult(res, {
-      success: "Outcome saved",
+      success: uiMessage("mfa10b8eccf2e"),
       onSuccess: () => onOutcomeSaved(),
     });
   };
@@ -79,12 +83,12 @@ function InterviewRow({
             variant="ghost"
             size="icon"
             onClick={onToggle}
-            aria-label={`${expanded ? "Collapse" : "Expand"} ${title}`}
+            aria-label={`${expanded ? tr("mbe6eb1fc3b05") : tr("m07548c2c6511")} ${title}`}
           >
             {expanded ? (
               <ChevronDown className="h-4 w-4" />
             ) : (
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="rtl-mirror h-4 w-4" />
             )}
           </Button>
         </TableCell>
@@ -139,15 +143,14 @@ function InterviewRow({
             <DropdownMenuTrigger asChild>
               <Button aria-haspopup="true" size="icon" variant="ghost">
                 <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">{tr("mc02651240c87")}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger className="cursor-pointer">
-                  Set outcome
-                </DropdownMenuSubTrigger>
+                  {tr("mdae3746b5c13")}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   {STAGE_OUTCOMES.map((option) => (
                     <DropdownMenuItem
@@ -155,7 +158,7 @@ function InterviewRow({
                       className="cursor-pointer"
                       onClick={() => saveOutcome(option.value)}
                     >
-                      {option.label}
+                      {tr(option.label)}
                     </DropdownMenuItem>
                   ))}
                   {interview.outcome && (
@@ -163,22 +166,19 @@ function InterviewRow({
                       className="cursor-pointer"
                       onClick={() => saveOutcome(null)}
                     >
-                      Clear outcome
-                    </DropdownMenuItem>
+                      {tr("m4da0c6462127")}</DropdownMenuItem>
                   )}
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuItem className="cursor-pointer" onClick={onEdit}>
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit round
-              </DropdownMenuItem>
+                <Pencil className="me-2 h-4 w-4" />
+                {tr("m125491ecb74a")}</DropdownMenuItem>
               <DropdownMenuItem asChild className="cursor-pointer">
                 <Link
                   href={`/dashboard/myjobs/${interview.Job.id}?tab=timeline`}
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  Open job timeline
-                </Link>
+                  <ExternalLink className="me-2 h-4 w-4" />
+                  {tr("mcf8c85521c4b")}</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -191,13 +191,11 @@ function InterviewRow({
               <div className="space-y-4">
                 <div>
                   <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    Interviewers ({interview.interviewers.length})
+                    {tr("m23c625df9ecd")}{interview.interviewers.length})
                   </div>
                   {interview.interviewers.length === 0 ? (
                     <p className="mt-1 text-muted-foreground">
-                      Nobody linked yet — link interviewers on the job&apos;s
-                      Timeline tab.
-                    </p>
+                      {tr("me361c160593e")}</p>
                   ) : (
                     <ul className="mt-2 space-y-2">
                       {interview.interviewers.map((link) => (
@@ -227,8 +225,7 @@ function InterviewRow({
                 {interview.notes && (
                   <div>
                     <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                      Notes
-                    </div>
+                      {tr("m8a7525b1492f")}</div>
                     <p className="mt-1 whitespace-pre-wrap text-muted-foreground">
                       {interview.notes}
                     </p>
@@ -238,21 +235,19 @@ function InterviewRow({
               <div>
                 <div className="flex items-baseline gap-3">
                   <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    Prep questions ({prepSummary(interview.prepQuestions)})
+                    {tr("m165f1f68626a")}{prepSummary(interview.prepQuestions)})
                   </div>
                   {interview.prepQuestions.length > 0 && (
                     <Link
                       href={`/dashboard/questions?stage=${interview.id}`}
                       className="whitespace-nowrap text-xs text-primary underline-offset-4 hover:underline"
                     >
-                      View answers
-                    </Link>
+                      {tr("mbf666fba3ab0")}</Link>
                   )}
                 </div>
                 {interview.prepQuestions.length === 0 ? (
                   <p className="mt-1 text-muted-foreground">
-                    No prep list yet — build one on the job&apos;s Timeline tab.
-                  </p>
+                    {tr("mdd969e29b4ae")}</p>
                 ) : (
                   <ul className="mt-2 space-y-2">
                     {interview.prepQuestions.map((link) => (

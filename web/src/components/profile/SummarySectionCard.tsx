@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import { Pencil } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -13,21 +14,23 @@ function SummarySectionCard({
   summarySection,
   openDialogForEdit,
 }: SummarySectionCardProps) {
+  const tr = useT();
+
   const { sectionTitle, summary } = summarySection!;
   return (
     <>
-      <CardTitle className="pl-6 py-3">{sectionTitle}</CardTitle>
+      <CardTitle className="ps-6 py-3">{sectionTitle}</CardTitle>
       <Card>
         <CardHeader className="p-2 pb-0 flex-row justify-end items-center">
           <Button
-            title="Edit"
+            title={tr("m464c4ffd019e")}
             variant="ghost"
             size="icon"
             className="h-8 w-8"
             onClick={openDialogForEdit}
           >
             <Pencil className="h-3.5 w-3.5" />
-            <span className="sr-only">Edit</span>
+            <span className="sr-only">{tr("m464c4ffd019e")}</span>
           </Button>
         </CardHeader>
         <CardContent>

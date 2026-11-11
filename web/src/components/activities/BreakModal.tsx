@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Minus, Pause, Play, Plus, CircleStop, X } from "lucide-react";
@@ -23,6 +24,8 @@ interface BreakModalProps {
 }
 
 export function BreakModal({ open, onClose }: BreakModalProps) {
+  const tr = useT();
+
   const {
     currentActivity,
     isOnBreak,
@@ -76,8 +79,8 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
   useEffect(() => {
     if (!isOver || overtimeWarnedRef.current || !breakStartedMs) return;
     overtimeWarnedRef.current = true;
-    toastSuccess("Break time is up");
-  }, [isOver, breakStartedMs]);
+    toastSuccess(tr("m6da5d05daa07"));
+  }, [isOver, breakStartedMs, tr]);
 
   if (!open || !currentActivity) return null;
 
@@ -123,9 +126,9 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
           onEscapeKeyDown={(e) => e.preventDefault()}
           onPointerDownOutside={(e) => e.preventDefault()}
           onInteractOutside={(e) => e.preventDefault()}
-          className="fixed left-[50%] top-[50%] z-50 w-full max-w-sm translate-x-[-50%] translate-y-[-50%] rounded-lg border bg-background p-6 shadow-lg"
+          className="fixed start-[50%] top-[50%] z-50 w-full max-w-sm translate-x-[-50%] rtl:translate-x-1/2 translate-y-[-50%] rounded-lg border bg-background p-6 shadow-lg"
         >
-          <DialogTitle className="sr-only">Break in progress</DialogTitle>
+          <DialogTitle className="sr-only">{tr("m0d3fe4a41975")}</DialogTitle>
 
           {/* Only an unstarted break can be walked away from; once it is
               running the pause button is the way out. */}
@@ -133,10 +136,10 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="absolute end-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2"
             >
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{tr("m7d9eb7acb13e")}</span>
             </button>
           )}
 
@@ -146,8 +149,8 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
               <button
                 type="button"
                 disabled={pending}
-                aria-label={isOnBreak ? "Resume activity" : "Start break"}
-                title={isOnBreak ? "Resume activity" : "Start break"}
+                aria-label={isOnBreak ? tr("mcf179141a141") : tr("m2b9336aba617")}
+                title={isOnBreak ? tr("mcf179141a141") : tr("m2b9336aba617")}
                 onClick={isOnBreak ? handleResume : handleStart}
                 className="absolute inset-0 m-auto flex size-20 flex-col items-center justify-center gap-1 rounded-full bg-background text-muted-foreground transition-colors hover:text-foreground focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
               >
@@ -157,7 +160,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
                   <Play className="size-8" />
                 )}
                 <span className="text-xs font-medium">
-                  {isOnBreak ? "Resume" : "Start"}
+                  {isOnBreak ? tr("md640c7421da0") : tr("me4bb9f1ece9a")}
                 </span>
               </button>
             </div>
@@ -169,7 +172,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
                   : formatClock(Math.ceil((plannedMs - elapsedMs) / 1000))}
               </div>
               <div className="text-sm text-muted-foreground">
-                {isOver ? "Break over" : "Break"}
+                {isOver ? tr("m4d25b797453f") : tr("mf71081fb0af4")}
               </div>
             </div>
 
@@ -177,7 +180,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
               <Button
                 variant="outline"
                 size="icon"
-                aria-label="Decrease break length"
+                aria-label={tr("m4444e856c156")}
                 disabled={
                   plannedMinutes <= APP_CONSTANTS.ACTIVITY_BREAK_MIN_MINUTES
                 }
@@ -197,14 +200,13 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
                   variant={preset === plannedMinutes ? "default" : "outline"}
                   onClick={() => changeLength(preset)}
                 >
-                  {preset} min
-                </Button>
+                  {preset} {" "}{tr("m1f6fa6f69d18")}</Button>
               ))}
 
               <Button
                 variant="outline"
                 size="icon"
-                aria-label="Increase break length"
+                aria-label={tr("m4f9829386950")}
                 disabled={
                   plannedMinutes >= APP_CONSTANTS.ACTIVITY_BREAK_MAX_MINUTES
                 }
@@ -226,20 +228,19 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
                 onClick={isOnBreak ? handleResume : handleStart}
               >
                 {isOnBreak ? (
-                  <Pause className="mr-2 size-4" />
+                  <Pause className="me-2 size-4" />
                 ) : (
-                  <Play className="mr-2 size-4" />
+                  <Play className="me-2 size-4" />
                 )}
-                {isOnBreak ? "Resume Activity" : "Start Break"}
+                {isOnBreak ? tr("ma2149ac73c7f") : tr("m9184ba107de6")}
               </Button>
               <Button
                 variant="outline"
                 className="flex-1"
                 onClick={() => setConfirmStopOpen(true)}
               >
-                <CircleStop className="mr-2 size-4 text-red-500 dark:text-red-400" />
-                Stop Activity
-              </Button>
+                <CircleStop className="me-2 size-4 text-red-500 dark:text-red-400" />
+                {tr("m477c50badb21")}</Button>
             </div>
           </div>
 
@@ -248,9 +249,9 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
             open={confirmStopOpen}
             onOpenChange={setConfirmStopOpen}
             onDelete={handleStop}
-            alertTitle="Stop this activity?"
-            alertDescription="This ends and logs the activity, break time included. It cannot be resumed afterwards."
-            actionLabel="Stop Activity"
+            alertTitle={tr("m5066821b630c")}
+            alertDescription={tr("m50c3598d804f")}
+            actionLabel={tr("m477c50badb21")}
           />
         </DialogPrimitive.Content>
       </DialogPortal>

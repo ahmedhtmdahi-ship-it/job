@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toastSuccess, toastError } from "@/lib/toast";
 import { getAutomationRuns } from "@/actions/automation.actions";
@@ -27,6 +28,8 @@ export function useAutomationRun({
   loadData,
   refreshJobs,
 }: UseAutomationRunArgs) {
+ const tr = useT();
+
   const { refresh: refreshNotifications } = useNotifications();
   const [runNowLoading, setRunNowLoading] = useState(false);
   const [aborting, setAborting] = useState(false);
@@ -154,10 +157,10 @@ export function useAutomationRun({
       // finalizeRun writes notifications before the run row turns terminal.
       refreshNotifications();
       if (latest.status === "cancelled") {
-        toastError(`Saved ${latest.jobsSaved} new jobs`, "Run cancelled");
+        toastError(tr("m970e356262c5", {v0: latest.jobsSaved}), "Run cancelled");
       } else {
         toastSuccess(
-          `Saved ${latest.jobsSaved} new jobs`,
+          tr("m970e356262c5", {v0: latest.jobsSaved}),
           "Automation run complete",
         );
       }
@@ -169,7 +172,7 @@ export function useAutomationRun({
       stopped = true;
       clearInterval(interval);
     };
-  }, [runNowLoading, automationId, loadData, refreshNotifications]);
+  }, [runNowLoading, automationId, loadData, refreshNotifications, tr]);
 
   const handleRunNow = async () => {
     if (!automation) return;
@@ -202,7 +205,7 @@ export function useAutomationRun({
           setRunKey(0);
           setLogData((prev) => ({ ...prev, isRunning: false }));
         }
-        toastError(data.message || "Failed to start run");
+        toastError(tr(data.message || "Failed to start run"));
       }
       // On success the run is running in the background; the watcher effect
       // above handles completion.
@@ -210,7 +213,7 @@ export function useAutomationRun({
       setRunNowLoading(false);
       setRunKey(0);
       setLogData((prev) => ({ ...prev, isRunning: false }));
-      toastError("Failed to start run");
+      toastError(tr("Failed to start run"));
     }
   };
 

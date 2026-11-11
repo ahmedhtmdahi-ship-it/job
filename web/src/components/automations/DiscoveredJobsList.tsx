@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -58,6 +59,8 @@ export function DiscoveredJobsList({
   runInProgress = false,
   onBusyChange,
 }: DiscoveredJobsListProps) {
+  const tr = useT();
+
   const [clearOpen, setClearOpen] = useState(false);
   const [clearIncludeNew, setClearIncludeNew] = useState(false);
 
@@ -89,10 +92,9 @@ export function DiscoveredJobsList({
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-12">
           <Briefcase className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-medium">No discovered jobs</h3>
+          <h3 className="text-lg font-medium">{tr("ma577c2aa9ecb")}</h3>
           <p className="text-muted-foreground text-center mt-2">
-            Jobs discovered by automations will appear here.
-          </p>
+            {tr("m8f6b8ceb952d")}</p>
         </CardContent>
       </Card>
     );
@@ -115,24 +117,23 @@ export function DiscoveredJobsList({
         {jobs.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <Briefcase className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium">No jobs match this filter</h3>
+            <h3 className="text-lg font-medium">{tr("mb8526d788e4d")}</h3>
             <p className="text-muted-foreground mt-2">
-              Try selecting a different status above.
-            </p>
+              {tr("m3b23d97eea7e")}</p>
           </div>
         ) : (
           <>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Job</TableHead>
-                  <TableHead>Company</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead className="text-center">Pre-rank</TableHead>
-                  <TableHead className="text-center">Match</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Discovered</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{tr("mad617a0fdd57")}</TableHead>
+                  <TableHead>{tr("mde4743c87973")}</TableHead>
+                  <TableHead>{tr("m15b61974b270")}</TableHead>
+                  <TableHead className="text-center">{tr("m4ed1c972b5f7")}</TableHead>
+                  <TableHead className="text-center">{tr("m03c0e806becb")}</TableHead>
+                  <TableHead>{tr("m920e413c7d41")}</TableHead>
+                  <TableHead>{tr("m96a5ba634bfc")}</TableHead>
+                  <TableHead className="text-end">{tr("mff8059dc6752")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

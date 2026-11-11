@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DeleteAlertDialog } from "../DeleteAlertDialog";
@@ -27,16 +28,18 @@ type CompanyDetailsProps = {
   details: CompanyDetailsData;
 };
 
-function blockedDescription(total: number, dismissed: number) {
-  const jobs = `This company has ${total} associated job${total === 1 ? "" : "s"} (applied or not).`;
+function blockedDescription(total: number, dismissed: number, tr: ReturnType<typeof useT>) {
+  const jobs = tr("m7d0229d7bb1e", {v0: total, v1: total === 1 ? "" : "s"});
   const hidden =
     dismissed > 0
-      ? ` ${dismissed} of them ${dismissed === 1 ? "was" : "were"} dismissed by automations; pick Dismissed (discovered) on the Jobs page to see them.`
+      ? tr("m6410b32783fc", {v0: dismissed, v1: dismissed === 1 ? "was" : "were"})
       : "";
-  return `${jobs}${hidden} Remove or reassign them before deleting this company.`;
+  return tr("m12b4d58b74b9", {v0: jobs, v1: hidden});
 }
 
 function CompanyDetails({ details }: CompanyDetailsProps) {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const backHref =
@@ -65,13 +68,13 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
     const res = await setCompanyWatched(details.id, next);
     if (res.success) {
       toastSuccess(
-        next
-          ? `${details.label} added to your watchlist`
-          : `${details.label} removed from your watchlist. It stays in your Library.`,
+        tr(next
+          ? tr("m76503e1362b2", {v0: details.label})
+          : tr("m232855ebc5fd", {v0: details.label})),
       );
       router.refresh();
     } else {
-      toastError(res.message);
+      toastError(tr(res.message));
     }
   };
 
@@ -90,8 +93,8 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
       setAlert({
         openState: true,
         deleteAction: false,
-        title: "Associated jobs exist!",
-        description: blockedDescription(total, dismissedJobsCount),
+        title: tr("mcaedc6cab895"),
+        description: blockedDescription(total, dismissedJobsCount, tr),
       });
     } else {
       setAlert({ openState: true, deleteAction: true, itemId: details.id });
@@ -101,10 +104,10 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
   const deleteCompany = async () => {
     const { success, message } = await deleteCompanyById(details.id);
     if (success) {
-      toastSuccess("Company has been deleted successfully");
+      toastSuccess(tr("m5e37cf96d858"));
       router.push(backHref);
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -129,17 +132,15 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList>
             <TabsTrigger value="jobs">
-              Jobs
-              {jobs.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m2f17a0f8d518")}{jobs.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {jobs.length}
                 </Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="contacts">
-              Contacts
-              {contactsCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("mb450645debe2")}{contactsCount > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {contactsCount}
                 </Badge>
               )}

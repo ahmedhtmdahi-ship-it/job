@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import {
   AlertDialog,
@@ -29,31 +31,33 @@ export function DeleteAlertDialog({
   onOpenChange,
   onDelete,
   alertTitle,
-  alertDescription = "This action cannot be undone. This will permanently delete and remove data from server.",
+  alertDescription = uiMessage("m15c6b9cb370e"),
   deleteAction = true,
-  actionLabel = "Delete",
+  actionLabel = uiMessage("me2d0a54968ea"),
   actionVariant = "destructive",
 }: DeleteAlertDialogProps) {
+  const tr = useT();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {alertTitle ?? `Are you sure you want to delete this ${pageTitle}?`}
+            {alertTitle ? tr(alertTitle) : tr("m90d3f19c10dc", {v0: pageTitle})}
           </AlertDialogTitle>
           {/* asChild: a description may carry a list, which cannot nest in a p. */}
           <AlertDialogDescription asChild>
-            <div>{alertDescription}</div>
+            <div>{typeof alertDescription === "string" ? tr(alertDescription) : alertDescription}</div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           {deleteAction && (
             <AlertDialogAction
               className={buttonVariants({ variant: actionVariant })}
               onClick={onDelete}
             >
-              {actionLabel}
+              {tr(actionLabel)}
             </AlertDialogAction>
           )}
         </AlertDialogFooter>

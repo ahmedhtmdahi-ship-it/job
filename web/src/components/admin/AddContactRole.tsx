@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useTransition, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -27,9 +29,9 @@ import { createContactRole } from "@/actions/contactRole.actions";
 
 const AddContactRoleFormSchema = z.object({
   label: z
-    .string({ error: "Role name is required." })
-    .min(1, { message: "Role name cannot be empty." })
-    .max(60, { message: "Role name must be 60 characters or fewer." }),
+    .string({ error: uiMessage("mfd852f103ceb") })
+    .min(1, { message: uiMessage("m1ba3f7b9039d") })
+    .max(60, { message: uiMessage("m899e6a27217a") }),
 });
 
 type AddContactRoleProps = {
@@ -37,6 +39,8 @@ type AddContactRoleProps = {
 };
 
 function AddContactRole({ reloadRoles }: AddContactRoleProps) {
+  const tr = useT();
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -56,7 +60,7 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
     startTransition(async () => {
       const res = await createContactRole(values.label);
       toastActionResult(res, {
-        success: "Role has been added successfully.",
+        success: uiMessage("m459302d39f9b"),
         onSuccess: () => {
           setDialogOpen(false);
           reset();
@@ -76,17 +80,14 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
       >
         <PlusCircle className="h-3.5 w-3.5" />
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-          New Role
-        </span>
+          {tr("m0097c51ff978")}</span>
       </Button>
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add New Contact Role</DialogTitle>
+            <DialogTitle>{tr("m8777ae2fbb3b")}</DialogTitle>
             <DialogDescription>
-              Roles describe what a person was to you on one job — recruiter,
-              interviewer, reference.
-            </DialogDescription>
+              {tr("m0564bc2b4e9a")}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -95,9 +96,9 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
                 name="label"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role Name</FormLabel>
+                    <FormLabel>{tr("m1c05faf01fdb")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Panel Lead, Referrer" {...field} />
+                      <Input placeholder={tr("m9db9f9ded34a")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,12 +110,10 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
                   variant="outline"
                   onClick={() => setDialogOpen(false)}
                 >
-                  Cancel
-                </Button>
+                  {tr("m19766ed6ccb2")}</Button>
                 <Button type="submit" disabled={isPending}>
-                  Save
-                  {isPending && (
-                    <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />
+                  {tr("m1509f561f241")}{isPending && (
+                    <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />
                   )}
                 </Button>
               </DialogFooter>

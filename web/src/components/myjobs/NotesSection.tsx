@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NoteResponse } from "@/models/note.model";
 import { getNotesByJobId, deleteNote } from "@/actions/note.actions";
@@ -20,6 +22,8 @@ export function NotesSection({
   openTrigger,
   onCountChange,
 }: NotesSectionProps) {
+  const tr = useT();
+
   const [notes, setNotes] = useState<NoteResponse[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editNote, setEditNote] = useState<NoteResponse | null>(null);
@@ -51,7 +55,7 @@ export function NotesSection({
   const handleDelete = async () => {
     const result = await deleteNote(noteIdToDelete);
     toastActionResult(result, {
-      success: "Note deleted successfully",
+      success: uiMessage("med7194c9bf41"),
       onSuccess: () => loadNotes(),
     });
   };
@@ -81,10 +85,10 @@ export function NotesSection({
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
             {notes.length === 0
-              ? "Notes"
+              ? tr("m8a7525b1492f")
               : notes.length === 1
                 ? "1 note on this job"
-                : `${notes.length} notes on this job`}
+                : tr("m039f7bdbce50", {v0: notes.length})}
           </span>
           <Button
             variant="outline"
@@ -93,12 +97,11 @@ export function NotesSection({
             onClick={handleAddNote}
           >
             <PlusCircle className="h-3.5 w-3.5" />
-            New Note
-          </Button>
+            {tr("mb763c5ea3c57")}</Button>
         </div>
         <div className="mt-3 space-y-3">
           {notes.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No notes yet.</p>
+            <p className="text-sm text-muted-foreground">{tr("m57bde4deb215")}</p>
           ) : (
             notes.map((note) => (
               <NoteCard

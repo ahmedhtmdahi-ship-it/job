@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { BackupError, importBackup, readSnapshot } from "@/lib/backup";
@@ -9,13 +10,13 @@ import { log } from "@/lib/telemetry";
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("m76d1efbeed2d") }, { status: 401 });
   }
 
   try {
     const { snapshotId } = (await req.json()) as { snapshotId?: unknown };
     if (typeof snapshotId !== "string") {
-      return NextResponse.json({ error: "No snapshot selected" }, { status: 400 });
+      return NextResponse.json({ error: uiMessage("m016f77826b59") }, { status: 400 });
     }
 
     // readSnapshot validates the id against an anchored pattern before it
@@ -33,6 +34,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.userMessage }, { status: 400 });
     }
     log.error("[Backup] Rollback failed", { error: String(error) });
-    return NextResponse.json({ error: "Rollback failed." }, { status: 500 });
+    return NextResponse.json({ error: uiMessage("m0638f6f5421e") }, { status: 500 });
   }
 }

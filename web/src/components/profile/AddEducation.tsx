@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { AddEducationFormSchema } from "@/models/AddEductionForm.schema";
 import { Education, ResumeSection } from "@/models/profile.model";
 import { useForm } from "react-hook-form";
@@ -46,10 +48,12 @@ function AddEducation({
   setDialogOpen,
   educationToEdit,
 }: AddEducationProps) {
-  const pageTitle = educationToEdit ? "Edit Education" : "Add Education";
+  const tr = useT();
+
+  const pageTitle = educationToEdit ? uiMessage("mb56cfd35ea93") : uiMessage("m67806223d5e6");
   const pageDescription = educationToEdit
-    ? "Update this education entry on your resume."
-    : "Add an education entry to your resume.";
+    ? uiMessage("m004ed42856a6")
+    : uiMessage("m92bdac35c81f");
   const [isPending, startTransition] = useTransition();
   const [locations, setLocations] = useState<JobLocation[]>([]);
 
@@ -128,13 +132,11 @@ function AddEducation({
         ? await updateEducation(data)
         : await addEducation(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Education has been ${
-          educationToEdit ? "updated" : "added"
-        } successfully`);
+        toastSuccess(tr("mc099a29d2996", {v0: educationToEdit ? "updated" : "added"}));
       }
     });
   };
@@ -145,8 +147,8 @@ function AddEducation({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="h-full md:h-[85%] lg:max-h-screen md:max-w-[40rem] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
-          <DialogDescription>{pageDescription}</DialogDescription>
+          <DialogTitle>{tr(pageTitle)}</DialogTitle>
+          <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -162,9 +164,9 @@ function AddEducation({
                     name="sectionTitle"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Section Title</FormLabel>
+                        <FormLabel>{tr("mcde8d07e9b3b")}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="Ex: Education" />
+                          <Input {...field} placeholder={tr("m2bca41ba4b22")} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -182,9 +184,9 @@ function AddEducation({
                 name="institution"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>School</FormLabel>
+                    <FormLabel>{tr("m6cd2e331855d")}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Ex: Stanford" />
+                      <Input {...field} placeholder={tr("med880be50bb8")} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -199,7 +201,7 @@ function AddEducation({
                 name="location"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Location</FormLabel>
+                    <FormLabel>{tr("m15b61974b270")}</FormLabel>
                     <FormControl>
                       <Combobox options={locations!} field={field} creatable />
                     </FormControl>
@@ -216,9 +218,9 @@ function AddEducation({
                 name="degree"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Degree</FormLabel>
+                    <FormLabel>{tr("m719738a85289")}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Ex: Bachelor's" />
+                      <Input {...field} placeholder={tr("m3bb541aa892c")} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -232,9 +234,9 @@ function AddEducation({
                 name="fieldOfStudy"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Field of study</FormLabel>
+                    <FormLabel>{tr("m9e0514d9a893")}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Ex: Computer Science" />
+                      <Input {...field} placeholder={tr("mde64aa16e10e")} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -249,7 +251,7 @@ function AddEducation({
                 name="startDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Start Date</FormLabel>
+                    <FormLabel>{tr("m4c52faad5dc6")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -269,7 +271,7 @@ function AddEducation({
                 name="endDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>End Date</FormLabel>
+                    <FormLabel>{tr("me970951cfb6b")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -296,8 +298,8 @@ function AddEducation({
                         onDegreeCompleted(c);
                       }}
                     />
-                    <FormLabel className="flex items-center ml-4 mb-2">
-                      {field.value ? "Degree Completed" : "Currently Studying"}
+                    <FormLabel className="flex items-center ms-4 mb-2">
+                      {field.value ? tr("mc12775d13de6") : tr("m5d068c741a54")}
                     </FormLabel>
 
                     <FormMessage />
@@ -313,7 +315,7 @@ function AddEducation({
                 name="description"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{tr("m526e0087cc3f")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>

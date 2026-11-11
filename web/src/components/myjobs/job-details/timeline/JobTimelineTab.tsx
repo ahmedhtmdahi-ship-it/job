@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { CalendarClock } from "lucide-react";
 import type { JobStage, JobStageTypeRef } from "@/models/jobStage.model";
 import { JobTabEmptyState } from "../JobTabEmptyState";
@@ -31,15 +32,17 @@ export function JobTimelineTab({
   onAddPrepQuestions,
   onChanged,
 }: JobTimelineTabProps) {
+  const tr = useT();
+
   // A job restored from a pre-feature backup is permanently stageless, so
   // this is a supported state, not a transient one.
   if (stages.length === 0) {
     return (
       <JobTabEmptyState
         icon={CalendarClock}
-        title="No stages recorded yet"
-        description="Add the first stage to start this job's timeline. Its status stays as it is until a stage sets it."
-        actionLabel="Add stage"
+        title={tr("m05b88078acf2")}
+        description={tr("m1a723c8a2106")}
+        actionLabel={tr("m76fa771d57f8")}
         onAction={onAddStage}
         actionTestId="timeline-add-stage-btn"
       />

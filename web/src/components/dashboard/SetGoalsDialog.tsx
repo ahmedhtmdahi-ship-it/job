@@ -1,4 +1,7 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,7 +42,7 @@ interface SetGoalsDialogProps {
 const FIELDS = [
   {
     name: "jobs",
-    label: "Jobs applied per day",
+    label: uiMessage("m7b5c14851d4d"),
     noun: "jobs",
     ring: "var(--gc-ring-1)",
     min: DAILY_GOALS.JOBS_MIN,
@@ -47,7 +50,7 @@ const FIELDS = [
   },
   {
     name: "hours",
-    label: "Activity hours per day",
+    label: uiMessage("m5abb5177d8ac"),
     noun: "hours",
     ring: "var(--gc-ring-2)",
     min: DAILY_GOALS.HOURS_MIN,
@@ -62,6 +65,10 @@ export default function SetGoalsDialog({
   targets,
   onSaved,
 }: SetGoalsDialogProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const form = useForm<GoalTargets>({
     resolver: zodResolver(GoalTargetsSchema),
@@ -80,7 +87,7 @@ export default function SetGoalsDialog({
     startTransition(async () => {
       const result = await updateGoalTargets({ month, ...values });
       toastActionResult(result, {
-        success: "Daily goals saved.",
+        success: uiMessage("mfb3a0d9e8e4a"),
         onSuccess: (data) => {
           if (!data) return;
           onSaved(data);
@@ -89,7 +96,7 @@ export default function SetGoalsDialog({
       });
     });
 
-  const monthName = format(new Date(`${month}-01T00:00:00`), "MMMM yyyy");
+  const monthName = formatLocalized(new Date(`${month}-01T00:00:00`), "MMMM yyyy");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,7 +104,7 @@ export default function SetGoalsDialog({
       <DialogContent className="daily-goals-calendar sm:max-w-[440px]">
         <DialogHeader>
           <div className="flex items-center gap-2.5">
-            <DialogTitle>Daily goals</DialogTitle>
+            <DialogTitle>{tr("m1533e1efd2f2")}</DialogTitle>
             <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
               {monthName}
             </span>
@@ -120,9 +127,7 @@ export default function SetGoalsDialog({
             <div className="flex items-start gap-2.5 rounded-lg bg-muted p-3">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <DialogDescription className="text-[13px]">
-                Applies from {monthName} and carries forward until you change
-                it. Earlier months keep their own targets.
-              </DialogDescription>
+                {tr("m4dd08a491752")}{" "}{monthName} {" "}{tr("mf8cfab627728")}</DialogDescription>
             </div>
             <DialogFooter>
               <Button
@@ -130,15 +135,13 @@ export default function SetGoalsDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button
                 type="submit"
                 disabled={isPending || !form.formState.isDirty}
               >
-                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                Save goals
-              </Button>
+                {isPending && <Loader className="me-2 h-4 w-4 animate-spin" />}
+                {tr("m7a9e0ab2ec16")}</Button>
             </DialogFooter>
           </form>
         </Form>

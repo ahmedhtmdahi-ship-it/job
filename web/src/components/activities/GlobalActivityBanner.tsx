@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useActivity } from "@/context/ActivityContext";
 import { ActivityBanner } from "./ActivityBanner";
@@ -6,6 +7,8 @@ import { BreakModal } from "./BreakModal";
 import { ActivityType } from "@/models/activity.model";
 
 export function GlobalActivityBanner() {
+ const tr = useT();
+
   const { currentActivity, timeElapsed, stopActivity, isOnBreak } =
     useActivity();
   // The Break button only opens the modal; the break itself starts on play.
@@ -20,7 +23,7 @@ export function GlobalActivityBanner() {
       <div className="px-4 sm:px-6">
         <ActivityBanner
           title={currentActivity.activityName}
-          typeLabel={activityType?.label || "Activity"}
+          typeLabel={activityType?.label || tr("m38da1505ca83")}
           onStopActivity={stopActivity}
           onStartBreak={
             isOnBreak || breakOpen ? undefined : () => setBreakOpen(true)

@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   AlertCircle,
   CheckCircle2,
@@ -55,6 +57,8 @@ export function ActivityBanner({
   elapsedTime,
   className,
 }: BannerProps) {
+  const tr = useT();
+
   return (
     <div
       className={cn(
@@ -79,8 +83,8 @@ export function ActivityBanner({
 
       {onStartBreak && (
         <button
-          title="Take a break"
-          aria-label="Take a break"
+          title={tr("mb4ea6df7b49a")}
+          aria-label={tr("mb4ea6df7b49a")}
           type="button"
           className={cn(
             "shrink-0 inline-flex items-center justify-center gap-1.5 rounded-md p-1.5 opacity-70 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-2.5 lg:py-1",
@@ -89,13 +93,13 @@ export function ActivityBanner({
           onClick={onStartBreak}
         >
           <Coffee className="size-5 text-amber-600 dark:text-amber-400" />
-          <span className="hidden lg:inline">Break</span>
+          <span className="hidden lg:inline">{tr("mf71081fb0af4")}</span>
         </button>
       )}
 
       <button
-        title="Stop Activity"
-        aria-label="Stop Activity"
+        title={tr("m477c50badb21")}
+        aria-label={tr("m477c50badb21")}
         type="button"
         className={cn(
           "shrink-0 inline-flex items-center justify-center gap-1.5 rounded-md p-1.5 opacity-70 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 lg:px-2.5 lg:py-1",
@@ -104,7 +108,7 @@ export function ActivityBanner({
         onClick={() => onStopActivity(false)}
       >
         <CircleStop className="size-5 text-red-500 dark:text-red-400" />
-        <span className="hidden lg:inline">Stop Activity</span>
+        <span className="hidden lg:inline">{tr("m477c50badb21")}</span>
       </button>
     </div>
   );

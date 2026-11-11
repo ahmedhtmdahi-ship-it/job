@@ -1,4 +1,6 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { format } from "date-fns";
 import {
@@ -43,6 +45,10 @@ function ContactRow({
   onDelete,
   hideCompanyColumn,
 }: ContactRowProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const links = contact.jobLinks ?? [];
   // The standing role first, then any per-job role it does not already cover
   const roles = Array.from(
@@ -65,12 +71,12 @@ function ContactRow({
             variant="ghost"
             size="icon"
             onClick={onToggle}
-            aria-label={`${expanded ? "Collapse" : "Expand"} ${contact.name}`}
+            aria-label={`${expanded ? tr("mbe6eb1fc3b05") : tr("m07548c2c6511")} ${contact.name}`}
           >
             {expanded ? (
               <ChevronDown className="h-4 w-4" />
             ) : (
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="rtl-mirror h-4 w-4" />
             )}
           </Button>
         </TableCell>
@@ -101,29 +107,27 @@ function ContactRow({
         </TableCell>
         <TableCell>{contact._count?.jobLinks ?? 0}</TableCell>
         <TableCell>
-          {contact.lastContactedAt ? format(contact.lastContactedAt, "PP") : "—"}
+          {contact.lastContactedAt ? formatLocalized(contact.lastContactedAt, "PP") : "—"}
         </TableCell>
         <TableCell>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button aria-haspopup="true" size="icon" variant="ghost">
                 <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">{tr("mc02651240c87")}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
               <DropdownMenuItem className="cursor-pointer" onClick={onEdit}>
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit Contact
-              </DropdownMenuItem>
+                <Pencil className="me-2 h-4 w-4" />
+                {tr("m6b243902699b")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="text-red-600 cursor-pointer"
                 onClick={onDelete}
               >
-                <Trash className="mr-2 h-4 w-4" />
-                Delete
-              </DropdownMenuItem>
+                <Trash className="me-2 h-4 w-4" />
+                {tr("me2d0a54968ea")}</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </TableCell>
@@ -153,8 +157,7 @@ function ContactRow({
                         rel="noopener noreferrer"
                         className="text-primary underline-offset-4 hover:underline"
                       >
-                        LinkedIn
-                      </a>
+                        {tr("mdd84425b72da")}</a>
                     </div>
                   )}
                   {contact.Location && <div>{contact.Location.label}</div>}
@@ -163,8 +166,7 @@ function ContactRow({
               {hasHistoryBlock && (
                 <div className="space-y-1">
                   <div className="font-medium text-muted-foreground">
-                    How you know them
-                  </div>
+                    {tr("m7b7c14ee0bc6")}</div>
                   {contact.relationship && <div>{contact.relationship}</div>}
                   {contact.WorkedAtCompany && (
                     <div>{contact.WorkedAtCompany.label}</div>
@@ -187,7 +189,7 @@ function ContactRow({
                         href={`/dashboard/myjobs/${link.Job?.id}`}
                         className="text-primary underline-offset-4 hover:underline"
                       >
-                        {link.Job?.JobTitle.label} at {link.Job?.Company.label}
+                        {link.Job?.JobTitle.label} {" "}{tr("mb1d6b91b67c2")}{" "}{link.Job?.Company.label}
                       </Link>
                       {" — "}
                       {link.Role.label}

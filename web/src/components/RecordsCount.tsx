@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 type RecordsCountProps = {
   count: number;
   total?: number;
@@ -11,13 +12,15 @@ export function RecordsCount({
   total,
   label = "records",
 }: RecordsCountProps) {
+  const tr = useT();
+
   return (
     <div className="text-xs text-muted-foreground whitespace-nowrap">
-      Showing <strong>1 to {count}</strong>
+      {tr("md604310a789a")}{" "}<strong>{tr("mb6a286a95ade")}{" "}{count}</strong>
       {total !== undefined && (
         <>
           {" "}
-          of<strong> {total}</strong>
+          {tr("m28391d3bc64e")}<strong> {total}</strong>
         </>
       )}{" "}
       {label}

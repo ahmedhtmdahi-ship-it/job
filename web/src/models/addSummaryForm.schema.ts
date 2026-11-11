@@ -1,10 +1,11 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddSummarySectionFormSchema = z.object({
   id: z.string().optional(),
   sectionTitle: z
     .string({
-      error: "Section title is required.",
+      error: uiMessage("mb65b6c4ebde9"),
     })
     .min(1),
   sectionType: z.string().optional(),
@@ -13,7 +14,7 @@ export const AddSummarySectionFormSchema = z.object({
   resumeId: z.string().optional(),
   content: z
     .string({
-      error: "Summary content is required",
+      error: uiMessage("m0874883b291d"),
     })
     .min(10),
 });

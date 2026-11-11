@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { CheckCheck, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,15 +39,17 @@ interface NotificationsContainerProps {
 }
 
 const TABS: { id: NotificationTab; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "unread", label: "Unread" },
-  { id: "errors", label: "Errors" },
-  { id: "runs", label: "Runs" },
+  { id: "all", label: uiMessage("ma52ace420f21") },
+  { id: "unread", label: uiMessage("m1b9f384c1436") },
+  { id: "errors", label: uiMessage("mcb702378f315") },
+  { id: "runs", label: uiMessage("m848f54e89660") },
 ];
 const TAB_IDS = TABS.map((t) => t.id);
 const ALL_AUTOMATIONS = "all";
 
 export function NotificationsContainer({ initial, automations }: NotificationsContainerProps) {
+  const tr = useT();
+
   const { refresh } = useNotifications();
   const [rawTab, setTab] = useTabQueryParam(TAB_IDS, "all");
   const tab = rawTab as NotificationTab;
@@ -88,7 +92,7 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
   // Resyncs after an optimistic update the server rejected.
   const failed = (res: { success: boolean; message?: string }) => {
     if (res.success) return false;
-    toastError(res.message);
+    toastError(tr(res.message));
     query(tab, automationId, 0);
     return true;
   };
@@ -151,20 +155,17 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
     <Card>
       <ResponsiveCardHeader>
         <div className="flex flex-col gap-1.5">
-          <CardTitle>Notifications</CardTitle>
+          <CardTitle>{tr("m788011833a5a")}</CardTitle>
           <CardDescription>
-            Automation results and job board errors from the last 30 days.
-          </CardDescription>
+            {tr("m2ea54f164c83")}</CardDescription>
         </div>
-        <div className="flex items-center gap-2 sm:ml-auto">
+        <div className="flex items-center gap-2 sm:ms-auto">
           <Button variant="outline" size="sm" className="gap-1.5" onClick={onMarkAll}>
             <CheckCheck className="h-4 w-4" />
-            Mark all read
-          </Button>
+            {tr("m3bc62a9e6a39")}</Button>
           <Button variant="ghost" size="sm" className="gap-1.5" onClick={() => setPending({ kind: "clear" })}>
             <Trash2 className="h-4 w-4" />
-            Clear read
-          </Button>
+            {tr("mda9b249d0006")}</Button>
         </div>
       </ResponsiveCardHeader>
       <CardContent>
@@ -184,7 +185,7 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
                     : "border-transparent font-medium text-muted-foreground",
                 )}
               >
-                {t.label}
+                {tr(t.label)}
                 <span
                   className={cn(
                     "rounded-full px-1.5 text-[11px] font-semibold",
@@ -199,13 +200,13 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
             ))}
           </div>
           <div className="flex items-center gap-2 pb-2">
-            <span className="text-sm text-muted-foreground">Automation</span>
+            <span className="text-sm text-muted-foreground">{tr("md909750b1bbb")}</span>
             <Select value={automationId ?? ALL_AUTOMATIONS} onValueChange={onAutomationChange}>
-              <SelectTrigger className="h-8 w-[200px]" aria-label="Automation">
+              <SelectTrigger className="h-8 w-[200px]" aria-label={tr("md909750b1bbb")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={ALL_AUTOMATIONS}>All automations</SelectItem>
+                <SelectItem value={ALL_AUTOMATIONS}>{tr("mf64b24310aff")}</SelectItem>
                 {automations.map((a) => (
                   <SelectItem key={a.id} value={a.id}>
                     {a.name}
@@ -218,16 +219,15 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
 
         {items.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="text-sm font-medium">No notifications</p>
+            <p className="text-sm font-medium">{tr("mcbce2040cca5")}</p>
             <p className="text-sm text-muted-foreground">
-              Automation results will appear here after the next run.
-            </p>
+              {tr("m7873284102c4")}</p>
           </div>
         ) : (
           groups.map((g) => (
-            <section key={g.label} className="pt-4">
+            <section key={tr(g.label)} className="pt-4">
               <h3 className="px-4 pb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {g.label}
+                {tr(g.label)}
               </h3>
               <ul className="flex flex-col divide-y">
                 {g.items.map((item) => (
@@ -252,14 +252,12 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
               disabled={loading}
               onClick={() => query(tab, automationId, items.length)}
             >
-              Load more
-            </Button>
+              {tr("mac8991ef0101")}</Button>
           </div>
         )}
 
         <p className="pt-6 text-center text-xs text-muted-foreground">
-          Notifications older than 30 days are removed automatically.
-        </p>
+          {tr("m176af126531f")}</p>
       </CardContent>
       <DeleteAlertDialog
         pageTitle="notification"
@@ -267,12 +265,12 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
         onOpenChange={(open) => !open && setPending(null)}
         onDelete={onConfirmDelete}
         alertTitle={
-          pending?.kind === "clear" ? "Delete all read notifications?" : "Delete this notification?"
+          pending?.kind === "clear" ? tr("m8a86c55cf48c") : tr("ma1ff8dbe1c39")
         }
         alertDescription={
           pending?.kind === "clear"
-            ? "Every read notification is deleted, including ones not loaded on this page. This cannot be undone."
-            : "This notification is deleted for good. This cannot be undone."
+            ? tr("m00a541c19d5a")
+            : tr("m802a23b78f30")
         }
       />
     </Card>

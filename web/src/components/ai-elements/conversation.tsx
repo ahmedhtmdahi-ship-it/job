@@ -1,5 +1,6 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { UIMessage } from "ai";
@@ -42,8 +43,8 @@ export type ConversationEmptyStateProps = ComponentProps<"div"> & {
 
 export const ConversationEmptyState = ({
   className,
-  title = "No messages yet",
-  description = "Start a conversation to see messages here",
+  title = uiMessage("mf42e0f66017d"),
+  description = uiMessage("m49d3ce2ba5e7"),
   icon,
   children,
   ...props
@@ -85,7 +86,7 @@ export const ConversationScrollButton = ({
     !isAtBottom && (
       <Button
         className={cn(
-          "absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
+          "absolute bottom-4 start-[50%] translate-x-[-50%] rtl:translate-x-1/2 rounded-full dark:bg-background dark:hover:bg-muted",
           className
         )}
         onClick={handleScrollToBottom}
@@ -153,7 +154,7 @@ export const ConversationDownload = ({
   return (
     <Button
       className={cn(
-        "absolute top-4 right-4 rounded-full dark:bg-background dark:hover:bg-muted",
+        "absolute top-4 end-4 rounded-full dark:bg-background dark:hover:bg-muted",
         className
       )}
       onClick={handleDownload}

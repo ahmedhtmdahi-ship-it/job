@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import type { UseFormReturn } from "react-hook-form";
 import {
   Select,
@@ -26,13 +27,15 @@ export function StepSchedule({
   form: UseFormReturn<CreateAutomationInput>;
   takenHours: Set<number>;
 }) {
+  const tr = useT();
+
   return (
     <FormField
       control={form.control}
       name="scheduleHour"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Daily Run Time</FormLabel>
+          <FormLabel>{tr("m73e0d188fa39")}</FormLabel>
           <Select
             onValueChange={(val) => {
               field.onChange(parseInt(val));
@@ -42,7 +45,7 @@ export function StepSchedule({
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select time" />
+                <SelectValue placeholder={tr("me5293385514b")} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
@@ -50,17 +53,15 @@ export function StepSchedule({
                 <SelectItem key={hour.value} value={hour.value.toString()}>
                   {hour.label}
                   {takenHours.has(hour.value) && (
-                    <span className="ml-2 text-xs text-muted-foreground">
-                      In use
-                    </span>
+                    <span className="ms-2 text-xs text-muted-foreground">
+                      {tr("m750af77aa42e")}</span>
                   )}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
           <FormDescription>
-            The automation will run daily at this time (server timezone)
-          </FormDescription>
+            {tr("m8c7d9d292d55")}</FormDescription>
           <FormMessage />
         </FormItem>
       )}

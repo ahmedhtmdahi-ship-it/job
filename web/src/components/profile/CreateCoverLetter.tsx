@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { FileDown, Loader } from "lucide-react";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
@@ -48,15 +50,17 @@ function CreateCoverLetter({
   reloadDocuments,
   contactInfo,
 }: CreateCoverLetterProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [exportOpen, setExportOpen] = useState(false);
 
   const pageTitle = coverLetterToEdit
-    ? "Edit Cover Letter"
-    : "Create Cover Letter";
+    ? uiMessage("m12d3470daa0a")
+    : uiMessage("m9cd2d2a46d12");
   const pageDescription = coverLetterToEdit
-    ? "Update this cover letter."
-    : "Create a new cover letter for your profile.";
+    ? uiMessage("mda4020ca4fdf")
+    : uiMessage("mde7120c10720");
 
   const form = useForm<z.infer<typeof CoverLetterFormSchema>>({
     resolver: zodResolver(CoverLetterFormSchema),
@@ -99,14 +103,12 @@ function CreateCoverLetter({
         : await createCoverLetter(data.title, data.content);
 
       if (!success) {
-        toastError(message);
+        toastError(tr(message));
       } else {
         reset();
         setDialogOpen(false);
         reloadDocuments();
-        toastSuccess(`Cover letter has been ${
-          coverLetterToEdit ? "updated" : "created"
-        } successfully`);
+        toastSuccess(tr("m32791e02911a", {v0: coverLetterToEdit ? "updated" : "created"}));
       }
     });
   };
@@ -115,8 +117,8 @@ function CreateCoverLetter({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="lg:max-w-screen-md lg:max-h-screen overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
-          <DialogDescription>{pageDescription}</DialogDescription>
+          <DialogTitle>{tr(pageTitle)}</DialogTitle>
+          <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -131,11 +133,11 @@ function CreateCoverLetter({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cover Letter Title</FormLabel>
+                  <FormLabel>{tr("m0500c9fff776")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Ex: Software Engineer - Google"
+                      placeholder={tr("m8a0d31cf9338")}
                     />
                   </FormControl>
                   <FormMessage>
@@ -155,7 +157,7 @@ function CreateCoverLetter({
               key={coverLetterToEdit?.id ?? "new"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel>{tr("m47bd29075f8b")}</FormLabel>
                   <FormControl>
                     <Tiptap field={field} />
                   </FormControl>
@@ -180,8 +182,7 @@ function CreateCoverLetter({
                   onClick={() => setExportOpen(true)}
                 >
                   <FileDown className="h-4 w-4" />
-                  Export to PDF
-                </Button>
+                  {tr("mccd4fda2f607")}</Button>
                 <div>
                   <Button
                     type="reset"
@@ -189,12 +190,10 @@ function CreateCoverLetter({
                     className="mt-2 md:mt-0 w-full"
                     onClick={closeDialog}
                   >
-                    Cancel
-                  </Button>
+                    {tr("m19766ed6ccb2")}</Button>
                 </div>
                 <Button type="submit" disabled={!isValid}>
-                  Save
-                  {isPending && (
+                  {tr("m1509f561f241")}{isPending && (
                     <Loader className="h-4 w-4 shrink-0 spinner" />
                   )}
                 </Button>

@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import type { ScrapedJobData, DiscoveryStatus } from "@/models/automation.model";
 import { addDays } from "date-fns";
 import db from "@/lib/db";
@@ -126,7 +127,7 @@ async function getDefaultJobStatus(): Promise<string> {
 
   if (!status) {
     status = await db.jobStatus.create({
-      data: { label: "New", value: "new" },
+      data: { label: uiMessage("m18fdd549b2ed"), value: "new" },
     });
   }
 

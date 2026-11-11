@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useState } from "react";
 import { useActivity } from "@/context/ActivityContext";
 import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
@@ -7,6 +8,8 @@ import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
 type StartAction = () => boolean | void | Promise<boolean | void>;
 
 export function useActivitySwitchConfirm() {
+ const tr = useT();
+
   const { currentActivity, stopActivity, refreshCurrentActivity } =
     useActivity();
   const [pendingAction, setPendingAction] = useState<StartAction | null>(null);
@@ -50,13 +53,13 @@ export function useActivitySwitchConfirm() {
       open={pendingAction !== null}
       onOpenChange={(open) => !open && setPendingAction(null)}
       onDelete={confirmSwitch}
-      alertTitle="Stop current activity and start a new one?"
+      alertTitle={tr("m699897ecd255")}
       alertDescription={
         currentActivity
           ? `"${currentActivity.activityName}" is currently in progress. Stop it and start the new activity?`
           : undefined
       }
-      actionLabel="Stop & Start"
+      actionLabel={tr("mac752fde0ae3")}
       actionVariant="default"
     />
   );

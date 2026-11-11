@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 import { COMPANY_NOTES_MAX_LENGTH, COMPANY_SIZES } from "@/lib/constants";
 
@@ -36,7 +37,7 @@ export const AddCompanyFormSchema = z.object({
   createdBy: z.string().optional(),
   company: z
     .string({
-      error: "Company name is required.",
+      error: uiMessage("ma5e52bf6d475"),
     })
     .min(1),
   logoUrl: z

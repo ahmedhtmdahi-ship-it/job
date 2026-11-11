@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -44,6 +45,8 @@ export function AutomationWizard({
   onSuccess,
   editAutomation,
 }: AutomationWizardProps) {
+  const tr = useT();
+
   const {
     form,
     formValues,
@@ -72,10 +75,10 @@ export function AutomationWizard({
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {editAutomation ? "Edit Automation" : "Create Automation"}
+            {editAutomation ? tr("ma450ea5e177b") : tr("mc3078d7906bd")}
           </DialogTitle>
           <DialogDescription>
-            Step {step + 1} of {STEPS.length}: {STEPS[step].description}
+            {tr("m8e6a6cca7aae")}{" "}{step + 1} {" "}{tr("m28391d3bc64e")}{" "}{STEPS.length}: {STEPS[step].description}
           </DialogDescription>
         </DialogHeader>
 
@@ -97,14 +100,14 @@ export function AutomationWizard({
                 selectedResume &&
                 !hasMinResumeSections(selectedResume.sectionCount)
               ) {
-                toastError(buildIncompleteResumeHint());
+                toastError(tr(buildIncompleteResumeHint()));
                 return;
               }
               return onSubmit(data);
             }, (errors) => {
               const firstError = Object.values(errors)[0];
               if (firstError?.message) {
-                toastError(firstError.message as string, "Validation Error");
+                toastError(tr(firstError.message as string), tr("m142762b3bdf8"));
               }
             })}
           >
@@ -153,9 +156,8 @@ export function AutomationWizard({
             <DialogFooter className="gap-2">
               {step > 0 && (
                 <Button type="button" variant="outline" onClick={prevStep}>
-                  <ChevronLeft className="h-4 w-4 mr-1" />
-                  Back
-                </Button>
+                  <ChevronLeft className="rtl-mirror h-4 w-4 me-1" />
+                  {tr("m76900f1bfd16")}</Button>
               )}
               {step < STEPS.length - 1 ? (
                 <Button
@@ -163,16 +165,14 @@ export function AutomationWizard({
                   onClick={nextStep}
                   disabled={!canGoNext()}
                 >
-                  Next
-                  <ChevronRight className="h-4 w-4 ml-1" />
+                  {tr("m1ff57a29d7c9")}<ChevronRight className="rtl-mirror h-4 w-4 ms-1" />
                 </Button>
               ) : (
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting && (
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    <Loader2 className="h-4 w-4 me-2 animate-spin" />
                   )}
-                  {editAutomation ? "Update" : "Create"} Automation
-                </Button>
+                  {editAutomation ? tr("mc1c1009d3f37") : tr("m4759498ac2a7")} {" "}{tr("md909750b1bbb")}</Button>
               )}
             </DialogFooter>
           </form>

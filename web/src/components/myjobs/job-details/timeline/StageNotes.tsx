@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +14,8 @@ type StageNotesProps = {
 };
 
 export function StageNotes({ stage, onChanged }: StageNotesProps) {
+  const tr = useT();
+
   const [draft, setDraft] = useState(stage.notes ?? "");
   const [saving, startTransition] = useTransition();
 
@@ -26,7 +30,7 @@ export function StageNotes({ stage, onChanged }: StageNotesProps) {
   const save = () => {
     startTransition(async () => {
       const res = await setStageNotes(stage.id, draft);
-      toastActionResult(res, { success: "Note saved", onSuccess: onChanged });
+      toastActionResult(res, { success: uiMessage("m123e3c0af800"), onSuccess: onChanged });
     });
   };
 
@@ -36,13 +40,12 @@ export function StageNotes({ stage, onChanged }: StageNotesProps) {
         htmlFor={`stage-notes-${stage.id}`}
         className="text-[11px] font-bold tracking-wide text-muted-foreground"
       >
-        NOTES
-      </label>
+        {tr("m7bfab6c61f77")}</label>
       <Textarea
         id={`stage-notes-${stage.id}`}
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
-        placeholder="What happened, what to prepare next time…"
+        placeholder={tr("m2e9c45c975c3")}
         className="mt-2 min-h-18 resize-none text-sm"
       />
       {/* Only once there is something to save: the artboard shows the edit
@@ -55,16 +58,14 @@ export function StageNotes({ stage, onChanged }: StageNotesProps) {
             className="cursor-pointer"
             onClick={() => setDraft(stage.notes ?? "")}
           >
-            Cancel
-          </Button>
+            {tr("m19766ed6ccb2")}</Button>
           <Button
             size="sm"
             className="cursor-pointer"
             disabled={saving}
             onClick={save}
           >
-            Save Changes
-          </Button>
+            {tr("m35322b5bb5a2")}</Button>
         </div>
       )}
     </div>

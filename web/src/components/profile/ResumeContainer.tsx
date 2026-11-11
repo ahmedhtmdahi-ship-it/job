@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { Resume, ResumeSection, SectionType } from "@/models/profile.model";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { AddResumeSectionRef } from "./AddResumeSection";
@@ -40,6 +42,8 @@ function ResumeContainer({
   resume: Resume;
   defaultResumeId?: string | null;
 }) {
+  const tr = useT();
+
   const router = useRouter();
   const goBack = () => router.back();
   const isDefault = !!resume?.id && resume.id === defaultResumeId;
@@ -115,7 +119,7 @@ function ResumeContainer({
     } catch {
       // Reported by the action itself; the review still goes out.
     }
-    void sendMessage({ parts: [{ type: "text", text: `Review ${title}` }] });
+    void sendMessage({ parts: [{ type: "text", text: tr("mb732746458d1", {v0: title}) }] });
   };
 
   const onReviewClick = () => {
@@ -155,7 +159,7 @@ function ResumeContainer({
     if (!skillsSection?.id) return;
     const result = await deleteSkillsSection(skillsSection.id);
     toastActionResult(result, {
-      success: "Skills section has been deleted successfully",
+      success: uiMessage("m16166883d62c"),
       onSuccess: () => router.refresh(),
     });
   };
@@ -173,7 +177,7 @@ function ResumeContainer({
   const handleDeleteCertification = async (certificationId: string) => {
     const result = await deleteCertification(certificationId);
     toastActionResult(result, {
-      success: "Certification has been deleted successfully",
+      success: uiMessage("m2b3764302c9d"),
       onSuccess: () => router.refresh(),
     });
   };
@@ -187,10 +191,10 @@ function ResumeContainer({
     if (!resume?.id) return;
     const { success, message } = await setDefaultResume(resume.id);
     if (success) {
-      toastSuccess("This resume is now your default.");
+      toastSuccess(tr("m6f3c63013e9b"));
       router.refresh();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -212,9 +216,9 @@ function ResumeContainer({
         open={setDefaultConfirmOpen}
         onOpenChange={setSetDefaultConfirmOpen}
         onDelete={handleSetDefault}
-        alertTitle="Change default resume?"
-        alertDescription="This will make this resume your default, replacing any current default."
-        actionLabel="Set as default"
+        alertTitle={tr("m525c79604b21")}
+        alertDescription={tr("m23a0975b1087")}
+        actionLabel={tr("md09b4dd6265a")}
         actionVariant="default"
       />
 
@@ -223,8 +227,7 @@ function ResumeContainer({
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <Sparkles className="h-4 w-4" />
-              AI Review
-            </CardTitle>
+              {tr("m66af8f4e341e")}</CardTitle>
             <ReviewDetails reviewData={parsedReviewData} />
           </CardHeader>
         </Card>

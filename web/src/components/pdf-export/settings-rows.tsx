@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { ChevronDown, ChevronRight, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,19 +44,20 @@ export function SelectRow<T extends string>({
   labels: Record<T, string>;
   onSelect: (value: T) => void;
 }) {
+  const tr = useT();
   return (
     <div className={ROW}>
       <Label htmlFor={id} className="cursor-pointer font-normal">
-        {label}
+        {tr(label)}
       </Label>
       <Select value={value} onValueChange={(next) => onSelect(next as T)}>
-        <SelectTrigger id={id} aria-label={label} className="ml-auto h-8 w-40">
+        <SelectTrigger id={id} aria-label={tr(label)} className="ms-auto h-8 w-40">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
           {(Object.keys(labels) as T[]).map((key) => (
             <SelectItem key={key} value={key}>
-              {labels[key]}
+              {tr(labels[key])}
             </SelectItem>
           ))}
         </SelectContent>
@@ -78,6 +80,7 @@ export function StepperRow({
   value: number;
   onCommit: (value: number) => void;
 }) {
+  const tr = useT();
   const spec = PDF_NUMERIC_SETTINGS[field];
   const id = `${idPrefix}-${field}`;
   const [draft, setDraft] = useState(() => String(value));
@@ -102,15 +105,15 @@ export function StepperRow({
   return (
     <div className={ROW}>
       <Label htmlFor={id} className="cursor-pointer font-normal">
-        {spec.label}
+        {tr(spec.label)}
       </Label>
-      <div className="ml-auto flex items-center gap-1">
+      <div className="ms-auto flex items-center gap-1">
         <Button
           type="button"
           variant="outline"
           size="icon"
           className="h-7 w-7 shrink-0"
-          aria-label={`Decrease ${spec.label}`}
+          aria-label={tr("m43e281896a1d", {v0: tr(spec.label)})}
           disabled={value <= spec.min}
           onClick={() => stepBy(-1)}
         >
@@ -129,14 +132,14 @@ export function StepperRow({
           className="h-7 w-16 px-2 text-center text-sm"
         />
         {spec.unit && (
-          <span className="w-4 text-xs text-muted-foreground">{spec.unit}</span>
+          <span className="w-4 text-xs text-muted-foreground">{tr(spec.unit)}</span>
         )}
         <Button
           type="button"
           variant="outline"
           size="icon"
           className="h-7 w-7 shrink-0"
-          aria-label={`Increase ${spec.label}`}
+          aria-label={tr("m88aa728c56c6", {v0: tr(spec.label)})}
           disabled={value >= spec.max}
           onClick={() => stepBy(1)}
         >
@@ -164,12 +167,12 @@ export function DisclosureGroup({
         {open ? (
           <ChevronDown className="h-4 w-4" aria-hidden />
         ) : (
-          <ChevronRight className="h-4 w-4" aria-hidden />
+          <ChevronRight className="rtl-mirror h-4 w-4" aria-hidden />
         )}
         {title}
       </CollapsibleTrigger>
       {!open && (
-        <p className="pl-[1.375rem] text-xs text-muted-foreground">{summary}</p>
+        <p className="ps-[1.375rem] text-xs text-muted-foreground">{summary}</p>
       )}
       <CollapsibleContent className="mt-2 rounded-lg border bg-muted/40">
         {children}

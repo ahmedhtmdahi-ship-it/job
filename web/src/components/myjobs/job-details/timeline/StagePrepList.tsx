@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { ChevronDown, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,6 +33,8 @@ export function StagePrepList({
   onAddPrepQuestions,
   onChanged,
 }: StagePrepListProps) {
+  const tr = useT();
+
   const [, startTransition] = useTransition();
   // Optimistic so the checkbox never lags the click; the reload below is what
   // makes it durable.
@@ -46,7 +50,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await setPrepQuestionAsked(linkId, next);
       toastActionResult(res, {
-        success: next ? "Marked as asked" : "Marked as not asked",
+        success: next ? uiMessage("m97a0d6ac958e") : uiMessage("m58e4fbc8420f"),
         onSuccess: onChanged,
       });
       // Rolled back only on failure: on success the reload lands on the same
@@ -61,7 +65,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await removeStagePrepQuestion(linkId);
       toastActionResult(res, {
-        success: "Question removed from the prep list",
+        success: uiMessage("mcb74c320c673"),
         onSuccess: onChanged,
       });
     });
@@ -82,8 +86,7 @@ export function StagePrepList({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs text-muted-foreground">
-          Check off a question once your interviewer actually asks it.
-        </p>
+          {tr("m35a8439af53b")}</p>
         <div className="flex items-center gap-2">
           {answerable.length > 0 && (
             <Button
@@ -98,7 +101,7 @@ export function StagePrepList({
                   allExpanded && "rotate-180",
                 )}
               />
-              {allExpanded ? "Collapse all" : "Expand all"}
+              {allExpanded ? tr("m25f7b3721119") : tr("ma3e586be3eff")}
             </Button>
           )}
           <Button
@@ -108,15 +111,13 @@ export function StagePrepList({
             onClick={onAddPrepQuestions}
           >
             <Plus className="h-3 w-3" />
-            Add Questions
-          </Button>
+            {tr("m683ca4af9a3f")}</Button>
         </div>
       </div>
 
       {total === 0 ? (
         <p className="mt-2.5 rounded-lg border border-dashed p-4 text-center text-sm text-muted-foreground">
-          No questions on this prep list yet.
-        </p>
+          {tr("me486687cb980")}</p>
       ) : (
         <ul className="mt-2.5 overflow-hidden rounded-lg border">
           {rows.map((row, index) => {
@@ -145,8 +146,7 @@ export function StagePrepList({
                   ))}
                   {!answered && (
                     <span className="text-[11px] italic text-muted-foreground">
-                      No answer yet
-                    </span>
+                      {tr("m405cf39b2967")}</span>
                   )}
                 </span>
               </>
@@ -165,14 +165,14 @@ export function StagePrepList({
                     type="checkbox"
                     className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-emerald-600"
                     checked={isAsked}
-                    aria-label={`Mark ${row.Question.question} as asked`}
+                    aria-label={tr("m36d1681f2a12", {v0: row.Question.question})}
                     onChange={(e) => toggle(row.id, e.target.checked)}
                   />
                   {/* The text expands the answer; only the checkbox marks asked. */}
                   {answered ? (
                     <button
                       type="button"
-                      className="flex-1 cursor-pointer text-left"
+                      className="flex-1 cursor-pointer text-start"
                       aria-expanded={isOpen}
                       onClick={() => setOpen(row.id, !isOpen)}
                     >
@@ -183,8 +183,7 @@ export function StagePrepList({
                   )}
                   {isAsked && (
                     <span className="shrink-0 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
-                      Asked
-                    </span>
+                      {tr("m821c038b7a77")}</span>
                   )}
                   {answered && (
                     <Button
@@ -192,7 +191,7 @@ export function StagePrepList({
                       size="icon"
                       className="h-7 w-7 shrink-0 cursor-pointer"
                       aria-expanded={isOpen}
-                      aria-label={`${isOpen ? "Hide" : "Show"} the answer to ${row.Question.question}`}
+                      aria-label={tr("mec9dfde032b2", {v0: isOpen ? tr("mac20a57bfde0") : tr("m0df6f1cad36c"), v1: row.Question.question})}
                       onClick={() => setOpen(row.id, !isOpen)}
                     >
                       <ChevronDown
@@ -207,7 +206,7 @@ export function StagePrepList({
                     variant="ghost"
                     size="icon"
                     className="h-7 w-7 shrink-0 cursor-pointer"
-                    aria-label={`Remove ${row.Question.question} from the prep list`}
+                    aria-label={tr("m502051cceaa4", {v0: row.Question.question})}
                     onClick={() => remove(row.id)}
                   >
                     <X className="h-3.5 w-3.5" />
@@ -215,7 +214,7 @@ export function StagePrepList({
                 </div>
 
                 {isOpen && (
-                  <div className="prose prose-sm dark:prose-invert mt-2.5 ml-6.5 max-w-none border-t pt-2.5 text-[13px] text-muted-foreground">
+                  <div className="prose prose-sm dark:prose-invert mt-2.5 ms-6.5 max-w-none border-t pt-2.5 text-[13px] text-muted-foreground">
                     <TipTapContentViewer content={row.Question.answer!} />
                   </div>
                 )}

@@ -1,10 +1,11 @@
+import {message as uiMessage} from "@/i18n/message";
 import { ActivityType } from "./activity.model";
 
 export const TASK_STATUSES = {
-  "in-progress": "In Progress",
-  "complete": "Complete",
-  "needs-attention": "Needs Attention",
-  "cancelled": "Cancelled",
+  "in-progress": uiMessage("mb4cc4b07c300"),
+  "complete": uiMessage("m143b270a3260"),
+  "needs-attention": uiMessage("m63cdbf0ebd1d"),
+  "cancelled": uiMessage("md353a99eb455"),
 } as const;
 
 export type TaskStatus = keyof typeof TASK_STATUSES;

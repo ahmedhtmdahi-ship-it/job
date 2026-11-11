@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   ArrowLeft,
   ExternalLink,
@@ -39,6 +40,8 @@ export function CompanyDetailsHeader({
   onEdit,
   onDelete,
 }: CompanyDetailsHeaderProps) {
+  const tr = useT();
+
   const subtitle = [company.industry, hostnameOf(company.websiteUrl)]
     .filter(Boolean)
     .join(" · ");
@@ -51,10 +54,10 @@ export function CompanyDetailsHeader({
         })
       : null;
   const links = [
-    { label: "Open website", href: company.websiteUrl ? formatUrl(company.websiteUrl) : null },
-    { label: "Open careers page", href: company.careersUrl ? formatUrl(company.careersUrl) : null },
-    { label: "Open LinkedIn", href: company.linkedinUrl ? formatUrl(company.linkedinUrl) : null },
-    { label: "Open job board", href: boardUrl },
+    { label: tr("m345173567bc6"), href: company.websiteUrl ? formatUrl(company.websiteUrl) : null },
+    { label: tr("mdb0f789ba056"), href: company.careersUrl ? formatUrl(company.careersUrl) : null },
+    { label: tr("mb7f7e84d2d99"), href: company.linkedinUrl ? formatUrl(company.linkedinUrl) : null },
+    { label: tr("m2381c715b663"), href: boardUrl },
   ].filter((link): link is { label: string; href: string } => !!link.href);
 
   return (
@@ -63,11 +66,11 @@ export function CompanyDetailsHeader({
         <Button
           variant="ghost"
           size="icon"
-          title="Go Back"
-          aria-label="Back to Companies"
+          title={tr("mb8d99df1066e")}
+          aria-label={tr("mc1e6bdefe8ab")}
           onClick={onBack}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="rtl-mirror h-4 w-4" />
         </Button>
         <CompanyLogo
           logoUrl={company.logoUrl}
@@ -81,44 +84,42 @@ export function CompanyDetailsHeader({
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="outline" className="cursor-pointer" onClick={onToggleWatch}>
           {company.watched ? (
-            <EyeOff className="h-4 w-4 sm:mr-2" />
+            <EyeOff className="h-4 w-4 sm:me-2" />
           ) : (
-            <Eye className="h-4 w-4 sm:mr-2" />
+            <Eye className="h-4 w-4 sm:me-2" />
           )}
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            {company.watched ? "Unwatch" : "Watch"}
+            {company.watched ? tr("m2aaf52f0a013") : tr("ma71e75732446")}
           </span>
         </Button>
         <Button variant="outline" className="cursor-pointer" onClick={onEdit}>
-          <Pencil className="h-4 w-4 sm:mr-2" />
+          <Pencil className="h-4 w-4 sm:me-2" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Edit
-          </span>
+            {tr("m464c4ffd019e")}</span>
         </Button>
         <Button
           variant="outline"
           className="text-destructive hover:text-destructive cursor-pointer"
           onClick={onDelete}
         >
-          <Trash2 className="h-4 w-4 sm:mr-2" />
+          <Trash2 className="h-4 w-4 sm:me-2" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Delete
-          </span>
+            {tr("me2d0a54968ea")}</span>
         </Button>
         {links.length > 0 && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button aria-haspopup="true" size="icon" variant="ghost">
                 <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">More links</span>
+                <span className="sr-only">{tr("m18c67781bdf7")}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[200px]">
-              <DropdownMenuLabel>Links</DropdownMenuLabel>
+              <DropdownMenuLabel>{tr("m9024c197d849")}</DropdownMenuLabel>
               {links.map((link) => (
                 <DropdownMenuItem key={link.label} className="cursor-pointer" asChild>
                   <a href={link.href} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="me-2 h-4 w-4" />
                     {link.label}
                   </a>
                 </DropdownMenuItem>

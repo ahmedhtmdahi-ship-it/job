@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -96,6 +97,8 @@ export function AddStageDialog({
   onOpenChange,
   onSaved,
 }: AddStageDialogProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<AddJobStageValues>({
@@ -131,7 +134,7 @@ export function AddStageDialog({
         ? await updateJobStage({ ...values, id: stage.id })
         : await addJobStage(values);
       toastActionResult(res, {
-        success: `Stage has been ${stage ? "updated" : "added"} successfully`,
+        success: stage ? tr("m88ebba625fb6") : tr("m77ba66c483f5"),
         onSuccess: () => {
           onSaved();
           onOpenChange(false);
@@ -144,7 +147,7 @@ export function AddStageDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[480px] max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{stage ? "Edit Stage" : "Add Stage"}</DialogTitle>
+          <DialogTitle>{stage ? tr("m4f415f933340") : tr("mafe6f5a22533")}</DialogTitle>
           <DialogDescription>{jobLabel}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -154,13 +157,13 @@ export function AddStageDialog({
               name="stageTypeId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>STAGE</FormLabel>
+                  <FormLabel>{tr("maf90e3e0428e")}</FormLabel>
                   <div data-testid="stage-type-select">
                     <Combobox
                       options={stageTypes}
                       field={field}
                       fullWidth
-                      label="stage"
+                      label={tr("mc7ff6dcd94d7")}
                     />
                   </div>
                   <FormMessage />
@@ -173,10 +176,10 @@ export function AddStageDialog({
               name="customLabel"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>OR ENTER A CUSTOM STAGE NAME</FormLabel>
+                  <FormLabel>{tr("md057086f9723")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g. Panel Interview, Reference Check…"
+                      placeholder={tr("m231b3f66af10")}
                       {...field}
                     />
                   </FormControl>
@@ -191,10 +194,11 @@ export function AddStageDialog({
                 name="customStatusId"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>PARENT STATUS</FormLabel>
+                    <FormLabel>{tr("mc1e821ab2576")}</FormLabel>
                     <SelectFormCtrl
-                      label="status"
+                      label={tr("m073c1634c496")}
                       options={jobStatuses}
+                      localizeOptions
                       field={field}
                     />
                     <FormMessage />
@@ -209,7 +213,7 @@ export function AddStageDialog({
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>DATE</FormLabel>
+                    <FormLabel>{tr("m17f9a0a512ab")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -227,7 +231,7 @@ export function AddStageDialog({
                 name="time"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>TIME</FormLabel>
+                    <FormLabel>{tr("m5888675d99b9")}</FormLabel>
                     <TimePicker field={field} fullWidth />
                     <FormMessage />
                   </FormItem>
@@ -242,9 +246,9 @@ export function AddStageDialog({
                   name="format"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>FORMAT</FormLabel>
+                      <FormLabel>{tr("m795349a1babd")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. Video, Phone" {...field} />
+                        <Input placeholder={tr("m4d41a686afbf")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -255,7 +259,7 @@ export function AddStageDialog({
                   name="durationMins"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>DURATION (MIN)</FormLabel>
+                      <FormLabel>{tr("m3ac94c4b23d8")}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -278,10 +282,10 @@ export function AddStageDialog({
                     name="location"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>LOCATION</FormLabel>
+                        <FormLabel>{tr("mec4ecc14f8b5")}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="e.g. 200 King St W, or a meeting link"
+                            placeholder={tr("mea4fc1f825b1")}
                             {...field}
                           />
                         </FormControl>
@@ -299,10 +303,11 @@ export function AddStageDialog({
                 name="outcome"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>OUTCOME</FormLabel>
+                    <FormLabel>{tr("mbbb4fa4eb2ae")}</FormLabel>
                     <SelectFormCtrl
-                      label="outcome"
+                      label={tr("m25a63e52a98f")}
                       options={OUTCOME_OPTIONS}
+                      localizeOptions
                       field={{ ...field, value: field.value ?? "" }}
                     />
                     <FormMessage />
@@ -316,11 +321,11 @@ export function AddStageDialog({
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>NOTES (OPTIONAL)</FormLabel>
+                  <FormLabel>{tr("m6e884c99820c")}</FormLabel>
                   <FormControl>
                     <Textarea
                       className="min-h-20"
-                      placeholder="Add any context for this stage…"
+                      placeholder={tr("m13e7c85e9a80")}
                       {...field}
                     />
                   </FormControl>
@@ -342,13 +347,11 @@ export function AddStageDialog({
                       disabled={currentLocked}
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
-                    <span className="text-[13px]">Set as current stage</span>
+                    <span className="text-[13px]">{tr("me55d3e99a32c")}</span>
                   </label>
                   {currentLocked && (
                     <p className="text-xs text-muted-foreground">
-                      This is the current stage — tick the box on another stage
-                      to move it.
-                    </p>
+                      {tr("mceee9c148872")}</p>
                   )}
                 </FormItem>
               )}
@@ -360,10 +363,9 @@ export function AddStageDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button type="submit" disabled={isPending}>
-                {stage ? "Save Changes" : "Add Stage"}
+                {stage ? tr("m35322b5bb5a2") : tr("mafe6f5a22533")}
                 {isPending && <Loader className="h-4 w-4 shrink-0 spinner" />}
               </Button>
             </DialogFooter>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,24 +23,22 @@ export function AttachPdfDialog({
   onChoice: (choice: "replace" | "download-only") => void;
   onCancel: () => void;
 }) {
+  const tr = useT();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Replace existing attachment?</AlertDialogTitle>
+          <AlertDialogTitle>{tr("m3d5fbcea05d7")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This resume already has a file attached. Would you like to replace
-            it with the exported PDF?
-          </AlertDialogDescription>
+            {tr("ma1a972a4e7f8")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={onCancel}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           <Button variant="outline" onClick={() => onChoice("download-only")}>
-            Download only
-          </Button>
+            {tr("m31fbbe754b9e")}</Button>
           <AlertDialogAction onClick={() => onChoice("replace")}>
-            Replace attachment
-          </AlertDialogAction>
+            {tr("mdaf2ad44786f")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -55,21 +54,20 @@ export function ClearChatBeforeReviewDialog({
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 }) {
+  const tr = useT();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Clear the assistant conversation?</AlertDialogTitle>
+          <AlertDialogTitle>{tr("ma2c937e7cc68")}</AlertDialogTitle>
           <AlertDialogDescription>
-            A job is waiting for your approval in the assistant. Starting a
-            review clears the conversation, and that job will not be saved.
-          </AlertDialogDescription>
+            {tr("me095b846854e")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>
-            Clear and review
-          </AlertDialogAction>
+            {tr("m2fda58933cf8")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -85,24 +83,23 @@ export function DiscardImportDialog({
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 }) {
+  const tr = useT();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Discard import?</AlertDialogTitle>
+          <AlertDialogTitle>{tr("me2761ccb9e4e")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will delete this resume and its attached file. Unsaved
-            suggestions will be lost.
-          </AlertDialogDescription>
+            {tr("m1646e5a3e3af")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           <AlertDialogAction
             className="bg-destructive-bg text-destructive-foreground hover:bg-destructive-bg/90"
             onClick={onConfirm}
           >
-            Discard import
-          </AlertDialogAction>
+            {tr("m8bc2a9d3cac1")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

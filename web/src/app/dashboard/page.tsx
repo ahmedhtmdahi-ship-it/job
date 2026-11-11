@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {getT} from "@/i18n/getT";
 import { format } from "date-fns";
 import {
   getActivityCalendarData,
@@ -20,11 +22,16 @@ import WeeklyBarChartToggle from "@/components/dashboard/WeeklyBarChartToggle";
 
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
+export async function generateMetadata() {
+ const tr = await getT();
+ return {
+  title: tr("m67b696468610"),
 };
+}
 
 export default async function Dashboard() {
+  const tr = await getT();
+
   // Server-computed so server and browser agree on "today"
   const today = format(new Date(), "yyyy-MM-dd");
   const [
@@ -57,25 +64,25 @@ export default async function Dashboard() {
             <JobsApplied />
             <JobsActivityCard
               data={[
-                { label: "7d", summary: summary7Days },
-                { label: "30d", summary: summary30Days },
+                { label: uiMessage("ma7c742643c7c"), summary: summary7Days },
+                { label: uiMessage("me3ba17e32240"), summary: summary30Days },
               ]}
             />
           </div>
           <WeeklyBarChartToggle
             charts={[
               {
-                label: "Jobs",
+                label: uiMessage("m2f17a0f8d518"),
                 data: weeklyData,
                 keys: ["value"],
-                axisLeftLegend: "JOBS APPLIED",
+                axisLeftLegend: tr("m1510dc88cb5d"),
               },
               {
-                label: "Activities",
+                label: uiMessage("m4d0076e6b4c7"),
                 data: activitiesData.data,
                 keys: activitiesData.keys,
                 groupMode: "stacked",
-                axisLeftLegend: "TIME SPENT (Hours)",
+                axisLeftLegend: tr("m0a00c63bdff1"),
               },
             ]}
           />

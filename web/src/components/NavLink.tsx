@@ -1,3 +1,5 @@
+import {useLocale} from "next-intl";
+import {useT} from "@/i18n/useT";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 import Link from "next/link";
 
@@ -20,6 +22,9 @@ interface NavLinkProps {
 }
 
 function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
+  const tr = useT();
+  const locale = useLocale();
+
   // "/dashboard" is a prefix of every other route, so it only matches exactly.
   const isActive =
     pathname === route ||
@@ -38,7 +43,7 @@ function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
       {isActive && (
         <span
           aria-hidden
-          className="absolute left-0 top-0 h-full w-0.5 bg-foreground"
+          className="absolute start-0 top-0 h-full w-0.5 bg-foreground"
         />
       )}
       {/* Fixed-width lead box (= collapsed rail width) so the icon sits at the
@@ -52,7 +57,7 @@ function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
           expanded ? "opacity-100 delay-100" : "opacity-0"
         )}
       >
-        {label}
+        {tr(label)}
       </span>
     </Link>
   );
@@ -63,7 +68,7 @@ function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>{link}</TooltipTrigger>
-      {!expanded && <TooltipContent side="right">{label}</TooltipContent>}
+      {!expanded && <TooltipContent side={locale === "ar" ? "left" : "right"}>{tr(label)}</TooltipContent>}
     </Tooltip>
   );
 }

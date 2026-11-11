@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -26,7 +27,7 @@ async function fetchLatestRelease() {
 export async function GET() {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("m76d1efbeed2d") }, { status: 401 });
   }
 
   const current = packageJson.version;

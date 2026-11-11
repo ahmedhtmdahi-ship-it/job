@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,6 +31,8 @@ interface AutomationDetailContainerProps {
 export function AutomationDetailContainer({
   automationId,
 }: AutomationDetailContainerProps) {
+  const tr = useT();
+
   const [activeTab, handleTabChange] = useTabQueryParam(
     AUTOMATION_DETAIL_TABS,
     "logs",
@@ -152,16 +155,15 @@ export function AutomationDetailContainer({
 
       <Tabs value={activeTab} onValueChange={handleTabChange}>
         <TabsList>
-          <TabsTrigger value="logs">Logs</TabsTrigger>
+          <TabsTrigger value="logs">{tr("mea2100dc89ae")}</TabsTrigger>
           <TabsTrigger value="jobs">
-            Discovered Jobs
-            {newJobsCount > 0 && (
-              <Badge variant="secondary" className="ml-2">
+            {tr("m3457f3cfe808")}{newJobsCount > 0 && (
+              <Badge variant="secondary" className="ms-2">
                 {newJobsCount}
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value="history">Run History</TabsTrigger>
+          <TabsTrigger value="history">{tr("m6d3cf74f6660")}</TabsTrigger>
         </TabsList>
         <TabsContent value="logs" className="mt-4">
           <LogsTab logData={logData} onClearLogs={handleClearLogs} />

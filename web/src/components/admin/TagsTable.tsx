@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -29,6 +30,8 @@ type TagsTableProps = {
 };
 
 function TagsTable({ tags, reloadTags }: TagsTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -41,17 +44,17 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
 
     if (jobCount > 0 || questionCount > 0 || skillCount > 0) {
       const links = [
-        jobCount > 0 ? `${jobCount} job(s)` : "",
-        questionCount > 0 ? `${questionCount} question(s)` : "",
-        skillCount > 0 ? `${skillCount} skill(s)` : "",
+        jobCount > 0 ? tr("m436cbd035fc8", {v0: jobCount}) : "",
+        questionCount > 0 ? tr("m2ee22d43d87f", {v0: questionCount}) : "",
+        skillCount > 0 ? tr("m71e543f3cb4d", {v0: skillCount}) : "",
       ]
         .filter(Boolean)
-        .join(" and ");
+        .join(tr("me3ee915a8e8c"));
 
       setAlert({
         openState: true,
-        title: "Skill is in use!",
-        description: `This skill is linked to ${links} and cannot be deleted.`,
+        title: tr("m1788f3b81f3b"),
+        description: tr("m0224e213735f", {v0: links}),
         deleteAction: false,
       });
     } else {
@@ -67,10 +70,10 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
     if (!tagId) return;
     const { success, message } = await deleteTagById(tagId);
     if (success) {
-      toastSuccess("Skill tag has been deleted successfully");
+      toastSuccess(tr("md72e179c1f10"));
       reloadTags();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -79,11 +82,11 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Skill Label</TableHead>
-            <TableHead className="hidden sm:table-cell">Value</TableHead>
-            <TableHead># Jobs</TableHead>
-            <TableHead># Questions</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>{tr("m062e9e790c51")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m8e37953d23da")}</TableHead>
+            <TableHead>{tr("mc3eb1415cba5")}</TableHead>
+            <TableHead>{tr("mb24d0762aa39")}</TableHead>
+            <TableHead>{tr("mff8059dc6752")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -104,18 +107,17 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
                   <DropdownMenuTrigger asChild>
                     <Button aria-haspopup="true" size="icon" variant="ghost">
                       <MoreVertical className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
+                      <span className="sr-only">{tr("mc02651240c87")}</span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                     <DropdownMenuItem
                       className="text-red-600 cursor-pointer"
                       onClick={() => onDeleteTag(tag)}
                     >
-                      <Trash className="mr-2 h-4 w-4" />
-                      Delete
-                    </DropdownMenuItem>
+                      <Trash className="me-2 h-4 w-4" />
+                      {tr("me2d0a54968ea")}</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

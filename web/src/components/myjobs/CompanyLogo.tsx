@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { cn } from "@/lib/utils";
 
 // Falls back to the app mark both when the company has no logo and when the
@@ -10,10 +11,12 @@ export function CompanyLogo({
   logoUrl?: string | null;
   className?: string;
 }) {
+  const tr = useT();
+
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      alt="Company logo"
+      alt={tr("m87a86135f7dc")}
       className={cn("rounded-md object-cover", className)}
       src={logoUrl || "/images/jobsync-logo.svg"}
       onError={(e) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +35,8 @@ export function AutomationSearchConfig({
   jobBoard,
   retired,
 }: AutomationSearchConfigProps) {
+  const tr = useT();
+
   const [showSearchConfig, setShowSearchConfig] = useState(false);
 
   const greenhouseConfig = retired
@@ -47,21 +50,21 @@ export function AutomationSearchConfig({
       <Button
         variant="ghost"
         size="sm"
-        className="mt-4 -ml-2 text-muted-foreground"
+        className="mt-4 -ms-2 text-muted-foreground"
         onClick={() => setShowSearchConfig((prev) => !prev)}
       >
         {showSearchConfig ? (
-          <ChevronUp className="h-4 w-4 mr-1" />
+          <ChevronUp className="h-4 w-4 me-1" />
         ) : (
-          <ChevronDown className="h-4 w-4 mr-1" />
+          <ChevronDown className="h-4 w-4 me-1" />
         )}
-        {showSearchConfig ? "Show less" : "Show more"}
+        {showSearchConfig ? tr("m94ea9b1d33a0") : tr("mf5c9bd131486")}
       </Button>
 
       {showSearchConfig && (
         <div className="mt-4 pt-4 border-t grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="col-span-2 md:col-span-4">
-            <p className="text-sm text-muted-foreground">Companies</p>
+            <p className="text-sm text-muted-foreground">{tr("m4923413b40d7")}</p>
             {greenhouseConfig.companies?.length ? (
               <div className="mt-1 flex flex-wrap gap-1">
                 {greenhouseConfig.companies.map((c) => (
@@ -71,8 +74,8 @@ export function AutomationSearchConfig({
                       href={companyBoardUrl(jobBoard, c)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Open ${c.name} job board`}
-                      title="Open job board"
+                      aria-label={tr("mbd2f0a833536", {v0: c.name})}
+                      title={tr("m2381c715b663")}
                       className="text-muted-foreground hover:text-foreground"
                     >
                       <ExternalLink className="h-3 w-3" />
@@ -85,45 +88,44 @@ export function AutomationSearchConfig({
             )}
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Target titles</p>
+            <p className="text-sm text-muted-foreground">{tr("ma6038aca31c6")}</p>
             <p className="text-sm font-medium">
               {greenhouseConfig.targetTitles?.length
                 ? greenhouseConfig.targetTitles.join(", ")
-                : "Any"}
+                : tr("m2b505597daa7")}
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Keywords</p>
+            <p className="text-sm text-muted-foreground">{tr("m8bfdb93cafaa")}</p>
             <p className="text-sm font-medium">
               {greenhouseConfig.keywords?.length
                 ? greenhouseConfig.keywords.join(", ")
-                : "None"}
+                : tr("mdc937b598926")}
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Locations</p>
+            <p className="text-sm text-muted-foreground">{tr("m95c61170318a")}</p>
             <p className="text-sm font-medium">
               {greenhouseConfig.locations?.length
                 ? `${greenhouseConfig.locations.join(", ")}${
                     greenhouseConfig.strictLocation ? " (strict)" : ""
                   }`
-                : "Any location"}
+                : tr("mcaadb2786b37")}
             </p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">
-              Jobs analyzed per run
-            </p>
+              {tr("m0a7f27f90f16")}</p>
             <p className="text-sm font-medium">
               {greenhouseConfig.topK ?? APP_CONSTANTS.MAX_JOBS_PER_RUN}
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Extra listings</p>
+            <p className="text-sm text-muted-foreground">{tr("m83e86d827140")}</p>
             <p className="text-sm font-medium">
               {greenhouseConfig.saveUnanalyzed !== false
-                ? "Saved"
-                : "Not saved"}
+                ? tr("mb5c120b316c2")
+                : tr("m22b3467c1ba9")}
             </p>
           </div>
         </div>

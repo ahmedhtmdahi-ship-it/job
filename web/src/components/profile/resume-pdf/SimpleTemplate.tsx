@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import React from "react";
 import { Document, Link, Page, Text, View } from "@react-pdf/renderer";
 import { format } from "date-fns";
@@ -7,7 +9,7 @@ import type { SimpleStyles } from "./styles/simple.styles";
 import { ResumeHtmlNodes } from "./generateResumePdf";
 
 function formatDate(date: Date | undefined | null): string {
-  if (!date) return "Present";
+  if (!date) return uiMessage("m43f9b89c0b9d");
   return format(new Date(date), "MMM yyyy");
 }
 
@@ -43,6 +45,8 @@ export function SimpleResumeDocument({
   styles,
   showPageNumbers,
 }: Props) {
+  const tr = useT();
+
   const { ContactInfo, ResumeSections } = resume;
 
   const skillsSection = ResumeSections?.find(
@@ -99,7 +103,7 @@ export function SimpleResumeDocument({
         {/* Summary */}
         {htmlNodes.summary.length > 0 && (
           <View>
-            <SectionHeading title="Summary" styles={styles} />
+            <SectionHeading title={tr("m8e76a94ac832")} styles={styles} />
             {htmlNodes.summary}
           </View>
         )}
@@ -174,7 +178,7 @@ export function SimpleResumeDocument({
                     </Text>
                     <Text style={styles.entryMeta}>
                       {formatDate(edu.startDate)} –{" "}
-                      {edu.endDate ? formatDate(edu.endDate) : "Present"}
+                      {edu.endDate ? formatDate(edu.endDate) : tr("m43f9b89c0b9d")}
                       {formatLocation(edu.location.label) &&
                         ` · ${formatLocation(edu.location.label)}`}
                     </Text>

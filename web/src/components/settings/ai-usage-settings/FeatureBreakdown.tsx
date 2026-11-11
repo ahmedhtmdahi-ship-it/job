@@ -1,17 +1,21 @@
+import {useUsageFormats} from "./format";
+import {useT} from "@/i18n/useT";
 import { AI_USAGE_FEATURES, type AiUsageSummary } from "@/models/aiUsage.model";
 import { formatSeconds, formatTokens } from "./format";
 
 export default function FeatureBreakdown({
   features,
 }: Pick<AiUsageSummary, "features">) {
+  const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
+
   const maxTokens = Math.max(1, ...features.map((f) => f.tokens));
   return (
     <section className="overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between border-b px-5 py-3.5">
-        <h2 className="text-[15px] font-semibold">By feature</h2>
+        <h2 className="text-[15px] font-semibold">{tr("m97cc3cfc853b")}</h2>
         <span className="text-xs text-muted-foreground">
-          Tokens · Calls · Median
-        </span>
+          {tr("m96eb8d8a2f6b")}</span>
       </div>
       <div className="py-1.5">
         {features.map((f) => (
@@ -20,7 +24,7 @@ export default function FeatureBreakdown({
             className="flex items-center gap-2.5 px-5 py-2 text-[13px]"
           >
             <span className="w-[110px] shrink-0">
-              {AI_USAGE_FEATURES[f.feature] ?? f.feature}
+              {tr(AI_USAGE_FEATURES[f.feature] ?? f.feature)}
             </span>
             <span className="block h-1.5 grow overflow-hidden rounded-full bg-muted">
               <span
@@ -28,13 +32,13 @@ export default function FeatureBreakdown({
                 style={{ width: `${(f.tokens / maxTokens) * 100}%` }}
               />
             </span>
-            <span className="w-[52px] text-right font-medium tabular-nums">
+            <span className="w-[52px] text-end font-medium tabular-nums">
               {formatTokens(f.tokens)}
             </span>
-            <span className="w-9 text-right tabular-nums text-muted-foreground">
+            <span className="w-9 text-end tabular-nums text-muted-foreground">
               {f.calls.toLocaleString("en-US")}
             </span>
-            <span className="w-11 text-right tabular-nums text-muted-foreground">
+            <span className="w-11 text-end tabular-nums text-muted-foreground">
               {formatSeconds(f.medianMs)}
             </span>
           </div>

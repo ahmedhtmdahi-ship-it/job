@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { X, Loader2, ChevronsUpDown, ExternalLink, Check } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,8 @@ export function CompanyPicker({
   onAddMany,
   onRemove,
 }: CompanyPickerProps) {
+  const tr = useT();
+
   const meta = PROVIDER_META[provider] ?? PROVIDER_META.greenhouse;
   const {
     query,
@@ -64,7 +67,7 @@ export function CompanyPicker({
     const skipped = onAddMany(watched);
     if (skipped > 0) {
       toastInfo(
-        `Added what fits — ${skipped} skipped at the ${APP_CONSTANTS.ATS_MAX_COMPANIES}-company limit.`,
+        tr("m4e094a97d55b", {v0: skipped, v1: APP_CONSTANTS.ATS_MAX_COMPANIES}),
       );
     }
   };
@@ -81,15 +84,14 @@ export function CompanyPicker({
     <div className="space-y-2">
       <Label className="flex items-center justify-between">
         <span>
-          {meta.label} Companies{" "}
+          {meta.label} {" "}{tr("m4923413b40d7")}{" "}
           <span className="font-normal text-muted-foreground">
             ({companies.length}/{APP_CONSTANTS.ATS_MAX_COMPANIES})
           </span>
         </span>
         {totalCount !== null && totalCount > 0 && (
           <span className="text-xs font-normal text-muted-foreground">
-            {totalCount} available
-          </span>
+            {totalCount} {" "}{tr("mddd9818abacf")}</span>
         )}
       </Label>
 
@@ -105,8 +107,8 @@ export function CompanyPicker({
             disabled={atLimit}
           >
             {atLimit
-              ? `Max ${APP_CONSTANTS.ATS_MAX_COMPANIES} companies reached`
-              : `Search companies (e.g., ${meta.searchExample})`}
+              ? tr("m075e6360af21", {v0: APP_CONSTANTS.ATS_MAX_COMPANIES})
+              : tr("m27073b76391c", {v0: meta.searchExample})}
             {isSearching ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
@@ -120,7 +122,7 @@ export function CompanyPicker({
         >
           <Command shouldFilter={false}>
             <CommandInput
-              placeholder="Search or browse companies..."
+              placeholder={tr("mfa6106cccb53")}
               value={query}
               onValueChange={handleQueryChange}
             />
@@ -129,32 +131,28 @@ export function CompanyPicker({
             {watched.length > 0 && (
               <div className="flex items-center justify-between border-b px-3 py-1.5">
                 <span className="text-xs text-muted-foreground">
-                  {watched.length} watched on this board
-                </span>
+                  {watched.length} {" "}{tr("mbc2549d34f77")}</span>
                 <button
                   type="button"
                   disabled={atLimit}
                   onClick={addAllWatched}
                   className="text-xs text-primary hover:underline disabled:opacity-50"
                 >
-                  Add all watched
-                </button>
+                  {tr("mae295eef574e")}</button>
               </div>
             )}
             <CommandList onScroll={handleListScroll}>
               {isSearching && results.length === 0 && (
                 <div className="flex items-center gap-2 p-3 text-sm text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Searching...
-                </div>
+                  {tr("m78c9d9f6ace0")}</div>
               )}
               {!isSearching && results.length === 0 && (
                 <CommandEmpty>
-                  No matches. Try &quot;Add by URL&quot; below.
-                </CommandEmpty>
+                  {tr("mc2db04d46552")}</CommandEmpty>
               )}
               {watched.length > 0 && (
-                <CommandGroup heading={`Watched (${watched.length})`}>
+                <CommandGroup heading={tr("m23c5d8b82dbe", {v0: watched.length})}>
                   {watchedOnly.map((c) => {
                     const selected = companies.some(
                       (sel) => sel.token === c.token,
@@ -173,7 +171,7 @@ export function CompanyPicker({
                           )}
                         />
                         <span>{c.name}</span>
-                        <span className="ml-2 text-xs text-muted-foreground">
+                        <span className="ms-2 text-xs text-muted-foreground">
                           {c.token}
                         </span>
                       </CommandItem>
@@ -200,18 +198,18 @@ export function CompanyPicker({
                         )}
                       />
                       <span>{c.name}</span>
-                      <span className="ml-2 text-xs text-muted-foreground">
+                      <span className="ms-2 text-xs text-muted-foreground">
                         {c.token}
                       </span>
                       <a
                         href={companyBoardUrl(provider, c)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Open ${c.name} job board`}
-                        title="Open job board"
+                        aria-label={tr("mbd2f0a833536", {v0: c.name})}
+                        title={tr("m2381c715b663")}
                         onClick={(e) => e.stopPropagation()}
                         onPointerDown={(e) => e.stopPropagation()}
-                        className="ml-auto text-muted-foreground hover:text-foreground"
+                        className="ms-auto text-muted-foreground hover:text-foreground"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                       </a>
@@ -222,8 +220,7 @@ export function CompanyPicker({
               {isSearching && results.length > 0 && (
                 <div className="flex items-center justify-center gap-2 p-2 text-sm text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Loading more...
-                </div>
+                  {tr("mcf635a30daae")}</div>
               )}
             </CommandList>
           </Command>
@@ -250,9 +247,7 @@ export function CompanyPicker({
         onResolved={onAdd}
       />
       <p className="text-sm text-muted-foreground">
-        Select {meta.label} companies to monitor their job boards for new
-        openings.
-      </p>
+        {tr("m2a78025de6aa")}{" "}{meta.label} {" "}{tr("m775754821735")}</p>
     </div>
   );
 }

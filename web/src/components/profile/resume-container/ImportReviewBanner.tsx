@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { AlertTriangle, Loader, Sparkles } from "lucide-react";
 import { Button } from "../../ui/button";
 import { Card, CardHeader } from "../../ui/card";
@@ -22,6 +23,8 @@ export function ImportReviewBanner({
   onDiscard: (id: string) => void;
   onDiscardImport: () => void;
 }) {
+  const tr = useT();
+
   return (
     <Card className="border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-800">
       <CardHeader className="pb-3">
@@ -31,15 +34,11 @@ export function ImportReviewBanner({
               {isStructuring ? (
                 <>
                   <Loader className="h-4 w-4 text-blue-500 animate-spin" />
-                  Structuring your document… you can review and accept items
-                  once it finishes.
-                </>
+                  {tr("m1b80fa79a1d1")}</>
               ) : (
                 <>
                   <Sparkles className="h-4 w-4 text-blue-500" />
-                  We pre-filled this from your document. Review each item
-                  and accept the ones you want.
-                  {importTruncated &&
+                  {tr("m9d6e909f333c")}{importTruncated &&
                     " Only the first 5 pages were imported."}
                 </>
               )}
@@ -47,10 +46,7 @@ export function ImportReviewBanner({
             {unrecognizedSections.length > 0 && (
               <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                 <AlertTriangle className="h-3 w-3" />
-                Some sections couldn&apos;t be imported (
-                {unrecognizedSections.join(", ")}) — the resume model
-                doesn&apos;t support these yet.
-              </p>
+                {tr("me82fbea17ca0")}{unrecognizedSections.join(", ")}{tr("mdb6961d92b10")}</p>
             )}
           </div>
           <Button
@@ -59,8 +55,7 @@ export function ImportReviewBanner({
             className="shrink-0 text-destructive border-destructive/30 hover:bg-destructive/10"
             onClick={onDiscardImport}
           >
-            Discard import
-          </Button>
+            {tr("m8bc2a9d3cac1")}</Button>
         </div>
         <div className="mt-3 space-y-2">
           {pendingCards.map((pending) => (

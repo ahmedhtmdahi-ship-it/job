@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { PlusCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import {
@@ -37,6 +38,8 @@ export interface AddResumeSectionRef {
 
 const AddResumeSection = forwardRef<AddResumeSectionRef, AddResumeSectionProps>(
   ({ resume }, ref) => {
+  const tr = useT();
+
     const [contactInfoDialogOpen, setContactInfoDialogOpen] = useState(false);
     const [summaryDialogOpen, setSummaryDialogOpen] = useState(false);
     const [experienceDialogOpen, setExperienceDialogOpen] = useState(false);
@@ -143,8 +146,7 @@ const AddResumeSection = forwardRef<AddResumeSectionRef, AddResumeSectionProps>(
             >
               <PlusCircle className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Add Section
-              </span>
+                {tr("m9b1cff43fbe2")}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
@@ -154,40 +156,34 @@ const AddResumeSection = forwardRef<AddResumeSectionRef, AddResumeSectionProps>(
                 onClick={openContactInfoDialog}
                 disabled={!!resume?.ContactInfo}
               >
-                Add Contact Info
-              </DropdownMenuItem>
+                {tr("m8a0071a9cb9e")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={openSummaryDialog}
                 disabled={!!summarySection}
               >
-                Add Summary
-              </DropdownMenuItem>
+                {tr("md1d875005932")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={openSkillsDialog}
                 disabled={!!skillsSection}
               >
-                Add Skills
-              </DropdownMenuItem>
+                {tr("m4b6166085446")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={openExperienceDialog}
               >
-                Add Experience
-              </DropdownMenuItem>
+                {tr("m6de239cb77e9")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={openEducationDialog}
               >
-                Add Education
-              </DropdownMenuItem>
+                {tr("m67806223d5e6")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={openCertificationDialog}
               >
-                Add Certification / License
-              </DropdownMenuItem>
+                {tr("m66f8e8fe4883")}</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

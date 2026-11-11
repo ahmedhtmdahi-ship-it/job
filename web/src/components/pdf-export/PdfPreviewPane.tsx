@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { Toggle } from "@/components/ui/toggle";
@@ -38,9 +40,7 @@ function isRenderCancelled(error: unknown): boolean {
   );
 }
 
-function pageLabel(count: number): string {
-  return `${count} ${count === 1 ? "page" : "pages"}`;
-}
+
 
 export function PdfPreviewPane({
   blob,
@@ -52,6 +52,9 @@ export function PdfPreviewPane({
   onPageCountChange,
   className,
 }: PdfPreviewPaneProps) {
+ const tr = useT();
+  const pageLabel = (count: number) => tr("m09e1ce4ae931", {count});
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const pagesRef = useRef<HTMLDivElement>(null);
@@ -230,17 +233,17 @@ export function PdfPreviewPane({
   const status = showEmpty
     ? emptyMessage
     : showError
-      ? "Preview unavailable"
+      ? uiMessage("mb99fa6c06150")
       : isGenerating
-        ? "Generating preview…"
+        ? uiMessage("m843c063e712c")
         : hasPages
-          ? `Preview ready, ${pageLabel(pageCount)}`
+          ? tr("m70b1436b20dc", {v0: pageLabel(pageCount)})
           : "";
 
   return (
     <div className={cn("flex min-h-0 flex-col gap-2", className)}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium">Preview</span>
+        <span className="text-sm font-medium">{tr("m324b134f57c7")}</span>
         <div className="flex items-center gap-2">
           {hasPages && (
             <div className="flex items-center rounded-md border p-0.5">
@@ -248,19 +251,19 @@ export function PdfPreviewPane({
                 size="sm"
                 pressed={fitMode === "page"}
                 onPressedChange={() => onChangeFitMode("page")}
-                aria-label="Fit whole page"
+                aria-label={tr("m6f3ec441537e")}
                 className="h-6 px-2 text-xs"
               >
-                Fit page
+                {tr("m3626161a4685")}
               </Toggle>
               <Toggle
                 size="sm"
                 pressed={fitMode === "width"}
                 onPressedChange={() => onChangeFitMode("width")}
-                aria-label="Fit page width"
+                aria-label={tr("mf19974d2fe57")}
                 className="h-6 px-2 text-xs"
               >
-                Fit width
+                {tr("mb911c419e49d")}
               </Toggle>
             </div>
           )}
@@ -293,7 +296,7 @@ export function PdfPreviewPane({
             {showEmpty ? (
               emptyMessage
             ) : showError ? (
-              "Preview unavailable"
+              tr("mb99fa6c06150")
             ) : (
               <Spinner className="size-6" />
             )}

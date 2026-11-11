@@ -1,4 +1,7 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -60,6 +63,10 @@ export function TaskForm({
   setDialogOpen,
   onSaveAndStart,
 }: TaskFormProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof AddTaskFormSchema>>({
     resolver: zodResolver(AddTaskFormSchema),
@@ -112,7 +119,7 @@ export function TaskForm({
     startTransition(async () => {
       const result = editTask ? await updateTask(data) : await createTask(data);
       toastActionResult<Task>(result, {
-        success: `Task has been ${editTask ? "updated" : "created"} successfully`,
+        success: editTask ? tr("mbe0a707fba55") : tr("m7d7a4a394047"),
         onSuccess: (task) => {
           reset();
           setDialogOpen(false);
@@ -131,10 +138,10 @@ export function TaskForm({
     onSubmit(data, true),
   );
 
-  const pageTitle = editTask ? "Edit Task" : "Add Task";
+  const pageTitle = editTask ? uiMessage("mdda79d5a0e25") : uiMessage("m402df3f5878b");
   const pageDescription = editTask
-    ? "Update the details of this task."
-    : "Add a new task to track.";
+    ? uiMessage("mb95c24be6d5a")
+    : uiMessage("m5220de3dc310");
 
   const closeDialog = () => {
     reset();
@@ -148,9 +155,9 @@ export function TaskForm({
         <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle data-testid="task-form-dialog-title">
-              {pageTitle}
+              {tr(pageTitle)}
             </DialogTitle>
-            <DialogDescription>{pageDescription}</DialogDescription>
+            <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -164,9 +171,9 @@ export function TaskForm({
                   name="title"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Title *</FormLabel>
+                      <FormLabel>{tr("m4bf07d033e69")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter task title" {...field} />
+                        <Input placeholder={tr("m7fa23f59a492")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,13 +188,13 @@ export function TaskForm({
                   name="activityTypeId"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Activity Type</FormLabel>
+                      <FormLabel>{tr("mf7b447cd9688")}</FormLabel>
                       <FormControl>
                         <Combobox
                           options={activityTypes}
                           field={{
                             ...field,
-                            name: "activityType",
+                            name: uiMessage("mc372463e4a0b"),
                           }}
                           creatable
                         />
@@ -205,10 +212,11 @@ export function TaskForm({
                   name="status"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Status</FormLabel>
+                      <FormLabel>{tr("m920e413c7d41")}</FormLabel>
                       <SelectFormCtrl
-                        label="Task Status"
+                        label={tr("m63428ae55816")}
                         options={statusOptions}
+                        localizeOptions
                         field={field}
                       />
                       <FormMessage />
@@ -224,7 +232,7 @@ export function TaskForm({
                   name="priority"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Priority: {priorityValue}</FormLabel>
+                      <FormLabel>{tr("m34574af1e694")}{" "}{priorityValue}</FormLabel>
                       <FormControl>
                         <Slider
                           min={0}
@@ -236,8 +244,8 @@ export function TaskForm({
                         />
                       </FormControl>
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Low (0)</span>
-                        <span>High (10)</span>
+                        <span>{tr("me6bf9976d585")}</span>
+                        <span>{tr("m10e6b7ae2903")}</span>
                       </div>
                       <FormMessage />
                     </FormItem>
@@ -252,7 +260,7 @@ export function TaskForm({
                   name="percentComplete"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>% Complete: {percentCompleteValue}%</FormLabel>
+                      <FormLabel>{tr("mec049db28603")}{" "}{percentCompleteValue}%</FormLabel>
                       <FormControl>
                         <Slider
                           min={0}
@@ -280,7 +288,7 @@ export function TaskForm({
                   name="dueDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Due Date</FormLabel>
+                      <FormLabel>{tr("m57870fd03032")}</FormLabel>
                       <DatePicker
                         field={field}
                         presets={true}
@@ -296,25 +304,25 @@ export function TaskForm({
               {editTask && (
                 <div className="flex flex-col gap-2">
                   <div>
-                    <p className="text-sm font-medium">Created</p>
+                    <p className="text-sm font-medium">{tr("md70b9e24bca2")}</p>
                     <p className="text-sm text-muted-foreground">
                       {editTask.createdAt
-                        ? format(
+                        ? formatLocalized(
                             new Date(editTask.createdAt),
                             "MMM d, yyyy h:mm a",
                           )
-                        : "N/A"}
+                        : tr("me2f79e5b6033")}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium">Updated</p>
+                    <p className="text-sm font-medium">{tr("m3a5ecca188c0")}</p>
                     <p className="text-sm text-muted-foreground">
                       {editTask.updatedAt
-                        ? format(
+                        ? formatLocalized(
                             new Date(editTask.updatedAt),
                             "MMM d, yyyy h:mm a",
                           )
-                        : "N/A"}
+                        : tr("me2f79e5b6033")}
                     </p>
                   </div>
                 </div>
@@ -327,7 +335,7 @@ export function TaskForm({
                   name="description"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel>{tr("m526e0087cc3f")}</FormLabel>
                       <FormControl>
                         <TiptapEditor field={field} />
                       </FormControl>
@@ -346,8 +354,7 @@ export function TaskForm({
                       className="mt-2 md:mt-0 w-full"
                       onClick={closeDialog}
                     >
-                      Cancel
-                    </Button>
+                      {tr("m19766ed6ccb2")}</Button>
                   </div>
                   {onSaveAndStart && (
                     <Button
@@ -358,17 +365,15 @@ export function TaskForm({
                       disabled={isPending}
                       data-testid="save-and-start-task-btn"
                     >
-                      Save & Start
-                    </Button>
+                      {tr("mf74bc228490c")}</Button>
                   )}
                   <Button
                     type="submit"
                     disabled={isPending}
                     data-testid="save-task-btn"
                   >
-                    Save
-                    {isPending && (
-                      <Loader className="h-4 w-4 shrink-0 spinner ml-2" />
+                    {tr("m1509f561f241")}{isPending && (
+                      <Loader className="h-4 w-4 shrink-0 spinner ms-2" />
                     )}
                   </Button>
                 </DialogFooter>

@@ -1,4 +1,5 @@
 "use server";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -27,7 +28,7 @@ export const startActivityById = async (
     if (existingActive) {
       return {
         success: false,
-        message: "An activity is already in progress. Stop it before starting a new one.",
+        message: uiMessage("mad3f897013a9"),
       };
     }
 

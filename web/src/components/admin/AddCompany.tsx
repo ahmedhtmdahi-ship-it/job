@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useTransition, useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import {
@@ -47,9 +49,11 @@ function AddCompany({
   setDialogOpen,
   hideTrigger,
 }: AddCompanyProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
-  const pageTitle = editCompany ? "Edit Company" : "Add Company";
+  const pageTitle = editCompany ? uiMessage("m5b5fc3eeb5e6") : uiMessage("mcf291af13fcf");
 
   const form = useForm<z.infer<typeof AddCompanyFormSchema>>({
     resolver: zodResolver(AddCompanyFormSchema),
@@ -107,7 +111,7 @@ function AddCompany({
         ? await updateCompany(data)
         : await addCompany(data);
       toastActionResult(res, {
-        success: `Company has been ${editCompany ? "updated" : "created"} successfully`,
+        success: editCompany ? tr("me58ddc0fe58f") : tr("m7998c6a3d161"),
         onSuccess: () => {
           reset();
           setDialogOpen(false);
@@ -129,19 +133,16 @@ function AddCompany({
         >
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            New Company
-          </span>
+            {tr("m1453775df0a7")}</span>
         </Button>
       )}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="lg:max-h-screen overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>{pageTitle}</DialogTitle>
+            <DialogTitle>{tr(pageTitle)}</DialogTitle>
             {editCompany && (
               <DialogDescription className="text-orange-600 dark:text-orange-500">
-                Caution: Editing name of the company will affect all the
-                related job records including your resume.
-              </DialogDescription>
+                {tr("mb419c7fe5553")}</DialogDescription>
             )}
           </DialogHeader>
           <Form {...form}>
@@ -156,7 +157,7 @@ function AddCompany({
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name</FormLabel>
+                      <FormLabel>{tr("mb48362246239")}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -173,7 +174,7 @@ function AddCompany({
                   name="logoUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Logo URL</FormLabel>
+                      <FormLabel>{tr("mba668bf8125f")}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -188,9 +189,9 @@ function AddCompany({
                 name="websiteUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Website</FormLabel>
+                    <FormLabel>{tr("mb5a229ac8bec")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://example.com" {...field} />
+                      <Input placeholder={tr("m100680ad546c")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -203,10 +204,10 @@ function AddCompany({
                 name="careersUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Careers Page</FormLabel>
+                    <FormLabel>{tr("md8eea63ee09e")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="https://example.com/careers"
+                        placeholder={tr("md1f158588146")}
                         {...field}
                       />
                     </FormControl>
@@ -221,9 +222,9 @@ function AddCompany({
                 name="industry"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Industry</FormLabel>
+                    <FormLabel>{tr("mb44484a0fa28")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Financial Services" {...field} />
+                      <Input placeholder={tr("mfbe065970201")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -236,9 +237,9 @@ function AddCompany({
                 name="size"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Size</FormLabel>
+                    <FormLabel>{tr("m1af851907331")}</FormLabel>
                     <SelectFormCtrl
-                      label="size"
+                      label={tr("mccdcbe846f3d")}
                       options={COMPANY_SIZES.map((s) => ({ id: s, label: s }))}
                       field={field}
                     />
@@ -254,10 +255,10 @@ function AddCompany({
                   name="linkedinUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>LinkedIn</FormLabel>
+                      <FormLabel>{tr("mdd84425b72da")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="https://www.linkedin.com/company/example"
+                          placeholder={tr("mcb7a0d01445a")}
                           {...field}
                         />
                       </FormControl>
@@ -274,11 +275,11 @@ function AddCompany({
                   name="notes"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Notes</FormLabel>
+                      <FormLabel>{tr("m8a7525b1492f")}</FormLabel>
                       <FormControl>
                         <Textarea
                           className="min-h-24"
-                          placeholder="Culture, red flags, what you learned on calls..."
+                          placeholder={tr("m502cf6b5d903")}
                           {...field}
                         />
                       </FormControl>
@@ -299,12 +300,10 @@ function AddCompany({
                       className="mt-2 md:mt-0 w-full"
                       onClick={closeDialog}
                     >
-                      Cancel
-                    </Button>
+                      {tr("m19766ed6ccb2")}</Button>
                   </div>
                   <Button type="submit" disabled={!formState.isDirty}>
-                    Save
-                    {isPending && (
+                    {tr("m1509f561f241")}{isPending && (
                       <Loader className="h-4 w-4 shrink-0 spinner" />
                     )}
                   </Button>

@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
 import type { Resume } from "@/models/profile.model";
@@ -14,7 +16,7 @@ import { useResumeExportSettings } from "./resume-container/useResumeExportSetti
 import { useResumePdfPreview } from "./resume-container/useResumePdfPreview";
 
 const EMPTY_MESSAGE =
-  "Add your contact info and at least one section to preview.";
+  uiMessage("md1e2e509a357");
 
 type ExportPdfDialogProps = {
   open: boolean;
@@ -32,6 +34,8 @@ export function ExportPdfDialog({
   resume,
   onExport,
 }: ExportPdfDialogProps) {
+  const tr = useT();
+
   const { settings, setSettings, ready, reset } = useResumeExportSettings(open);
   const isDefault =
     settingsKey(settings) ===
@@ -51,9 +55,9 @@ export function ExportPdfDialog({
     <PdfExportDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Export to PDF"
-      description="Adjust the settings and preview the file before exporting."
-      previewLabel="Resume preview"
+      title={tr("mccd4fda2f607")}
+      description={tr("m1932fa58694c")}
+      previewLabel={tr("md093c02e989b")}
       emptyMessage={EMPTY_MESSAGE}
       blob={blob}
       filename={filename}

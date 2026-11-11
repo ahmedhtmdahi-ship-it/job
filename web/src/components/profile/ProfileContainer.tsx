@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CreateResume from "./CreateResume";
 import CreateCoverLetter from "./CreateCoverLetter";
@@ -33,6 +34,8 @@ import {
 } from "../ui/dropdown-menu";
 
 const ProfileContainer = () => {
+  const tr = useT();
+
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [coverLetters, setCoverLetters] = useState<CoverLetter[]>([]);
   const [resumeDialogOpen, setResumeDialogOpen] = useState(false);
@@ -70,10 +73,10 @@ const ProfileContainer = () => {
         setTotalResumes(total);
         setPage(page);
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     },
-    [],
+    [tr],
   );
 
   const loadCoverLetters = useCallback(async () => {
@@ -85,9 +88,9 @@ const ProfileContainer = () => {
       setCoverLetters(data);
       setTotalCoverLetters(total);
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
-  }, []);
+  }, [tr]);
 
   const loadDefaultResumeId = useCallback(async () => {
     // allSettled, not all: contactInfo stuck at undefined would spin the
@@ -198,19 +201,18 @@ const ProfileContainer = () => {
     <Card>
       <ResponsiveCardHeader>
         <div className="flex items-baseline gap-2">
-          <CardTitle>Profile</CardTitle>
+          <CardTitle>{tr("md696a35bdd18")}</CardTitle>
           {!loading && totalDocuments > 0 && (
-            <RecordsCount count={documents.length} total={totalDocuments} label="documents" />
+            <RecordsCount count={documents.length} total={totalDocuments} label={tr("m9b16b44d0e0a")} />
           )}
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
+        <div className="flex flex-wrap items-center gap-2 sm:ms-auto">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button size="sm" variant="outline" className="h-8 gap-1">
                 <PlusCircle className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  New
-                </span>
+                  {tr("m18fdd549b2ed")}</span>
                 <ChevronDown className="h-3.5 w-3.5" />
               </Button>
             </DropdownMenuTrigger>
@@ -219,14 +221,12 @@ const ProfileContainer = () => {
                 className="cursor-pointer"
                 onClick={createResume}
               >
-                Add New Resume
-              </DropdownMenuItem>
+                {tr("m93789079af4e")}</DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={createCoverLetter}
               >
-                Add New Cover Letter
-              </DropdownMenuItem>
+                {tr("m2678803d0401")}</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <CreateResume
@@ -281,7 +281,7 @@ const ProfileContainer = () => {
               disabled={loading}
               className="btn btn-primary"
             >
-              {loading ? "Loading..." : "Load More"}
+              {loading ? tr("m47d2a515ef2f") : tr("m3f06cd334f48")}
             </Button>
           </div>
         )}

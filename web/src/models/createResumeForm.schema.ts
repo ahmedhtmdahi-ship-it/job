@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 import { APP_CONSTANTS } from "@/lib/constants";
 
@@ -12,10 +13,10 @@ export const CreateResumeFormSchema = z.object({
   file: z
     .instanceof(File)
     .refine((file) => (APP_CONSTANTS.RESUME_ALLOWED_MIME_TYPES as readonly string[]).includes(file.type), {
-      message: "Only PDF and Word documents are allowed.",
+      message: uiMessage("m3814c5825d66"),
     })
     .refine((file) => file.size <= APP_CONSTANTS.MAX_RESUME_FILE_SIZE_BYTES, {
-      message: "File size must be less than 5MB",
+      message: uiMessage("mbac2111f02d5"),
     })
     .optional(),
   fileId: z.string().optional(),

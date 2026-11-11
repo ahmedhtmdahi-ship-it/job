@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 
 import type { ReactNode } from "react";
 import { FileDown } from "lucide-react";
@@ -50,6 +51,7 @@ export function PdfExportDialog({
   onPageCountChange,
   onExport,
 }: PdfExportDialogProps) {
+  const tr = useT();
   // Exporting mid-generation would download the settings just switched away
   // from, since Export reuses the previewed blob. Exporting while pending
   // would take the null-prepared path and generate from inputs that have not
@@ -90,7 +92,7 @@ export function PdfExportDialog({
             variant="outline"
             onClick={() => onOpenChange(false)}
           >
-            Cancel
+            {tr("m19766ed6ccb2")}
           </Button>
           <Button
             type="button"
@@ -104,7 +106,7 @@ export function PdfExportDialog({
             }}
           >
             <FileDown className="h-4 w-4" />
-            Export
+            {tr("m3664895579f0")}
           </Button>
         </DialogFooter>
       </DialogContent>

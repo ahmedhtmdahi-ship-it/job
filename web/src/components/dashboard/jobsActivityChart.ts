@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { TopActivityType } from "@/actions/dashboard.actions";
 
 // Donut hues, validated for colorblind separation against each theme's
@@ -20,7 +21,7 @@ export const OTHER_SLICE_ID = "__other__";
 // as two identically-labeled slices/bars.
 export function otherBucketLabel(topLabels: string[]): string {
   return topLabels.includes(OTHER_ACTIVITY_LABEL)
-    ? "Other activity types"
+    ? uiMessage("m6ecb2acbbe0c")
     : OTHER_ACTIVITY_LABEL;
 }
 

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Loader } from "lucide-react";
 import { Card, CardContent, CardTitle } from "../ui/card";
@@ -18,6 +19,8 @@ import type { Contact, ContactRole } from "@/models/contact.model";
 import type { Company, JobLocation } from "@/models/job.model";
 
 function ContactsContainer() {
+  const tr = useT();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [roleId, setRoleId] = useState<string | undefined>(undefined);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -61,16 +64,16 @@ function ContactsContainer() {
       <Card x-chunk="dashboard-06-chunk-0">
         <ResponsiveCardHeader>
           <div className="flex items-baseline gap-2">
-            <CardTitle>Contacts</CardTitle>
+            <CardTitle>{tr("mb450645debe2")}</CardTitle>
             {!list.initialLoading && list.total > 0 && (
               <RecordsCount
                 count={list.contacts.length}
                 total={list.total}
-                label="contacts"
+                label={tr("maa5af4084f37")}
               />
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             <ContactRoleFilter
               roles={roles}
               roleId={roleId}
@@ -79,7 +82,7 @@ function ContactsContainer() {
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search contacts..."
+              placeholder={tr("m682a0fc1d256")}
             />
             <AddContact
               editContact={editContact}

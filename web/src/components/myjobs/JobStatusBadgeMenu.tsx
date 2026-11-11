@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -27,6 +28,8 @@ export function JobStatusBadgeMenu({
   onChangeJobStatus,
   className,
 }: JobStatusBadgeMenuProps) {
+  const tr = useT();
+
   return (
     <DropdownMenu>
       <Tooltip>
@@ -34,16 +37,16 @@ export function JobStatusBadgeMenu({
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              aria-label={`Change status, currently ${job.Status?.label ?? ""}`}
+              aria-label={tr("m9d4381852230", {v0: job.Status?.label ?? ""})}
               className="cursor-pointer rounded-full focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <JobStatusBadge job={job} className={className}>
-                <ChevronDown className="ml-1 h-3 w-3" aria-hidden />
+                <ChevronDown className="ms-1 h-3 w-3" aria-hidden />
               </JobStatusBadge>
             </button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent>Click to change status</TooltipContent>
+        <TooltipContent>{tr("m3a49bea8a561")}</TooltipContent>
       </Tooltip>
       <DropdownMenuContent align="start" className="p-0">
         <JobStatusMenuItems

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import type { UseFormReturn } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,6 +25,8 @@ export function StepBasics({
 }: {
   form: UseFormReturn<CreateAutomationInput>;
 }) {
+  const tr = useT();
+
   return (
     <>
       <FormField
@@ -31,13 +34,12 @@ export function StepBasics({
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Automation Name</FormLabel>
+            <FormLabel>{tr("m9a46f09dd197")}</FormLabel>
             <FormControl>
-              <Input placeholder="e.g., Full Stack Jobs Calgary" {...field} />
+              <Input placeholder={tr("md7cd6e58028a")} {...field} />
             </FormControl>
             <FormDescription>
-              A descriptive name to identify this automation
-            </FormDescription>
+              {tr("m8fd6aa79caf1")}</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -47,24 +49,22 @@ export function StepBasics({
         name="jobBoard"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Job Board</FormLabel>
+            <FormLabel>{tr("m63d96480f475")}</FormLabel>
             <Select onValueChange={field.onChange} value={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a job board" />
+                  <SelectValue placeholder={tr("m88ae8e2c0dcc")} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 <SelectItem value="greenhouse">
-                  Greenhouse (company boards)
-                </SelectItem>
-                <SelectItem value="lever">Lever (company boards)</SelectItem>
-                <SelectItem value="ashby">Ashby (company boards)</SelectItem>
+                  {tr("m97e4ab6aa14f")}</SelectItem>
+                <SelectItem value="lever">{tr("m7f48b680b587")}</SelectItem>
+                <SelectItem value="ashby">{tr("m12dfc79af5e6")}</SelectItem>
               </SelectContent>
             </Select>
             <FormDescription>
-              Track specific companies&apos; job boards
-            </FormDescription>
+              {tr("m860400b47b0b")}</FormDescription>
             <FormMessage />
           </FormItem>
         )}

@@ -1,5 +1,8 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
@@ -44,6 +47,8 @@ import { APP_CONSTANTS } from "@/lib/constants";
 import { format } from "date-fns";
 
 function CopyButton({ text }: { text: string }) {
+  const tr = useT();
+
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -51,7 +56,7 @@ function CopyButton({ text }: { text: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toastError("Couldn't copy to clipboard. Please copy the text manually.", "Copy failed");
+      toastError(tr("ma09b8cc378ef"), tr("m5b50e7a693fe"));
     }
   };
   return (
@@ -84,6 +89,8 @@ function TokenRevealDialog({
   mcpUrl: string;
   onClose: () => void;
 }) {
+  const tr = useT();
+
   const ocSnippet = JSON.stringify(
     {
       mcpServers: {
@@ -115,27 +122,26 @@ function TokenRevealDialog({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Token Created — Save It Now</DialogTitle>
+          <DialogTitle>{tr("m266526e48c50")}</DialogTitle>
           <DialogDescription>
-            This is the only time you can see the full token. Copy it before closing.
-          </DialogDescription>
+            {tr("mee1af8d76d51")}</DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-1">
-            <Label className="text-xs">Your token</Label>
+            <Label className="text-xs">{tr("mbb2d0a1768e9")}</Label>
             <div className="flex gap-2 items-center">
               <Input readOnly value={token} className="font-mono text-xs" />
               <CopyButton text={token} />
             </div>
           </div>
           <div className="space-y-3">
-            <p className="text-xs font-medium text-muted-foreground">Client config snippets</p>
-            <CodeSnippet label="OpenClaw / Hermes (streamable-http)" code={ocSnippet} />
-            <CodeSnippet label="Claude Desktop (via mcp-remote)" code={claudeSnippet} />
+            <p className="text-xs font-medium text-muted-foreground">{tr("me6f56fdfa57f")}</p>
+            <CodeSnippet label={tr("m7828990eddda")} code={ocSnippet} />
+            <CodeSnippet label={tr("me3e7330a61ac")} code={claudeSnippet} />
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={onClose}>I saved my token</Button>
+          <Button onClick={onClose}>{tr("m14ad567b6c5e")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -143,6 +149,10 @@ function TokenRevealDialog({
 }
 
 export default function McpAccessSettings() {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [tokens, setTokens] = useState<PublicTokenMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -176,7 +186,7 @@ export default function McpAccessSettings() {
     const result = await createMcpToken({ name: tokenName.trim(), expiryDays });
     setGenerating(false);
     if (!result.success) {
-      toastError(result.message);
+      toastError(tr(result.message));
       return;
     }
     setRevealedToken({ token: result.token, name: result.record.name });
@@ -191,11 +201,11 @@ export default function McpAccessSettings() {
     const result = await revokeMcpToken(id);
     setRevoking(null);
     if (!result.success) {
-      toastError(result.message ?? "Failed to revoke");
+      toastError(tr(result.message ?? uiMessage("m804251d10e8a")));
       return;
     }
     setTokens((prev) => prev.filter((t) => t.id !== id));
-    toastSuccess("Token revoked");
+    toastSuccess(tr("mcd7e9dbe5eec"));
   };
 
   return (
@@ -211,12 +221,12 @@ export default function McpAccessSettings() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-medium">MCP Endpoint</CardTitle>
-          <CardDescription>Connect AI agents to JobSync via the Model Context Protocol.</CardDescription>
+          <CardTitle className="text-lg font-medium">{tr("m47e036731f32")}</CardTitle>
+          <CardDescription>{tr("mc5eb641e2346")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
-            <Label className="text-xs text-muted-foreground">Endpoint URL</Label>
+            <Label className="text-xs text-muted-foreground">{tr("m2578179d1779")}</Label>
             <div className="flex gap-2 items-center">
               <Input readOnly value={mcpUrl} className="font-mono text-sm" />
               <CopyButton text={mcpUrl} />
@@ -228,21 +238,19 @@ export default function McpAccessSettings() {
       <Card>
         <CardHeader className="flex-row flex-wrap items-start justify-between gap-2">
           <div className="min-w-0">
-            <CardTitle className="text-lg font-medium">Personal Access Tokens</CardTitle>
-            <CardDescription>Tokens authenticate external agents to call MCP tools.</CardDescription>
+            <CardTitle className="text-lg font-medium">{tr("m958113fa425c")}</CardTitle>
+            <CardDescription>{tr("mb9790130fbe4")}</CardDescription>
           </div>
           <Button size="sm" className="shrink-0" onClick={() => setShowGenerateDialog(true)} disabled={isLoading}>
-            <Plus className="h-4 w-4 mr-1" />
-            Generate
-          </Button>
+            <Plus className="h-4 w-4 me-1" />
+            {tr("m49e49bb4401e")}</Button>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading tokens...
-            </div>
+              <Loader2 className="h-4 w-4 animate-spin" /> {" "}{tr("m168146c7d3c7")}</div>
           ) : tokens.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No MCP tokens yet. Generate one to get started.</p>
+            <p className="text-sm text-muted-foreground">{tr("m9f1eee7955e9")}</p>
           ) : (
             <div className="space-y-3">
               {tokens.map((t) => (
@@ -251,9 +259,9 @@ export default function McpAccessSettings() {
                     <p className="font-medium text-sm truncate">{t.name}</p>
                     <p className="text-xs text-muted-foreground font-mono">{t.tokenPrefix}…</p>
                     <div className="flex flex-wrap gap-2 mt-1 text-xs text-muted-foreground">
-                      <span>Created {format(new Date(t.createdAt), "PP")}</span>
-                      <span>Expires {format(new Date(t.expiresAt), "PP")}</span>
-                      {t.lastUsedAt && <span>Last used {format(new Date(t.lastUsedAt), "PP")}</span>}
+                      <span>{tr("md70b9e24bca2")}{" "}{formatLocalized(new Date(t.createdAt), "PP")}</span>
+                      <span>{tr("mf6725f3af08a")}{" "}{formatLocalized(new Date(t.expiresAt), "PP")}</span>
+                      {t.lastUsedAt && <span>{tr("m830ec7f812f9")}{" "}{formatLocalized(new Date(t.lastUsedAt), "PP")}</span>}
                     </div>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {t.scopes.map((s) => (
@@ -263,20 +271,19 @@ export default function McpAccessSettings() {
                   </div>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="ghost" size="icon" disabled={revoking === t.id} title="Revoke token">
+                      <Button variant="ghost" size="icon" disabled={revoking === t.id} title={tr("m14683b379324")}>
                         {revoking === t.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4 text-destructive" />}
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Revoke &ldquo;{t.name}&rdquo;?</AlertDialogTitle>
+                        <AlertDialogTitle>{tr("mfded37220623")}{t.name}{tr("m637ea677e843")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          Any agent using this token will immediately lose access. This cannot be undone.
-                        </AlertDialogDescription>
+                          {tr("m0d3c326bc751")}</AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleRevoke(t.id)}>Revoke</AlertDialogAction>
+                        <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleRevoke(t.id)}>{tr("m87e6d00bbf53")}</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
@@ -290,23 +297,22 @@ export default function McpAccessSettings() {
       <Dialog open={showGenerateDialog} onOpenChange={setShowGenerateDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Generate MCP Token</DialogTitle>
+            <DialogTitle>{tr("m5a0b84bc752f")}</DialogTitle>
             <DialogDescription>
-              Name this token after the client (e.g. ChatGPT, Hermes, Claude Desktop) &mdash; it&apos;s shown as the source on jobs this token creates.
-            </DialogDescription>
+              {tr("mc9eacbdb58ca")}</DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Token name</Label>
+              <Label>{tr("m2e4186244bbd")}</Label>
               <Input
-                placeholder="e.g. Claude Desktop"
+                placeholder={tr("mbbc3c604ed99")}
                 value={tokenName}
                 onChange={(e) => setTokenName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
               />
             </div>
             <div className="space-y-2">
-              <Label>Expires in</Label>
+              <Label>{tr("mde9967524f05")}</Label>
               <Select
                 value={String(expiryDays)}
                 onValueChange={(v) => setExpiryDays(Number(v) as 30 | 90 | 365)}
@@ -316,18 +322,17 @@ export default function McpAccessSettings() {
                 </SelectTrigger>
                 <SelectContent>
                   {APP_CONSTANTS.MCP_TOKEN_EXPIRY_PRESETS.map((d) => (
-                    <SelectItem key={d} value={String(d)}>{d} days</SelectItem>
+                    <SelectItem key={d} value={String(d)}>{d} {" "}{tr("mab51004e9d71")}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowGenerateDialog(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setShowGenerateDialog(false)}>{tr("m19766ed6ccb2")}</Button>
             <Button onClick={handleGenerate} disabled={generating || !tokenName.trim()}>
-              {generating && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              Generate
-            </Button>
+              {generating && <Loader2 className="h-4 w-4 me-2 animate-spin" />}
+              {tr("m49e49bb4401e")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

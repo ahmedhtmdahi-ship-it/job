@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -48,6 +50,8 @@ export function QuestionForm({
   dialogOpen,
   setDialogOpen,
 }: QuestionFormProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [localAvailableTags, setLocalAvailableTags] =
     useState<Tag[]>(availableTags);
@@ -55,7 +59,7 @@ export function QuestionForm({
     resolver: zodResolver(AddQuestionFormSchema),
     defaultValues: {
       question: "",
-      answer: "TBD",
+      answer: uiMessage("m03626549a59a"),
       tagIds: [],
     },
   });
@@ -85,7 +89,7 @@ export function QuestionForm({
     } else {
       reset({
         question: "",
-        answer: "TBD",
+        answer: uiMessage("m03626549a59a"),
         tagIds: [],
       });
     }
@@ -98,21 +102,21 @@ export function QuestionForm({
         : await createQuestion(data);
 
       if (success) {
-        toastSuccess(`Question has been ${editQuestion ? "updated" : "created"} successfully`);
+        toastSuccess(tr("ma606632ef277", {v0: editQuestion ? "updated" : "created"}));
         reset();
         setDialogOpen(false);
         resetEditQuestion();
         onQuestionSaved();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     });
   }
 
-  const pageTitle = editQuestion ? "Edit Question" : "Add Question";
+  const pageTitle = editQuestion ? uiMessage("m9e26d3777ad5") : uiMessage("m1dc7ec5f8aed");
   const pageDescription = editQuestion
-    ? "Update this question in your question bank."
-    : "Add a question to your question bank.";
+    ? uiMessage("m88402768e9d2")
+    : uiMessage("mc2b3662fab85");
 
   const closeDialog = () => {
     reset();
@@ -126,9 +130,9 @@ export function QuestionForm({
         <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle data-testid="question-form-dialog-title">
-              {pageTitle}
+              {tr(pageTitle)}
             </DialogTitle>
-            <DialogDescription>{pageDescription}</DialogDescription>
+            <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -140,9 +144,9 @@ export function QuestionForm({
                 name="question"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Question *</FormLabel>
+                    <FormLabel>{tr("m1fde33e11c58")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter interview question" {...field} />
+                      <Input placeholder={tr("mf1b8f374462b")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +158,7 @@ export function QuestionForm({
                 name="tagIds"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Skill Tags</FormLabel>
+                    <FormLabel>{tr("m1f7cbb22bb10")}</FormLabel>
                     <FormControl>
                       <TagInput
                         availableTags={localAvailableTags}
@@ -172,7 +176,7 @@ export function QuestionForm({
                 name="answer"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Answer *</FormLabel>
+                    <FormLabel>{tr("m2be38687608f")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>
@@ -188,12 +192,10 @@ export function QuestionForm({
                   className="mt-2 md:mt-0"
                   onClick={closeDialog}
                 >
-                  Cancel
-                </Button>
+                  {tr("m19766ed6ccb2")}</Button>
                 <Button type="submit">
-                  Save
-                  {isPending && (
-                    <Loader className="h-4 w-4 shrink-0 spinner ml-2" />
+                  {tr("m1509f561f241")}{isPending && (
+                    <Loader className="h-4 w-4 shrink-0 spinner ms-2" />
                   )}
                 </Button>
               </DialogFooter>

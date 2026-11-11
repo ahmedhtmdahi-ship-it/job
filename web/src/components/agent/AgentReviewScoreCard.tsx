@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { RadialChartComponent } from "@/components/RadialChartSvg";
 import type { ResumeScores } from "@/models/ai.schemas";
 
@@ -13,10 +14,12 @@ export function AgentReviewScoreCard({
   scores: ResumeScores;
   size?: number;
 }) {
+  const tr = useT();
+
   const items = [
-    { label: "Impact", value: scores.impact },
-    { label: "Clarity", value: scores.clarity },
-    { label: "ATS", value: scores.atsCompatibility },
+    { label: tr("md1f23f0d1361"), value: scores.impact },
+    { label: tr("m3861619d4ee0"), value: scores.clarity },
+    { label: tr("m592162ab6c0d"), value: scores.atsCompatibility },
   ];
 
   return (
@@ -24,8 +27,8 @@ export function AgentReviewScoreCard({
       <RadialChartComponent score={scores.overall} size={size} />
       <div className="mt-1 grid grid-cols-3 gap-2">
         {items.map((item) => (
-          <div key={item.label} className="text-center">
-            <div className="text-xs text-muted-foreground">{item.label}</div>
+          <div key={tr(item.label)} className="text-center">
+            <div className="text-xs text-muted-foreground">{tr(item.label)}</div>
             <div className="font-semibold">{item.value}</div>
           </div>
         ))}

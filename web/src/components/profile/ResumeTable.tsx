@@ -1,4 +1,7 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Copy,
   FileDown,
@@ -61,6 +64,10 @@ function DocumentTable({
   reloadDocuments,
   defaultResumeId,
 }: DocumentTableProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<ProfileDocument>();
   const [setDefaultConfirmOpen, setSetDefaultConfirmOpen] = useState(false);
@@ -87,10 +94,10 @@ function DocumentTable({
     if (!doc.id) return;
     const { success, message } = await setDefaultResume(doc.id);
     if (success) {
-      toastSuccess(`"${doc.title}" is now your default resume.`);
+      toastSuccess(tr("m4f7c1d77fc84", {v0: doc.title}));
       reloadDocuments();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -124,7 +131,7 @@ function DocumentTable({
     if (!doc.id) return;
     if (doc.jobCount > 0) {
       const label = doc.type === "resume" ? "resume" : "cover letter";
-      return toastError(`Number of jobs using ${label} must be 0!`);
+      return toastError(tr("mc37751890b4f", {v0: label}));
     }
 
     const { success, message } =
@@ -133,11 +140,11 @@ function DocumentTable({
         : await deleteCoverLetterById(doc.id);
 
     if (success) {
-      const label = doc.type === "resume" ? "Resume" : "Cover letter";
-      toastSuccess(`${label} has been deleted successfully`);
+      const label = doc.type === "resume" ? uiMessage("md640c7421da0") : uiMessage("md9adba2207cb");
+      toastSuccess(tr("m5a9da1f26d5d", {v0: label}));
       reloadDocuments();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -146,16 +153,15 @@ function DocumentTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead className="whitespace-nowrap">Type</TableHead>
-            <TableHead className="whitespace-nowrap">Created</TableHead>
+            <TableHead>{tr("m7e8cd2056da7")}</TableHead>
+            <TableHead className="whitespace-nowrap">{tr("mbaaddf70fb5d")}</TableHead>
+            <TableHead className="whitespace-nowrap">{tr("md70b9e24bca2")}</TableHead>
             <TableHead className="hidden md:table-cell whitespace-nowrap">
-              Updated
-            </TableHead>
-            <TableHead>Jobs</TableHead>
-            <TableHead>Actions</TableHead>
+              {tr("m3a5ecca188c0")}</TableHead>
+            <TableHead>{tr("m2f17a0f8d518")}</TableHead>
+            <TableHead>{tr("mff8059dc6752")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -172,20 +178,19 @@ function DocumentTable({
                     >
                       {doc.title}
                       {doc.FileId ? (
-                        <Paperclip className="h-3.5 w-3.5 ml-1" />
+                        <Paperclip className="h-3.5 w-3.5 ms-1" />
                       ) : null}
                       {!hasMinResumeSections(doc.sectionCount) ? (
                         <IncompleteResumeHint />
                       ) : null}
                       {doc.isDefault ? (
-                        <Badge className="ml-2 border-transparent bg-green-600 text-white hover:bg-green-600/90">
-                          Default
-                        </Badge>
+                        <Badge className="ms-2 border-transparent bg-green-600 text-white hover:bg-green-600/90">
+                          {tr("m21b111cbfe6e")}</Badge>
                       ) : null}
                     </Link>
                   ) : (
                     <button
-                      className="text-left hover:underline"
+                      className="text-start hover:underline"
                       onClick={() => editCoverLetter(doc)}
                     >
                       {doc.title}
@@ -194,15 +199,15 @@ function DocumentTable({
                 </TableCell>
                 <TableCell className="whitespace-nowrap">
                   <StatusBadge
-                    label={isResume ? "Resume" : "Cover Letter"}
+                    label={isResume ? tr("md640c7421da0") : tr("m1120f0ed04fb")}
                     color={DOCUMENT_TYPE_BADGE_COLORS[doc.type]}
                   />
                 </TableCell>
                 <TableCell className="whitespace-nowrap">
-                  {doc.createdAt && format(doc.createdAt, "PP")}
+                  {doc.createdAt && formatLocalized(doc.createdAt, "PP")}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {doc.updatedAt && format(doc.updatedAt, "PP")}
+                  {doc.updatedAt && formatLocalized(doc.updatedAt, "PP")}
                 </TableCell>
                 <TableCell>{doc.jobCount}</TableCell>
                 <TableCell>
@@ -215,42 +220,38 @@ function DocumentTable({
                         data-testid="document-actions-menu-btn"
                       >
                         <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">{tr("mc02651240c87")}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                       {isResume ? (
                         <>
                           <DropdownMenuItem
                             className="cursor-pointer"
                             onClick={() => editResume(doc)}
                           >
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit Resume Title
-                          </DropdownMenuItem>
+                            <Pencil className="me-2 h-4 w-4" />
+                            {tr("m34676bbb6a74")}</DropdownMenuItem>
                           <Link href={`/dashboard/profile/resume/${doc.id}`}>
                             <DropdownMenuItem className="cursor-pointer">
-                              <FilePenLine className="mr-2 h-4 w-4" />
-                              View/Edit Resume
-                            </DropdownMenuItem>
+                              <FilePenLine className="me-2 h-4 w-4" />
+                              {tr("mbc651a9d7fe4")}</DropdownMenuItem>
                           </Link>
                           <DropdownMenuItem
                             className="cursor-pointer"
                             onClick={() => onCopyResume(doc)}
                             data-testid="copy-resume-menu-item"
                           >
-                            <Copy className="mr-2 h-4 w-4" />
-                            Create a copy
-                          </DropdownMenuItem>
+                            <Copy className="me-2 h-4 w-4" />
+                            {tr("m410154360a93")}</DropdownMenuItem>
                           {!doc.isDefault && (
                             <DropdownMenuItem
                               className="cursor-pointer"
                               onClick={() => onSetDefault(doc)}
                             >
-                              <Star className="mr-2 h-4 w-4" />
-                              Set as default
-                            </DropdownMenuItem>
+                              <Star className="me-2 h-4 w-4" />
+                              {tr("md09b4dd6265a")}</DropdownMenuItem>
                           )}
                         </>
                       ) : (
@@ -259,26 +260,23 @@ function DocumentTable({
                             className="cursor-pointer"
                             onClick={() => editCoverLetter(doc)}
                           >
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit Cover Letter
-                          </DropdownMenuItem>
+                            <Pencil className="me-2 h-4 w-4" />
+                            {tr("m12d3470daa0a")}</DropdownMenuItem>
                           <DropdownMenuItem
                             className="cursor-pointer"
                             onClick={() => exportCoverLetter(doc)}
                             data-testid="export-cover-letter-menu-item"
                           >
-                            <FileDown className="mr-2 h-4 w-4" />
-                            Export to PDF
-                          </DropdownMenuItem>
+                            <FileDown className="me-2 h-4 w-4" />
+                            {tr("mccd4fda2f607")}</DropdownMenuItem>
                         </>
                       )}
                       <DropdownMenuItem
                         className="text-red-600 cursor-pointer"
                         onClick={() => onDeleteDocument(doc)}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
+                        <Trash className="me-2 h-4 w-4" />
+                        {tr("me2d0a54968ea")}</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
@@ -289,14 +287,14 @@ function DocumentTable({
       </Table>
       <DeleteAlertDialog
         pageTitle={
-          documentToDelete?.type === "cover-letter" ? "cover letter" : "resume"
+          documentToDelete?.type === "cover-letter" ? tr("mec8b778e04b2") : tr("ma83a31320d92")
         }
         open={alertOpen}
         onOpenChange={setAlertOpen}
         onDelete={() => deleteDocument(documentToDelete!)}
         alertDescription={
           documentToDelete?.isDefault
-            ? "This is your default resume. Deleting it will leave you without a default until you set another. This action cannot be undone."
+            ? tr("mb598caa7d56f")
             : undefined
         }
       />
@@ -305,13 +303,13 @@ function DocumentTable({
         open={setDefaultConfirmOpen}
         onOpenChange={setSetDefaultConfirmOpen}
         onDelete={() => performSetDefault(documentToSetDefault!)}
-        alertTitle="Change default resume?"
+        alertTitle={tr("m525c79604b21")}
         alertDescription={
           currentDefault
-            ? `This will make "${documentToSetDefault?.title}" your default resume, replacing "${currentDefault.title}".`
-            : `This will make "${documentToSetDefault?.title}" your default resume, replacing your current default.`
+            ? tr("m0103ed527048", {v0: documentToSetDefault?.title, v1: currentDefault.title})
+            : tr("m5263415245a0", {v0: documentToSetDefault?.title})
         }
-        actionLabel="Set as default"
+        actionLabel={tr("md09b4dd6265a")}
         actionVariant="default"
       />
     </>

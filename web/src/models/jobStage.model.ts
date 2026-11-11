@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 import type { Tag } from "./job.model";
 import type { ContactSummary } from "./contact.model";
@@ -71,12 +72,12 @@ export const AddJobStageFormSchema = z
     setAsCurrent: z.boolean().default(true),
   })
   .refine((data) => !!data.stageTypeId || !!data.customLabel?.trim(), {
-    message: "Pick a stage or enter a custom stage name.",
+    message: uiMessage("md5a8e4c3cf6e"),
     path: ["stageTypeId"],
   })
   .refine(
     (data) => !data.customLabel?.trim() || !!data.customStatusId,
-    { message: "Pick the status this custom stage means.", path: ["customStatusId"] },
+    { message: uiMessage("m00425fc9b0de"), path: ["customStatusId"] },
   );
 
 export type AddJobStageValues = z.infer<typeof AddJobStageFormSchema>;

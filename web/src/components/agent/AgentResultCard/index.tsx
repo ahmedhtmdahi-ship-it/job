@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { getToolName, type ToolUIPart } from "ai";
 import { AddJobResult } from "./AddJobResult";
 import { GetResumeResult } from "./GetResumeResult";
@@ -15,19 +16,19 @@ import type {
 } from "@/models/agent.model";
 
 export function AgentResultCard({ part }: { part: ToolUIPart }) {
+  const tr = useT();
+
   if (part.state === "output-denied") {
     return (
       <div className="rounded-sm border p-3 text-sm text-muted-foreground">
-        Cancelled — nothing was saved.
-      </div>
+        {tr("m7e3abff3aae4")}</div>
     );
   }
 
   if (part.state === "output-error") {
     return (
       <div className="rounded-sm border p-3 text-sm">
-        That could not be completed. Try asking again.
-      </div>
+        {tr("me48f639e5740")}</div>
     );
   }
 

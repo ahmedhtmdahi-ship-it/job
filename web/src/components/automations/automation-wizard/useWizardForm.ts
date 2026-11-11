@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,6 +37,8 @@ export function useWizardForm({
   onSuccess,
   editAutomation,
 }: UseWizardFormArgs) {
+ const tr = useT();
+
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -81,9 +84,9 @@ export function useWizardForm({
 
       if (result.success) {
         toastSuccess(
-          editAutomation
+          tr(editAutomation
             ? "Your automation has been updated successfully."
-            : "Your automation has been created and will run at the scheduled time.",
+            : "Your automation has been created and will run at the scheduled time."),
           editAutomation ? "Automation updated" : "Automation created",
         );
         form.reset();
@@ -91,10 +94,10 @@ export function useWizardForm({
         onOpenChange(false);
         onSuccess();
       } else {
-        toastError(result.message || "Something went wrong");
+        toastError(tr(result.message || "Something went wrong"));
       }
     } catch (error) {
-      toastError("Failed to save automation");
+      toastError(tr("Failed to save automation"));
     } finally {
       setIsSubmitting(false);
     }

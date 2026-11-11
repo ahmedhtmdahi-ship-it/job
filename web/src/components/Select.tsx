@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import React from "react";
 import {
   Select,
@@ -16,9 +17,12 @@ interface SelectProps {
   options: any[];
   field: ControllerRenderProps<any, any>;
   fullWidth?: boolean;
+  localizeOptions?: boolean;
 }
 
-function SelectFormCtrl({ label, options, field, fullWidth }: SelectProps) {
+function SelectFormCtrl({ label, options, field, fullWidth, localizeOptions = false }: SelectProps) {
+ const tr = useT();
+
   return (
     <>
       <Select
@@ -28,13 +32,13 @@ function SelectFormCtrl({ label, options, field, fullWidth }: SelectProps) {
       >
         <FormControl>
           <SelectTrigger
-            aria-label={`Select ${label}`}
+            aria-label={tr("m84805b3f51e7", {v0: label})}
             className={cn(
               fullWidth ? "w-full" : "w-[200px]",
               "[&_[data-incomplete-hint]]:pointer-events-none",
             )}
           >
-            <SelectValue placeholder={`Select ${label}`} />
+            <SelectValue placeholder={tr("m84805b3f51e7", {v0: label})} />
           </SelectTrigger>
         </FormControl>
         <SelectContent>
@@ -47,7 +51,7 @@ function SelectFormCtrl({ label, options, field, fullWidth }: SelectProps) {
                     value={option.id}
                     disabled={option.disabled}
                   >
-                    {option.label ?? option.value ?? option.title}
+                    {localizeOptions ? tr(option.label ?? option.value ?? option.title) : (option.label ?? option.value ?? option.title)}
                     {option.suffix}
                   </SelectItem>
                 );

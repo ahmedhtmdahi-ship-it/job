@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { RefObject, useMemo, useRef } from "react";
 import { Pie, PieSvgProps } from "@nivo/pie";
 import { animated } from "@react-spring/web";
@@ -21,6 +22,7 @@ import {
   CHART_HEIGHT,
   donutLayout,
   DonutSlice,
+  OTHER_SLICE_ID,
 } from "./jobsActivityChart";
 
 interface JobsActivityCardProps {
@@ -74,6 +76,8 @@ function makeArcLinkLabel(maxChars: RefObject<number>) {
 }
 
 export default function JobsActivityCard({ data }: JobsActivityCardProps) {
+  const tr = useT();
+
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_JOBS_ACTIVITY_STORAGE_KEY,
     data.map((item) => item.label),
@@ -95,7 +99,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
     otherHours,
     theme,
     otherActivities,
-  );
+  ).map(slice => slice.id === OTHER_SLICE_ID ? {...slice, label: topActivities.some(activity => activity.label === tr("Other")) ? tr("Other activity types") : tr(slice.label)} : slice);
   const layout = donutLayout(chartWidth);
   const roomyTotal = layout.holeDiameter >= FULL_TOTAL_HOLE;
   const maxLabelChars = useRef(layout.maxLabelChars);
@@ -110,26 +114,25 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between gap-2">
           <CardTitle className="text-lg text-green-600 min-w-0 truncate">
-            Jobs &amp; Activity
-          </CardTitle>
+            {tr("mc4c0f1afd99c")}</CardTitle>
           <div
             className="flex shrink-0 rounded-md border text-xs"
             data-testid="jobs-activity-toggle-group"
           >
             {data.map((item, index) => (
               <button
-                key={item.label}
+                key={tr(item.label)}
                 onClick={() => selectTab(index)}
                 className={cn(
                   "px-2 py-1 transition-colors",
-                  index === 0 && "rounded-l-md",
-                  index === data.length - 1 && "rounded-r-md",
+                  index === 0 && "rounded-s-md",
+                  index === data.length - 1 && "rounded-e-md",
                   activeIndex === index
                     ? "bg-primary text-primary-foreground"
                     : "hover:bg-muted",
                 )}
               >
-                {item.label}
+                {tr(item.label)}
               </button>
             ))}
           </div>
@@ -141,8 +144,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
             <div className="flex h-full w-full items-center justify-center">
               <div className="h-[132px] w-[132px] rounded-full border-[18px] border-muted" />
               <p className="absolute inset-x-0 bottom-0 text-center text-sm text-muted-foreground">
-                No activities recorded
-              </p>
+                {tr("m7b4ec0fa225d")}</p>
             </div>
           ) : (
             chartWidth > 0 && (
@@ -180,7 +182,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                 arcLinkLabelsColor={{ from: "data.color" }}
                 arcLinkLabelsTextColor={ARC_LABEL_TEXT_COLOR[theme]}
                 theme={{
-                  text: { fontSize: 11 },
+                  text: {fontFamily: "inherit", fontSize: 11 },
                   tooltip: {
                     container: { background: "#1e293b", color: "#fff" },
                   },
@@ -196,11 +198,9 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    <strong>{datum.data.label}</strong> — {datum.value}h
-                    {datum.data.breakdown?.map((activity: TopActivityType) => (
+                    <strong>{datum.data.label}</strong> — {datum.value}{tr("maaa9402664f1")}{datum.data.breakdown?.map((activity: TopActivityType) => (
                       <div key={activity.label}>
-                        {activity.label} — {activity.hours}h
-                      </div>
+                        {activity.label} — {activity.hours}{tr("maaa9402664f1")}</div>
                     ))}
                   </div>
                 )}
@@ -217,15 +217,14 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                 roomyTotal ? "text-xl" : "text-base",
               )}
             >
-              {totalHours}h
-            </span>
+              {totalHours}{tr("maaa9402664f1")}</span>
             <span
               className={cn(
                 "text-muted-foreground tabular-nums",
                 roomyTotal ? "text-sm" : "text-xs",
               )}
             >
-              {jobsApplied} {jobsApplied === 1 ? "job" : "jobs"}
+              {jobsApplied} {jobsApplied === 1 ? tr("m5e8c9902207a") : tr("m5d9a17cb70b9")}
             </span>
             {jobsTrend !== 0 && roomyTotal && (
               <span

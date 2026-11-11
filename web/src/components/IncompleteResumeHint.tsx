@@ -18,7 +18,7 @@ export function IncompleteResumeHint() {
           {/* pointer-events-auto: a disabled Select item is pointer-events-none */}
           <span
             data-incomplete-hint
-            className="pointer-events-auto ml-2 inline-flex"
+            className="pointer-events-auto ms-2 inline-flex"
           >
             <TriangleAlert
               className="h-3.5 w-3.5 shrink-0 text-amber-600 dark:text-amber-500"

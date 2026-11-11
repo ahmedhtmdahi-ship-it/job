@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Loader } from "lucide-react";
@@ -47,6 +48,8 @@ function JobsContainer({
   sources,
   tags,
 }: MyJobsProps) {
+  const tr = useT();
+
   const router = useRouter();
   const [editJob, setEditJob] = useState(null);
   const [noteDialogOpen, setNoteDialogOpen] = useState(false);
@@ -99,9 +102,9 @@ function JobsContainer({
   const onDeleteJob = async (jobId: string) => {
     const { res, success, message } = await deleteJobById(jobId);
     if (success) {
-      toastSuccess(`Job has been deleted successfully`);
+      toastSuccess(tr(`Job has been deleted successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
     reloadJobs();
   };
@@ -109,7 +112,7 @@ function JobsContainer({
   const onEditJob = async (jobId: string) => {
     const { job, success, message } = await getJobDetails(jobId);
     if (!success) {
-      toastError(message);
+      toastError(tr(message));
       return;
     }
     setEditJob(job);
@@ -119,9 +122,9 @@ function JobsContainer({
     const { success, message } = await updateJobStatus(jobId, jobStatus);
     if (success) {
       router.refresh();
-      toastSuccess(`Job has been updated successfully`);
+      toastSuccess(tr(`Job has been updated successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
     reloadJobs();
   };
@@ -182,14 +185,13 @@ function JobsContainer({
             jobs.length === 0 &&
             hasJobFacets(facets) && (
             <div className="flex flex-col items-center gap-2 py-10 text-sm text-muted-foreground">
-              <p>No jobs match these filters.</p>
+              <p>{tr("m735c43b33bab")}</p>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => applyFacets(EMPTY_JOB_FACETS)}
               >
-                Clear all
-              </Button>
+                {tr("m29a390f9237e")}</Button>
             </div>
           )}
           {jobs.length > 0 &&

@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { listSnapshots } from "@/lib/backup";
@@ -8,13 +9,13 @@ import { log } from "@/lib/telemetry";
 export async function GET() {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("m76d1efbeed2d") }, { status: 401 });
   }
 
   try {
     return NextResponse.json(await listSnapshots(session.user.id), { status: 200 });
   } catch (error) {
     log.error("[Backup] Listing snapshots failed", { error: String(error) });
-    return NextResponse.json({ error: "Could not list snapshots." }, { status: 500 });
+    return NextResponse.json({ error: uiMessage("m7f21bfda1b75") }, { status: 500 });
   }
 }

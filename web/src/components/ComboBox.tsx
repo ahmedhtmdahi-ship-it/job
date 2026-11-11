@@ -1,5 +1,7 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
+import {JOB_SOURCES, CONTACT_ROLES, JOB_STATUSES} from "@/lib/constants";
 import { Check, ChevronsUpDown, CirclePlus, Loader } from "lucide-react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -50,8 +52,12 @@ export function Combobox({
   onSearchChange,
   fullWidth,
 }: ComboboxProps) {
+  const tr = useT();
+
   // Placeholder text only; the accessible name comes from FormLabel/FormControl
-  const displayName = label ?? field.name;
+  const displayName = tr(label ?? field.name);
+  const defaults = field.name === "source" ? JOB_SOURCES : field.name === "contactRole" ? CONTACT_ROLES : field.name === "status" ? JOB_STATUSES : [];
+  const optionLabel = (option: {label: string; value?: string}) => defaults.some(item => item.value === option.value && item.label === option.label) ? tr(option.label) : option.label;
   const [newOption, setNewOption] = useState<string>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -98,14 +104,14 @@ export function Combobox({
         case "location":
           const { data, success, message } = await createLocation(label);
           if (!success) {
-            toastError(message);
+            toastError(tr(message));
           }
           response = data;
           break;
         case "source":
           const sourceRes = await createJobSource(label);
           if (!sourceRes.success) {
-            toastError(sourceRes.message);
+            toastError(tr(sourceRes.message));
           }
           response = sourceRes.data;
           if (!sourceRes.success) return;
@@ -117,7 +123,7 @@ export function Combobox({
         case "contactRole":
           const roleRes = await createContactRole(label);
           if (!roleRes.success) {
-            toastError(roleRes.message);
+            toastError(tr(roleRes.message));
             return;
           }
           response = roleRes.data;
@@ -150,15 +156,14 @@ export function Combobox({
           >
             <span className="min-w-0 truncate">
               {field.value
-                ? (options.find((option) => option.id === field.value)?.label ??
-                  (freeText ? field.value : null))
-                : `Select ${displayName}`}
+                ? (options.find((option) => option.id === field.value) ? optionLabel(options.find((option) => option.id === field.value)) : (freeText ? field.value : null))
+                : tr("m84805b3f51e7", {v0: displayName})}
             </span>
 
             {isPending ? (
               <Loader className="h-4 w-4 shrink-0 spinner" />
             ) : (
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
             )}
           </Button>
         </FormControl>
@@ -172,8 +177,8 @@ export function Combobox({
         )}
       >
         <Command
-          filter={(value, search) =>
-            value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
+          filter={(value, search, keywords) =>
+            [value, ...(keywords ?? [])].join(" ").toLowerCase().includes(search.toLowerCase()) ? 1 : 0
           }
         >
           <CommandInput
@@ -182,7 +187,7 @@ export function Combobox({
               setNewOption(val);
               onSearchChange?.(val);
             }}
-            placeholder={`${creatable ? "Create or " : ""}Search ${displayName}`}
+            placeholder={tr("ma4b0e8811bd6", {v0: creatable ? tr("m5a5684f36c43") : "", v1: displayName})}
             onKeyDown={(e) => handleEnterKey(e)}
           />
           <CommandList>
@@ -199,19 +204,20 @@ export function Combobox({
               {creatable ? (
                 <>
                   <CirclePlus className="h-4 w-4" />
-                  <p>Create: </p>
+                  <p>{tr("m02184950e3ed")}{" "}</p>
                   <p className="block max-w-48 truncate font-semibold text-primary">
                     {newOption}
                   </p>
                 </>
               ) : (
-                <p className="font-semibold text-primary">No source found!</p>
+                <p className="font-semibold text-primary">{tr("me28235306e05")}</p>
               )}
             </CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
                   value={option.value}
+                  keywords={[optionLabel(option)]}
                   key={option.id}
                   onSelect={() => {
                     if (field.onChange) {
@@ -222,11 +228,11 @@ export function Combobox({
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "me-2 h-4 w-4",
                       option.id === field.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {option.label}
+                  {optionLabel(option)}
                 </CommandItem>
               ))}
             </CommandGroup>

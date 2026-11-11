@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -41,12 +43,14 @@ function AddResumeSummary({
   setDialogOpen,
   summaryToEdit,
 }: AddResumeSummaryProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
-  const pageTitle = summaryToEdit ? "Edit Summary" : "Add Summary";
+  const pageTitle = summaryToEdit ? uiMessage("m2d2eb4b30434") : uiMessage("md1d875005932");
   const pageDescription = summaryToEdit
-    ? "Update the professional summary on your resume."
-    : "Add a professional summary to your resume.";
+    ? uiMessage("mbdf655d7f3f7")
+    : uiMessage("mb88b8314e786");
 
   const form = useForm<z.infer<typeof AddSummarySectionFormSchema>>({
     resolver: zodResolver(AddSummarySectionFormSchema),
@@ -80,13 +84,11 @@ function AddResumeSummary({
         ? await updateResumeSummary(data)
         : await addResumeSummary(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Summary has been ${
-          summaryToEdit ? "updated" : "created"
-        } successfully`);
+        toastSuccess(tr("m159afa2227d6", {v0: summaryToEdit ? "updated" : "created"}));
       }
     });
   };
@@ -97,8 +99,8 @@ function AddResumeSummary({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="lg:max-h-screen overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
-          <DialogDescription>{pageDescription}</DialogDescription>
+          <DialogTitle>{tr(pageTitle)}</DialogTitle>
+          <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -112,9 +114,9 @@ function AddResumeSummary({
                 name="sectionTitle"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Section Title</FormLabel>
+                    <FormLabel>{tr("mcde8d07e9b3b")}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Ex: Summary" />
+                      <Input {...field} placeholder={tr("m52754e232018")} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,7 +130,7 @@ function AddResumeSummary({
                 name="content"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Resume Summary</FormLabel>
+                    <FormLabel>{tr("m18e5becfd852")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   Select,
   SelectContent,
@@ -29,17 +30,19 @@ export function InterviewFilters({
   onRoundChange,
   onCompanyChange,
 }: Props) {
+  const tr = useT();
+
   return (
     <>
       <Select
         value={stageTypeId ?? ALL}
         onValueChange={(v) => onRoundChange(v === ALL ? undefined : v)}
       >
-        <SelectTrigger aria-label="Filter by round" className="h-8 w-[180px]">
+        <SelectTrigger aria-label={tr("m0921229d8330")} className="h-8 w-[180px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All rounds</SelectItem>
+          <SelectItem value={ALL}>{tr("m3d917f8977d5")}</SelectItem>
           {rounds.map((round) => (
             <SelectItem key={round.id} value={round.id}>
               {round.label}
@@ -51,11 +54,11 @@ export function InterviewFilters({
         value={companyId ?? ALL}
         onValueChange={(v) => onCompanyChange(v === ALL ? undefined : v)}
       >
-        <SelectTrigger aria-label="Filter by company" className="h-8 w-[180px]">
+        <SelectTrigger aria-label={tr("m749952afe989")} className="h-8 w-[180px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All companies</SelectItem>
+          <SelectItem value={ALL}>{tr("m39b460136cb9")}</SelectItem>
           {companies.map((company) => (
             <SelectItem key={company.id} value={company.id}>
               {company.label}

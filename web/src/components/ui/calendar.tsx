@@ -1,5 +1,7 @@
 "use client";
 
+import {useLocale} from "next-intl";
+import {ar, enUS} from "date-fns/locale";
 import * as React from "react";
 import {
   ChevronDownIcon,
@@ -23,10 +25,11 @@ function Calendar({
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"];
 }) {
+  const locale = useLocale();
   const defaultClassNames = getDefaultClassNames();
 
   return (
-    <DayPicker
+    <DayPicker locale={locale === "ar" ? ar : enUS} dir={locale === "ar" ? "rtl" : "ltr"}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
@@ -37,7 +40,7 @@ function Calendar({
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+          date.toLocaleString(locale, { month: "short" }),
         ...formatters,
       }}
       classNames={{
@@ -81,7 +84,7 @@ function Calendar({
           "select-none font-medium",
           captionLayout === "label"
             ? "text-sm"
-            : "[&>svg]:text-muted-foreground flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm [&>svg]:size-3.5",
+            : "[&>svg]:text-muted-foreground flex h-8 items-center gap-1 rounded-md ps-2 pe-1 text-sm [&>svg]:size-3.5",
           defaultClassNames.caption_label
         ),
         table: "w-full border-collapse",
@@ -100,15 +103,15 @@ function Calendar({
           defaultClassNames.week_number
         ),
         day: cn(
-          "group/day relative aspect-square h-full w-full select-none p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md",
+          "group/day relative aspect-square h-full w-full select-none p-0 text-center [&:first-child[data-selected=true]_button]:rounded-s-md [&:last-child[data-selected=true]_button]:rounded-e-md",
           defaultClassNames.day
         ),
         range_start: cn(
-          "bg-accent rounded-l-md",
+          "bg-accent rounded-s-md",
           defaultClassNames.range_start
         ),
         range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("bg-accent rounded-r-md", defaultClassNames.range_end),
+        range_end: cn("bg-accent rounded-e-md", defaultClassNames.range_end),
         today: cn(
           "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
           defaultClassNames.today
@@ -178,6 +181,7 @@ function CalendarDayButton({
   modifiers,
   ...props
 }: React.ComponentProps<typeof DayButton>) {
+  const locale = useLocale();
   const defaultClassNames = getDefaultClassNames();
 
   const ref = React.useRef<HTMLButtonElement>(null);

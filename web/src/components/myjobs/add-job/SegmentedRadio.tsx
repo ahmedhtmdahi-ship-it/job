@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ReactNode } from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ export function SegmentedRadio({
   className,
   children,
 }: SegmentedRadioProps) {
+  const tr = useT();
   return (
     <RadioGroupPrimitive.Root
       aria-label={ariaLabel}
@@ -44,7 +46,7 @@ export function SegmentedRadio({
             "data-[state=checked]:bg-muted data-[state=checked]:font-semibold data-[state=checked]:text-foreground",
           )}
         >
-          {o.label}
+          {tr(o.label)}
         </RadioGroupPrimitive.Item>
       ))}
       {children}

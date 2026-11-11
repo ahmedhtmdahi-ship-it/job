@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 export type CredentialType = "api-key" | "base-url";
 export type ProviderCategory = "cloud" | "local";
 
@@ -35,7 +36,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "http://127.0.0.1:11434",
       inputType: "text",
-      description: "Base URL for your Ollama instance",
+      description: uiMessage("m1b74142067de"),
       sensitive: false,
     },
   },
@@ -56,7 +57,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-...",
       inputType: "password",
-      description: "Used for GPT models in resume review and job matching",
+      description: uiMessage("m951ca0976dbd"),
       sensitive: true,
     },
   },
@@ -74,7 +75,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-...",
       inputType: "password",
-      description: "Used for DeepSeek models in resume review and job matching",
+      description: uiMessage("md76abdd88f57"),
       sensitive: true,
     },
   },
@@ -92,7 +93,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-or-...",
       inputType: "password",
-      description: "Access 200+ models from multiple providers via OpenRouter",
+      description: uiMessage("m1c0c7e7a37ec"),
       sensitive: true,
     },
   },
@@ -111,7 +112,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "AIza...",
       inputType: "password",
-      description: "Used for Gemini models in resume review and job matching",
+      description: uiMessage("mdfe475a9e9bb"),
       sensitive: true,
     },
   },

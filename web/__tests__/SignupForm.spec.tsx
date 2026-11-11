@@ -17,7 +17,7 @@ describe("SignupForm Component", () => {
   const mockPush = vi.fn();
 
   beforeEach(() => {
-    (useRouter as any).mockReturnValue({ push: mockPush });
+    (useRouter as any).mockReturnValue({ push: mockPush, refresh: vi.fn() });
     render(<SignupForm />);
   });
 

@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
@@ -21,7 +23,7 @@ import {
 import { useJobFilterCounts } from "./useJobFilterCounts";
 
 const STATUS_ORDER: string[] = JOB_STATUSES.map((s) => s.value);
-const ACCEPTED_LABEL = "Accepted (discovered)";
+const ACCEPTED_LABEL = uiMessage("m7adaa3b7bbd7");
 const SECTION_LABEL =
   "text-xs font-semibold uppercase tracking-wide text-muted-foreground";
 
@@ -42,6 +44,8 @@ export function JobsFilterPopover({
   scope: JobListScope;
   onApply: (facets: JobFacets) => void;
 }) {
+  const tr = useT();
+
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<JobFacets>(facets);
   const normalized = normalizeJobFacets(draft);
@@ -85,8 +89,8 @@ export function JobsFilterPopover({
   const total = counts?.total;
   const applyLabel =
     total === undefined
-      ? "Show jobs"
-      : `Show ${total} ${total === 1 ? "job" : "jobs"}`;
+      ? uiMessage("mad9e86751605")
+      : tr("mc826674524ae", {v0: total, v1: total === 1 ? "job" : "jobs"});
 
   const segmented = (
     options: Record<string, string>,
@@ -138,7 +142,7 @@ export function JobsFilterPopover({
           size="sm"
           variant="outline"
           data-testid="job-filter-button"
-          aria-label={active ? `Filter jobs, ${active} active` : "Filter jobs"}
+          aria-label={active ? tr("m1fe4d253bc54", {v0: active}) : tr("m7adf79c44abe")}
           className={cn(
             "relative h-8 w-8 p-0",
             active > 0 && "border-foreground ring-2 ring-foreground/10",
@@ -146,7 +150,7 @@ export function JobsFilterPopover({
         >
           <SlidersHorizontal className="h-4 w-4" />
           {active > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-card bg-foreground px-1 text-[11px] font-semibold text-background">
+            <span className="absolute -end-2 -top-2 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border-2 border-card bg-foreground px-1 text-[11px] font-semibold text-background">
               {active}
             </span>
           )}
@@ -155,19 +159,19 @@ export function JobsFilterPopover({
       <PopoverContent
         align="end"
         collisionPadding={16}
-        aria-label="Filter jobs"
+        aria-label={tr("m7adf79c44abe")}
         className="flex w-[min(380px,calc(100vw-32px))] flex-col p-0"
       >
         <div className="max-h-[min(70vh,560px)] overflow-y-auto">
           <div className="flex flex-col gap-2.5 border-b p-4 pb-3">
             <div className="flex items-center justify-between">
-              <span className={SECTION_LABEL}>Status</span>
+              <span className={SECTION_LABEL}>{tr("m920e413c7d41")}</span>
               <button
                 type="button"
                 className="text-xs text-muted-foreground hover:text-foreground"
                 onClick={toggleAllStatuses}
               >
-                {allStatusesPicked ? "Clear" : "Select all"}
+                {allStatusesPicked ? tr("m83b12c2216ef") : tr("m1fc9a387654d")}
               </button>
             </div>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[13px]">
@@ -198,13 +202,13 @@ export function JobsFilterPopover({
             </div>
           </div>
           <div className="flex flex-col gap-2.5 border-b px-4 py-3">
-            <span className={SECTION_LABEL}>Job type</span>
+            <span className={SECTION_LABEL}>{tr("m38938209da01")}</span>
             {segmented(JOB_TYPES, draft.jobTypes, (code) =>
               setDraft((d) => ({ ...d, jobTypes: toggleIn(d.jobTypes, code) })),
             )}
           </div>
           <div className="flex flex-col gap-2.5 border-b px-4 py-3">
-            <span className={SECTION_LABEL}>Workplace</span>
+            <span className={SECTION_LABEL}>{tr("m09fd2948a8df")}</span>
             {segmented(WORKPLACE_TYPES, draft.workplaces, (code) =>
               setDraft((d) => ({
                 ...d,
@@ -216,13 +220,13 @@ export function JobsFilterPopover({
             <input
               type="checkbox"
               className="h-4 w-4 shrink-0"
-              aria-label="Include dismissed discovered jobs"
+              aria-label={tr("m41c0f993a9b9")}
               checked={draft.includeDismissed}
               onChange={() =>
                 setDraft((d) => ({ ...d, includeDismissed: !d.includeDismissed }))
               }
             />
-            <span>Include dismissed discovered jobs</span>
+            <span>{tr("m41c0f993a9b9")}</span>
           </label>
         </div>
         <div className="flex items-center justify-between px-4 py-3">
@@ -232,8 +236,7 @@ export function JobsFilterPopover({
             className="text-muted-foreground"
             onClick={() => setDraft(EMPTY_JOB_FACETS)}
           >
-            Clear all
-          </Button>
+            {tr("m29a390f9237e")}</Button>
           <Button size="sm" onClick={apply}>
             {applyLabel}
           </Button>

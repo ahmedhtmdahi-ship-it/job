@@ -1,4 +1,6 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { CirclePlay, MoreVertical, Trash } from "lucide-react";
 import {
   Table,
@@ -35,6 +37,10 @@ function ActivitiesTable({
   reloadActivities,
   onStartActivity,
 }: ActivitiesTableProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [activityIdToDelete, setActivityIdToDelete] = useState<string>();
   const calculateDuration = (totalMinutes: number) => {
@@ -54,10 +60,10 @@ function ActivitiesTable({
   const deleteActivity = async () => {
     const { success, message } = await deleteActivityById(activityIdToDelete!);
     if (success) {
-      toastSuccess(`Activity has been deleted successfully`);
+      toastSuccess(tr(`Activity has been deleted successfully`));
       reloadActivities();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
   return (
@@ -65,20 +71,17 @@ function ActivitiesTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="hidden md:table-cell">Date</TableHead>
-            <TableHead>Activity</TableHead>
+            <TableHead className="hidden md:table-cell">{tr("m99c40ab40592")}</TableHead>
+            <TableHead>{tr("m38da1505ca83")}</TableHead>
             <TableHead className="whitespace-nowrap">
-              Type (Project)
-            </TableHead>
+              {tr("me41076cafcdb")}</TableHead>
             <TableHead className="hidden md:table-cell whitespace-nowrap">
-              Start Time
-            </TableHead>
+              {tr("m271189ae389a")}</TableHead>
             <TableHead className="hidden md:table-cell whitespace-nowrap">
-              End Time
-            </TableHead>
-            <TableHead>Duration</TableHead>
+              {tr("m48bccddd89a9")}</TableHead>
+            <TableHead>{tr("m4fc52a3c4c55")}</TableHead>
             <TableHead>
-              <span>Actions</span>
+              <span>{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -91,8 +94,8 @@ function ActivitiesTable({
               >
                 <TableCell className="hidden md:table-cell w-[120px]">
                   {activity.startTime
-                    ? format(activity.startTime, "PP")
-                    : "N/A"}
+                    ? formatLocalized(activity.startTime, "PP")
+                    : tr("me2f79e5b6033")}
                 </TableCell>
                 <TableCell className="font-medium">
                   {activity.activityName}
@@ -101,10 +104,10 @@ function ActivitiesTable({
                   {(activity.activityType as ActivityType)?.label}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {format(activity.startTime, "p")}
+                  {formatLocalized(activity.startTime, "p")}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {format(activity.endTime!, "p")}
+                  {formatLocalized(activity.endTime!, "p")}
                 </TableCell>
                 <TableCell>
                   {activity.startTime &&
@@ -121,31 +124,29 @@ function ActivitiesTable({
                           variant="ghost"
                         >
                           <MoreVertical className="h-4 w-4" />
-                          <span className="sr-only">Toggle menu</span>
+                          <span className="sr-only">{tr("mc02651240c87")}</span>
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-[200px]">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                         <DropdownMenuGroup>
                           <DropdownMenuItem
                             className="cursor-pointer text-green-600"
                             onClick={() => onStartActivity(activity.id!)}
                           >
-                            <CirclePlay className="mr-2 h-4 w-4" />
-                            Start Activity
-                          </DropdownMenuItem>
+                            <CirclePlay className="me-2 h-4 w-4" />
+                            {tr("m20209b27f575")}</DropdownMenuItem>
                           <DropdownMenuItem
                             className="text-red-600 cursor-pointer"
                             onClick={() => onDeleteActivity(activity.id!)}
                           >
-                            <Trash className="mr-2 h-4 w-4" />
-                            Delete
-                          </DropdownMenuItem>
+                            <Trash className="me-2 h-4 w-4" />
+                            {tr("me2d0a54968ea")}</DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
                     <Button
-                      title="Start Activity"
+                      title={tr("m20209b27f575")}
                       aria-haspopup="true"
                       size="icon"
                       variant="ghost"

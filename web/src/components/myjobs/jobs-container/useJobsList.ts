@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getJobsList } from "@/actions/job.actions";
 import { toastError } from "@/lib/toast";
@@ -36,6 +37,8 @@ export function useJobsList({
   facets: JobFacets;
   sort: SortState<JobSortField> | null;
 }) {
+ const tr = useT();
+
   const { jobWrites } = useAgentChat();
   const [jobs, setJobs] = useState<JobResponse[]>([]);
   const [viewMode, setViewMode] = useState<JobsViewMode>("table");
@@ -96,7 +99,7 @@ export function useJobsList({
         setPage(page);
         setListLoaded(true);
       } else {
-        toastError(message);
+        toastError(tr(message));
         if (page === 1) setListLoaded(false);
       }
       setInitialLoading(false);
@@ -110,7 +113,7 @@ export function useJobsList({
       titleFilter,
       locationFilter,
       sourceFilter,
-    ],
+    , tr],
   );
 
   const reloadJobs = useCallback(async () => {

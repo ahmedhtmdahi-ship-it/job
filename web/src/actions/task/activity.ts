@@ -1,4 +1,5 @@
 "use server";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { requireUser } from "../shared";
@@ -17,20 +18,20 @@ export const startActivityFromTask = async (
     });
 
     if (!task) {
-      return { success: false, message: "Task not found" };
+      return { success: false, message: uiMessage("mb19fa2937342") };
     }
 
     if (task.status === "complete" || task.status === "cancelled") {
       return {
         success: false,
-        message: "Cannot start an activity from a completed or cancelled task.",
+        message: uiMessage("m5e7ca0687cd5"),
       };
     }
 
     if (!task.activityTypeId) {
       return {
         success: false,
-        message: "Task must have an activity type to start an activity.",
+        message: uiMessage("mb42c3604357d"),
       };
     }
 
@@ -45,7 +46,7 @@ export const startActivityFromTask = async (
       return {
         success: false,
         message:
-          "You already have a running activity. Please stop it before starting a new one.",
+          uiMessage("m5af8eb49aed8"),
       };
     }
 

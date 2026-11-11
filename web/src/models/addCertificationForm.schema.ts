@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddCertificationFormSchema = z.object({
@@ -7,12 +8,12 @@ export const AddCertificationFormSchema = z.object({
   sectionTitle: z.string().default("Certifications").optional(),
   title: z
     .string({
-      error: "Certification title is required.",
+      error: uiMessage("m362f14233e45"),
     })
     .min(2),
   organization: z
     .string({
-      error: "Issuing organization is required.",
+      error: uiMessage("m29a7293f5879"),
     })
     .min(2),
   issueDate: z.date().nullable().optional(),

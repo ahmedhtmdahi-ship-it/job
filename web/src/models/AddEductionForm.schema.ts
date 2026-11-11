@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddEducationFormSchema = z.object({
@@ -8,25 +9,25 @@ export const AddEducationFormSchema = z.object({
   sectionType: z.string().optional(),
   institution: z
     .string({
-      error: "Institution name is required.",
+      error: uiMessage("m6913622e5b9d"),
     })
     .min(2),
   degree: z
     .string({
-      error: "Degree is required.",
+      error: uiMessage("m4cd5790e7224"),
     })
     .min(2),
   fieldOfStudy: z
     .string({
-      error: "Field of study is required.",
+      error: uiMessage("mecb35c47ed14"),
     })
     .min(2),
   location: z
     .string({
-      error: "Location is required.",
+      error: uiMessage("me56d59f22012"),
     })
     .min(2, {
-      message: "Location name must be at least 2 characters.",
+      message: uiMessage("m796c3d751696"),
     }),
   description: z.string().nullable().optional(),
   startDate: z.date(),

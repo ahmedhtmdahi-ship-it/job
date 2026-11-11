@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { PROVIDER_VERIFIERS } from "@/lib/ai/provider-registry.server";
@@ -5,14 +6,14 @@ import { PROVIDER_VERIFIERS } from "@/lib/ai/provider-registry.server";
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ success: false, error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ success: false, error: uiMessage("m76d1efbeed2d") }, { status: 401 });
   }
 
   const { provider, key } = await req.json();
 
   if (!provider || !key) {
     return NextResponse.json(
-      { success: false, error: "Provider and key are required" },
+      { success: false, error: uiMessage("me1a81e77b029") },
       { status: 400 },
     );
   }
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
   const verifier = PROVIDER_VERIFIERS[provider];
   if (!verifier) {
     return NextResponse.json(
-      { success: false, error: "Unknown provider" },
+      { success: false, error: uiMessage("m59080be0f444") },
       { status: 400 },
     );
   }

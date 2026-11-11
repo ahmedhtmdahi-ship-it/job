@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 
 // Not a "use server" module: it takes a Prisma delegate as an argument, so it

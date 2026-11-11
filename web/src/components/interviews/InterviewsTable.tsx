@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Table,
   TableBody,
@@ -24,22 +25,24 @@ function InterviewsTable({
   onEdit,
   onChanged,
 }: InterviewsTableProps) {
+  const tr = useT();
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead className="w-8">
-            <span className="sr-only">Expand</span>
+            <span className="sr-only">{tr("m07548c2c6511")}</span>
           </TableHead>
-          <TableHead>When</TableHead>
-          <TableHead>Job</TableHead>
-          <TableHead>Round</TableHead>
-          <TableHead className="hidden md:table-cell">Format</TableHead>
-          <TableHead className="hidden lg:table-cell">Interviewers</TableHead>
-          <TableHead className="hidden sm:table-cell">Prep</TableHead>
-          <TableHead>Outcome</TableHead>
+          <TableHead>{tr("mcf9c7aa24a26")}</TableHead>
+          <TableHead>{tr("mad617a0fdd57")}</TableHead>
+          <TableHead>{tr("mcd9558acfc38")}</TableHead>
+          <TableHead className="hidden md:table-cell">{tr("m2f343666aaa8")}</TableHead>
+          <TableHead className="hidden lg:table-cell">{tr("m486b852f58ad")}</TableHead>
+          <TableHead className="hidden sm:table-cell">{tr("m15675d39ef98")}</TableHead>
+          <TableHead>{tr("m4e80abb5b146")}</TableHead>
           <TableHead>
-            <span className="sr-only">Actions</span>
+            <span className="sr-only">{tr("mff8059dc6752")}</span>
           </TableHead>
         </TableRow>
       </TableHeader>

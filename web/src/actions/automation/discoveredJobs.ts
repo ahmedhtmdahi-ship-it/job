@@ -1,5 +1,6 @@
 "use server";
 
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import type {
@@ -125,7 +126,7 @@ export async function getDiscoveredJobById(id: string): Promise<{
     });
 
     if (!job) {
-      return { success: false, message: "Discovered job not found" };
+      return { success: false, message: uiMessage("mdffd7a3dba78") };
     }
 
     let parsedMatchData = null;
@@ -169,7 +170,7 @@ async function setDiscoveredJobStatus(
     });
 
     if (!job) {
-      return { success: false, message: "Discovered job not found" };
+      return { success: false, message: uiMessage("mdffd7a3dba78") };
     }
 
     const updated = await db.job.update({

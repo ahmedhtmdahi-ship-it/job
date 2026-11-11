@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 interface BreakRingProps {
   elapsedMs: number;
   plannedMs: number;
@@ -8,6 +9,8 @@ interface BreakRingProps {
 
 // The arc is time REMAINING, so a fresh break is a full ring that empties.
 export function BreakRing({ elapsedMs, plannedMs, size = 200 }: BreakRingProps) {
+  const tr = useT();
+
   const stroke = 24;
   const radius = (size - stroke) / 2;
   const center = size / 2;
@@ -36,7 +39,7 @@ export function BreakRing({ elapsedMs, plannedMs, size = 200 }: BreakRingProps) 
         cy={center}
         r={radius}
         fill="none"
-        stroke={isOver ? "hsl(var(--chart-4))" : "hsl(var(--primary))"}
+        stroke={isOver ? tr("mb4c4018d41af") : tr("m8f584a861baf")}
         strokeWidth={stroke}
         strokeDasharray={circumference}
         strokeDashoffset={isOver ? 0 : circumference * consumed}

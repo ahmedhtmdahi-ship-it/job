@@ -1,5 +1,7 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { Clock, Minus, Plus } from "lucide-react";
 import { addMinutes, format, parse } from "date-fns";
 import { useEffect, useRef, useState } from "react";
@@ -49,6 +51,8 @@ interface TimeColumnProps {
 }
 
 function TimeColumn({ label, options, selected, onSelect }: TimeColumnProps) {
+  const tr = useT();
+
   const listRef = useRef<HTMLDivElement>(null);
   const selectedRef = useRef<HTMLButtonElement>(null);
 
@@ -73,7 +77,7 @@ function TimeColumn({ label, options, selected, onSelect }: TimeColumnProps) {
         const isSelected = option === selected;
         return (
           <Button
-            key={option}
+            key={tr(option)}
             ref={isSelected ? selectedRef : undefined}
             type="button"
             aria-pressed={isSelected}
@@ -82,7 +86,7 @@ function TimeColumn({ label, options, selected, onSelect }: TimeColumnProps) {
             className={cn("w-full", !isSelected && "font-normal")}
             onClick={() => onSelect(option)}
           >
-            {option}
+            {tr(option)}
           </Button>
         );
       })}
@@ -96,6 +100,10 @@ interface TimePickerProps {
 }
 
 export function TimePicker({ field, fullWidth }: TimePickerProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
   const { hour, minute, meridiem } = parseTime(field.value);
 
@@ -132,30 +140,30 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
               onBlur={field.onBlur}
               variant={"outline"}
               className={cn(
-                "flex-1 justify-start rounded-r-none text-left font-normal",
+                "flex-1 justify-start rounded-e-none text-start font-normal",
                 !field.value && "text-muted-foreground"
               )}
             >
-              <Clock className="mr-2 h-4 w-4" />
-              {field.value ? field.value : <span>Pick a time</span>}
+              <Clock className="me-2 h-4 w-4" />
+              {field.value ? (TIME_PATTERN.test(field.value) ? formatLocalized(parse(field.value, TIME_FORMAT, new Date()), TIME_FORMAT) : field.value) : <span>{tr("mec116342c699")}</span>}
             </Button>
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="flex w-auto gap-2 p-2" align="start">
           <TimeColumn
-            label="Hour"
+            label={tr("mf0063b808736")}
             options={HOURS}
             selected={hour}
             onSelect={(value) => update({ hour: value })}
           />
           <TimeColumn
-            label="Minute"
+            label={tr("m4b78665bec78")}
             options={MINUTES}
             selected={minute}
             onSelect={(value) => update({ minute: value })}
           />
           <TimeColumn
-            label="AM/PM"
+            label={tr("m91469c0fc7dd")}
             options={MERIDIEMS}
             selected={meridiem}
             onSelect={(value) => update({ meridiem: value })}
@@ -166,8 +174,8 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
         type="button"
         variant="outline"
         size="icon"
-        aria-label={`${STEP_MINUTES} minutes earlier`}
-        className="shrink-0 rounded-none border-l-0"
+        aria-label={tr("m361b58e151d5", {v0: STEP_MINUTES})}
+        className="shrink-0 rounded-none border-s-0"
         onClick={() => shift(-STEP_MINUTES)}
       >
         <Minus className="h-4 w-4" />
@@ -176,8 +184,8 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
         type="button"
         variant="outline"
         size="icon"
-        aria-label={`${STEP_MINUTES} minutes later`}
-        className="shrink-0 rounded-l-none border-l-0"
+        aria-label={tr("m2d0fe718ae37", {v0: STEP_MINUTES})}
+        className="shrink-0 rounded-s-none border-s-0"
         onClick={() => shift(STEP_MINUTES)}
       >
         <Plus className="h-4 w-4" />

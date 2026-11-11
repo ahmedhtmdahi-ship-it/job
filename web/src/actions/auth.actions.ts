@@ -1,4 +1,5 @@
 "use server";
+import {message as uiMessage} from "@/i18n/message";
 import { AuthError } from "next-auth";
 import { signIn } from "../auth";
 import { delay } from "@/utils/delay";
@@ -19,7 +20,7 @@ export async function signup(formData: {
 }) {
   const parsed = SignupFormSchema.safeParse(formData);
   if (!parsed.success) {
-    return { error: "Invalid form data." };
+    return { error: uiMessage("mab52e9b638a4") };
   }
 
   const { name, email, password } = parsed.data;
@@ -29,7 +30,7 @@ export async function signup(formData: {
   });
 
   if (existingUser) {
-    return { error: "An account with this email already exists." };
+    return { error: uiMessage("m05cfc22f3886") };
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Download, RefreshCw, X } from "lucide-react";
 import { CardHeader, CardTitle } from "../../ui/card";
@@ -86,17 +87,19 @@ export function JobsToolbar({
   resetEditJob: () => void;
   addJobInitialOpen: boolean;
 }) {
+  const tr = useT();
+
   const [exportOpen, setExportOpen] = useState(false);
 
   return (
     <CardHeader className="flex-row flex-wrap justify-between items-center gap-3">
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <CardTitle>Jobs</CardTitle>
+        <CardTitle>{tr("m2f17a0f8d518")}</CardTitle>
         {!initialLoading && totalJobs > 0 && (
-          <RecordsCount count={jobsCount} total={totalJobs} label="jobs" />
+          <RecordsCount count={jobsCount} total={totalJobs} label={tr("m5d9a17cb70b9")} />
         )}
       </div>
-      <div className="flex flex-wrap items-center justify-end gap-2 ml-auto">
+      <div className="flex flex-wrap items-center justify-end gap-2 ms-auto">
         <JobsViewToggle value={viewMode} onChange={onChangeViewMode} />
         {companyLabel && (
           <button
@@ -139,18 +142,18 @@ export function JobsToolbar({
           variant="outline"
           className="h-8 w-8 p-0"
           disabled={initialLoading}
-          title="Reload jobs"
+          title={tr("m5075e2d4ad88")}
           onClick={onReload}
         >
           <RefreshCw
             className={`h-3.5 w-3.5 ${initialLoading ? "animate-spin" : ""}`}
           />
-          <span className="sr-only">Reload jobs</span>
+          <span className="sr-only">{tr("m5075e2d4ad88")}</span>
         </Button>
         <SearchInput
           value={searchTerm}
           onChange={onSearchTermChange}
-          placeholder="Search jobs..."
+          placeholder={tr("m82ce6c32cfff")}
         />
         <JobsFilterPopover
           statuses={statuses}
@@ -164,11 +167,11 @@ export function JobsToolbar({
           variant="outline"
           className="h-8 w-8 p-0"
           disabled={initialLoading}
-          title="Export jobs"
+          title={tr("m496ccf4dc2f8")}
           onClick={() => setExportOpen(true)}
         >
           <Download className="h-3.5 w-3.5" />
-          <span className="sr-only">Export jobs</span>
+          <span className="sr-only">{tr("m496ccf4dc2f8")}</span>
         </Button>
         <AddJob
           jobStatuses={statuses}
@@ -187,9 +190,9 @@ export function JobsToolbar({
         open={exportOpen}
         onOpenChange={setExportOpen}
         onDelete={onDownload}
-        alertTitle="Export jobs?"
-        alertDescription="This downloads your jobs as a file."
-        actionLabel="Export"
+        alertTitle={tr("mc6f7ea6e4e3e")}
+        alertDescription={tr("mc1c23100e472")}
+        actionLabel={tr("m3664895579f0")}
         actionVariant="default"
       />
       <JobsFilterChips

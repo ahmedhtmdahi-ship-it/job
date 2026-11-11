@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { JobResponse } from "@/models/job.model";
 import { AiProvider } from "@/models/ai.model";
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -28,7 +29,7 @@ export const checkOllamaConnection = async (
       return {
         isConnected: false,
         error:
-          "Ollama service is not responding. Please make sure Ollama is running.",
+          uiMessage("m8d3ada01bbb2"),
       };
     }
 

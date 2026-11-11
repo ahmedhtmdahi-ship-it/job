@@ -1,3 +1,5 @@
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { Paperclip } from "lucide-react";
 
 export function DownloadFileButton(
@@ -6,6 +8,8 @@ export function DownloadFileButton(
   fileTitle: string,
   fileName: string
 ) {
+ const tr = useT();
+
   const handleDownload = async () => {
     const response = await fetch(
       `/api/profile/resume?resumeId=${encodeURIComponent(resumeId)}`,
@@ -36,10 +40,10 @@ export function DownloadFileButton(
     <button
       className="flex items-center"
       onClick={handleDownload}
-      title={`Download ${fileName}`}
+      title={tr("mbf5c8f6eb860", {v0: fileName})}
     >
       <div>{fileTitle}</div>
-      <Paperclip className="h-3.5 w-3.5 ml-1" />
+      <Paperclip className="h-3.5 w-3.5 ms-1" />
     </button>
   );
 }

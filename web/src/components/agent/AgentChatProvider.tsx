@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   createContext,
   useCallback,
@@ -77,6 +79,8 @@ function createdJobToolCallIds(messages: UIMessage[]): string[] {
 }
 
 function useAgentChatValue(initialMessages: UIMessage[]) {
+  const tr = useT();
+
   const router = useRouter();
   const pathname = usePathname();
   const { holder, requestOpen, close: releaseRail } = useRightRail();
@@ -226,11 +230,11 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
       setInterruptedTurn(true);
       // The one abort the user gets no on-screen signal for — the panel they
       // would have read it in is the thing that just went away.
-      toastInfo("Generation stopped. Reopen the assistant to continue.");
+      toastInfo(tr("me335970fcf13"));
     }
     setIsOpen(false);
     releaseRail(AGENT_CHAT_PANEL_ID);
-  }, [chat, releaseRail]);
+  }, [chat, releaseRail, tr]);
 
   const runPreflight = useCallback(async () => {
     const settings = await getUserSettings();
@@ -245,7 +249,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
         checked: true,
         ok: false,
         error:
-          "No AI model is configured. Pick one in Settings to use the assistant.",
+          tr("m1e29dae32cf6"),
         provider,
       });
       return;
@@ -261,11 +265,11 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
       ok: result.isConnected,
       error: result.isConnected
         ? undefined
-        : (result.error ?? "Ollama is not reachable."),
+        : (result.error ?? uiMessage("me120afebb965")),
       provider,
       model: ai.model,
     });
-  }, []);
+  }, [tr]);
 
   // Collapsing the rail buys the docked panel ~140px of page width.
   const open = useCallback(() => {
@@ -302,8 +306,8 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
     setToolStreams({});
     setQueued(undefined);
     // Clearing an idle conversation aborted nothing worth reporting.
-    if (wasStreaming) toastInfo("Conversation cleared and generation stopped.");
-  }, [chat]);
+    if (wasStreaming) toastInfo(tr("mf4be1621e259"));
+  }, [chat, tr]);
 
   const approvalPending = useMemo(
     () => hasPendingApproval(chat.messages),

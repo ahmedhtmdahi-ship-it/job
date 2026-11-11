@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Loader } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -43,6 +44,8 @@ function CopyResumeDialog({
   sourceDoc,
   onCopied,
 }: CopyResumeDialogProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [loadingTitle, setLoadingTitle] = useState(false);
 
@@ -72,14 +75,14 @@ function CopyResumeDialog({
       if (success && data) {
         reset({ title: data });
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
       setLoadingTitle(false);
     })();
     return () => {
       cancelled = true;
     };
-  }, [open, sourceDoc?.id, reset]);
+  }, [open, sourceDoc?.id, reset, tr]);
 
   const onSubmit = (values: z.infer<typeof CopyResumeFormSchema>) => {
     if (!sourceDoc?.id) return;
@@ -89,13 +92,13 @@ function CopyResumeDialog({
         values.title,
       );
       if (!success) {
-        toastError(message);
+        toastError(tr(message));
         return;
       }
       reset({ title: "" });
       setOpen(false);
       onCopied();
-      toastSuccess(`Copy created: "${data.title}"`);
+      toastSuccess(tr("mb9e2d70b2c3e", {v0: data.title}));
     });
   };
 
@@ -103,11 +106,10 @@ function CopyResumeDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create a copy</DialogTitle>
+          <DialogTitle>{tr("m410154360a93")}</DialogTitle>
           <DialogDescription>
-            Copies the sections and contact info of &quot;{sourceDoc?.title}
-            &quot;. The attachment is not copied.
-          </DialogDescription>
+            {tr("m4e1730c966ce")}{sourceDoc?.title}
+            {tr("mbb2ef38cb444")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -122,7 +124,7 @@ function CopyResumeDialog({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Resume Title</FormLabel>
+                  <FormLabel>{tr("m3681792df3bf")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -141,14 +143,12 @@ function CopyResumeDialog({
                 className="mt-2 md:mt-0"
                 onClick={() => setOpen(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button
                 type="submit"
                 disabled={!isValid || isPending || loadingTitle}
               >
-                Create copy
-                {isPending && (
+                {tr("m982a7984a6a4")}{isPending && (
                   <Loader className="h-4 w-4 shrink-0 animate-spin" />
                 )}
               </Button>

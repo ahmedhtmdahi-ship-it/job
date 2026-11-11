@@ -1,14 +1,15 @@
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddTaskFormSchema = z.object({
   id: z.string().optional(),
   userId: z.string().optional(),
   title: z
-    .string({ error: "Title is required." })
-    .min(2, { message: "Title must be at least 2 characters." }),
+    .string({ error: uiMessage("m7c15e7448e6f") })
+    .min(2, { message: uiMessage("m82803cf7e0fd") }),
   description: z
     .string()
-    .max(2000, { message: "Description cannot exceed 2000 characters." })
+    .max(2000, { message: uiMessage("m0c47e0bf8bf7") })
     .optional()
     .nullable(),
   status: z.enum(["in-progress", "complete", "needs-attention", "cancelled"]),
@@ -25,7 +26,7 @@ export const AddTaskFormSchema = z.object({
         today.setHours(0, 0, 0, 0);
         return date >= today;
       },
-      { message: "Due date cannot be in the past." }
+      { message: uiMessage("m9864d7c52ff0") }
     ),
   activityTypeId: z.string().optional().nullable(),
 });

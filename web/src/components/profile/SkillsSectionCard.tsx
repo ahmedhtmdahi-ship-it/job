@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ResumeSection, Skill } from "@/models/profile.model";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
@@ -37,54 +38,53 @@ function SkillsSectionCard({
   openDialogForEdit,
   onDelete,
 }: SkillsSectionCardProps) {
+  const tr = useT();
+
   const skills = skillsSection.skills ?? [];
   const grouped = groupByCategory(skills);
   const hasCategories = Array.from(grouped.keys()).some((k) => k !== "");
 
   return (
     <>
-      <CardTitle className="pl-6 py-3">{skillsSection.sectionTitle}</CardTitle>
+      <CardTitle className="ps-6 py-3">{skillsSection.sectionTitle}</CardTitle>
       <Card>
         <CardHeader className="p-2 pb-0 flex-row justify-end items-center">
           <div className="flex gap-1">
             <Button
-              title="Edit"
+              title={tr("m464c4ffd019e")}
               variant="ghost"
               size="icon"
               className="h-8 w-8"
               onClick={openDialogForEdit}
             >
               <Pencil className="h-3.5 w-3.5" />
-              <span className="sr-only">Edit</span>
+              <span className="sr-only">{tr("m464c4ffd019e")}</span>
             </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
-                  title="Delete"
+                  title={tr("me2d0a54968ea")}
                   variant="ghost"
                   size="icon"
                   className="h-8 w-8 text-destructive hover:text-destructive"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
-                  <span className="sr-only">Delete</span>
+                  <span className="sr-only">{tr("me2d0a54968ea")}</span>
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Delete skills section?</AlertDialogTitle>
+                  <AlertDialogTitle>{tr("m4254468eb47c")}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will remove the entire skills section and all skills in
-                    it. The skill tags themselves are not deleted.
-                  </AlertDialogDescription>
+                    {tr("me78e725d87af")}</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
                   <AlertDialogAction
                     className="bg-destructive-bg text-destructive-foreground hover:bg-destructive-bg/90"
                     onClick={onDelete}
                   >
-                    Delete
-                  </AlertDialogAction>
+                    {tr("me2d0a54968ea")}</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

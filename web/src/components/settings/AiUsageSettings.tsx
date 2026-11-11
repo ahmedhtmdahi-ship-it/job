@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { startOfDay, subDays } from "date-fns";
 import { Loader2 } from "lucide-react";
@@ -16,6 +17,8 @@ import RecentCallsTable from "./ai-usage-settings/RecentCallsTable";
 const RANGES: AiUsageRange[] = [7, 30];
 
 export default function AiUsageSettings() {
+  const tr = useT();
+
   const [range, setRange] = useState<AiUsageRange>(30);
   const [summary, setSummary] = useState<AiUsageSummary | null>(null);
   const [failed, setFailed] = useState(false);
@@ -51,15 +54,13 @@ export default function AiUsageSettings() {
     <div className="@container/ai-usage flex flex-col gap-5">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-semibold">AI Usage</h2>
+          <h2 className="text-xl font-semibold">{tr("mc59713807412")}</h2>
           <p className="text-sm text-muted-foreground">
-            Tokens, response times and failures across your providers and
-            models.
-          </p>
+            {tr("m59c535823382")}</p>
         </div>
         <div
           role="group"
-          aria-label="Date range"
+          aria-label={tr("m8061bfb29ce8")}
           className="flex gap-0.5 rounded-md bg-muted p-1"
         >
           {RANGES.map((r) => (
@@ -75,7 +76,7 @@ export default function AiUsageSettings() {
                   : "text-muted-foreground",
               )}
             >
-              {`${r} days`}
+              {tr("mf725969336d8", {v0: r})}
             </button>
           ))}
         </div>
@@ -88,15 +89,14 @@ export default function AiUsageSettings() {
       )}
       {failed && (
         <p className="text-sm text-muted-foreground">
-          Couldn&apos;t load AI usage.
-        </p>
+          {tr("m5c29e2f74b90")}</p>
       )}
 
       {summary && !failed && (
         <div className={cn("flex flex-col gap-5", loading && "opacity-60")}>
           {summary.totals.calls === 0 ? (
             <div className="rounded-lg border px-5 py-10 text-center text-sm text-muted-foreground">
-              {`No AI calls in the last ${summary.rangeDays} days.`}
+              {tr("m7c27c95ed82a", {v0: summary.rangeDays})}
             </div>
           ) : (
             <>

@@ -343,7 +343,7 @@ describe("TasksPageClient Component", () => {
         />
       );
 
-      const sidebar = container.querySelector(".w-48.border-r.py-4");
+      const sidebar = container.querySelector(".w-48.border-e.py-4");
       expect(sidebar).toBeInTheDocument();
     });
 

@@ -1,5 +1,7 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { format } from "date-fns";
 import { Card, CardContent } from "@/components/ui/card";
@@ -55,6 +57,10 @@ export function AutomationList({
   onEdit,
   onRefresh,
 }: AutomationListProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
@@ -65,10 +71,10 @@ export function AutomationList({
     setLoadingAction(null);
 
     if (result.success) {
-      toastSuccess("Automation paused");
+      toastSuccess(tr("m79112a7f368d"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -78,10 +84,10 @@ export function AutomationList({
     setLoadingAction(null);
 
     if (result.success) {
-      toastSuccess("Automation resumed");
+      toastSuccess(tr("mebad6882a9b9"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -94,10 +100,10 @@ export function AutomationList({
     setDeleteId(null);
 
     if (result.success) {
-      toastSuccess("Automation deleted");
+      toastSuccess(tr("mca8e1bb2621a"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -106,11 +112,9 @@ export function AutomationList({
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-12">
           <Zap className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-medium">No automations yet</h3>
+          <h3 className="text-lg font-medium">{tr("mb777509a8aea")}</h3>
           <p className="text-muted-foreground text-center mt-2">
-            Create your first automation to start discovering jobs
-            automatically.
-          </p>
+            {tr("m4d5c3ac43173")}</p>
         </CardContent>
       </Card>
     );
@@ -158,7 +162,7 @@ export function AutomationList({
                     {automation.jobBoard}
                   </Badge>
                   {retired ? (
-                    <Badge variant="destructive">Retired</Badge>
+                    <Badge variant="destructive">{tr("ma9f71bc2404c")}</Badge>
                   ) : (
                     <Badge
                       variant={
@@ -174,16 +178,14 @@ export function AutomationList({
                   <div className="flex items-center gap-2 text-amber-600 text-sm">
                     <AlertTriangle className="h-4 w-4 shrink-0" />
                     <span>
-                      This job board was removed and no longer runs. Delete this
-                      automation.
-                    </span>
+                      {tr("m4a159f8f930c")}</span>
                   </div>
                 )}
 
                 {!retired && resumeMissing && (
                   <div className="flex items-center gap-2 text-amber-600 text-sm">
                     <AlertTriangle className="h-4 w-4" />
-                    <span>Resume missing - select a new one</span>
+                    <span>{tr("m1c529f869546")}</span>
                   </div>
                 )}
 
@@ -197,48 +199,41 @@ export function AutomationList({
                       ))}
                       {atsCompanies.length > 3 && (
                         <Badge variant="secondary">
-                          +{atsCompanies.length - 3} more
-                        </Badge>
+                          +{atsCompanies.length - 3} {" "}{tr("m187897ce0afc")}</Badge>
                       )}
                     </div>
                     <div className="flex flex-wrap gap-x-6 gap-y-1">
                       <span>
                         <span className="font-medium text-foreground">
-                          Titles:
-                        </span>{" "}
-                        {atsTitles.length ? atsTitles.join(", ") : "Not set"}
+                          {tr("m797b45a8e0b6")}</span>{" "}
+                        {atsTitles.length ? atsTitles.join(", ") : tr("m4895f73177ab")}
                       </span>
                       <span>
                         <span className="font-medium text-foreground">
-                          Keywords:
-                        </span>{" "}
-                        {atsKeywords.length ? atsKeywords.join(", ") : "Any"}
+                          {tr("m54006df6b3da")}</span>{" "}
+                        {atsKeywords.length ? atsKeywords.join(", ") : tr("m2b505597daa7")}
                       </span>
                       <span>
                         <span className="font-medium text-foreground">
-                          Location:
-                        </span>{" "}
+                          {tr("mbbdffe25dc7d")}</span>{" "}
                         {atsLocations.length
                           ? atsLocations.join(", ")
-                          : "Any location"}
+                          : tr("mcaadb2786b37")}
                       </span>
                       <span>
                         <span className="font-medium text-foreground">
-                          Analyzed/run:
-                        </span>{" "}
+                          {tr("m5ac8b3f1dc74")}</span>{" "}
                         {atsTopK}
                       </span>
                       <span>
                         <span className="font-medium text-foreground">
-                          Extra listings:
-                        </span>{" "}
-                        {atsSaveUnanalyzed ? "on" : "off"}
+                          {tr("mde9dbcde15eb")}</span>{" "}
+                        {atsSaveUnanalyzed ? tr("mb8d31e852725") : tr("mb4dc66dde806")}
                       </span>
                       {automation.resume && (
                         <span>
                           <span className="font-medium text-foreground">
-                            Resume:
-                          </span>{" "}
+                            {tr("m5bd8515c5cd1")}</span>{" "}
                           {automation.resume.title}
                         </span>
                       )}
@@ -250,20 +245,18 @@ export function AutomationList({
                   <div className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
                     <span>
-                      {automation.scheduleHour.toString().padStart(2, "0")}:00
-                      daily
-                    </span>
+                      {automation.scheduleHour.toString().padStart(2, "0")}{tr("mc102ebbdc91b")}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <FileText className="h-4 w-4" />
-                    <span>{automation.matchThreshold}% threshold</span>
+                    <span>{automation.matchThreshold}{tr("m580e9fe399be")}</span>
                   </div>
                   {!retired &&
                     automation.nextRunAt &&
                     automation.status === "active" && (
                       <span className="text-xs">
-                        Next:{" "}
-                        {format(
+                        {tr("m5693e770dd67")}{" "}
+                        {formatLocalized(
                           new Date(automation.nextRunAt),
                           "MMM d, h:mm a",
                         )}
@@ -271,8 +264,8 @@ export function AutomationList({
                     )}
                   {automation.lastRunAt && (
                     <span className="text-xs">
-                      Last:{" "}
-                      {format(new Date(automation.lastRunAt), "MMM d, h:mm a")}
+                      {tr("md57a5a051efe")}{" "}
+                      {formatLocalized(new Date(automation.lastRunAt), "MMM d, h:mm a")}
                     </span>
                   )}
                 </div>
@@ -290,24 +283,21 @@ export function AutomationList({
                       <DropdownMenuItem
                         onClick={() => handlePause(automation.id)}
                       >
-                        <Pause className="h-4 w-4 mr-2" />
-                        Pause
-                      </DropdownMenuItem>
+                        <Pause className="h-4 w-4 me-2" />
+                        {tr("m858e4ba7a29f")}</DropdownMenuItem>
                     ) : (
                       <DropdownMenuItem
                         onClick={() => handleResume(automation.id)}
                         disabled={resumeMissing}
                       >
-                        <Play className="h-4 w-4 mr-2" />
-                        Resume
-                      </DropdownMenuItem>
+                        <Play className="h-4 w-4 me-2" />
+                        {tr("md640c7421da0")}</DropdownMenuItem>
                     ))}
                   {!retired && (
                     <>
                       <DropdownMenuItem onClick={() => onEdit(automation)}>
-                        <Pencil className="h-4 w-4 mr-2" />
-                        Edit
-                      </DropdownMenuItem>
+                        <Pencil className="h-4 w-4 me-2" />
+                        {tr("m464c4ffd019e")}</DropdownMenuItem>
                       <DropdownMenuSeparator />
                     </>
                   )}
@@ -315,9 +305,8 @@ export function AutomationList({
                     className="text-destructive"
                     onClick={() => setDeleteId(automation.id)}
                   >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Delete
-                  </DropdownMenuItem>
+                    <Trash2 className="h-4 w-4 me-2" />
+                    {tr("me2d0a54968ea")}</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -328,21 +317,18 @@ export function AutomationList({
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Automation</AlertDialogTitle>
+            <AlertDialogTitle>{tr("mc9aa0d6611ab")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this automation? This action
-              cannot be undone. Discovered jobs will remain but lose their
-              automation reference.
-            </AlertDialogDescription>
+              {tr("m4f88f794e043")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               disabled={isDeleting}
               className="bg-destructive-bg text-destructive-foreground hover:bg-destructive-bg/90"
             >
-              {isDeleting ? "Deleting..." : "Delete"}
+              {isDeleting ? tr("m685ecb984ac2") : tr("me2d0a54968ea")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

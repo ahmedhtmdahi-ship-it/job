@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { XIcon } from "lucide-react";
 import type { TextUIPart, UIMessage } from "ai";
@@ -30,22 +31,22 @@ import {
 
 type ComposerPart = TextUIPart | AgentPastePart;
 
-function chipLabel(chip: AgentPastePartData): string {
+function chipLabel(chip: AgentPastePartData, tr: ReturnType<typeof useT>): string {
   const chars = chip.chars.toLocaleString();
   return chip.truncated
-    ? `Pasted posting · ${chars} chars (truncated)`
-    : `Pasted posting · ${chars} chars`;
+    ? tr("m8375a3727606", {v0: chars})
+    : tr("m74ec9ff10f3f", {v0: chars});
 }
 
 // Synthesized at render time only. The wire format stays the custom data part:
 // a real FileUIPart is a standard type, so convertToModelMessages would carry
 // the whole posting to the model and defeat head truncation.
-function chipAttachment(chip: AgentPastePartData): AttachmentData {
+function chipAttachment(chip: AgentPastePartData, tr: ReturnType<typeof useT>): AttachmentData {
   return {
     type: "file",
     id: chip.id,
     mediaType: "text/plain",
-    filename: chipLabel(chip),
+    filename: chipLabel(chip, tr),
     url: "",
   };
 }
@@ -60,14 +61,16 @@ function chipId(): string {
   );
 }
 
-function queuedText(parts: UIMessage["parts"]): string {
+function queuedText(parts: UIMessage["parts"], tr: ReturnType<typeof useT>): string {
   const text = parts.find((part) => part.type === "text");
   const chip = parts.find(isAgentPastePart);
   if (text?.type === "text" && text.text) return text.text;
-  return chip ? chipLabel(chip.data) : "";
+  return chip ? chipLabel(chip.data, tr) : "";
 }
 
 export function AgentChatInput() {
+  const tr = useT();
+
   const {
     sendMessage,
     stop,
@@ -148,7 +151,7 @@ export function AgentChatInput() {
             {error.message}
           </AlertDescription>
           <Button
-            aria-label="Dismiss error"
+            aria-label={tr("m2db046678b9c")}
             className="size-6 shrink-0"
             onClick={clearError}
             size="icon"
@@ -165,13 +168,13 @@ export function AgentChatInput() {
           <div className="min-w-0 flex-1">
             <p className="text-xs text-muted-foreground">
               {approvalPending
-                ? "Queued — waiting on your approval above"
-                : "Queued — sends when the current reply finishes"}
+                ? tr("m7a72cf80e343")
+                : tr("m615919a9a295")}
             </p>
-            <p className="truncate">{queuedText(queued.parts)}</p>
+            <p className="truncate">{queuedText(queued.parts, tr)}</p>
           </div>
           <Button
-            aria-label="Remove from queue"
+            aria-label={tr("mc0b9d9e9ac1d")}
             className="size-6 shrink-0"
             onClick={clearQueued}
             size="icon"
@@ -195,13 +198,13 @@ export function AgentChatInput() {
         {chip ? (
           <PromptInputHeader>
             <Attachments variant="inline">
-              <Attachment data={chipAttachment(chip)}>
+              <Attachment data={chipAttachment(chip, tr)}>
                 <AttachmentPreview />
                 <AttachmentInfo />
                 {/* Not AttachmentRemove: it repeats its label in an sr-only
                     span, so the chip's wording would appear twice. */}
                 <Button
-                  aria-label="Remove pasted content"
+                  aria-label={tr("m0dc068cedecc")}
                   className="size-5 shrink-0 rounded p-0 [&_svg]:size-2.5"
                   onClick={() => setChip(undefined)}
                   type="button"
@@ -220,14 +223,14 @@ export function AgentChatInput() {
           key={composerNonce}
           onChange={(event) => setText(event.currentTarget.value)}
           onPaste={onPaste}
-          placeholder="Ask or paste a job posting…"
+          placeholder={tr("m9e85e0a58ee7")}
         />
         <PromptInputFooter>
           <span className="text-xs text-muted-foreground">
-            {approvalPending && !queued ? "Waiting on your approval above" : ""}
+            {approvalPending && !queued ? tr("m01b6b0c5de85") : ""}
           </span>
           <PromptInputSubmit
-            aria-label={isGenerating ? "Stop response" : "Send"}
+            aria-label={isGenerating ? tr("md5ca579c1943") : tr("mf6f4688ff23d")}
             disabled={!isGenerating && !canSend}
             className="[&_svg]:size-3.5"
             onStop={onStop}

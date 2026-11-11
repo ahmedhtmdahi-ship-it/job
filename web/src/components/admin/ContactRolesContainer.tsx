@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -13,6 +14,8 @@ import { RecordsCount } from "../RecordsCount";
 import { SearchInput } from "../SearchInput";
 
 function ContactRolesContainer() {
+  const tr = useT();
+
   const [roles, setRoles] = useState<ContactRole[]>([]);
   const [totalRoles, setTotalRoles] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -54,20 +57,20 @@ function ContactRolesContainer() {
       <Card x-chunk="dashboard-06-chunk-0">
         <ResponsiveCardHeader>
           <div className="flex items-baseline gap-2">
-            <CardTitle>Contact Roles</CardTitle>
+            <CardTitle>{tr("mc53d5c96801a")}</CardTitle>
             {!loading && totalRoles > 0 && (
               <RecordsCount
                 count={roles.length}
                 total={totalRoles}
-                label="roles"
+                label={tr("m66cf5513b374")}
               />
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search roles..."
+              placeholder={tr("m9fff1026141a")}
             />
             <AddContactRole reloadRoles={reloadRoles} />
           </div>
@@ -86,7 +89,7 @@ function ContactRolesContainer() {
                 disabled={loading}
                 className="btn btn-primary"
               >
-                {loading ? "Loading..." : "Load More"}
+                {loading ? tr("m47d2a515ef2f") : tr("m3f06cd334f48")}
               </Button>
             </div>
           )}

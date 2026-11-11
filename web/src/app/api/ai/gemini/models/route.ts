@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { resolveApiKey } from "@/lib/api-key-resolver";
@@ -12,7 +13,7 @@ export async function GET() {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Gemini API key not configured" },
+        { error: uiMessage("mf19f3bf96774") },
         { status: 500 }
       );
     }
@@ -23,7 +24,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch Gemini models" },
+        { error: uiMessage("m5bb1806471f5") },
         { status: response.status }
       );
     }
@@ -36,7 +37,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Failed to fetch Gemini models" },
+      { error: uiMessage("m5bb1806471f5") },
       { status: 500 }
     );
   }

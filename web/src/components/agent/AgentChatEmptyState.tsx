@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { useAgentChat } from "@/components/agent/AgentChatProvider";
 import { AGENT_ADD_JOB_INTRO } from "@/lib/agent/prompt";
@@ -9,15 +11,17 @@ import { AGENT_ADD_JOB_INTRO } from "@/lib/agent/prompt";
 // so the tools reply with a graceful "no_job" result telling the user to open
 // a job's page first. ADD_JOB is the one whose answer is knowable without the
 // model — see AGENT_ADD_JOB_INTRO.
-const ADD_JOB = "Add a job posting";
+const ADD_JOB = uiMessage("md5d347c59721");
 const EXAMPLES = [
   ADD_JOB,
-  "Review resume",
-  "Match a job",
-  "Generate cover letter",
+  uiMessage("mca9bfcad5ad9"),
+  uiMessage("m2b762629e1bc"),
+  uiMessage("m499e4a7f5e17"),
 ];
 
 export function AgentChatEmptyState() {
+  const tr = useT();
+
   const { sendMessage, seedExchange, preflight } = useAgentChat();
 
   const handleClick = (example: string) => {
@@ -34,12 +38,7 @@ export function AgentChatEmptyState() {
       {/* Stated up front rather than left to the model to confess: a local 8B
           asked what it can do will happily invent capabilities. */}
       <p className="text-sm text-muted-foreground">
-        I can add a job to your tracker — paste a posting or type the details,
-        and I&apos;ll show you what I extracted before anything is saved. I can
-        also read and review your resumes, and while you&apos;re looking at a
-        job I can score how well one of them matches it or write you a cover
-        letter. I can&apos;t search your existing jobs or read your tasks yet.
-      </p>
+        {tr("mc28b8e487a91")}</p>
 
       <Suggestions>
         {EXAMPLES.map((example) => (

@@ -1,4 +1,6 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { ResumeSection } from "@/models/profile.model";
 import {
   Card,
@@ -33,10 +35,14 @@ function CertificationCard({
   openDialogForEdit,
   onDelete,
 }: CertificationCardProps) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+
   const { sectionTitle, licenseOrCertifications } = certificationSection!;
   return (
     <>
-      <CardTitle className="pl-6 py-3">{sectionTitle}</CardTitle>
+      <CardTitle className="ps-6 py-3">{sectionTitle}</CardTitle>
       {licenseOrCertifications?.map(
         ({
           id,
@@ -48,45 +54,43 @@ function CertificationCard({
         }) => (
           <Card key={id}>
             <CardHeader className="p-2 pb-0 flex-row justify-between relative">
-              <CardTitle className="text-xl pl-4">{title}</CardTitle>
-              <div className="flex gap-1 absolute top-2 right-2">
+              <CardTitle className="text-xl ps-4">{title}</CardTitle>
+              <div className="flex gap-1 absolute top-2 end-2">
                 <Button
-                  title="Edit"
+                  title={tr("m464c4ffd019e")}
                   variant="ghost"
                   size="icon"
                   className="h-8 w-8"
                   onClick={() => openDialogForEdit(id!)}
                 >
                   <Pencil className="h-3.5 w-3.5" />
-                  <span className="sr-only">Edit</span>
+                  <span className="sr-only">{tr("m464c4ffd019e")}</span>
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button
-                      title="Delete"
+                      title={tr("me2d0a54968ea")}
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-destructive hover:text-destructive"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
-                      <span className="sr-only">Delete</span>
+                      <span className="sr-only">{tr("me2d0a54968ea")}</span>
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Delete certification?</AlertDialogTitle>
+                      <AlertDialogTitle>{tr("m3e7b89218e2a")}</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This will remove &quot;{title}&quot; from this resume.
-                      </AlertDialogDescription>
+                        {tr("m082157b319c3")}{title}{tr("m32c384643f76")}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
                       <AlertDialogAction
                         className="bg-destructive-bg text-destructive-foreground hover:bg-destructive-bg/90"
                         onClick={() => onDelete(id!)}
                       >
-                        Delete
-                      </AlertDialogAction>
+                        {tr("me2d0a54968ea")}</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -96,11 +100,11 @@ function CertificationCard({
               <h3>{organization}</h3>
               <CardDescription>
                 {issueDate && (
-                  <>Issued: {format(new Date(issueDate), "MMM yyyy")}</>
+                  <>{tr("m2b7dcdb1716b")}{" "}{formatLocalized(new Date(issueDate), "MMM yyyy")}</>
                 )}
                 {issueDate && expirationDate && " · "}
                 {expirationDate ? (
-                  <>Expires: {format(new Date(expirationDate), "MMM yyyy")}</>
+                  <>{tr("m8353d67bd934")}{" "}{formatLocalized(new Date(expirationDate), "MMM yyyy")}</>
                 ) : (
                   issueDate && " · No Expiration"
                 )}
@@ -112,8 +116,7 @@ function CertificationCard({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm text-blue-500 hover:underline mt-1"
                 >
-                  View Credential
-                  <ExternalLink className="h-3.5 w-3.5" />
+                  {tr("me49f6b423b0d")}<ExternalLink className="h-3.5 w-3.5" />
                 </a>
               )}
             </CardContent>

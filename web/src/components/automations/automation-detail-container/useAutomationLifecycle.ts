@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toastSuccess, toastError } from "@/lib/toast";
@@ -15,6 +16,8 @@ export function useAutomationLifecycle(
   automation: AutomationWithResume | null,
   loadData: (showLoading?: boolean) => Promise<void>,
 ) {
+ const tr = useT();
+
   const router = useRouter();
   const [actionLoading, setActionLoading] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -32,13 +35,13 @@ export function useAutomationLifecycle(
 
     if (result.success) {
       toastSuccess(
-        automation.status === "active"
+        tr(automation.status === "active"
           ? "Automation paused"
-          : "Automation resumed",
+          : "Automation resumed"),
       );
       loadData();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -50,10 +53,10 @@ export function useAutomationLifecycle(
     setDeleteConfirmOpen(false);
 
     if (result.success) {
-      toastSuccess("Automation deleted");
+      toastSuccess(tr("Automation deleted"));
       router.push("/dashboard/automations");
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 

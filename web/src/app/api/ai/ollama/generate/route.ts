@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { getOllamaBaseUrl } from "@/actions/apiKey.actions";
 import { NextResponse } from "next/server";
@@ -8,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: uiMessage("md089c8a9fc28") }, { status: 401 });
     }
 
     const body = await request.json();
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to generate" },
+        { error: uiMessage("m97a824806266") },
         { status: response.status },
       );
     }
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Cannot connect to Ollama service" },
+      { error: uiMessage("m738de92f5866") },
       { status: 502 },
     );
   }

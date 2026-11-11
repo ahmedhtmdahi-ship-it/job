@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -14,6 +15,8 @@ import { SearchInput } from "../SearchInput";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 function TagsContainer() {
+  const tr = useT();
+
   const [tags, setTags] = useState<Tag[]>([]);
   const [totalTags, setTotalTags] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -86,16 +89,16 @@ function TagsContainer() {
         <Card>
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Skills/Tags</CardTitle>
+              <CardTitle>{tr("m458cbdc27561")}</CardTitle>
               {!initialLoading && totalTags > 0 && (
-                <RecordsCount count={tags.length} total={totalTags} label="skills" />
+                <RecordsCount count={tags.length} total={totalTags} label={tr("m32c1cf49a2fe")} />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
               <SearchInput
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Search skills..."
+                placeholder={tr("m65104bc415b3")}
               />
               <AddTag reloadTags={reloadTags} />
             </div>

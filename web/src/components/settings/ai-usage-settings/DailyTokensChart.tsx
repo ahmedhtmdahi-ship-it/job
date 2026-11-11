@@ -1,5 +1,8 @@
 "use client";
+import {useUsageFormats} from "./format";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useT} from "@/i18n/useT";
 import { useMemo } from "react";
 import { useTheme } from "next-themes";
 import { ResponsiveBar } from "@nivo/bar";
@@ -16,6 +19,11 @@ export default function DailyTokensChart({
   days,
   providers,
 }: Pick<AiUsageSummary, "days" | "providers">) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
+
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "light" ? "light" : "dark";
   const keys = providers.map((p) => p.provider);
@@ -34,7 +42,7 @@ export default function DailyTokensChart({
   return (
     <section className="flex flex-col gap-4 rounded-lg border p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-[15px] font-semibold">Daily tokens by provider</h2>
+        <h2 className="text-[15px] font-semibold">{tr("m9a673e901d65")}</h2>
         <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
           {keys.map((key) => (
             <span key={key} className="flex items-center gap-1.5">
@@ -42,7 +50,7 @@ export default function DailyTokensChart({
                 className="h-2.5 w-2.5 rounded-sm"
                 style={{ background: colorOf(key) }}
               />
-              {providerLabel(key)}
+              {tr(providerLabel(key))}
             </span>
           ))}
         </div>
@@ -70,14 +78,14 @@ export default function DailyTokensChart({
             tickSize: 0,
             tickPadding: 8,
             tickValues,
-            format: (v: string) => format(parseISO(v), "MMM d"),
+            format: (v: string) => formatLocalized(parseISO(v), "MMM d"),
           }}
           valueFormat={(v) => formatTokens(v)}
           tooltipLabel={(bar) =>
-            `${providerLabel(String(bar.id))} · ${format(parseISO(String(bar.indexValue)), "MMM d")}`
+            `${providerLabel(String(bar.id))} · ${formatLocalized(parseISO(String(bar.indexValue)), "MMM d")}`
           }
           theme={{
-            text: { fill: "#94A3B8" },
+            text: {fontFamily: "inherit", fill: "#94A3B8" },
             grid: {
               line: { stroke: theme === "dark" ? "#1E293B" : "#E2E8F0" },
             },

@@ -13,6 +13,7 @@ import { useAppVersion } from "@/hooks/useAppVersion";
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn().mockReturnValue("/dashboard"),
+  useRouter: () => ({refresh: vi.fn()}),
 }));
 vi.mock("@/context/NotificationContext", () => ({ useNotifications: vi.fn() }));
 vi.mock("@/hooks/useAppVersion", () => ({ useAppVersion: vi.fn() }));

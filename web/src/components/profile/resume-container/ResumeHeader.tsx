@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import type { RefObject } from "react";
 import { ArrowLeft, FileDown, MoreVertical, Sparkles, Star } from "lucide-react";
 import type { Resume } from "@/models/profile.model";
@@ -37,10 +38,12 @@ export function ResumeHeader({
   onExport: () => void;
   onSetDefault: () => void;
 }) {
+  const tr = useT();
+
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-2">
-        <Button title="Go Back" size="sm" variant="outline" onClick={onBack}>
+        <Button title={tr("mb8d99df1066e")} size="sm" variant="outline" onClick={onBack}>
           <ArrowLeft />
         </Button>
         <CardTitle>
@@ -55,8 +58,7 @@ export function ResumeHeader({
         </CardTitle>
         {isDefault && (
           <Badge className="border-transparent bg-green-600 text-white hover:bg-green-600/90">
-            Default
-          </Badge>
+            {tr("m21b111cbfe6e")}</Badge>
         )}
       </div>
       <div className="flex items-center gap-2 flex-wrap">
@@ -69,8 +71,7 @@ export function ResumeHeader({
         >
           <Sparkles className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Review
-          </span>
+            {tr("maff0766a5290")}</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -80,9 +81,8 @@ export function ResumeHeader({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="cursor-pointer" onClick={onExport}>
-              <FileDown className="h-4 w-4 mr-2" />
-              Export to PDF
-            </DropdownMenuItem>
+              <FileDown className="h-4 w-4 me-2" />
+              {tr("mccd4fda2f607")}</DropdownMenuItem>
             {!isDefault && (
               <DropdownMenuItem
                 className="cursor-pointer"
@@ -96,9 +96,8 @@ export function ResumeHeader({
                   onSetDefault();
                 }}
               >
-                <Star className="h-4 w-4 mr-2" />
-                Set as default
-              </DropdownMenuItem>
+                <Star className="h-4 w-4 me-2" />
+                {tr("md09b4dd6265a")}</DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

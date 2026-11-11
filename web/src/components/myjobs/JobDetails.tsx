@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Company,
   JobLocation,
@@ -78,6 +80,8 @@ function JobDetails({
   tags,
   stageTypes,
 }: JobDetailsProps) {
+  const tr = useT();
+
   const {
     open: openChat,
     clear: clearChat,
@@ -131,7 +135,7 @@ function JobDetails({
   }, [job.matchData]);
 
   const jobLabel = `${job.JobTitle?.label ?? "this job"}${
-    job.Company?.label ? ` at ${job.Company.label}` : ""
+    job.Company?.label ? tr("mff31d33ee656", {v0: job.Company.label}) : ""
   }`;
 
   // Panel first so a failed clear can never leave a button looking dead, and
@@ -166,9 +170,9 @@ function JobDetails({
   // Regenerate all key on this one reason.
   const coverLetterBlockedReason =
     job.descriptionCompleteness === "title-only"
-      ? "Add a job description first"
+      ? uiMessage("m1b1b80d5a268")
       : chatBusy
-        ? "The assistant is busy"
+        ? uiMessage("m529a808b8ac0")
         : undefined;
 
   const onEditJob = () => {
@@ -190,19 +194,19 @@ function JobDetails({
       await reloadStages();
       // applied/appliedDate may have changed too, and they come from the prop.
       router.refresh();
-      toastSuccess(`Job has been updated successfully`);
+      toastSuccess(tr(`Job has been updated successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
   const onDeleteJob = async () => {
     const { success, message } = await deleteJobById(job.id);
     if (success) {
-      toastSuccess(`Job has been deleted successfully`);
+      toastSuccess(tr(`Job has been deleted successfully`));
       router.push("/dashboard/myjobs");
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -240,29 +244,26 @@ function JobDetails({
 
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="w-full justify-start overflow-x-auto">
-            <TabsTrigger value="description">Description</TabsTrigger>
+            <TabsTrigger value="description">{tr("m526e0087cc3f")}</TabsTrigger>
             <TabsTrigger value="timeline">
-              Timeline
-              {stages.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m9dcff98e275f")}{stages.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {stages.length}
                 </Badge>
               )}
             </TabsTrigger>
-            <TabsTrigger value="match">AI Match</TabsTrigger>
-            <TabsTrigger value="letter">Cover Letter</TabsTrigger>
+            <TabsTrigger value="match">{tr("mae539b9a1559")}</TabsTrigger>
+            <TabsTrigger value="letter">{tr("m1120f0ed04fb")}</TabsTrigger>
             <TabsTrigger value="contacts">
-              Contacts
-              {contactLinks.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("mb450645debe2")}{contactLinks.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {contactLinks.length}
                 </Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="notes">
-              Notes
-              {notesCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m8a7525b1492f")}{notesCount > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {notesCount}
                 </Badge>
               )}
@@ -280,12 +281,12 @@ function JobDetails({
               ) : (
                 <JobTabEmptyState
                   icon={Sparkles}
-                  title="No match analysis yet"
-                  description="Run an AI match to see how your resume lines up with this posting, and where the gaps are."
-                  actionLabel="Match with AI"
+                  title={tr("m9e1d8409a936")}
+                  description={tr("m25d2f0dd01f8")}
+                  actionLabel={tr("mdc3588931ab1")}
                   onAction={onMatch}
                   actionDisabled={chatBusy}
-                  actionTitle={chatBusy ? "The assistant is busy" : undefined}
+                  actionTitle={chatBusy ? tr("m529a808b8ac0") : undefined}
                 />
               )}
             </Card>
@@ -395,17 +396,14 @@ function JobDetails({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Clear the assistant conversation?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("ma2c937e7cc68")}</AlertDialogTitle>
             <AlertDialogDescription>
-              A job is waiting for your approval in the assistant. Starting this
-              clears the conversation, and that job will not be saved.
-            </AlertDialogDescription>
+              {tr("m3fc411a0d27d")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction onClick={() => void startChat(pendingChatMessage)}>
-              Clear and continue
-            </AlertDialogAction>
+              {tr("m0cf722c3eaff")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

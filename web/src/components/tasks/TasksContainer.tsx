@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Loader } from "lucide-react";
@@ -30,6 +32,8 @@ function TasksContainer({
   filterKey,
   onTasksChanged,
 }: TasksContainerProps) {
+  const tr = useT();
+
   const { refreshCurrentActivity } = useActivity();
   const { requestStart, confirmDialog } = useActivitySwitchConfirm();
   const [editTask, setEditTask] = useState<Task | null>(null);
@@ -56,7 +60,7 @@ function TasksContainer({
   const onDeleteTask = async (taskId: string) => {
     const result = await deleteTaskById(taskId);
     toastActionResult(result, {
-      success: "Task has been deleted successfully",
+      success: uiMessage("m48f8d0a9c511"),
       onSuccess: () => reloadTasks(),
     });
   };
@@ -64,7 +68,7 @@ function TasksContainer({
   const onEditTask = async (taskId: string) => {
     const { data, success, message } = await getTaskById(taskId);
     if (!success) {
-      toastError(message);
+      toastError(tr(message));
       return;
     }
     setEditTask(data);
@@ -80,7 +84,7 @@ function TasksContainer({
     requestStart(async () => {
       const result = await startActivityFromTask(taskId);
       toastActionResult(result, {
-        success: "Activity started from task",
+        success: uiMessage("m4b6e5b84f49d"),
         onSuccess: () => refreshCurrentActivity(),
       });
       return result.success;
@@ -122,8 +126,7 @@ function TasksContainer({
           )}
           {!initialLoading && tasks.length === 0 && (
             <div className="text-center py-8 text-muted-foreground">
-              No tasks found. Create your first task to get started.
-            </div>
+              {tr("md956501b04dc")}</div>
           )}
           {tasks.length < totalTasks && (
             <div ref={sentinelRef} className="flex justify-center p-4">

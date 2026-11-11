@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { FileTextIcon, XIcon } from "lucide-react";
 import { getToolName, isStaticToolUIPart, type UIMessage } from "ai";
@@ -29,11 +30,13 @@ import {
 } from "@/models/agent.model";
 
 function PasteChip({ data }: { data: AgentPastePartData }) {
+  const tr = useT();
+
   const chars = data.chars.toLocaleString();
   return (
     <span className="inline-flex items-center gap-1.5 rounded-sm border bg-muted/30 px-2 py-1 text-xs text-muted-foreground">
       <FileTextIcon className="size-3" />
-      Pasted posting · {chars} chars{data.truncated ? " (truncated)" : ""}
+      {tr("m26a2ba06c2f5")}{" "}{chars} {" "}{tr("m1ce93dacbcf4")}{data.truncated ? tr("m05382ab6760c") : ""}
     </span>
   );
 }
@@ -76,6 +79,8 @@ function showThinking(messages: UIMessage[], status: string): boolean {
 }
 
 export function AgentChatMessages() {
+  const tr = useT();
+
   const {
     messages,
     toolStreams,
@@ -183,7 +188,7 @@ export function AgentChatMessages() {
 
         {showContinue && (
           <div className="flex items-center gap-2 rounded-md border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
-            <span className="flex-1">This reply was interrupted.</span>
+            <span className="flex-1">{tr("m05a7ef6d67a0")}</span>
             {/* Offered, never automatic — the user closed the panel, and
                 silently restarting a 30–60s local generation on reopen undoes
                 their own action. */}
@@ -193,10 +198,9 @@ export function AgentChatMessages() {
               type="button"
               variant="outline"
             >
-              Continue
-            </Button>
+              {tr("m31fbef162594")}</Button>
             <Button
-              aria-label="Dismiss"
+              aria-label={tr("m48845bff334a")}
               className="size-6 shrink-0"
               onClick={dismiss}
               size="icon"
@@ -208,7 +212,7 @@ export function AgentChatMessages() {
           </div>
         )}
 
-        {thinking && <AgentStatusRow label="Thinking…" />}
+        {thinking && <AgentStatusRow label={tr("ma02f1cea3c1d")} />}
       </ConversationContent>
       <ConversationScrollButton />
     </Conversation>

@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, DatabaseZap } from "lucide-react";
@@ -21,6 +23,8 @@ import {
 import { toastActionResult } from "@/lib/toast";
 
 export function GenerateMockDataButton() {
+  const tr = useT();
+
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -38,7 +42,7 @@ export function GenerateMockDataButton() {
       result = await step();
       if (!result.success) break;
     }
-    toastActionResult(result, { success: "Mock data generated" });
+    toastActionResult(result, { success: uiMessage("m6e515cd0d253") });
     setIsGenerating(false);
     setOpen(false);
     router.refresh();
@@ -56,20 +60,16 @@ export function GenerateMockDataButton() {
         ) : (
           <DatabaseZap className="h-4 w-4" />
         )}
-        Generate mock data
-      </Button>
+        {tr("mc0efd2b4e844")}</Button>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Generate mock data?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("m45b0c0d3a8be")}</AlertDialogTitle>
             <AlertDialogDescription>
-              This runs three generators in order: mock profile data
-              (companies, titles, locations and resumes), mock activities, and
-              mock jobs. It stops if a step fails.
-            </AlertDialogDescription>
+              {tr("m152a05229a1b")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isGenerating}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isGenerating}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction
               disabled={isGenerating}
               onClick={(e) => {
@@ -77,8 +77,7 @@ export function GenerateMockDataButton() {
                 handleGenerate();
               }}
             >
-              Generate
-            </AlertDialogAction>
+              {tr("m49e49bb4401e")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

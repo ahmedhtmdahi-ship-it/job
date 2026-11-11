@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -13,6 +14,8 @@ import { SearchInput } from "../SearchInput";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 function JobTitlesContainer() {
+  const tr = useT();
+
   const [titles, setTitles] = useState<JobTitle[]>([]);
   const [totalJobTitles, setTotalJobTitles] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -81,16 +84,16 @@ function JobTitlesContainer() {
         <Card x-chunk="dashboard-06-chunk-0">
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Job Titles</CardTitle>
+              <CardTitle>{tr("medf48f3ab798")}</CardTitle>
               {!initialLoading && totalJobTitles > 0 && (
-                <RecordsCount count={titles.length} total={totalJobTitles} label="job titles" />
+                <RecordsCount count={titles.length} total={totalJobTitles} label={tr("mb7d5fe030b3a")} />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
               <SearchInput
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Search job titles..."
+                placeholder={tr("m013e7020d1db")}
               />
               {/* <AddCompany reloadCompanies={reloadJobTitles} /> */}
             </div>

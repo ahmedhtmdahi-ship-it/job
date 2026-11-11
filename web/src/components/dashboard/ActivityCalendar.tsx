@@ -1,4 +1,7 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {useLocale} from "next-intl";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { ResponsiveCalendar } from "@nivo/calendar";
 import { format, parseISO } from "date-fns";
@@ -23,6 +26,11 @@ export default function ActivityCalendar({
   years: string[];
   dataByYear: Record<string, any[]>;
 }) {
+  const formatLocalized = useDateFormat();
+
+  const tr = useT();
+  const locale = useLocale();
+
   const { resolvedTheme } = useTheme();
   const [year, setYear] = useState(years.at(-1));
   const borderColor = resolvedTheme === "light" ? "#ffffff" : "#0e1117";
@@ -34,10 +42,10 @@ export default function ActivityCalendar({
     <Card className="w-[100%]">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg text-green-600">Activity Calendar</CardTitle>
+          <CardTitle className="text-lg text-green-600">{tr("ma055e426cfad")}</CardTitle>
           <Select value={year} onValueChange={setYear}>
-            <SelectTrigger className="w-[100px]" aria-label="Select year">
-              <SelectValue placeholder="Select year" />
+            <SelectTrigger className="w-[100px]" aria-label={tr("md1bb04d36fe2")}>
+              <SelectValue placeholder={tr("md1bb04d36fe2")} />
             </SelectTrigger>
             <SelectContent>
               {years.map((y) => (
@@ -51,10 +59,11 @@ export default function ActivityCalendar({
       </CardHeader>
       <CardContent className="h-[200px]">
         <ResponsiveCalendar
+          monthLegend={(_year, month) => new Intl.DateTimeFormat(locale, {month: "short"}).format(new Date(2020, month, 1))}
           data={data}
           from={`${year}-04-02`}
           to={`${year}-04-02`}
-          emptyColor={resolvedTheme === "light" ? "#eeeeee" : "#30363d"}
+          emptyColor={resolvedTheme === "light" ? tr("m3d4e1c37ac49") : tr("m4eb3465a568d")}
           colors={["#90e0ef", "#48cae4", "#00b4d8", "#0096c7", "#0077b6"]}
           minValue={2}
           margin={{ top: 20, right: 0, bottom: 20, left: 0 }}
@@ -75,14 +84,14 @@ export default function ActivityCalendar({
                   whiteSpace: "nowrap",
                 }}
               >
-                <div><strong>{format(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
-                <div>{day.value} job{Number(day.value) === 1 ? "" : "s"} applied</div>
-                <div>{hours} hr{hours === 1 ? "" : "s"} activity</div>
+                <div><strong>{formatLocalized(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
+                <div>{day.value} {" "}{tr("m5e8c9902207a")}{Number(day.value) === 1 ? "" : tr("m043a718774c5")} {" "}{tr("mb4267ce93cbb")}</div>
+                <div>{hours} {" "}{tr("m1b52f3a2e151")}{hours === 1 ? "" : tr("m043a718774c5")} {" "}{tr("m0651863bf5d9")}</div>
               </div>
             );
           }}
           theme={{
-            text: {
+            text: {fontFamily: "inherit",
               fill: "#9ca3af",
             },
             tooltip: {

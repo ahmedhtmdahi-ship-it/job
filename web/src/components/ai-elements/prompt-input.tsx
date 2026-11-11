@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Command,
   CommandEmpty,
@@ -415,7 +417,7 @@ export type PromptInputActionAddAttachmentsProps = ComponentProps<
 };
 
 export const PromptInputActionAddAttachments = ({
-  label = "Add photos or files",
+  label = uiMessage("m555359916cdf"),
   ...props
 }: PromptInputActionAddAttachmentsProps) => {
   const attachments = usePromptInputAttachments();
@@ -430,7 +432,7 @@ export const PromptInputActionAddAttachments = ({
 
   return (
     <DropdownMenuItem {...props} onSelect={handleSelect}>
-      <ImageIcon className="mr-2 size-4" /> {label}
+      <ImageIcon className="me-2 size-4" /> {label}
     </DropdownMenuItem>
   );
 };
@@ -442,7 +444,7 @@ export type PromptInputActionAddScreenshotProps = ComponentProps<
 };
 
 export const PromptInputActionAddScreenshot = ({
-  label = "Take screenshot",
+  label = uiMessage("m9c118198e693"),
   onSelect,
   ...props
 }: PromptInputActionAddScreenshotProps) => {
@@ -475,7 +477,7 @@ export const PromptInputActionAddScreenshot = ({
 
   return (
     <DropdownMenuItem {...props} onSelect={handleSelect}>
-      <Monitor className="mr-2 size-4" />
+      <Monitor className="me-2 size-4" />
       {label}
     </DropdownMenuItem>
   );
@@ -524,6 +526,8 @@ export const PromptInput = ({
   children,
   ...props
 }: PromptInputProps) => {
+  const tr = useT();
+
   // Try to use a provider controller if present
   const controller = useOptionalPromptInputController();
   const usingProvider = !!controller;
@@ -582,7 +586,7 @@ export const PromptInput = ({
       if (incoming.length && accepted.length === 0) {
         onError?.({
           code: "accept",
-          message: "No files match the accepted types.",
+          message: tr("m72119b3c0368"),
         });
         return;
       }
@@ -592,7 +596,7 @@ export const PromptInput = ({
       if (accepted.length > 0 && sized.length === 0) {
         onError?.({
           code: "max_file_size",
-          message: "All files exceed the maximum size.",
+          message: tr("mb2ea4bdb4a61"),
         });
         return;
       }
@@ -607,7 +611,7 @@ export const PromptInput = ({
         if (typeof capacity === "number" && sized.length > capacity) {
           onError?.({
             code: "max_files",
-            message: "Too many files. Some were not added.",
+            message: tr("m43276a7cfd98"),
           });
         }
         const next: (FileUIPart & { id: string })[] = [];
@@ -623,7 +627,7 @@ export const PromptInput = ({
         return [...prev, ...next];
       });
     },
-    [matchesAccept, maxFiles, maxFileSize, onError]
+    [matchesAccept, maxFiles, maxFileSize, onError, tr]
   );
 
   const removeLocal = useCallback(
@@ -646,7 +650,7 @@ export const PromptInput = ({
       if (incoming.length && accepted.length === 0) {
         onError?.({
           code: "accept",
-          message: "No files match the accepted types.",
+          message: tr("m72119b3c0368"),
         });
         return;
       }
@@ -656,7 +660,7 @@ export const PromptInput = ({
       if (accepted.length > 0 && sized.length === 0) {
         onError?.({
           code: "max_file_size",
-          message: "All files exceed the maximum size.",
+          message: tr("mb2ea4bdb4a61"),
         });
         return;
       }
@@ -671,7 +675,7 @@ export const PromptInput = ({
       if (typeof capacity === "number" && sized.length > capacity) {
         onError?.({
           code: "max_files",
-          message: "Too many files. Some were not added.",
+          message: tr("m43276a7cfd98"),
         });
       }
 
@@ -679,7 +683,7 @@ export const PromptInput = ({
         controller?.attachments.add(capped);
       }
     },
-    [matchesAccept, maxFileSize, maxFiles, onError, files.length, controller]
+    [matchesAccept, maxFileSize, maxFiles, onError, files.length, controller, tr]
   );
 
   const clearAttachments = useCallback(
@@ -907,12 +911,12 @@ export const PromptInput = ({
     <>
       <input
         accept={accept}
-        aria-label="Upload files"
+        aria-label={tr("m4118deee6e13")}
         className="hidden"
         multiple={multiple}
         onChange={handleChange}
         ref={inputRef}
-        title="Upload files"
+        title={tr("m4118deee6e13")}
         type="file"
       />
       <form
@@ -957,7 +961,7 @@ export const PromptInputTextarea = ({
   onChange,
   onKeyDown,
   className,
-  placeholder = "What would you like to know?",
+  placeholder = uiMessage("m7b3091d59ac7"),
   ...props
 }: PromptInputTextareaProps) => {
   const controller = useOptionalPromptInputController();
@@ -1159,7 +1163,7 @@ export const PromptInputButton = ({
       <TooltipContent side={side}>
         {tooltipContent}
         {shortcut && (
-          <span className="ml-2 text-muted-foreground">{shortcut}</span>
+          <span className="ms-2 text-muted-foreground">{shortcut}</span>
         )}
       </TooltipContent>
     </Tooltip>
@@ -1223,6 +1227,8 @@ export const PromptInputSubmit = ({
   children,
   ...props
 }: PromptInputSubmitProps) => {
+  const tr = useT();
+
   const isGenerating = status === "submitted" || status === "streaming";
 
   let Icon = <CornerDownLeftIcon className="size-4" />;
@@ -1249,7 +1255,7 @@ export const PromptInputSubmit = ({
 
   return (
     <InputGroupButton
-      aria-label={isGenerating ? "Stop" : "Submit"}
+      aria-label={isGenerating ? tr("mcae7d57bc067") : tr("m155f816c0407")}
       className={cn(className)}
       onClick={handleClick}
       size={size}

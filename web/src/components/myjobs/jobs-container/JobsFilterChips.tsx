@@ -1,4 +1,6 @@
 "use client";
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { X } from "lucide-react";
 import { EMPTY_JOB_FACETS, hasJobFacets } from "@/lib/jobs/jobFacets";
 import {
@@ -19,49 +21,51 @@ export function JobsFilterChips({
   facets: JobFacets;
   onChange: (facets: JobFacets) => void;
 }) {
+  const tr = useT();
+
   if (!hasJobFacets(facets)) return null;
 
   const statusLabels = [
     ...facets.statuses.map(
       (value) => statuses.find((s) => s.value === value)?.label ?? value,
     ),
-    ...(facets.acceptedDiscovered ? ["Accepted (discovered)"] : []),
+    ...(facets.acceptedDiscovered ? [uiMessage("m7adaa3b7bbd7")] : []),
   ];
 
   const chips = [
     {
-      name: "Status",
+      name: tr("m920e413c7d41"),
       value: statusLabels.join(", "),
       clear: { statuses: [], acceptedDiscovered: false },
     },
     {
-      name: "Job type",
+      name: tr("m38938209da01"),
       value: facets.jobTypes.map((c) => getJobTypeLabel(c)).join(", "),
       clear: { jobTypes: [] },
     },
     {
-      name: "Workplace",
+      name: tr("m09fd2948a8df"),
       value: facets.workplaces.map((c) => getWorkplaceTypeLabel(c)).join(", "),
       clear: { workplaces: [] },
     },
     {
-      name: "Dismissed",
-      value: facets.includeDismissed ? "Included" : "",
+      name: tr("m9d74727714db"),
+      value: facets.includeDismissed ? uiMessage("mba829a98b799") : "",
       clear: { includeDismissed: false },
     },
   ].filter((chip) => chip.value);
 
   return (
     <div className="flex w-full flex-wrap items-center gap-2">
-      <span className="mr-0.5 text-xs text-muted-foreground">Filtered by</span>
+      <span className="me-0.5 text-xs text-muted-foreground">{tr("mac2335969679")}</span>
       {chips.map((chip) => (
         <button
           key={chip.name}
           type="button"
-          aria-label={`Remove ${chip.name} filter`}
+          aria-label={tr("m8499937f40ed", {v0: chip.name})}
           title={chip.value}
           onClick={() => onChange({ ...facets, ...chip.clear })}
-          className="inline-flex h-7 max-w-[280px] items-center gap-1.5 rounded-md bg-muted pl-2.5 pr-2 text-[13px] hover:bg-muted/70"
+          className="inline-flex h-7 max-w-[280px] items-center gap-1.5 rounded-md bg-muted ps-2.5 pe-2 text-[13px] hover:bg-muted/70"
         >
           <span className="text-muted-foreground">{chip.name}</span>
           <span className="truncate font-medium">{chip.value}</span>
@@ -73,8 +77,7 @@ export function JobsFilterChips({
         className="h-7 px-2 text-[13px] text-muted-foreground underline hover:text-foreground"
         onClick={() => onChange(EMPTY_JOB_FACETS)}
       >
-        Clear all
-      </button>
+        {tr("m29a390f9237e")}</button>
     </div>
   );
 }

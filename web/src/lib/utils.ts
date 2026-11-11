@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { type ClassValue, clsx } from "clsx";
 import { format, parse } from "date-fns";
 import { NextApiRequest } from "next";
@@ -51,7 +52,7 @@ export function handleError(error: unknown, msg = "Server Error.") {
       return {
         success: false,
         message:
-          "Your session appears invalid. Please sign out and sign back in.",
+          uiMessage("m22f35696163d"),
       };
     }
     return { success: false, message: error.message || msg };

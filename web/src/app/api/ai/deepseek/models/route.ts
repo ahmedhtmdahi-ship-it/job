@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { resolveApiKey } from "@/lib/api-key-resolver";
@@ -12,7 +13,7 @@ export async function GET() {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "DeepSeek API key not configured" },
+        { error: uiMessage("m2df73551dc21") },
         { status: 500 }
       );
     }
@@ -25,7 +26,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch DeepSeek models" },
+        { error: uiMessage("m8046fdc684db") },
         { status: response.status }
       );
     }
@@ -38,7 +39,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Failed to fetch DeepSeek models" },
+      { error: uiMessage("m8046fdc684db") },
       { status: 500 }
     );
   }

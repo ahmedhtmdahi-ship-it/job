@@ -1,5 +1,7 @@
 "use client";
 
+import {message as uiMessage} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { Button } from "@/components/ui/button";
 import {
   HoverCard,
@@ -78,11 +80,11 @@ export const getMediaCategory = (
 
 export const getAttachmentLabel = (data: AttachmentData): string => {
   if (data.type === "source-document") {
-    return data.title || data.filename || "Source";
+    return data.title || data.filename || uiMessage("m0e570ca6fabe");
   }
 
   const category = getMediaCategory(data);
-  return data.filename || (category === "image" ? "Image" : "Attachment");
+  return data.filename || (category === "image" ? "Image" : uiMessage("m040d2b3689dd"));
 };
 
 const renderAttachmentImage = (
@@ -166,7 +168,7 @@ export const Attachments = ({
         className={cn(
           "flex items-start",
           variant === "list" ? "flex-col gap-2" : "flex-wrap gap-2",
-          variant === "grid" && "ml-auto w-fit",
+          variant === "grid" && "ms-auto w-fit",
           className
         )}
         {...props}
@@ -318,7 +320,7 @@ export type AttachmentRemoveProps = ComponentProps<typeof Button> & {
 };
 
 export const AttachmentRemove = ({
-  label = "Remove",
+  label = uiMessage("mc3812fc4acb8"),
   className,
   children,
   ...props
@@ -342,7 +344,7 @@ export const AttachmentRemove = ({
       aria-label={label}
       className={cn(
         variant === "grid" && [
-          "absolute top-2 right-2 size-6 rounded-full p-0",
+          "absolute top-2 end-2 size-6 rounded-full p-0",
           "bg-background/80 backdrop-blur-sm",
           "opacity-0 transition-opacity group-hover:opacity-100",
           "hover:bg-background",
@@ -415,7 +417,10 @@ export const AttachmentEmpty = ({
   className,
   children,
   ...props
-}: AttachmentEmptyProps) => (
+}: AttachmentEmptyProps) => {
+ const tr = useT();
+ return (
+
   <div
     className={cn(
       "flex items-center justify-center p-4 text-muted-foreground text-sm",
@@ -423,6 +428,7 @@ export const AttachmentEmpty = ({
     )}
     {...props}
   >
-    {children ?? "No attachments"}
+    {children ?? tr("m8eb007598616")}
   </div>
 );
+};

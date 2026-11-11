@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import type { JobBoard } from "@/models/automation.model";
 import { searchGreenhouseJobs } from "../greenhouse";
 import { searchLeverJobs } from "../lever";
@@ -10,9 +11,9 @@ import type { AtsProvider } from "./types";
 export const ATS_PROVIDERS: Partial<Record<JobBoard, AtsProvider>> = {
   greenhouse: {
     id: "greenhouse",
-    label: "Greenhouse",
+    label: uiMessage("md5150bb6c5de"),
     search: searchGreenhouseJobs,
   },
-  lever: { id: "lever", label: "Lever", search: searchLeverJobs },
-  ashby: { id: "ashby", label: "Ashby", search: searchAshbyJobs },
+  lever: { id: "lever", label: uiMessage("m2ea541c5d4da"), search: searchLeverJobs },
+  ashby: { id: "ashby", label: uiMessage("m0a1c8fde28ed"), search: searchAshbyJobs },
 };

@@ -22,7 +22,7 @@ function SidebarInset({ children }: { children: React.ReactNode }) {
         expanded
           ? APP_CONSTANTS.SIDEBAR_WIDTH.expanded.contentOffset
           : APP_CONSTANTS.SIDEBAR_WIDTH.collapsed.contentOffset,
-        isOpen && "lg:pr-(--agent-chat-offset)"
+        isOpen && "lg:pe-(--agent-chat-offset)"
       )}
       // Only while open: panelWidth is seeded from localStorage, so emitting
       // it during SSR (always closed) is a hydration mismatch.

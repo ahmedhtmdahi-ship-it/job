@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import type { AgentAddJobResult } from "@/models/agent.model";
@@ -14,10 +15,12 @@ export function AddJobResult({
   output: AgentAddJobResult;
   input: Record<string, unknown>;
 }) {
+  const tr = useT();
+
   if (output.validationError) {
     return (
       <p className="text-sm">
-        Could not add the job — {output.displayError ?? output.validationError}
+        {tr("m56b498ac1619")}{" "}{output.displayError ?? output.validationError}
       </p>
     );
   }
@@ -26,16 +29,13 @@ export function AddJobResult({
     return (
       <div className="text-sm">
         <p>
-          Already tracked: <strong>{output.duplicateOf.title}</strong> at{" "}
-          <strong>{output.duplicateOf.company}</strong>. No second job was
-          created.
-        </p>
+          {tr("m3799de13d446")}{" "}<strong>{output.duplicateOf.title}</strong> {" "}{tr("mb1d6b91b67c2")}{" "}
+          <strong>{output.duplicateOf.company}</strong>{tr("mfa7f9c3d2bf7")}</p>
         <Link
           className="text-xs underline"
           href={`/dashboard/myjobs/${output.duplicateOf.id}`}
         >
-          Open the existing job
-        </Link>
+          {tr("m5a6751615c90")}</Link>
       </div>
     );
   }
@@ -49,31 +49,29 @@ export function AddJobResult({
   return (
     <div className="text-sm">
       <p>
-        Added <strong>{jobTitle}</strong>
-        {company ? ` at ${company}` : ""}.
+        {tr("m6b02e0d363a4")}{" "}<strong>{jobTitle}</strong>
+        {company ? tr("mff31d33ee656", {v0: company}) : ""}.
       </p>
       {output.jobId && (
         <Link
           className="text-xs underline"
           href={`/dashboard/myjobs/${output.jobId}`}
         >
-          Open the job
-        </Link>
+          {tr("m3303aa8c09b2")}</Link>
       )}
       {newEntities.length > 0 && (
         <p className="mt-1 text-xs text-muted-foreground">
-          New: {newEntities.join(", ")}
+          {tr("m46dafc1f7af9")}{" "}{newEntities.join(", ")}
         </p>
       )}
       {output.descriptionChars !== undefined && (
         <p className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
           <span>
-            Description ·{" "}
+            {tr("ma1f73d6fdb75")}{" "}
             {output.descriptionSource === "pasted"
-              ? "pasted verbatim"
-              : "model-supplied"}{" "}
-            · {output.descriptionChars} chars
-          </span>
+              ? tr("m09d6f5da8c93")
+              : tr("ma15633ecdebb")}{" "}
+            · {output.descriptionChars} {" "}{tr("m1ce93dacbcf4")}</span>
           {output.descriptionCompleteness && (
             <Badge variant="outline">{output.descriptionCompleteness}</Badge>
           )}

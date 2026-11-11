@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -16,6 +17,8 @@ import { RecordsCount } from "../RecordsCount";
 import { SearchInput } from "../SearchInput";
 
 function JobStagesContainer() {
+  const tr = useT();
+
   const [types, setTypes] = useState<JobStageTypeRef[]>([]);
   const [totalTypes, setTotalTypes] = useState<number>(0);
   const [statuses, setStatuses] = useState<JobStatus[]>([]);
@@ -74,20 +77,20 @@ function JobStagesContainer() {
       <Card x-chunk="dashboard-06-chunk-0">
         <ResponsiveCardHeader>
           <div className="flex items-baseline gap-2">
-            <CardTitle>Job Stages</CardTitle>
+            <CardTitle>{tr("m59a39cec0c2f")}</CardTitle>
             {!loading && totalTypes > 0 && (
               <RecordsCount
                 count={types.length}
                 total={totalTypes}
-                label="stages"
+                label={tr("m7a77c515879a")}
               />
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search stages..."
+              placeholder={tr("m7a42334d4135")}
             />
             <Button
               size="sm"
@@ -97,8 +100,7 @@ function JobStagesContainer() {
             >
               <PlusCircle className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                New Stage
-              </span>
+                {tr("m4fc10c3dcd46")}</span>
             </Button>
           </div>
         </ResponsiveCardHeader>
@@ -120,7 +122,7 @@ function JobStagesContainer() {
                 disabled={loading}
                 className="btn btn-primary"
               >
-                {loading ? "Loading..." : "Load More"}
+                {loading ? tr("m47d2a515ef2f") : tr("m3f06cd334f48")}
               </Button>
             </div>
           )}

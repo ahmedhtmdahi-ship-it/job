@@ -1,3 +1,4 @@
+import {message as uiMessage} from "@/i18n/message";
 import {
   LayoutDashboard,
   SquareCheckBig,
@@ -57,8 +58,8 @@ export const APP_CONSTANTS = {
   UPDATE_CHECK_REVALIDATE_SECONDS: 86_400,
   // Paired so the rail width and its matching content offset can't drift.
   SIDEBAR_WIDTH: {
-    expanded: { rail: "w-56", contentOffset: "sm:pl-56" },
-    collapsed: { rail: "w-14", contentOffset: "sm:pl-14", px: 56 },
+    expanded: { rail: "w-56", contentOffset: "sm:ps-56" },
+    collapsed: { rail: "w-14", contentOffset: "sm:ps-14", px: 56 },
   },
 
   // Cloud API-key verification timeout. Without it a black-holed TLS
@@ -277,26 +278,26 @@ export const SCHEDULER_CONSTANTS = {
 } as const;
 
 export const JOB_SOURCES = [
-  { label: "Indeed", value: "indeed" },
-  { label: "Linkedin", value: "linkedin" },
-  { label: "Monster", value: "monster" },
-  { label: "Glassdoor", value: "glassdoor" },
-  { label: "Company Career page", value: "careerpage" },
-  { label: "Google", value: "google" },
-  { label: "ZipRecruiter", value: "ziprecruiter" },
-  { label: "Job Street", value: "jobstreet" },
-  { label: "Other", value: "other" },
+  { label: uiMessage("m7f6369c6738d"), value: "indeed" },
+  { label: uiMessage("m8fa3899e9b32"), value: "linkedin" },
+  { label: uiMessage("m3a241d59687b"), value: "monster" },
+  { label: uiMessage("m52e7267ba15f"), value: "glassdoor" },
+  { label: uiMessage("mcc8071a240b3"), value: "careerpage" },
+  { label: uiMessage("mce770667e5f9"), value: "google" },
+  { label: uiMessage("m70866b083ab9"), value: "ziprecruiter" },
+  { label: uiMessage("m10dd1ca6dbe3"), value: "jobstreet" },
+  { label: uiMessage("mf97e9da0e3b8"), value: "other" },
 ] as const;
 
 // Seeded per user at signup and backfilled by the contacts migration. `value`
 // must equal canonicalizeEntityValue(label) or the creatable role picker will
 // mint a duplicate instead of matching the seeded row.
 export const CONTACT_ROLES = [
-  { label: "Recruiter", value: "recruiter" },
-  { label: "Hiring Manager", value: "hiring manager" },
-  { label: "Interviewer", value: "interviewer" },
-  { label: "Referrer", value: "referrer" },
-  { label: "Reference", value: "reference" },
+  { label: uiMessage("mb25031e25d45"), value: "recruiter" },
+  { label: uiMessage("mfe5255023562"), value: "hiring manager" },
+  { label: uiMessage("m67b21e748742"), value: "interviewer" },
+  { label: uiMessage("m8e350c85ce0f"), value: "referrer" },
+  { label: uiMessage("m71bf90935fc2"), value: "reference" },
 ] as const;
 
 export const COMPANY_SIZES = [
@@ -311,17 +312,17 @@ export const COMPANY_SIZES = [
 export const COMPANY_NOTES_MAX_LENGTH = 5000;
 
 export const JOB_STATUSES = [
-  { label: "New", value: "new" },
-  { label: "Draft", value: "draft" },
-  { label: "Applied", value: "applied" },
-  { label: "Interview", value: "interview" },
-  { label: "Offer", value: "offer" },
-  { label: "Offer Accepted", value: "offer-accepted" },
-  { label: "Offer Declined", value: "offer-declined" },
-  { label: "Rejected", value: "rejected" },
-  { label: "Expired", value: "expired" },
-  { label: "Archived", value: "archived" },
-  { label: "Withdrawn", value: "withdrawn" },
+  { label: uiMessage("m18fdd549b2ed"), value: "new" },
+  { label: uiMessage("mebf12ef47cf5"), value: "draft" },
+  { label: uiMessage("m0c79a9c22284"), value: "applied" },
+  { label: uiMessage("m4effe447355c"), value: "interview" },
+  { label: uiMessage("m0cf57c63eb97"), value: "offer" },
+  { label: uiMessage("md75c96bf925d"), value: "offer-accepted" },
+  { label: uiMessage("m02fe344049ad"), value: "offer-declined" },
+  { label: uiMessage("maea4a04a8042"), value: "rejected" },
+  { label: uiMessage("m424a2551d356"), value: "expired" },
+  { label: uiMessage("mbdb86505f806"), value: "archived" },
+  { label: uiMessage("m00c0b03fcfa2"), value: "withdrawn" },
 ] as const;
 
 // Seeded per user at signup and backfilled by the stages migration. `value`
@@ -329,20 +330,20 @@ export const JOB_STATUSES = [
 // lookup keys on the status LABEL's canonical form, not on status.value, so
 // "Offer Accepted" cannot mint a second type beside "offer-accepted".
 export const JOB_STAGES = [
-  { label: "New", value: "new", status: "new", sortOrder: 0 },
-  { label: "Draft", value: "draft", status: "draft", sortOrder: 1 },
-  { label: "Applied", value: "applied", status: "applied", sortOrder: 2 },
-  { label: "Interview", value: "interview", status: "interview", sortOrder: 3 },
-  { label: "1st Screening Interview", value: "1st screening interview", status: "interview", sortOrder: 4 },
-  { label: "2nd Technical Interview", value: "2nd technical interview", status: "interview", sortOrder: 5 },
-  { label: "Final / Onsite Interview", value: "final / onsite interview", status: "interview", sortOrder: 6 },
-  { label: "Offer", value: "offer", status: "offer", sortOrder: 7 },
-  { label: "Offer Accepted", value: "offer accepted", status: "offer-accepted", sortOrder: 8 },
-  { label: "Offer Declined", value: "offer declined", status: "offer-declined", sortOrder: 9 },
-  { label: "Rejected", value: "rejected", status: "rejected", sortOrder: 10 },
-  { label: "Expired", value: "expired", status: "expired", sortOrder: 11 },
-  { label: "Archived", value: "archived", status: "archived", sortOrder: 12 },
-  { label: "Withdrawn", value: "withdrawn", status: "withdrawn", sortOrder: 13 },
+  { label: uiMessage("m18fdd549b2ed"), value: "new", status: "new", sortOrder: 0 },
+  { label: uiMessage("mebf12ef47cf5"), value: "draft", status: "draft", sortOrder: 1 },
+  { label: uiMessage("m0c79a9c22284"), value: "applied", status: "applied", sortOrder: 2 },
+  { label: uiMessage("m4effe447355c"), value: "interview", status: "interview", sortOrder: 3 },
+  { label: uiMessage("m4858c73cfe7f"), value: "1st screening interview", status: "interview", sortOrder: 4 },
+  { label: uiMessage("ma435a8df5ae0"), value: "2nd technical interview", status: "interview", sortOrder: 5 },
+  { label: uiMessage("me112eaa144fb"), value: "final / onsite interview", status: "interview", sortOrder: 6 },
+  { label: uiMessage("m0cf57c63eb97"), value: "offer", status: "offer", sortOrder: 7 },
+  { label: uiMessage("md75c96bf925d"), value: "offer accepted", status: "offer-accepted", sortOrder: 8 },
+  { label: uiMessage("m02fe344049ad"), value: "offer declined", status: "offer-declined", sortOrder: 9 },
+  { label: uiMessage("maea4a04a8042"), value: "rejected", status: "rejected", sortOrder: 10 },
+  { label: uiMessage("m424a2551d356"), value: "expired", status: "expired", sortOrder: 11 },
+  { label: uiMessage("mbdb86505f806"), value: "archived", status: "archived", sortOrder: 12 },
+  { label: uiMessage("m00c0b03fcfa2"), value: "withdrawn", status: "withdrawn", sortOrder: 13 },
 ] as const;
 
 // Statuses whose stage types render greyed at the foot of the Stage History
@@ -353,12 +354,12 @@ export const TERMINAL_STAGE_STATUSES = ["offer"] as const;
 
 // The fixed outcome set a stage may carry (spec's JobStage.outcome).
 export const STAGE_OUTCOMES = [
-  { label: "Scheduled", value: "scheduled" },
-  { label: "Completed", value: "completed" },
-  { label: "Passed", value: "passed" },
-  { label: "Failed", value: "failed" },
-  { label: "No-show", value: "no-show" },
-  { label: "Cancelled", value: "cancelled" },
+  { label: uiMessage("m4724f344c1c0"), value: "scheduled" },
+  { label: uiMessage("m22a970d2e5b1"), value: "completed" },
+  { label: uiMessage("m436fe71bb956"), value: "passed" },
+  { label: uiMessage("m031a8f0f659d"), value: "failed" },
+  { label: uiMessage("m5f7894d4e38e"), value: "no-show" },
+  { label: uiMessage("md353a99eb455"), value: "cancelled" },
 ] as const;
 
 // Statuses you can only reach by applying: setting one marks the job applied.
@@ -377,61 +378,61 @@ export const JOB_STATUS_VALUES = JOB_STATUSES.map((s) => s.value) as unknown as 
 ];
 
 export const DISCOVERY_STATUSES = [
-  { label: "New", value: "new" },
-  { label: "Accepted", value: "accepted" },
-  { label: "Dismissed", value: "dismissed" },
+  { label: uiMessage("m18fdd549b2ed"), value: "new" },
+  { label: uiMessage("ma00fb0c50741"), value: "accepted" },
+  { label: uiMessage("m9d74727714db"), value: "dismissed" },
 ] as const;
 
 export const SIDEBAR_LINKS = [
   {
     icon: LayoutDashboard,
     route: "/dashboard",
-    label: "Dashboard",
+    label: uiMessage("m67b696468610"),
   },
   {
     icon: BriefcaseBusiness,
     route: "/dashboard/myjobs",
-    label: "Jobs",
+    label: uiMessage("m2f17a0f8d518"),
   },
   {
     icon: CalendarCheck,
     route: "/dashboard/interviews",
-    label: "Interviews",
+    label: uiMessage("m0b9e49cf035b"),
   },
   {
     icon: Zap,
     route: "/dashboard/automations",
-    label: "Automations",
+    label: uiMessage("mad1fb9ec0cb3"),
   },
   {
     icon: SquareCheckBig,
     route: "/dashboard/tasks",
-    label: "Tasks",
+    label: uiMessage("mb3a60e61a523"),
   },
   {
     icon: CalendarClock,
     route: "/dashboard/activities",
-    label: "Activities",
+    label: uiMessage("m4d0076e6b4c7"),
   },
   {
     icon: BookOpen,
     route: "/dashboard/questions",
-    label: "Questions",
+    label: uiMessage("m9a72221a2747"),
   },
   {
     icon: UserRound,
     route: "/dashboard/profile",
-    label: "Profile",
+    label: uiMessage("md696a35bdd18"),
   },
   {
     icon: Sheet,
     route: "/dashboard/admin",
-    label: "Library",
+    label: uiMessage("mdc20b3d5d2cd"),
   },
   {
     icon: Wrench,
     route: "/dashboard/developer",
-    label: "Developer Options",
+    label: uiMessage("md7de9cfa1296"),
     devOnly: true,
   },
 ];

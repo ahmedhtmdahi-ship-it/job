@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import type { Control } from "react-hook-form";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,8 @@ export default function GoalRow({
   max,
   previous,
 }: GoalRowProps) {
+  const tr = useT();
+
   return (
     <FormField
       control={control}
@@ -53,7 +56,7 @@ export default function GoalRow({
         return (
           <FormItem
             className={cn(
-              "flex items-center gap-3 space-y-0 rounded-lg border p-3 pl-4",
+              "flex items-center gap-3 space-y-0 rounded-lg border p-3 ps-4",
               fieldState.error && "border-destructive",
               changed && "border-primary/40",
             )}
@@ -69,11 +72,11 @@ export default function GoalRow({
                 <FormMessage className="text-xs" />
               ) : changed ? (
                 <span className="text-xs font-medium text-primary">
-                  Was {previous} · now {value}
+                  {tr("m9f276c3991cc")}{" "}{previous} {" "}{tr("m4bd85caaf454")}{" "}{value}
                 </span>
               ) : (
                 <span className="text-xs text-muted-foreground">
-                  {min} to {max}
+                  {min} {" "}{tr("m663ea1bfffe5")}{" "}{max}
                 </span>
               )}
             </div>
@@ -82,7 +85,7 @@ export default function GoalRow({
                 type="button"
                 variant="ghost"
                 className="size-11 rounded-none"
-                aria-label={`Fewer ${noun}`}
+                aria-label={tr("mc320a6b28198", {v0: noun})}
                 disabled={value <= min}
                 onClick={() => step(-1)}
               >
@@ -105,7 +108,7 @@ export default function GoalRow({
                 type="button"
                 variant="ghost"
                 className="size-11 rounded-none"
-                aria-label={`More ${noun}`}
+                aria-label={tr("m576c753de851", {v0: noun})}
                 disabled={value >= max}
                 onClick={() => step(1)}
               >

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ContactInfo } from "@/models/profile.model";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
@@ -10,6 +11,8 @@ interface ContactInfoCardProps {
 }
 
 function ContactInfoCard({ contactInfo, openDialog }: ContactInfoCardProps) {
+  const tr = useT();
+
   const { firstName, lastName, headline, email, phone, address, url1, url1Label, url2, url2Label } =
     contactInfo!;
   const contactParts = [email, phone, address].filter(Boolean).join(" · ");
@@ -57,14 +60,14 @@ function ContactInfoCard({ contactInfo, openDialog }: ContactInfoCardProps) {
           )}
         </div>
         <Button
-          title="Edit"
+          title={tr("m464c4ffd019e")}
           variant="ghost"
           size="icon"
-          className="h-8 w-8 absolute top-2 right-2"
+          className="h-8 w-8 absolute top-2 end-2"
           onClick={openDialog}
         >
           <Pencil className="h-3.5 w-3.5" />
-          <span className="sr-only">Edit</span>
+          <span className="sr-only">{tr("m464c4ffd019e")}</span>
         </Button>
       </CardHeader>
     </Card>
