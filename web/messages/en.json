@@ -1780,7 +1780,7 @@
     "me3ee915a8e8c": " and ",
     "m09e1ce4ae931": "{count, plural, one {# page} other {# pages}}",
     "m5828ef1c1e95": "{count}h",
-    "md50e40a2c113": "{count} still required:",
+    "md50e40a2c113": "{count} required left:",
     "m8bb483f7be15": "Based on JobSync (MIT)"
   }
 }
