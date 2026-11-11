@@ -31,11 +31,6 @@ interface RecentCardToggleProps {
   activities: RecentActivity[];
 }
 
-function formatDuration(totalMinutes: number) {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  return totalMinutes === 0 ? "0min" : `${hours}h ${minutes}min`;
-}
 
 function groupJobsByDate(jobs: JobResponse[], formatDate = format) {
   const groups = new Map<string, JobResponse[]>();
@@ -77,6 +72,7 @@ export default function RecentCardToggle({
 }: RecentCardToggleProps) {
   const tr = useT();
   const formatLocalized = useDateFormat();
+  const formatDuration = (totalMinutes: number) => totalMinutes === 0 ? tr("m0ace3ee48c54") : tr("m1fba636d2eab", {hours: Math.floor(totalMinutes / 60), minutes: totalMinutes % 60});
 
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_RECENT_CARD_STORAGE_KEY,
