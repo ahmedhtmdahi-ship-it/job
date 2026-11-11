@@ -1705,6 +1705,11 @@
     "m19c73a5cdf34": "Professional",
     "me75b11da693d": "pt",
     "m0ace3ee48c54": "0min",
-    "m1fba636d2eab": "{hours}h {minutes}min"
+    "m1fba636d2eab": "{hours}h {minutes}min",
+    "maaf232064610": "title",
+    "me6eaea18e885": "location",
+    "m41cf6794ba42": "source",
+    "me0aa66045ec2": "contactRole",
+    "m65a79c4cac47": "workedAtCompany"
   }
 }
