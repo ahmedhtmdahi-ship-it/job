@@ -2,9 +2,9 @@ import {message as uiMessage} from "@/i18n/message";
 export type PdfFont = "helvetica" | "times" | "courier";
 
 export const PDF_FONT_LABELS: Record<PdfFont, string> = {
-  helvetica: "Helvetica",
-  times: "Times",
-  courier: "Courier",
+  helvetica: uiMessage("m44768824fe10"),
+  times: uiMessage("m0c0fd31c67d4"),
+  courier: uiMessage("mbbc5df524d41"),
 };
 
 // Every numeric field either document uses. A lookup table, never an

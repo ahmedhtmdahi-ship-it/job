@@ -45,7 +45,7 @@ export default function RecentCallsTable({ recent }: { recent: AiCallRow[] }) {
                   {formatCallTime(new Date(r.startedAt))}
                 </span>
                 <span className="w-[110px]">
-                  {AI_USAGE_FEATURES[r.feature] ?? r.feature}
+                  {tr(AI_USAGE_FEATURES[r.feature] ?? r.feature)}
                 </span>
                 <span
                   className="grow truncate font-mono text-xs text-foreground/80"

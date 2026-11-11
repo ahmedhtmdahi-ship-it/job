@@ -132,7 +132,7 @@ export function StepperRow({
           className="h-7 w-16 px-2 text-center text-sm"
         />
         {spec.unit && (
-          <span className="w-4 text-xs text-muted-foreground">{spec.unit}</span>
+          <span className="w-4 text-xs text-muted-foreground">{tr(spec.unit)}</span>
         )}
         <Button
           type="button"

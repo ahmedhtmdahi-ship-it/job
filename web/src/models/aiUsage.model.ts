@@ -1,12 +1,13 @@
+import {message as uiMessage} from "@/i18n/message";
 // Own vocabulary, not telemetry's SURFACES: the two disagree on the Analyze
 // button (Automations here, job.match there) and SURFACES must not grow.
 export const AI_USAGE_FEATURES = {
-  agent_chat: "Agent chat",
-  job_match: "Job match",
-  automations: "Automations",
-  resume_review: "Resume review",
-  cover_letter: "Cover letter",
-  resume_import: "Resume import",
+  agent_chat: uiMessage("m3b6628926bd2"),
+  job_match: uiMessage("md3f362f23515"),
+  automations: uiMessage("mad1fb9ec0cb3"),
+  resume_review: uiMessage("mf38927362ffa"),
+  cover_letter: uiMessage("md9adba2207cb"),
+  resume_import: uiMessage("mf12822f97a31"),
 } as const;
 
 export type AiUsageFeature = keyof typeof AI_USAGE_FEATURES;
@@ -39,11 +40,11 @@ export const AI_FAILURE_STATUSES = [
 export type AiFailureStatus = (typeof AI_FAILURE_STATUSES)[number];
 
 export const AI_PROVIDER_LABELS: Record<string, string> = {
-  ollama: "Ollama",
-  openai: "OpenAI",
-  deepseek: "DeepSeek",
-  gemini: "Gemini",
-  openrouter: "OpenRouter",
+  ollama: uiMessage("meb82ef897693"),
+  openai: uiMessage("m8b7d1a3187ab"),
+  deepseek: uiMessage("m0648d2111ec0"),
+  gemini: uiMessage("mf6ece80b88d6"),
+  openrouter: uiMessage("meb70c3bc14fa"),
 };
 
 export type AiUsageRange = 7 | 30;

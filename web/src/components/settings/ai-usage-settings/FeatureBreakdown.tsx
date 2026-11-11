@@ -22,7 +22,7 @@ export default function FeatureBreakdown({
             className="flex items-center gap-2.5 px-5 py-2 text-[13px]"
           >
             <span className="w-[110px] shrink-0">
-              {AI_USAGE_FEATURES[f.feature] ?? f.feature}
+              {tr(AI_USAGE_FEATURES[f.feature] ?? f.feature)}
             </span>
             <span className="block h-1.5 grow overflow-hidden rounded-full bg-muted">
               <span

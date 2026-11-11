@@ -78,6 +78,24 @@ async function main() {
       const file = {'/dashboard':'dashboard-ar.png','/dashboard/myjobs':'jobs-ar.png','/dashboard/settings':'settings-ar.png'}[route];
       if(file)await page.screenshot({path:path.join(output,file),fullPage:true,animations:'disabled'});
     }
+    // Exercise the main creation dialogs and each settings section in RTL.
+    for (const [route, button] of [
+      ['/dashboard/admin?tab=companies','New Company'],
+      ['/dashboard/admin?tab=contacts','New Contact'],
+      ['/dashboard/activities','New Activity'],
+      ['/dashboard/tasks','New Task'],
+      ['/dashboard/profile','Add New Resume'],
+    ]) {
+      await page.goto(base+route);
+      await page.getByRole('button',{name:label(button),exact:true}).click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      await verify(page,'ar',`${route} creation dialog`);
+    }
+    await page.goto(`${base}/dashboard/settings`);
+    for(const section of ['AI Provider','AI Usage','API Keys','Appearance','MCP Access','Data']) {
+      await page.getByRole('button',{name:label(section),exact:true}).click();
+      await verify(page,'ar',`settings: ${section}`);
+    }
     await page.goto(`${base}/dashboard/myjobs?add-job=true`);
     await expect(page.getByRole('dialog')).toBeVisible();
     await verify(page,'ar','job form dialog');

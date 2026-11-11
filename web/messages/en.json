@@ -1691,6 +1691,18 @@
     "mb911c419e49d": "Fit width",
     "md46e57d6ac42": "{count} pages",
     "m995a5d67159c": "Decrease {label}",
-    "mbbf5fc94e903": "Increase {label}"
+    "mbbf5fc94e903": "Increase {label}",
+    "m3b6628926bd2": "Agent chat",
+    "md3f362f23515": "Job match",
+    "mf38927362ffa": "Resume review",
+    "mf12822f97a31": "Resume import",
+    "meb82ef897693": "Ollama",
+    "mf6ece80b88d6": "Gemini",
+    "m44768824fe10": "Helvetica",
+    "m0c0fd31c67d4": "Times",
+    "mbbc5df524d41": "Courier",
+    "m3fee95da5ab6": "Simple",
+    "m19c73a5cdf34": "Professional",
+    "me75b11da693d": "pt"
   }
 }

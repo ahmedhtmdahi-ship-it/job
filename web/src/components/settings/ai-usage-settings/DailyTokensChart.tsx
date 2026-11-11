@@ -48,7 +48,7 @@ export default function DailyTokensChart({
                 className="h-2.5 w-2.5 rounded-sm"
                 style={{ background: colorOf(key) }}
               />
-              {providerLabel(key)}
+              {tr(providerLabel(key))}
             </span>
           ))}
         </div>

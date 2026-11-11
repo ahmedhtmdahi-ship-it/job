@@ -33,7 +33,7 @@ const FailuresCard = forwardRef<
                 className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-sm ${meta.dotClassName}`}
               />
               <span className="flex grow flex-col gap-0.5">
-                <span className="font-medium">{meta.label}</span>
+                <span className="font-medium">{tr(meta.label)}</span>
                 <span className="text-xs text-muted-foreground">
                   {meta.description}
                 </span>

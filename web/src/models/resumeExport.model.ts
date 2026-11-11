@@ -1,10 +1,11 @@
+import {message as uiMessage} from "@/i18n/message";
 import type { NumericSetting, PdfFont } from "./pdfExport.model";
 
 export type ResumeLayout = "simple" | "professional";
 
 export const RESUME_LAYOUT_LABELS: Record<ResumeLayout, string> = {
-  simple: "Simple",
-  professional: "Professional",
+  simple: uiMessage("m3fee95da5ab6"),
+  professional: uiMessage("m19c73a5cdf34"),
 };
 
 // The explicit list the resume's coercion iterates. Iterating the merged

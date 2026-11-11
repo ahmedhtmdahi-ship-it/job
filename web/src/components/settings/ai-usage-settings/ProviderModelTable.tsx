@@ -59,7 +59,7 @@ export default function ProviderModelTable({
                         !open && "-rotate-90",
                       )}
                     />
-                    {providerLabel(p.provider)}
+                    {tr(providerLabel(p.provider))}
                   </button>
                   <span className="block h-1.5 grow overflow-hidden rounded-full bg-muted">
                     <span
