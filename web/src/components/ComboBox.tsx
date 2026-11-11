@@ -1,6 +1,7 @@
 "use client";
 
 import {useT} from "@/i18n/useT";
+import {JOB_SOURCES, CONTACT_ROLES, JOB_STATUSES} from "@/lib/constants";
 import { Check, ChevronsUpDown, CirclePlus, Loader } from "lucide-react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -55,6 +56,8 @@ export function Combobox({
 
   // Placeholder text only; the accessible name comes from FormLabel/FormControl
   const displayName = tr(label ?? field.name);
+  const defaults = field.name === "source" ? JOB_SOURCES : field.name === "contactRole" ? CONTACT_ROLES : field.name === "status" ? JOB_STATUSES : [];
+  const optionLabel = (option: {label: string; value?: string}) => defaults.some(item => item.value === option.value && item.label === option.label) ? tr(option.label) : option.label;
   const [newOption, setNewOption] = useState<string>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -153,8 +156,7 @@ export function Combobox({
           >
             <span className="min-w-0 truncate">
               {field.value
-                ? (options.find((option) => option.id === field.value)?.label ??
-                  (freeText ? field.value : null))
+                ? (options.find((option) => option.id === field.value) ? optionLabel(options.find((option) => option.id === field.value)) : (freeText ? field.value : null))
                 : tr("m84805b3f51e7", {v0: displayName})}
             </span>
 
@@ -175,8 +177,8 @@ export function Combobox({
         )}
       >
         <Command
-          filter={(value, search) =>
-            value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0
+          filter={(value, search, keywords) =>
+            [value, ...(keywords ?? [])].join(" ").toLowerCase().includes(search.toLowerCase()) ? 1 : 0
           }
         >
           <CommandInput
@@ -215,6 +217,7 @@ export function Combobox({
               {options.map((option) => (
                 <CommandItem
                   value={option.value}
+                  keywords={[optionLabel(option)]}
                   key={option.id}
                   onSelect={() => {
                     if (field.onChange) {
@@ -229,7 +232,7 @@ export function Combobox({
                       option.id === field.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {tr(option.label)}
+                  {optionLabel(option)}
                 </CommandItem>
               ))}
             </CommandGroup>
