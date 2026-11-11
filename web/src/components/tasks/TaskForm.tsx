@@ -157,7 +157,7 @@ export function TaskForm({
             <DialogTitle data-testid="task-form-dialog-title">
               {tr(pageTitle)}
             </DialogTitle>
-            <DialogDescription>{pageDescription}</DialogDescription>
+            <DialogDescription>{tr(pageDescription)}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -194,7 +194,7 @@ export function TaskForm({
                           options={activityTypes}
                           field={{
                             ...field,
-                            name: tr("mc372463e4a0b"),
+                            name: uiMessage("mc372463e4a0b"),
                           }}
                           creatable
                         />
@@ -216,6 +216,7 @@ export function TaskForm({
                       <SelectFormCtrl
                         label={tr("m63428ae55816")}
                         options={statusOptions}
+                        localizeOptions
                         field={field}
                       />
                       <FormMessage />

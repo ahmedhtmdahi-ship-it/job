@@ -17,9 +17,10 @@ interface SelectProps {
   options: any[];
   field: ControllerRenderProps<any, any>;
   fullWidth?: boolean;
+  localizeOptions?: boolean;
 }
 
-function SelectFormCtrl({ label, options, field, fullWidth }: SelectProps) {
+function SelectFormCtrl({ label, options, field, fullWidth, localizeOptions = false }: SelectProps) {
  const tr = useT();
 
   return (
@@ -50,7 +51,7 @@ function SelectFormCtrl({ label, options, field, fullWidth }: SelectProps) {
                     value={option.id}
                     disabled={option.disabled}
                   >
-                    {option.label ?? option.value ?? option.title}
+                    {localizeOptions ? tr(option.label ?? option.value ?? option.title) : (option.label ?? option.value ?? option.title)}
                     {option.suffix}
                   </SelectItem>
                 );

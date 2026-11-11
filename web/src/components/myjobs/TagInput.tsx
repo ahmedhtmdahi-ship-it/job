@@ -129,7 +129,7 @@ export function TagInput({
           <Button
             variant="outline"
             role="combobox"
-            aria-label={placeholder}
+            aria-label={tr(placeholder)}
             aria-expanded={open}
             className={cn(
               "w-full justify-between font-normal",
@@ -138,7 +138,7 @@ export function TagInput({
             disabled={isMaxReached}
             type="button"
           >
-            {isMaxReached ? tr("m4cea11cc012d", {v0: max, v1: noun}) : placeholder}
+            {isMaxReached ? tr("m4cea11cc012d", {v0: max, v1: tr(noun)}) : tr(placeholder)}
             <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>

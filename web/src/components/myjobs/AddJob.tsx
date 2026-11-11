@@ -360,7 +360,7 @@ export function AddJob({
               <DialogTitle data-testid="add-job-dialog-title">
                 {tr(pageTitle)}
               </DialogTitle>
-              <DialogDescription>{pageDescription}</DialogDescription>
+              <DialogDescription>{tr(pageDescription)}</DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form
@@ -605,7 +605,7 @@ export function AddJob({
                             />
                             {dueDate && (
                               <p className="text-xs text-muted-foreground">
-                                {dueDateHint(dueDate, new Date())}
+                                {dueDateHint(dueDate, new Date(), tr)}
                               </p>
                             )}
                             <FormMessage />

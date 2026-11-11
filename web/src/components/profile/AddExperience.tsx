@@ -147,7 +147,7 @@ function AddExperience({
       <DialogContent className="h-full md:h-[85%] lg:max-h-screen md:max-w-[40rem] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{tr(pageTitle)}</DialogTitle>
-          <DialogDescription>{pageDescription}</DialogDescription>
+          <DialogDescription>{tr(pageDescription)}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form

@@ -1,3 +1,6 @@
+import {createTranslator} from "next-intl";
+import messages from "../../../../messages/en.json";
+const english = createTranslator({locale: "en", messages: messages.ui as Record<string, string>});
 import {message as uiMessage} from "@/i18n/message";
 import { differenceInCalendarDays } from "date-fns";
 import { JobStatus } from "@/models/job.model";
@@ -22,13 +25,12 @@ export function splitStatuses(statuses: JobStatus[]): {
   return { primary, more };
 }
 
-export function dueDateHint(due: Date | undefined, today: Date): string {
+export function dueDateHint(due: Date | undefined, today: Date, translate: (key: string, values?: Record<string, string | number>) => string = english): string {
   if (!due) return "";
   const days = differenceInCalendarDays(due, today);
-  if (days === 0) return "Due today";
+  if (days === 0) return translate("m19e82138c35f");
   const n = Math.abs(days);
-  const unit = n === 1 ? "day" : "days";
-  return days > 0 ? `In ${n} ${unit}` : `${n} ${unit} ago`;
+  return translate(days > 0 ? "mb0e0db70e969" : "m2f30450b6198", {count: n});
 }
 
 export type RequiredField = "title" | "company" | "location" | "source";

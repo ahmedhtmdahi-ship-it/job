@@ -132,7 +132,7 @@ export function QuestionForm({
             <DialogTitle data-testid="question-form-dialog-title">
               {tr(pageTitle)}
             </DialogTitle>
-            <DialogDescription>{pageDescription}</DialogDescription>
+            <DialogDescription>{tr(pageDescription)}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form

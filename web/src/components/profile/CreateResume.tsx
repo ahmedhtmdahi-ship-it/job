@@ -194,7 +194,7 @@ function CreateResume({
       <DialogContent className="lg:max-h-screen overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{tr(pageTitle)}</DialogTitle>
-          <DialogDescription>{pageDescription}</DialogDescription>
+          <DialogDescription>{tr(pageDescription)}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
