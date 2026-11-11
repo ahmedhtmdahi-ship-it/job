@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { X, ChevronsUpDown, CirclePlus, Loader } from "lucide-react";
 import {
@@ -41,6 +42,8 @@ export function TagInput({
   noun = "skills",
   onTagCreated,
 }: TagInputProps) {
+  const tr = useT();
+
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [localTags, setLocalTags] = useState<Tag[]>(availableTags);
@@ -134,20 +137,20 @@ export function TagInput({
             disabled={isMaxReached}
             type="button"
           >
-            {isMaxReached ? `Max ${max} ${noun} reached` : placeholder}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            {isMaxReached ? tr("m4cea11cc012d", {v0: max, v1: noun}) : placeholder}
+            <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-full p-0" align="start">
           <Command shouldFilter={false}>
             <CommandInput
-              placeholder="Type a skill..."
+              placeholder={tr("m9b0854dcbeca")}
               value={inputValue}
               onValueChange={setInputValue}
             />
             <CommandList>
               {filteredOptions.length === 0 && !inputValue && (
-                <CommandEmpty>No skills found.</CommandEmpty>
+                <CommandEmpty>{tr("m32bddf99233e")}</CommandEmpty>
               )}
               {filteredOptions.length > 0 && (
                 <CommandGroup>
@@ -169,12 +172,11 @@ export function TagInput({
                     className="text-primary"
                   >
                     {isPending ? (
-                      <Loader className="mr-2 h-4 w-4 spinner" />
+                      <Loader className="me-2 h-4 w-4 spinner" />
                     ) : (
-                      <CirclePlus className="mr-2 h-4 w-4" />
+                      <CirclePlus className="me-2 h-4 w-4" />
                     )}
-                    Create &quot;{inputValue.trim()}&quot;
-                  </CommandItem>
+                    {tr("mbe47ce3c891d")}{inputValue.trim()}{tr("m497558230027")}</CommandItem>
                 </CommandGroup>
               )}
             </CommandList>
@@ -185,13 +187,13 @@ export function TagInput({
       {selectedTags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {selectedTags.map((tag) => (
-            <Badge key={tag.id} variant="secondary" className="gap-1 pr-1">
+            <Badge key={tag.id} variant="secondary" className="gap-1 pe-1">
               {tag.label}
               <button
                 type="button"
                 onClick={() => removeTagById(tag.id)}
-                className="ml-1 rounded-full hover:bg-muted-foreground/20 p-0.5"
-                aria-label={`Remove ${tag.label}`}
+                className="ms-1 rounded-full hover:bg-muted-foreground/20 p-0.5"
+                aria-label={tr("m9fc9271b9acf", {v0: tag.label})}
               >
                 <X className="h-3 w-3" />
               </button>

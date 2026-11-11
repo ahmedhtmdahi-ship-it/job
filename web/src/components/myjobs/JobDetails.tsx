@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Company,
   JobLocation,
@@ -78,6 +79,8 @@ function JobDetails({
   tags,
   stageTypes,
 }: JobDetailsProps) {
+  const tr = useT();
+
   const {
     open: openChat,
     clear: clearChat,
@@ -240,29 +243,26 @@ function JobDetails({
 
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="w-full justify-start overflow-x-auto">
-            <TabsTrigger value="description">Description</TabsTrigger>
+            <TabsTrigger value="description">{tr("m526e0087cc3f")}</TabsTrigger>
             <TabsTrigger value="timeline">
-              Timeline
-              {stages.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m9dcff98e275f")}{stages.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {stages.length}
                 </Badge>
               )}
             </TabsTrigger>
-            <TabsTrigger value="match">AI Match</TabsTrigger>
-            <TabsTrigger value="letter">Cover Letter</TabsTrigger>
+            <TabsTrigger value="match">{tr("mae539b9a1559")}</TabsTrigger>
+            <TabsTrigger value="letter">{tr("m1120f0ed04fb")}</TabsTrigger>
             <TabsTrigger value="contacts">
-              Contacts
-              {contactLinks.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("mb450645debe2")}{contactLinks.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {contactLinks.length}
                 </Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="notes">
-              Notes
-              {notesCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m8a7525b1492f")}{notesCount > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {notesCount}
                 </Badge>
               )}
@@ -280,12 +280,12 @@ function JobDetails({
               ) : (
                 <JobTabEmptyState
                   icon={Sparkles}
-                  title="No match analysis yet"
-                  description="Run an AI match to see how your resume lines up with this posting, and where the gaps are."
+                  title={tr("m9e1d8409a936")}
+                  description={tr("m25d2f0dd01f8")}
                   actionLabel="Match with AI"
                   onAction={onMatch}
                   actionDisabled={chatBusy}
-                  actionTitle={chatBusy ? "The assistant is busy" : undefined}
+                  actionTitle={chatBusy ? tr("m529a808b8ac0") : undefined}
                 />
               )}
             </Card>
@@ -395,17 +395,14 @@ function JobDetails({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Clear the assistant conversation?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("ma2c937e7cc68")}</AlertDialogTitle>
             <AlertDialogDescription>
-              A job is waiting for your approval in the assistant. Starting this
-              clears the conversation, and that job will not be saved.
-            </AlertDialogDescription>
+              {tr("m3fc411a0d27d")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction onClick={() => void startChat(pendingChatMessage)}>
-              Clear and continue
-            </AlertDialogAction>
+              {tr("m0cf722c3eaff")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

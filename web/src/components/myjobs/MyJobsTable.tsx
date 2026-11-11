@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Table,
   TableBody,
@@ -51,6 +52,8 @@ function MyJobsTable({
   sort,
   onSort,
 }: MyJobsTableProps) {
+  const tr = useT();
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [jobIdToDelete, setJobIdToDelete] = useState("");
 
@@ -65,7 +68,7 @@ function MyJobsTable({
         <TableHeader>
           <TableRow>
             <TableHead className="hidden w-[100px] sm:table-cell">
-              <span className="sr-only">Company Logo</span>
+              <span className="sr-only">{tr("md6e2a199bcd7")}</span>
             </TableHead>
             <SortableTableHead
               field="appliedDate"
@@ -73,41 +76,35 @@ function MyJobsTable({
               onSort={onSort}
               className="hidden md:table-cell"
             >
-              Applied
-            </SortableTableHead>
+              {tr("m0c79a9c22284")}</SortableTableHead>
             <SortableTableHead field="title" sort={sort} onSort={onSort}>
-              Title
-            </SortableTableHead>
+              {tr("m7e8cd2056da7")}</SortableTableHead>
             <SortableTableHead field="company" sort={sort} onSort={onSort}>
-              Company
-            </SortableTableHead>
+              {tr("mde4743c87973")}</SortableTableHead>
             <SortableTableHead
               field="location"
               sort={sort}
               onSort={onSort}
               className="hidden md:table-cell"
             >
-              Location
-            </SortableTableHead>
-            <TableHead>Status</TableHead>
+              {tr("m15b61974b270")}</SortableTableHead>
+            <TableHead>{tr("m920e413c7d41")}</TableHead>
             <SortableTableHead
               field="matchScore"
               sort={sort}
               onSort={onSort}
               className="hidden md:table-cell text-center"
             >
-              Match
-            </SortableTableHead>
+              {tr("m03c0e806becb")}</SortableTableHead>
             <SortableTableHead
               field="source"
               sort={sort}
               onSort={onSort}
               className="hidden md:table-cell"
             >
-              Source
-            </SortableTableHead>
+              {tr("m0e570ca6fabe")}</SortableTableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -124,10 +121,10 @@ function MyJobsTable({
                 <TableCell className="hidden md:table-cell w-[120px] whitespace-nowrap">
                   {job.appliedDate
                     ? format(job.appliedDate, "PP")
-                    : "Not Applied"}
+                    : tr("m94fb836726d8")}
                   {job.createdAt && (
                     <span className="block text-xs text-muted-foreground">
-                      Added {format(job.createdAt, "PP")}
+                      {tr("m6b02e0d363a4")}{format(job.createdAt, "PP")}
                     </span>
                   )}
                 </TableCell>
@@ -144,7 +141,7 @@ function MyJobsTable({
                         variant="secondary"
                         className="text-xs px-1.5 py-0 h-5 shrink-0"
                       >
-                        <StickyNote className="h-3 w-3 mr-0.5" />
+                        <StickyNote className="h-3 w-3 me-0.5" />
                         {job._count!.Notes}
                       </Badge>
                     )}
@@ -203,8 +200,8 @@ function MyJobsTable({
                     <Button
                       variant="ghost"
                       size="icon"
-                      title="Edit Job"
-                      aria-label="Edit Job"
+                      title={tr("mc492f013040b")}
+                      aria-label={tr("mc492f013040b")}
                       onClick={() => editJob(job.id)}
                     >
                       <Pencil className="h-4 w-4" />
@@ -212,8 +209,8 @@ function MyJobsTable({
                     <Button
                       variant="ghost"
                       size="icon"
-                      title="Delete Job"
-                      aria-label="Delete Job"
+                      title={tr("mb58e4ff842e4")}
+                      aria-label={tr("mb58e4ff842e4")}
                       className="text-destructive hover:text-destructive"
                       onClick={() => onDeleteJob(job.id)}
                     >

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Fragment, useEffect, useState } from "react";
 import { Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,8 @@ export function AddJobFooter({
   isPending,
   saveDisabled,
 }: AddJobFooterProps) {
+  const tr = useT();
+
   const [shortcut, setShortcut] = useState("Ctrl↵");
   // Read after mount so server and client render the same text
   useEffect(() => {
@@ -29,7 +32,7 @@ export function AddJobFooter({
     <div className="flex flex-wrap items-center gap-2 border-t bg-muted/40 px-8 py-3.5">
       {missing.length > 0 && (
         <p className="text-sm text-muted-foreground">
-          {missing.length} required left:{" "}
+          {missing.length} {tr("m893ea02f6840")}{" "}
           {missing.map((f, i) => (
             <Fragment key={f}>
               {i > 0 && ", "}
@@ -44,17 +47,15 @@ export function AddJobFooter({
           ))}
         </p>
       )}
-      <div className="ml-auto flex gap-2">
+      <div className="ms-auto flex gap-2">
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
+          {tr("m19766ed6ccb2")}</Button>
         <Button
           type="submit"
           data-testid="save-job-btn"
           disabled={saveDisabled}
         >
-          Save
-          <kbd
+          {tr("m1509f561f241")}<kbd
             aria-hidden="true"
             className="rounded border border-primary-foreground/30 px-1 text-xs font-normal"
           >

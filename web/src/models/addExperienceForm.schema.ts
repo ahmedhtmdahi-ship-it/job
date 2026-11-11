@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddExperienceFormSchema = z.object({
@@ -8,27 +9,27 @@ export const AddExperienceFormSchema = z.object({
   sectionType: z.string().optional(),
   title: z
     .string({
-      error: "Job title is required.",
+      error: message("m97ac1495aa8a"),
     })
     .min(2, {
-      message: "Job title must be at least 2 characters.",
+      message: message("m5a883923b648"),
     }),
   company: z
     .string({
-      error: "Company name is required.",
+      error: message("ma5e52bf6d475"),
     })
     .min(2, {
-      message: "Company name must be at least 2 characters.",
+      message: message("m6b7c1765dbe5"),
     }),
   location: z
     .string({
-      error: "Location is required.",
+      error: message("me56d59f22012"),
     })
     .min(2, {
-      message: "Location name must be at least 2 characters.",
+      message: message("m796c3d751696"),
     }),
   jobDescription: z.string().min(10, {
-    message: "Job description must be at least 10 characters.",
+    message: message("m50bac20a2514"),
   }),
   startDate: z.date(),
   endDate: z.date().nullable().optional(),

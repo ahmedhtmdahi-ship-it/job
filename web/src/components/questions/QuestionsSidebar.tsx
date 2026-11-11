@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,8 @@ function QuestionsSidebar({
   selectedFilter,
   onFilterChange,
 }: QuestionsSidebarProps) {
+  const tr = useT();
+
   const [collapsed, setCollapsed] = useState(false);
   const sortedTags = [...tags].sort(
     (a, b) => b.questionCount - a.questionCount,
@@ -32,33 +35,32 @@ function QuestionsSidebar({
   return (
     <div
       className={cn(
-        "relative border-r py-4 hidden md:flex flex-col h-full transition-all duration-200 -ml-3",
+        "relative border-e py-4 hidden md:flex flex-col h-full transition-all duration-200 -ms-3",
         collapsed ? "w-0 overflow-visible" : "w-48",
       )}
     >
       <button
         onClick={() => setCollapsed((prev) => !prev)}
-        className="absolute -right-3 top-4 z-10 flex items-center justify-center w-6 h-6 rounded-full border bg-background text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        className="absolute -end-3 top-4 z-10 flex items-center justify-center w-6 h-6 rounded-full border bg-background text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+        aria-label={collapsed ? tr("m37a5d6485e10") : tr("maab31cde23ba")}
       >
         {collapsed ? (
-          <ChevronRight className="h-3.5 w-3.5" />
+          <ChevronRight className="rtl-mirror h-3.5 w-3.5" />
         ) : (
-          <ChevronLeft className="h-3.5 w-3.5" />
+          <ChevronLeft className="rtl-mirror h-3.5 w-3.5" />
         )}
       </button>
 
       {!collapsed && (
         <>
-          <h3 className="font-semibold mb-4 text-sm">Skill Tags</h3>
+          <h3 className="font-semibold mb-4 text-sm">{tr("m1f7cbb22bb10")}</h3>
           <div className="flex flex-wrap gap-1.5">
             <button onClick={() => onFilterChange(undefined)}>
               <QuestionTagBadge
                 variant={!selectedFilter ? "default" : "secondary"}
                 className="cursor-pointer"
               >
-                {totalQuestions} All
-              </QuestionTagBadge>
+                {totalQuestions} {tr("ma52ace420f21")}</QuestionTagBadge>
             </button>
             {sortedTags.map((tag) => (
               <button

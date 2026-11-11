@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
@@ -31,6 +32,8 @@ function InterviewsContainer({
   stageTypes,
   jobStatuses,
 }: InterviewsContainerProps) {
+  const tr = useT();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [stageTypeId, setStageTypeId] = useState<string | undefined>(undefined);
   const [companyId, setCompanyId] = useState<string | undefined>(undefined);
@@ -54,16 +57,16 @@ function InterviewsContainer({
       <Card x-chunk="dashboard-interviews-chunk-0">
         <ResponsiveCardHeader>
           <div className="flex items-baseline gap-2">
-            <CardTitle>Interviews</CardTitle>
+            <CardTitle>{tr("m0b9e49cf035b")}</CardTitle>
             {!list.initialLoading && list.total > 0 && (
               <RecordsCount
                 count={list.interviews.length}
                 total={list.total}
-                label="interviews"
+                label={tr("m320dc1c2c337")}
               />
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             <InterviewFilters
               rounds={rounds}
               companies={companies}
@@ -75,7 +78,7 @@ function InterviewsContainer({
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search interviews..."
+              placeholder={tr("m0fa972b855e0")}
             />
           </div>
         </ResponsiveCardHeader>
@@ -85,8 +88,8 @@ function InterviewsContainer({
           ) : list.interviews.length === 0 ? (
             <p className="py-10 text-center text-sm text-muted-foreground">
               {filtered
-                ? "No interviews match these filters."
-                : "No interviews yet. Add an interview stage on a job's Timeline tab and it appears here."}
+                ? tr("m777f44e459fb")
+                : tr("m907fa47a0b22")}
             </p>
           ) : (
             <>

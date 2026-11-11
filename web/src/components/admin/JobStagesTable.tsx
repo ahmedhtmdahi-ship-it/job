@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -36,6 +37,8 @@ type JobStagesTableProps = {
 };
 
 function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -46,7 +49,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
     if (stages > 0) {
       setAlert({
         openState: true,
-        title: "Stage type is in use!",
+        title: tr("m87317b0c8935"),
         description: `This stage type is used by ${stages} job stage${
           stages === 1 ? "" : "s"
         }. Change or remove those stages before deleting the type.`,
@@ -61,7 +64,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
     if (typeId) {
       const { success, message } = await deleteJobStageTypeById(typeId);
       if (success) {
-        toastSuccess("Stage type has been deleted successfully");
+        toastSuccess(tr("m420fdb857a73"));
         reloadTypes();
       } else {
         toastError(message);
@@ -102,12 +105,12 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Stage</TableHead>
-            <TableHead>Parent Status</TableHead>
-            <TableHead className="hidden sm:table-cell">Order</TableHead>
-            <TableHead>Stages</TableHead>
+            <TableHead>{tr("mde838855e4a6")}</TableHead>
+            <TableHead>{tr("mccf93fbd2851")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m6be090825c99")}</TableHead>
+            <TableHead>{tr("m3a17aa4e4abb")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -135,41 +138,37 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
                     <DropdownMenuTrigger asChild>
                       <Button aria-haspopup="true" size="icon" variant="ghost">
                         <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">{tr("mc02651240c87")}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                       <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={() => onEdit(type)}
                       >
-                        <Pencil className="mr-2 h-4 w-4" />
-                        Edit
-                      </DropdownMenuItem>
+                        <Pencil className="me-2 h-4 w-4" />
+                        {tr("m464c4ffd019e")}</DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
                         disabled={index === 0}
                         onClick={() => move(index, -1)}
                       >
-                        <ArrowUp className="mr-2 h-4 w-4" />
-                        Move Up
-                      </DropdownMenuItem>
+                        <ArrowUp className="me-2 h-4 w-4" />
+                        {tr("m1359626e7b69")}</DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
                         disabled={index === types.length - 1}
                         onClick={() => move(index, 1)}
                       >
-                        <ArrowDown className="mr-2 h-4 w-4" />
-                        Move Down
-                      </DropdownMenuItem>
+                        <ArrowDown className="me-2 h-4 w-4" />
+                        {tr("mb58330ac2505")}</DropdownMenuItem>
                       <DropdownMenuItem
                         className="text-red-600 cursor-pointer"
                         onClick={() => onDeleteType(type)}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
+                        <Trash className="me-2 h-4 w-4" />
+                        {tr("me2d0a54968ea")}</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

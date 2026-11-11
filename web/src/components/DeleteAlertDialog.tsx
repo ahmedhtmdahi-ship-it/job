@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import {
   AlertDialog,
@@ -34,12 +35,14 @@ export function DeleteAlertDialog({
   actionLabel = "Delete",
   actionVariant = "destructive",
 }: DeleteAlertDialogProps) {
+  const tr = useT();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {alertTitle ?? `Are you sure you want to delete this ${pageTitle}?`}
+            {alertTitle ?? tr("m90d3f19c10dc", {v0: pageTitle})}
           </AlertDialogTitle>
           {/* asChild: a description may carry a list, which cannot nest in a p. */}
           <AlertDialogDescription asChild>
@@ -47,7 +50,7 @@ export function DeleteAlertDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           {deleteAction && (
             <AlertDialogAction
               className={buttonVariants({ variant: actionVariant })}

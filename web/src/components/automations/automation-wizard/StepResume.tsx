@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import type { UseFormReturn } from "react-hook-form";
 import {
   Select,
@@ -30,6 +31,8 @@ export function StepResume({
   form: UseFormReturn<CreateAutomationInput>;
   resumes: WizardResume[];
 }) {
+  const tr = useT();
+
   const selectableCount = resumes.filter((r) =>
     hasMinResumeSections(r.sectionCount),
   ).length;
@@ -43,11 +46,11 @@ export function StepResume({
         name="resumeId"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Resume for Matching</FormLabel>
+            <FormLabel>{tr("m7e4bf17b60ee")}</FormLabel>
             <Select onValueChange={field.onChange} value={field.value}>
               <FormControl>
                 <SelectTrigger className="[&_[data-incomplete-hint]]:pointer-events-none">
-                  <SelectValue placeholder="Select a resume" />
+                  <SelectValue placeholder={tr("mc971793dc97f")} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -66,28 +69,23 @@ export function StepResume({
               </SelectContent>
             </Select>
             <FormDescription>
-              Jobs will be matched against this resume
-            </FormDescription>
+              {tr("m1dabc27a6534")}</FormDescription>
             <FormMessage />
           </FormItem>
         )}
       />
       {resumes.length === 0 && (
         <p className="text-sm text-orange-600 dark:text-orange-500">
-          No resumes found. Please create a resume with enough content in your
-          profile first.
-        </p>
+          {tr("m1f1a418f98c5")}</p>
       )}
       {resumes.length > 0 && incompleteCount > 0 && (
         <p className="text-sm text-orange-600 dark:text-orange-500">
           {incompleteCount === resumes.length
-            ? "None of your resumes can be used yet."
-            : `${incompleteCount} of your resumes can't be selected.`}{" "}
-          A resume needs at least {min} sections — an attached file does not
-          count. Fill it in under{" "}
+            ? tr("mbfb436446d5e")
+            : tr("m23ed07631a58", {v0: incompleteCount})}{" "}
+          {tr("m273717e5129b")}{min} {tr("m3fed0833d7c3")}{" "}
           <Link href="/dashboard/profile" className="underline">
-            Profile
-          </Link>
+            {tr("md696a35bdd18")}</Link>
           .
         </p>
       )}

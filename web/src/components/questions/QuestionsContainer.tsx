@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -37,6 +38,8 @@ function QuestionsContainer({
   filterKey,
   onQuestionsChanged,
 }: QuestionsContainerProps) {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -163,20 +166,20 @@ function QuestionsContainer({
       <Card className="h-full">
         <ResponsiveCardHeader>
           <div className="flex items-baseline gap-2">
-            <CardTitle>Questions</CardTitle>
+            <CardTitle>{tr("m9a72221a2747")}</CardTitle>
             {!loading && totalQuestions > 0 && (
               <RecordsCount
                 count={questions.length}
                 total={totalQuestions}
-                label="questions"
+                label={tr("m17d5efa695de")}
               />
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Search questions..."
+              placeholder={tr("m2aef7c92fcc9")}
             />
             <Button
               size="sm"
@@ -186,8 +189,7 @@ function QuestionsContainer({
             >
               <PlusCircle className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                New Question
-              </span>
+                {tr("mcc8eda320df7")}</span>
             </Button>
           </div>
         </ResponsiveCardHeader>
@@ -195,9 +197,9 @@ function QuestionsContainer({
           {stageId && (
             <div className="mb-4 flex items-center justify-between gap-2 rounded-md border bg-muted/50 px-3 py-2 text-sm">
               <span>
-                Prep questions for{" "}
+                {tr("m6d7e51f8914c")}{" "}
                 <span className="font-medium">
-                  {stageLabel ?? "an interview round"}
+                  {stageLabel ?? tr("m7df76b901747")}
                 </span>
               </span>
               <Button
@@ -205,7 +207,7 @@ function QuestionsContainer({
                 size="icon"
                 className="h-6 w-6 shrink-0"
                 onClick={clearStageFilter}
-                aria-label="Show all questions"
+                aria-label={tr("m48a510cdb9f4")}
               >
                 <X className="h-3.5 w-3.5" />
               </Button>
@@ -231,8 +233,7 @@ function QuestionsContainer({
                 }
                 disabled={loading}
               >
-                Load More
-              </Button>
+                {tr("m3f06cd334f48")}</Button>
             </div>
           )}
         </CardContent>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +42,8 @@ export function NoteDialog({
   editNote,
   onSaved,
 }: NoteDialogProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof NoteFormSchema>>({
@@ -80,11 +83,11 @@ export function NoteDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{editNote ? "Edit Note" : "Add Note"}</DialogTitle>
+          <DialogTitle>{editNote ? tr("mab224ee3a8e4") : tr("me30f00b3a3fd")}</DialogTitle>
           <DialogDescription>
             {editNote
-              ? "Update this note on the job application."
-              : "Add a note to this job application."}
+              ? tr("ma48fb55d8998")
+              : tr("m20ba2d2f2f57")}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -107,12 +110,10 @@ export function NoteDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button type="submit" disabled={isPending}>
-                Save
-                {isPending && (
-                  <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />
+                {tr("m1509f561f241")}{isPending && (
+                  <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />
                 )}
               </Button>
             </DialogFooter>

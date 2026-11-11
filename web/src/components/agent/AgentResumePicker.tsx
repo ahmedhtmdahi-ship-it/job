@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   Select,
   SelectContent,
@@ -18,6 +19,8 @@ export function AgentResumePicker({
   resumes: { id: string; title: string }[];
   messageFor?: (title: string) => string;
 }) {
+  const tr = useT();
+
   const { sendMessage } = useAgentChat();
 
   // Sends the TITLE, never the id: the tool resolves names ownership-scoped,
@@ -33,8 +36,8 @@ export function AgentResumePicker({
 
   return (
     <Select onValueChange={pick}>
-      <SelectTrigger aria-label="Select a resume" className="mt-2 w-full">
-        <SelectValue placeholder="Pick a resume" />
+      <SelectTrigger aria-label={tr("mc971793dc97f")} className="mt-2 w-full">
+        <SelectValue placeholder={tr("m4d2a8204fca9")} />
       </SelectTrigger>
       <SelectContent>
         {resumes.map((resume) => (

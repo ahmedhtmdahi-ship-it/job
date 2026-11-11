@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -39,6 +40,8 @@ function ActivityTypesTable({
   activityTypes,
   reloadActivityTypes,
 }: ActivityTypesTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -58,7 +61,7 @@ function ActivityTypesTable({
 
       setAlert({
         openState: true,
-        title: "Activity type is in use!",
+        title: tr("m7419ba74b2b0"),
         description: `This activity type is linked to ${links} and cannot be deleted.`,
         deleteAction: false,
       });
@@ -75,7 +78,7 @@ function ActivityTypesTable({
     if (!id) return;
     const { success, message } = await deleteActivityTypeById(id);
     if (success) {
-      toastSuccess("Activity type has been deleted successfully");
+      toastSuccess(tr("m7c8d6ca8b734"));
       reloadActivityTypes();
     } else {
       toastError(message);
@@ -92,12 +95,12 @@ function ActivityTypesTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Label</TableHead>
-            <TableHead className="hidden sm:table-cell">Value</TableHead>
-            <TableHead># Activities</TableHead>
-            <TableHead># Tasks</TableHead>
-            <TableHead>Total Hours</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>{tr("m0e66373f45dc")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m8e37953d23da")}</TableHead>
+            <TableHead>{tr("m1596f4f6bdf8")}</TableHead>
+            <TableHead>{tr("m970146a02b39")}</TableHead>
+            <TableHead>{tr("m5aec9737703b")}</TableHead>
+            <TableHead>{tr("mff8059dc6752")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -114,25 +117,23 @@ function ActivityTypesTable({
                 {at._count?.Tasks ?? 0}
               </TableCell>
               <TableCell className="font-medium">
-                {formatHours(at.totalDuration)} hrs
-              </TableCell>
+                {formatHours(at.totalDuration)} {tr("m4e9682fa850e")}</TableCell>
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button aria-haspopup="true" size="icon" variant="ghost">
                       <MoreVertical className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
+                      <span className="sr-only">{tr("mc02651240c87")}</span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                     <DropdownMenuItem
                       className="text-red-600 cursor-pointer"
                       onClick={() => onDelete(at)}
                     >
-                      <Trash className="mr-2 h-4 w-4" />
-                      Delete
-                    </DropdownMenuItem>
+                      <Trash className="me-2 h-4 w-4" />
+                      {tr("me2d0a54968ea")}</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

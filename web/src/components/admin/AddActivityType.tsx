@@ -1,4 +1,6 @@
 "use client";
+import {message} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useTransition, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -27,10 +29,10 @@ import { createActivityType } from "@/actions/activity.actions";
 
 const AddActivityTypeFormSchema = z.object({
   label: z
-    .string({ error: "Activity type label is required." })
-    .min(1, { message: "Activity type label cannot be empty." })
+    .string({ error: message("m9a9f9fcee0e6") })
+    .min(1, { message: message("m127a317e31d5") })
     .max(60, {
-      message: "Activity type label must be 60 characters or fewer.",
+      message: message("mbbb9fc69a5b0"),
     }),
 });
 
@@ -39,6 +41,8 @@ type AddActivityTypeProps = {
 };
 
 function AddActivityType({ reloadActivityTypes }: AddActivityTypeProps) {
+  const tr = useT();
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -58,12 +62,12 @@ function AddActivityType({ reloadActivityTypes }: AddActivityTypeProps) {
     startTransition(async () => {
       try {
         await createActivityType(values.label);
-        toastSuccess("Activity type has been added successfully.");
+        toastSuccess(tr("m38c787276a6c"));
         setDialogOpen(false);
         reset();
         reloadActivityTypes();
       } catch {
-        toastError("Failed to create activity type.");
+        toastError(tr("mec99a299236f"));
       }
     });
   };
@@ -78,16 +82,14 @@ function AddActivityType({ reloadActivityTypes }: AddActivityTypeProps) {
       >
         <PlusCircle className="h-3.5 w-3.5" />
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-          New Activity Type
-        </span>
+          {tr("m40ef457705ab")}</span>
       </Button>
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add New Activity Type</DialogTitle>
+            <DialogTitle>{tr("m164d6fa1a353")}</DialogTitle>
             <DialogDescription>
-              Add a new activity type to categorize your activities and tasks.
-            </DialogDescription>
+              {tr("mff94695d69ba")}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -96,10 +98,10 @@ function AddActivityType({ reloadActivityTypes }: AddActivityTypeProps) {
                 name="label"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Activity Type Name</FormLabel>
+                    <FormLabel>{tr("md56238f52ac9")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="e.g. Networking, Interview Prep"
+                        placeholder={tr("m462e0336abd2")}
                         {...field}
                       />
                     </FormControl>
@@ -113,12 +115,10 @@ function AddActivityType({ reloadActivityTypes }: AddActivityTypeProps) {
                   variant="outline"
                   onClick={() => setDialogOpen(false)}
                 >
-                  Cancel
-                </Button>
+                  {tr("m19766ed6ccb2")}</Button>
                 <Button type="submit" disabled={isPending}>
-                  Save
-                  {isPending && (
-                    <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />
+                  {tr("m1509f561f241")}{isPending && (
+                    <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />
                   )}
                 </Button>
               </DialogFooter>

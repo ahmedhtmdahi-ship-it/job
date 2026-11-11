@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 // Text extraction from PDF and DOCX resume uploads
 
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -153,7 +154,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
       success: false,
       error: {
         code: "UNSUPPORTED_FORMAT",
-        message: "Only PDF and Word (.docx) files are supported.",
+        message: message("mbbb9452737e1"),
       },
     };
   }
@@ -172,7 +173,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
         error: {
           code: "NO_TEXT",
           message:
-            "Couldn't read any text from this document. It may be scanned or image-only (OCR isn't supported yet).",
+            message("mbc7b392ab7da"),
         },
       };
     }
@@ -187,7 +188,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
         success: false,
         error: {
           code: "ENCRYPTED",
-          message: "This document appears to be password-protected.",
+          message: message("m0c96584278ef"),
         },
       };
     }

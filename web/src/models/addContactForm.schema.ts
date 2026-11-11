@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { z } from "zod";
 
 const isValidHttpUrl = (url: string) => {
@@ -14,9 +15,9 @@ export const AddContactFormSchema = z
   .object({
     id: z.string().optional(),
     name: z
-      .string({ error: "Contact name is required." })
-      .min(1, { message: "Contact name cannot be empty." })
-      .max(120, { message: "Contact name must be 120 characters or fewer." }),
+      .string({ error: message("m4c1b58b422eb") })
+      .min(1, { message: message("m35a06671de7c") })
+      .max(120, { message: message("mf99a4d7fc0c3") }),
     title: optionalText(120),
     email: z
       .string()
@@ -55,12 +56,12 @@ export const AddContactFormSchema = z
           endOfToday.setHours(23, 59, 59, 999);
           return date <= endOfToday;
         },
-        { message: "Last contacted date cannot be in the future." },
+        { message: message("m27e89fa9e1e2") },
       ),
   })
   .refine(
     (v) => !v.workedFrom || !v.workedTo || v.workedTo >= v.workedFrom,
-    { message: "The end date cannot be before the start date.", path: ["workedTo"] },
+    { message: message("mdc5152b435a8"), path: ["workedTo"] },
   );
 
 export type ContactFormValues = z.infer<typeof AddContactFormSchema>;

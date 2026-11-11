@@ -1,3 +1,6 @@
+import {message} from "@/i18n/message";
+import {message} from "@/i18n/message";
+import {getT} from "@/i18n/getT";
 import { format } from "date-fns";
 import {
   getActivityCalendarData,
@@ -21,10 +24,12 @@ import WeeklyBarChartToggle from "@/components/dashboard/WeeklyBarChartToggle";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: message("m67b696468610"),
 };
 
 export default async function Dashboard() {
+  const tr = await getT();
+
   // Server-computed so server and browser agree on "today"
   const today = format(new Date(), "yyyy-MM-dd");
   const [
@@ -57,21 +62,21 @@ export default async function Dashboard() {
             <JobsApplied />
             <JobsActivityCard
               data={[
-                { label: "7d", summary: summary7Days },
-                { label: "30d", summary: summary30Days },
+                { label: message("ma7c742643c7c"), summary: summary7Days },
+                { label: message("me3ba17e32240"), summary: summary30Days },
               ]}
             />
           </div>
           <WeeklyBarChartToggle
             charts={[
               {
-                label: "Jobs",
+                label: message("m2f17a0f8d518"),
                 data: weeklyData,
                 keys: ["value"],
                 axisLeftLegend: "JOBS APPLIED",
               },
               {
-                label: "Activities",
+                label: message("m4d0076e6b4c7"),
                 data: activitiesData.data,
                 keys: activitiesData.keys,
                 groupMode: "stacked",

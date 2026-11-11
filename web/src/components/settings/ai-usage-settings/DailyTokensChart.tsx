@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useMemo } from "react";
 import { useTheme } from "next-themes";
 import { ResponsiveBar } from "@nivo/bar";
@@ -16,6 +17,8 @@ export default function DailyTokensChart({
   days,
   providers,
 }: Pick<AiUsageSummary, "days" | "providers">) {
+  const tr = useT();
+
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "light" ? "light" : "dark";
   const keys = providers.map((p) => p.provider);
@@ -34,7 +37,7 @@ export default function DailyTokensChart({
   return (
     <section className="flex flex-col gap-4 rounded-lg border p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-[15px] font-semibold">Daily tokens by provider</h2>
+        <h2 className="text-[15px] font-semibold">{tr("m9a673e901d65")}</h2>
         <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
           {keys.map((key) => (
             <span key={key} className="flex items-center gap-1.5">

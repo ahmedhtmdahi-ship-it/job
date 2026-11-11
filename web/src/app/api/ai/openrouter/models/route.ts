@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { resolveApiKey } from "@/lib/api-key-resolver";
@@ -12,7 +13,7 @@ export async function GET() {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "OpenRouter API key not configured. Add your key in API Keys settings." },
+        { error: message("med254ffb2618") },
         { status: 401 }
       );
     }
@@ -25,7 +26,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch OpenRouter models" },
+        { error: message("mb8c8da959b82") },
         { status: response.status }
       );
     }
@@ -38,7 +39,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Failed to fetch OpenRouter models" },
+      { error: message("mb8c8da959b82") },
       { status: 500 }
     );
   }

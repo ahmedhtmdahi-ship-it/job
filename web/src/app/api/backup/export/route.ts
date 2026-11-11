@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { buildBackupZip } from "@/lib/backup/export";
@@ -9,7 +10,7 @@ import { log } from "@/lib/telemetry";
 export async function GET() {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: message("m76d1efbeed2d") }, { status: 401 });
   }
 
   try {
@@ -26,6 +27,6 @@ export async function GET() {
     });
   } catch (error) {
     log.error("[Backup] Export failed", { error: String(error) });
-    return NextResponse.json({ error: "Export failed" }, { status: 500 });
+    return NextResponse.json({ error: message("me94d3ee06ecf") }, { status: 500 });
   }
 }

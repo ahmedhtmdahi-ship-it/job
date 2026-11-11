@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { JobForm } from "@/models/job.model";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -9,6 +10,8 @@ import { Toggle } from "./ui/toggle";
 import { Bold, Heading2, Italic, List, ListOrdered } from "lucide-react";
 
 const Tiptap = ({ field }: { field: ControllerRenderProps<any, any> }) => {
+  const tr = useT();
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -19,13 +22,13 @@ const Tiptap = ({ field }: { field: ControllerRenderProps<any, any> }) => {
         },
         orderedList: {
           HTMLAttributes: {
-            class: "list-decimal pl-4",
+            class: "list-decimal ps-4",
           },
         },
 
         bulletList: {
           HTMLAttributes: {
-            class: "list-disc pl-4",
+            class: "list-disc ps-4",
           },
         },
       }),
@@ -91,7 +94,7 @@ const Tiptap = ({ field }: { field: ControllerRenderProps<any, any> }) => {
       )}
       <EditorContent
         aria-labelledby="job-description-label"
-        placeholder="enter here..."
+        placeholder={tr("md6678aecfe72")}
         editor={editor}
       />
     </div>

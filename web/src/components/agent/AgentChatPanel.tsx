@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { CheckCircle, Loader2, Scan, Sparkles, X, XCircle } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,8 @@ import { useAgentChat } from "@/components/agent/AgentChatProvider";
 import { AiProvider } from "@/models/ai.model";
 
 export function AgentChatPanel() {
+  const tr = useT();
+
   const {
     isOpen,
     close,
@@ -67,7 +70,7 @@ export function AgentChatPanel() {
       >
         {/* VS Code-style drag handle; docking only applies at lg+ */}
         <div
-          className="absolute left-0 top-0 h-full w-1 cursor-col-resize z-10 group hidden lg:block"
+          className="absolute start-0 top-0 h-full w-1 cursor-col-resize z-10 group hidden lg:block"
           onMouseDown={startResize}
         >
           <div className="h-full w-px bg-transparent group-hover:bg-primary/50 transition-colors" />
@@ -75,8 +78,7 @@ export function AgentChatPanel() {
 
         <div className="flex items-center gap-3 px-4 py-2.5 border-b bg-muted/20 shrink-0">
           <SheetTitle className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground leading-none shrink-0 m-0">
-            AI AGENT
-          </SheetTitle>
+            {tr("mb2a5c7f2a50b")}</SheetTitle>
           <span className="text-muted-foreground/30 text-xs select-none">
             ···
           </span>
@@ -91,15 +93,14 @@ export function AgentChatPanel() {
           {/* Never gated on the approval: it is the way out of a card whose
               approvalId the server no longer recognizes. */}
           <Button
-            className="h-6 ml-auto shrink-0 rounded-sm px-2 text-xs opacity-70 hover:opacity-100"
+            className="h-6 ms-auto shrink-0 rounded-sm px-2 text-xs opacity-70 hover:opacity-100"
             onClick={() => void clear()}
             size="sm"
             variant="ghost"
           >
-            Clear
-          </Button>
+            {tr("m83b12c2216ef")}</Button>
           <Button
-            aria-label={isPanelExpanded ? "Restore panel" : "Expand panel"}
+            aria-label={isPanelExpanded ? tr("mc3e75fd391bd") : tr("m4a74667f1970")}
             className="h-6 w-6 shrink-0 rounded-sm opacity-70 hover:opacity-100 hidden lg:inline-flex"
             onClick={togglePanelExpand}
             size="icon"
@@ -108,7 +109,7 @@ export function AgentChatPanel() {
             <Scan className="h-3.5 w-3.5" />
           </Button>
           <Button
-            aria-label="Close chat"
+            aria-label={tr("m3b14c5dc986f")}
             className="h-6 w-6 shrink-0 rounded-sm opacity-70 hover:opacity-100"
             onClick={close}
             size="icon"

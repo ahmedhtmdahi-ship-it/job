@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   createContext,
   useContext,
@@ -43,6 +44,8 @@ const netElapsed = (wallMs: number, breakMinutes: number) =>
   Math.max(wallMs - breakMinutes * 60_000, 0);
 
 export function ActivityProvider({ children }: { children: ReactNode }) {
+  const tr = useT();
+
   const [currentActivity, setCurrentActivity] = useState<Activity>();
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +180,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
 
       if (success && newActivity) {
         setCurrentActivity(newActivity as Activity);
-        toastSuccess("Activity started successfully");
+        toastSuccess(tr("m8690d35f56d5"));
         setIsLoading(false);
         return true;
       } else {

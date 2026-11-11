@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Check, ExternalLink } from "lucide-react";
 import { Button } from "../ui/button";
@@ -38,6 +39,8 @@ function BoardsTable({
   onUnwatched,
   onNeedsMerge,
 }: BoardsTableProps) {
+  const tr = useT();
+
   const [busy, setBusy] = useState<string | null>(null);
 
   const watch = async (row: LeverCompany) => {
@@ -81,10 +84,10 @@ function BoardsTable({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead className="hidden sm:table-cell">Token</TableHead>
-          <TableHead className="hidden sm:table-cell">Provider</TableHead>
-          <TableHead className="text-right">Watch</TableHead>
+          <TableHead>{tr("mdcd1d5223f73")}</TableHead>
+          <TableHead className="hidden sm:table-cell">{tr("md2089be67295")}</TableHead>
+          <TableHead className="hidden sm:table-cell">{tr("m472590ae974d")}</TableHead>
+          <TableHead className="text-end">{tr("ma71e75732446")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -99,8 +102,8 @@ function BoardsTable({
                     href={companyBoardUrl(provider, row)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Open ${row.name} job board`}
-                    title="Open job board"
+                    aria-label={tr("mbd2f0a833536", {v0: row.name})}
+                    title={tr("m2381c715b663")}
                     className="text-muted-foreground hover:text-foreground"
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -113,20 +116,20 @@ function BoardsTable({
               <TableCell className="hidden sm:table-cell text-muted-foreground">
                 {PROVIDER_META[provider].label}
               </TableCell>
-              <TableCell className="text-right">
+              <TableCell className="text-end">
                 {watched ? (
                   <Button
                     type="button"
                     size="sm"
                     variant="ghost"
                     disabled={busy === row.token}
-                    aria-label={`Unwatch ${row.name}`}
+                    aria-label={tr("mdcc09e485e49", {v0: row.name})}
                     onClick={() => unwatch(row)}
                     className="group text-emerald-600 dark:text-emerald-400"
                   >
                     <Check className="h-3.5 w-3.5 group-hover:hidden" />
-                    <span className="group-hover:hidden">Watching</span>
-                    <span className="hidden group-hover:inline">Unwatch</span>
+                    <span className="group-hover:hidden">{tr("mfbc594054d51")}</span>
+                    <span className="hidden group-hover:inline">{tr("m2aaf52f0a013")}</span>
                   </Button>
                 ) : (
                   <Button
@@ -134,11 +137,10 @@ function BoardsTable({
                     size="sm"
                     variant="outline"
                     disabled={busy === row.token}
-                    aria-label={`Watch ${row.name}`}
+                    aria-label={tr("mb14218ea7edf", {v0: row.name})}
                     onClick={() => watch(row)}
                   >
-                    Watch
-                  </Button>
+                    {tr("ma71e75732446")}</Button>
                 )}
               </TableCell>
             </TableRow>

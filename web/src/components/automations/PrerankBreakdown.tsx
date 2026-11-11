@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { Badge } from "@/components/ui/badge";
 import { APP_CONSTANTS } from "@/lib/constants";
 import type { PrerankComponents } from "@/models/ai.schemas";
@@ -15,16 +16,18 @@ export function PrerankBreakdown({
   prerankScore,
   components,
 }: PrerankBreakdownProps) {
+  const tr = useT();
+
   const rows = components
     ? [
         {
-          label: "Title",
+          label: tr("m7e8cd2056da7"),
           weight: APP_CONSTANTS.ATS_TITLE_WEIGHT,
           score: components.titleScore,
           hits: components.titleHits,
         },
         {
-          label: "Keywords",
+          label: tr("m8bfdb93cafaa"),
           weight: APP_CONSTANTS.ATS_SKILL_WEIGHT,
           score: components.keywordScore,
           hits: components.keywordHits,
@@ -35,16 +38,13 @@ export function PrerankBreakdown({
   return (
     <div className="rounded-md border border-dashed p-3 space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium">Lexical pre-rank</span>
+        <span className="text-sm font-medium">{tr("m622e3e23084d")}</span>
         <span className="font-mono text-sm">
           {Math.round(prerankScore * 100)}%
         </span>
       </div>
       <p className="text-xs text-muted-foreground">
-        Internal relevance score used to pick which jobs get AI-analyzed. Each
-        hit is weighted by how rare the term is across the board. Not an AI match
-        — compare it against the % above to gauge pre-rank accuracy.
-      </p>
+        {tr("m9dbd1f6dc9bc")}</p>
       {rows.map((row) => (
         <div key={row.label} className="text-xs">
           <div className="flex items-center justify-between">
@@ -69,8 +69,8 @@ export function PrerankBreakdown({
       ))}
       {components && (
         <div className="text-xs text-muted-foreground">
-          Location:{" "}
-          {components.locScore > 0 ? "matches (gate only)" : "not scored"}
+          {tr("mbbdffe25dc7d")}{" "}
+          {components.locScore > 0 ? tr("m06f9d729882e") : tr("m8c76ce5e65e7")}
         </div>
       )}
     </div>

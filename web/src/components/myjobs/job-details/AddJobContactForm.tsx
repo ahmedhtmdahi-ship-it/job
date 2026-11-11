@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,6 +47,8 @@ export function AddJobContactForm({
   onLinked,
   onContactCreated,
 }: AddJobContactFormProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [newContactOpen, setNewContactOpen] = useState(false);
   // What the contact picker's search box holds, so "New contact" can carry it
@@ -80,11 +83,11 @@ export function AddJobContactForm({
           name="contact"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Contact</FormLabel>
+              <FormLabel>{tr("m2b5c3d26721a")}</FormLabel>
               <Combobox
                 options={contacts}
                 field={field}
-                label="contact"
+                label={tr("m093e7d5fdbaa")}
                 onSearchChange={setTypedName}
               />
               <FormMessage />
@@ -97,32 +100,29 @@ export function AddJobContactForm({
           name="contactRole"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Role</FormLabel>
-              <Combobox options={roles} field={field} creatable label="role" />
+              <FormLabel>{tr("m14736a2eb9f4")}</FormLabel>
+              <Combobox options={roles} field={field} creatable label={tr("m4b168d88dc87")} />
               <FormMessage />
             </FormItem>
           )}
         />
 
         <Button type="submit" className="cursor-pointer" disabled={isPending}>
-          Save
-        </Button>
+          {tr("m1509f561f241")}</Button>
         <Button
           type="button"
           variant="outline"
           className="cursor-pointer"
           onClick={onCancel}
         >
-          Cancel
-        </Button>
+          {tr("m19766ed6ccb2")}</Button>
         <Button
           type="button"
           variant="link"
           className="cursor-pointer"
           onClick={() => setNewContactOpen(true)}
         >
-          New contact
-        </Button>
+          {tr("m48a930dd9ef4")}</Button>
       </form>
 
       {/* A contact has a dozen fields, so the picker has no creatable path:

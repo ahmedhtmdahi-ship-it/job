@@ -1,4 +1,6 @@
 "use client";
+import {message} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useTransition, useEffect } from "react";
 import { Button } from "../ui/button";
 import {
@@ -33,12 +35,12 @@ import {
 
 const AddJobStageTypeFormSchema = z.object({
   label: z
-    .string({ error: "Stage name is required." })
-    .min(1, { message: "Stage name cannot be empty." })
-    .max(80, { message: "Stage name must be 80 characters or fewer." }),
+    .string({ error: message("m1c61e0ca7a15") })
+    .min(1, { message: message("m215f93e1150b") })
+    .max(80, { message: message("m309bb622510c") }),
   statusId: z
-    .string({ error: "Parent status is required." })
-    .min(1, { message: "Pick the status this stage means." }),
+    .string({ error: message("m5129d03c4960") })
+    .min(1, { message: message("me63ff0d44832") }),
 });
 
 type AddJobStageTypeProps = {
@@ -56,6 +58,8 @@ function AddJobStageType({
   statuses,
   reloadTypes,
 }: AddJobStageTypeProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof AddJobStageTypeFormSchema>>({
@@ -103,12 +107,10 @@ function AddJobStageType({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {type ? "Edit Stage" : "Add New Stage"}
+            {type ? tr("m4f415f933340") : tr("mf6a3f53c36ab")}
           </DialogTitle>
           <DialogDescription>
-            Stages are the steps a job moves through — each one belongs to a
-            status, which the job takes on when the stage becomes current.
-          </DialogDescription>
+            {tr("mbfd867e245ab")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -117,10 +119,10 @@ function AddJobStageType({
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Stage Name</FormLabel>
+                  <FormLabel>{tr("m1f1e20e6cd8e")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g. Take-home Exercise"
+                      placeholder={tr("me215aaf161bf")}
                       {...field}
                     />
                   </FormControl>
@@ -133,9 +135,9 @@ function AddJobStageType({
               name="statusId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Parent Status</FormLabel>
+                  <FormLabel>{tr("mccf93fbd2851")}</FormLabel>
                   <SelectFormCtrl
-                    label="status"
+                    label={tr("m073c1634c496")}
                     options={statuses}
                     field={field}
                   />
@@ -149,12 +151,10 @@ function AddJobStageType({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button type="submit" disabled={isPending}>
-                Save
-                {isPending && (
-                  <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />
+                {tr("m1509f561f241")}{isPending && (
+                  <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />
                 )}
               </Button>
             </DialogFooter>

@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -8,12 +9,12 @@ import { log } from "@/lib/telemetry";
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    return NextResponse.json({ error: message("m76d1efbeed2d") }, { status: 401 });
   }
 
   if (isOverUploadCap(req)) {
     return NextResponse.json(
-      { error: "That file is larger than the backup size limit." },
+      { error: message("mca770a8cc222") },
       { status: 413 },
     );
   }
@@ -22,11 +23,11 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get("file");
     if (!(file instanceof File) || file.size === 0) {
-      return NextResponse.json({ error: "No backup file uploaded" }, { status: 400 });
+      return NextResponse.json({ error: message("m4a04049de8d0") }, { status: 400 });
     }
     if (file.size > APP_CONSTANTS.BACKUP_MAX_UPLOAD_BYTES) {
       return NextResponse.json(
-        { error: "That file is larger than the backup size limit." },
+        { error: message("mca770a8cc222") },
         { status: 413 },
       );
     }
@@ -43,6 +44,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.userMessage }, { status: 400 });
     }
     log.error("[Backup] Preflight failed", { error: String(error) });
-    return NextResponse.json({ error: "Could not read that backup." }, { status: 500 });
+    return NextResponse.json({ error: message("mc8bcec2a93f5") }, { status: 500 });
   }
 }

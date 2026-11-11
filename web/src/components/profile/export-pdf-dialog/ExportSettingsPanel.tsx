@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { Button } from "@/components/ui/button";
 import {
   DisclosureGroup,
@@ -37,6 +38,8 @@ export function ExportSettingsPanel({
   isDefault,
   singlePage,
 }: ExportSettingsPanelProps) {
+  const tr = useT();
+
   const setNumber = (field: ResumeNumericSetting) => (value: number) =>
     onChange({ ...settings, [field]: value });
 
@@ -57,17 +60,17 @@ export function ExportSettingsPanel({
       <div className="rounded-lg border bg-muted/40">
         <SelectRow
           id={`${ID_PREFIX}-template`}
-          label="Template"
+          label={tr("m0575f29df888")}
           value={settings.template}
           labels={RESUME_LAYOUT_LABELS}
           onSelect={(template) => onChange({ ...settings, template })}
         />
       </div>
 
-      <DisclosureGroup title="Typography" summary={typographySummary}>
+      <DisclosureGroup title={tr("mcab94aba84f9")} summary={typographySummary}>
         <SelectRow
           id={`${ID_PREFIX}-font`}
-          label="Font"
+          label={tr("m64d0b3adcd2d")}
           value={settings.font}
           labels={PDF_FONT_LABELS}
           onSelect={(font) => onChange({ ...settings, font })}
@@ -86,7 +89,7 @@ export function ExportSettingsPanel({
         />
       </DisclosureGroup>
 
-      <DisclosureGroup title="Layout" summary={layoutSummary}>
+      <DisclosureGroup title={tr("ma511909161e1")} summary={layoutSummary}>
         <StepperRow
           idPrefix={ID_PREFIX}
           field="marginVertical"
@@ -116,7 +119,7 @@ export function ExportSettingsPanel({
       {/* Its only option does nothing on a one-page resume. */}
       {!singlePage && (
         <DisclosureGroup
-          title="Footer"
+          title={tr("m26c87bb51e69")}
           summary={`Page numbers ${settings.showPageNumbers ? "on" : "off"}`}
         >
           <div className={ROW}>
@@ -124,11 +127,10 @@ export function ExportSettingsPanel({
               htmlFor={`${ID_PREFIX}-showPageNumbers`}
               className="cursor-pointer font-normal"
             >
-              Show page numbers
-            </Label>
+              {tr("m0ce9b4c8d0a0")}</Label>
             <Switch
               id={`${ID_PREFIX}-showPageNumbers`}
-              className="ml-auto"
+              className="ms-auto"
               checked={settings.showPageNumbers}
               onCheckedChange={(showPageNumbers) =>
                 onChange({ ...settings, showPageNumbers })
@@ -147,8 +149,7 @@ export function ExportSettingsPanel({
             onClick={onReset}
             disabled={isDefault}
           >
-            Reset to defaults
-          </Button>
+            {tr("me240e635ff6d")}</Button>
         </div>
       )}
     </div>

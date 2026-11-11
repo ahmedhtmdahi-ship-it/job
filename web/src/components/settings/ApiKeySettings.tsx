@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -59,6 +60,8 @@ const PROVIDERS: ProviderConfig[] = getAiProviders().map((entry) => ({
 }));
 
 function ApiKeySettings() {
+  const tr = useT();
+
   const [keys, setKeys] = useState<ApiKeyClientResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [defaultOllamaUrl, setDefaultOllamaUrl] = useState(
@@ -151,7 +154,7 @@ function ApiKeySettings() {
       }
     } catch (error) {
       console.error("Error saving API key:", error);
-      toastError("An unexpected error occurred");
+      toastError(tr("m6615bf1c8fdd"));
     } finally {
       setVerifying(false);
     }
@@ -183,14 +186,13 @@ function ApiKeySettings() {
     return (
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium">API Keys</h3>
+          <h3 className="text-lg font-medium">{tr("mc08f17eb9e11")}</h3>
           <p className="text-sm text-muted-foreground">
-            Manage your API keys for AI providers and external services.
-          </p>
+            {tr("m688d00440930")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
-          <span>Loading keys...</span>
+          <span>{tr("me0c65255e48f")}</span>
         </div>
       </div>
     );
@@ -199,11 +201,9 @@ function ApiKeySettings() {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-medium">API Keys</h3>
+        <h3 className="text-lg font-medium">{tr("mc08f17eb9e11")}</h3>
         <p className="text-sm text-muted-foreground">
-          Manage your API keys for AI providers and external services. Keys are
-          encrypted and stored securely.
-        </p>
+          {tr("m2384e43527d7")}</p>
       </div>
 
       <div className="grid gap-4">
@@ -222,20 +222,20 @@ function ApiKeySettings() {
                       {provider.description}
                       {isBaseUrl && (
                         <span className="block text-xs text-muted-foreground/70 mt-0.5">
-                          Default: {provider.id === "ollama" ? defaultOllamaUrl : provider.placeholder}
+                          {tr("md1f6d9e71b8b")}{provider.id === "ollama" ? defaultOllamaUrl : provider.placeholder}
                         </span>
                       )}
                     </CardDescription>
                   </div>
                   {existingKey ? (
                     <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 hover:bg-green-100 dark:hover:bg-green-900">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                      <CheckCircle className="h-3 w-3 me-1" />
                       {provider.sensitive
                         ? `····${existingKey.last4}`
                         : existingKey.displayValue || existingKey.last4}
                     </Badge>
                   ) : (
-                    <Badge variant="secondary">Not configured</Badge>
+                    <Badge variant="secondary">{tr("mdd1841d29502")}</Badge>
                   )}
                 </div>
               </CardHeader>
@@ -245,17 +245,17 @@ function ApiKeySettings() {
                     {ollamaChecking ? (
                       <div className="flex items-center gap-1 text-muted-foreground text-sm">
                         <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                        <span>Checking...</span>
+                        <span>{tr("m2e5f79bb94a8")}</span>
                       </div>
                     ) : ollamaConnected === true ? (
                       <div className="flex items-center gap-1 text-green-600 text-sm">
                         <CheckCircle className="h-3.5 w-3.5 shrink-0" />
-                        <span>Ollama is running</span>
+                        <span>{tr("mafea168799b6")}</span>
                       </div>
                     ) : ollamaConnected === false ? (
                       <div className="flex items-center gap-1 text-red-600 text-sm">
                         <XCircle className="h-3.5 w-3.5 shrink-0" />
-                        <span>Ollama is not running</span>
+                        <span>{tr("m8e0fb3f1fe1e")}</span>
                       </div>
                     ) : null}
                     <Button
@@ -275,7 +275,7 @@ function ApiKeySettings() {
                   <div className="space-y-3">
                     <div>
                       <Label htmlFor={`key-${provider.id}`}>
-                        {isBaseUrl ? "Base URL" : "API Key"}
+                        {isBaseUrl ? tr("m70589413a3c9") : tr("m23189d55f697")}
                       </Label>
                       <Input
                         id={`key-${provider.id}`}
@@ -297,17 +297,15 @@ function ApiKeySettings() {
                         disabled={!inputValue.trim() || verifying}
                       >
                         {verifying && (
-                          <Loader2 className="mr-2 h-3 w-3 animate-spin" />
+                          <Loader2 className="me-2 h-3 w-3 animate-spin" />
                         )}
-                        Verify & Save
-                      </Button>
+                        {tr("m9ae81b244ddf")}</Button>
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={handleCancel}
                       >
-                        Cancel
-                      </Button>
+                        {tr("m19766ed6ccb2")}</Button>
                     </div>
                   </div>
                 ) : (
@@ -320,8 +318,8 @@ function ApiKeySettings() {
                         setInputValue("");
                       }}
                     >
-                      <Plus className="h-3 w-3 mr-1" />
-                      {existingKey ? "Update Key" : "Add Key"}
+                      <Plus className="h-3 w-3 me-1" />
+                      {existingKey ? tr("m5cceb487e754") : tr("ma60fa666ef16")}
                     </Button>
                     {existingKey && (
                       <AlertDialog>
@@ -338,7 +336,7 @@ function ApiKeySettings() {
                               <Trash2 className="h-3 w-3" />
                             )}
                             {isBaseUrl && (
-                              <span className="ml-1">Reset to default</span>
+                              <span className="ms-1">{tr("mbc5b45ae7b60")}</span>
                             )}
                           </Button>
                         </AlertDialogTrigger>
@@ -346,14 +344,13 @@ function ApiKeySettings() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>
                               {isBaseUrl
-                                ? `Reset ${provider.name} Base URL`
-                                : "Delete API Key"}
+                                ? tr("m1e5e10192f05", {v0: provider.name})
+                                : tr("m6f076f9e25c2")}
                             </AlertDialogTitle>
                             <AlertDialogDescription>
                               {isBaseUrl ? (
                                 <>
-                                  Clear the saved {provider.name} base URL?
-                                  JobSync will use the server default,{" "}
+                                  {tr("m9a163eab87b8")}{provider.name} {tr("mfde41687c2ac")}{" "}
                                   {provider.id === "ollama"
                                     ? defaultOllamaUrl
                                     : provider.placeholder}
@@ -361,20 +358,17 @@ function ApiKeySettings() {
                                 </>
                               ) : (
                                 <>
-                                  Are you sure you want to delete your{" "}
-                                  {provider.name} key? The system will fall back
-                                  to the server environment variable if
-                                  available.
-                                </>
+                                  {tr("mb6895971e24a")}{" "}
+                                  {provider.name} {tr("m34231ea8dec9")}</>
                               )}
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
                             <AlertDialogAction
                               onClick={() => handleDelete(provider.id)}
                             >
-                              {isBaseUrl ? "Reset" : "Delete"}
+                              {isBaseUrl ? tr("mdaee7606b339") : tr("me2d0a54968ea")}
                             </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>

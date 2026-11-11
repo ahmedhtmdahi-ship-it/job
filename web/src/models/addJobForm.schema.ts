@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { z } from "zod";
 import { APP_CONSTANTS } from "@/lib/constants";
 
@@ -6,40 +7,40 @@ export const AddJobFormSchema = z.object({
   userId: z.string().optional(),
   title: z
     .string({
-      error: "Job title is required.",
+      error: message("m97ac1495aa8a"),
     })
     .min(2, {
-      message: "Job title must be at least 2 characters.",
+      message: message("m5a883923b648"),
     }),
   company: z
     .string({
-      error: "Company name is required.",
+      error: message("ma5e52bf6d475"),
     })
     .min(2, {
-      message: "Company name must be at least 2 characters.",
+      message: message("m6b7c1765dbe5"),
     }),
   location: z
     .string({
-      error: "Location is required.",
+      error: message("me56d59f22012"),
     })
     .min(2, {
-      message: "Location name must be at least 2 characters.",
+      message: message("m796c3d751696"),
     }),
   type: z.string().min(1),
   workplaceType: z.string().optional(),
   source: z
     .string({
-      error: "Source is required.",
+      error: message("me3256cdfe04f"),
     })
     .min(2, {
-      message: "Source name must be at least 2 characters.",
+      message: message("m9451d727e7e4"),
     }),
   status: z
     .string({
-      error: "Status is required.",
+      error: message("m3930283eb998"),
     })
     .min(2, {
-      message: "Status must be at least 2 characters.",
+      message: message("m3e10e2608dbe"),
     })
     .default("draft"),
   dueDate: z.date(),
@@ -52,10 +53,10 @@ export const AddJobFormSchema = z.object({
   salaryRange: z.string().optional(),
   jobDescription: z
     .string({
-      error: "Job description is required.",
+      error: message("mea336906bf2c"),
     })
     .refine((val) => val === "N/A" || val.length >= 10, {
-      message: "Job description must be at least 10 characters.",
+      message: message("m50bac20a2514"),
     }),
   jobUrl: z.string().optional(),
   resume: z.string().optional(),

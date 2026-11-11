@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import {
@@ -40,6 +41,8 @@ function AddContactInfo({
   contactInfoToEdit,
   resumeId,
 }: AddContactInfoProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [showLink2, setShowLink2] = useState(false);
 
@@ -132,7 +135,7 @@ function AddContactInfo({
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>{tr("m96ce6e6193a0")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -149,7 +152,7 @@ function AddContactInfo({
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>{tr("mf55563b386a3")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -166,7 +169,7 @@ function AddContactInfo({
                 name="headline"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Headline</FormLabel>
+                    <FormLabel>{tr("mc5f5a4c81575")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -183,7 +186,7 @@ function AddContactInfo({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{tr("m969ccbd3cf63")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -200,7 +203,7 @@ function AddContactInfo({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone</FormLabel>
+                    <FormLabel>{tr("m63dceb8800b2")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -217,7 +220,7 @@ function AddContactInfo({
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Address</FormLabel>
+                    <FormLabel>{tr("m56ef8f20955f")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -230,10 +233,9 @@ function AddContactInfo({
             {/* LINK 1 */}
             <div className="md:col-span-2">
               <p className="text-sm font-medium mb-2">
-                Link 1{" "}
+                {tr("m6b1fbc99c408")}{" "}
                 <span className="text-muted-foreground font-normal">
-                  (optional — portfolio, LinkedIn, GitHub, etc.)
-                </span>
+                  {tr("m006bb301f2e2")}</span>
               </p>
               <div className="grid grid-cols-3 gap-2">
                 <FormField
@@ -241,9 +243,9 @@ function AddContactInfo({
                   name="url1Label"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs text-muted-foreground">Label</FormLabel>
+                      <FormLabel className="text-xs text-muted-foreground">{tr("m0e66373f45dc")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. LinkedIn" {...field} />
+                        <Input placeholder={tr("m5447c691afda")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -254,9 +256,9 @@ function AddContactInfo({
                   name="url1"
                   render={({ field }) => (
                     <FormItem className="col-span-2">
-                      <FormLabel className="text-xs text-muted-foreground">URL</FormLabel>
+                      <FormLabel className="text-xs text-muted-foreground">{tr("me7a241debad5")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://" {...field} />
+                        <Input placeholder={tr("m66dfeeedabf1")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -269,7 +271,7 @@ function AddContactInfo({
             {showLink2 ? (
               <div className="md:col-span-2">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-medium">Link 2</p>
+                  <p className="text-sm font-medium">{tr("md2df0dda487c")}</p>
                   <Button
                     type="button"
                     variant="ghost"
@@ -290,9 +292,9 @@ function AddContactInfo({
                     name="url2Label"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground">Label</FormLabel>
+                        <FormLabel className="text-xs text-muted-foreground">{tr("m0e66373f45dc")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. GitHub" {...field} />
+                          <Input placeholder={tr("mc3b23943210d")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -303,9 +305,9 @@ function AddContactInfo({
                     name="url2"
                     render={({ field }) => (
                       <FormItem className="col-span-2">
-                        <FormLabel className="text-xs text-muted-foreground">URL</FormLabel>
+                        <FormLabel className="text-xs text-muted-foreground">{tr("me7a241debad5")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://" {...field} />
+                          <Input placeholder={tr("m66dfeeedabf1")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -322,8 +324,7 @@ function AddContactInfo({
                   className="text-muted-foreground px-0 h-auto"
                   onClick={() => setShowLink2(true)}
                 >
-                  + Add another link
-                </Button>
+                  {tr("mf06b495678e8")}</Button>
               </div>
             )}
 

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import {
   Dialog,
@@ -50,6 +51,8 @@ export function DiscoveredJobDetail({
   onOpenChange,
   onRefresh,
 }: DiscoveredJobDetailProps) {
+  const tr = useT();
+
   const [loadingAction, setLoadingAction] = useState<
     "accept" | "dismiss" | "analyze" | null
   >(null);
@@ -63,14 +66,14 @@ export function DiscoveredJobDetail({
     try {
       const result = await analyzeDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess("AI match score is ready.", "Match analyzed");
+        toastSuccess(tr("m54751aec92ef"), "Match analyzed");
         onOpenChange(false);
         onRefresh();
       } else {
         toastError(result.message);
       }
     } catch {
-      toastError("Failed to analyze job");
+      toastError(tr("mc7179e0e1d61"));
     } finally {
       setLoadingAction(null);
     }
@@ -81,14 +84,14 @@ export function DiscoveredJobDetail({
     try {
       const result = await acceptDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess("The job has been added to your tracked jobs.", "Job accepted");
+        toastSuccess(tr("m0f6a733982d7"), "Job accepted");
         onOpenChange(false);
         onRefresh();
       } else {
         toastError(result.message);
       }
     } catch {
-      toastError("Failed to accept job");
+      toastError(tr("m5ed199131a29"));
     } finally {
       setLoadingAction(null);
     }
@@ -99,14 +102,14 @@ export function DiscoveredJobDetail({
     try {
       const result = await dismissDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess("Job dismissed");
+        toastSuccess(tr("m30d2a17c7a6c"));
         onOpenChange(false);
         onRefresh();
       } else {
         toastError(result.message);
       }
     } catch {
-      toastError("Failed to dismiss job");
+      toastError(tr("m72ac417dc9e5"));
     } finally {
       setLoadingAction(null);
     }
@@ -116,7 +119,7 @@ export function DiscoveredJobDetail({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh]">
         <DialogHeader>
-          <div className="flex items-start justify-between gap-4 pr-8">
+          <div className="flex items-start justify-between gap-4 pe-8">
             <div className="min-w-0 space-y-1.5">
               <DialogTitle>{job.JobTitle.label}</DialogTitle>
               <DialogDescription className="flex flex-wrap items-start gap-x-4 gap-y-1">
@@ -126,7 +129,7 @@ export function DiscoveredJobDetail({
                 </span>
                 <span className="flex items-start gap-1">
                   <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
-                  {job.Location?.label || "N/A"}
+                  {job.Location?.label || tr("me2f79e5b6033")}
                 </span>
                 {job.workplaceType && (
                   <Badge variant="outline">
@@ -139,7 +142,7 @@ export function DiscoveredJobDetail({
               job.matchScore != null && (
                 <div className="flex flex-col items-center gap-1 shrink-0">
                   <CircularScore score={job.matchScore} size="md" />
-                  <span className="text-xs text-muted-foreground">AI Match</span>
+                  <span className="text-xs text-muted-foreground">{tr("mae539b9a1559")}</span>
                 </div>
               )
             ) : (
@@ -150,21 +153,20 @@ export function DiscoveredJobDetail({
                 className="shrink-0"
               >
                 {loadingAction === "analyze" ? (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="h-4 w-4 me-2 animate-spin" />
                 ) : (
-                  <Sparkles className="h-4 w-4 mr-2" />
+                  <Sparkles className="h-4 w-4 me-2" />
                 )}
-                Analyze match
-              </Button>
+                {tr("md57ffee14453")}</Button>
             )}
           </div>
         </DialogHeader>
 
         <ScrollArea className="max-h-[60vh]">
-          <div className="space-y-4 pr-4">
+          <div className="space-y-4 pe-4">
             {job.jobUrl && (
               <div>
-                <span className="font-semibold mr-2">Job URL:</span>
+                <span className="font-semibold me-2">{tr("m5aef83912c60")}</span>
                 <a
                   href={formatUrl(job.jobUrl)}
                   target="_blank"
@@ -179,7 +181,7 @@ export function DiscoveredJobDetail({
               <Badge variant="outline">{job.discoveryStatus}</Badge>
               {job.automation && (
                 <span className="text-sm text-muted-foreground">
-                  from {job.automation.name}
+                  {tr("m75857a458999")}{job.automation.name}
                 </span>
               )}
             </div>
@@ -192,7 +194,7 @@ export function DiscoveredJobDetail({
             )}
 
             <div>
-              <h4 className="font-medium mb-2">Description</h4>
+              <h4 className="font-medium mb-2">{tr("m526e0087cc3f")}</h4>
               <div className="text-sm text-muted-foreground">
                 <TipTapContentViewer content={job.description ?? ""} />
               </div>
@@ -210,20 +212,18 @@ export function DiscoveredJobDetail({
               disabled={loadingAction !== null}
             >
               {loadingAction === "dismiss" ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 me-2 animate-spin" />
               ) : (
-                <X className="h-4 w-4 mr-2" />
+                <X className="h-4 w-4 me-2" />
               )}
-              Dismiss
-            </Button>
+              {tr("m48845bff334a")}</Button>
             <Button onClick={handleAccept} disabled={loadingAction !== null}>
               {loadingAction === "accept" ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 me-2 animate-spin" />
               ) : (
-                <Check className="h-4 w-4 mr-2" />
+                <Check className="h-4 w-4 me-2" />
               )}
-              Accept
-            </Button>
+              {tr("m89713b9c9c1b")}</Button>
           </DialogFooter>
         )}
       </DialogContent>

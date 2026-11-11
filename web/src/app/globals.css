@@ -195,7 +195,7 @@
 
 /* Sidebar */
 @utility sidebar {
-  @apply sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-border bg-card pt-8 text-foreground max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px];
+  @apply sticky start-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-border bg-card pt-8 text-foreground max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px];
 }
 
 @utility sidebar-logo {
@@ -245,3 +245,6 @@
     --gc-ring-2: #c08438;
   }
 }
+
+html[lang="ar"] { --font-sans: var(--font-arabic), var(--font-inter), sans-serif; }
+[dir="rtl"] .rtl-mirror { transform: scaleX(-1); }

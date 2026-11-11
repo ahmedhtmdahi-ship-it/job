@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { X, Loader2, ChevronsUpDown, CirclePlus } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -42,6 +43,8 @@ export function EntityStringChipInput({
   loadOptions: () => Promise<EntityOption[]>;
   createOption: (label: string) => Promise<EntityOption | null>;
 }) {
+  const tr = useT();
+
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [options, setOptions] = useState<EntityOption[]>([]);
@@ -120,7 +123,7 @@ export function EntityStringChipInput({
         >
           <Command shouldFilter={false}>
             <CommandInput
-              placeholder={`Search or create ${noun}...`}
+              placeholder={tr("m93ab951a7d0c", {v0: noun})}
               value={input}
               onValueChange={setInput}
             />
@@ -128,14 +131,13 @@ export function EntityStringChipInput({
               {isLoading && (
                 <div className="flex items-center gap-2 p-3 text-sm text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Loading...
-                </div>
+                  {tr("m47d2a515ef2f")}</div>
               )}
               {!isLoading && !input.trim() && filtered.length === 0 && (
-                <CommandEmpty>No {noun}s found. Type to create one.</CommandEmpty>
+                <CommandEmpty>{tr("m1ea442a134b2")}{noun}{tr("ma4faaaa84876")}</CommandEmpty>
               )}
               {input.trim() && alreadyAdded && (
-                <CommandEmpty>Already added.</CommandEmpty>
+                <CommandEmpty>{tr("mfce4c90a4e2e")}</CommandEmpty>
               )}
               {filtered.length > 0 && (
                 <CommandGroup>
@@ -158,12 +160,11 @@ export function EntityStringChipInput({
                     className="text-primary"
                   >
                     {isCreating ? (
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      <Loader2 className="h-4 w-4 me-2 animate-spin" />
                     ) : (
-                      <CirclePlus className="h-4 w-4 mr-2" />
+                      <CirclePlus className="h-4 w-4 me-2" />
                     )}
-                    Create &quot;{input.trim()}&quot;
-                  </CommandItem>
+                    {tr("mbe47ce3c891d")}{input.trim()}{tr("m497558230027")}</CommandItem>
                 </CommandGroup>
               )}
             </CommandList>

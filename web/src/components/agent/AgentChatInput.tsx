@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { XIcon } from "lucide-react";
 import type { TextUIPart, UIMessage } from "ai";
@@ -68,6 +69,8 @@ function queuedText(parts: UIMessage["parts"]): string {
 }
 
 export function AgentChatInput() {
+  const tr = useT();
+
   const {
     sendMessage,
     stop,
@@ -148,7 +151,7 @@ export function AgentChatInput() {
             {error.message}
           </AlertDescription>
           <Button
-            aria-label="Dismiss error"
+            aria-label={tr("m2db046678b9c")}
             className="size-6 shrink-0"
             onClick={clearError}
             size="icon"
@@ -165,13 +168,13 @@ export function AgentChatInput() {
           <div className="min-w-0 flex-1">
             <p className="text-xs text-muted-foreground">
               {approvalPending
-                ? "Queued — waiting on your approval above"
-                : "Queued — sends when the current reply finishes"}
+                ? tr("m7a72cf80e343")
+                : tr("m615919a9a295")}
             </p>
             <p className="truncate">{queuedText(queued.parts)}</p>
           </div>
           <Button
-            aria-label="Remove from queue"
+            aria-label={tr("mc0b9d9e9ac1d")}
             className="size-6 shrink-0"
             onClick={clearQueued}
             size="icon"
@@ -201,7 +204,7 @@ export function AgentChatInput() {
                 {/* Not AttachmentRemove: it repeats its label in an sr-only
                     span, so the chip's wording would appear twice. */}
                 <Button
-                  aria-label="Remove pasted content"
+                  aria-label={tr("m0dc068cedecc")}
                   className="size-5 shrink-0 rounded p-0 [&_svg]:size-2.5"
                   onClick={() => setChip(undefined)}
                   type="button"
@@ -220,14 +223,14 @@ export function AgentChatInput() {
           key={composerNonce}
           onChange={(event) => setText(event.currentTarget.value)}
           onPaste={onPaste}
-          placeholder="Ask or paste a job posting…"
+          placeholder={tr("m9e85e0a58ee7")}
         />
         <PromptInputFooter>
           <span className="text-xs text-muted-foreground">
-            {approvalPending && !queued ? "Waiting on your approval above" : ""}
+            {approvalPending && !queued ? tr("m01b6b0c5de85") : ""}
           </span>
           <PromptInputSubmit
-            aria-label={isGenerating ? "Stop response" : "Send"}
+            aria-label={isGenerating ? tr("md5ca579c1943") : tr("mf6f4688ff23d")}
             disabled={!isGenerating && !canSend}
             className="[&_svg]:size-3.5"
             onStop={onStop}

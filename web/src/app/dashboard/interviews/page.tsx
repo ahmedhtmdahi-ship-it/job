@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { Metadata } from "next";
 
 import InterviewsContainer from "@/components/interviews/InterviewsContainer";
@@ -6,7 +7,7 @@ import { getAllJobStageTypes } from "@/actions/jobStageType.actions";
 import { getStatusList } from "@/actions/job.actions";
 
 export const metadata: Metadata = {
-  title: "Interviews | JobSync",
+  title: message("m4b6ac636e905"),
 };
 
 async function Interviews() {

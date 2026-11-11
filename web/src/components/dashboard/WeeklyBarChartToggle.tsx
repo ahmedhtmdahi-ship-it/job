@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
 import { ResponsiveBar } from "@nivo/bar";
@@ -30,6 +31,8 @@ type WeeklyBarChartToggleProps = {
 export default function WeeklyBarChartToggle({
   charts,
 }: WeeklyBarChartToggleProps) {
+  const tr = useT();
+
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_WEEKLY_CHART_STORAGE_KEY,
     charts.map((chart) => chart.label),
@@ -104,12 +107,11 @@ export default function WeeklyBarChartToggle({
         <div className="flex items-center justify-between gap-2 mb-1 mt-3">
           <div className="flex items-baseline gap-2 min-w-0">
             <CardTitle className="text-lg text-green-600 truncate">
-              Weekly {current.label}
+              {tr("m2975132481a7")}{tr(current.label)}
             </CardTitle>
             {totalHours !== null && (
               <span className="text-sm text-muted-foreground whitespace-nowrap">
-                {totalHours.toFixed(1)} hrs
-              </span>
+                {totalHours.toFixed(1)} {tr("m4e9682fa850e")}</span>
             )}
           </div>
           <div
@@ -118,18 +120,18 @@ export default function WeeklyBarChartToggle({
           >
             {charts.map((chart, index) => (
               <button
-                key={chart.label}
+                key={tr(chart.label)}
                 onClick={() => selectTab(index)}
                 className={cn(
                   "px-2 py-1 transition-colors",
-                  index === 0 && "rounded-l-md",
-                  index === charts.length - 1 && "rounded-r-md",
+                  index === 0 && "rounded-s-md",
+                  index === charts.length - 1 && "rounded-e-md",
                   activeIndex === index
                     ? "bg-primary text-primary-foreground"
                     : "hover:bg-muted",
                 )}
               >
-                {chart.label}
+                {tr(chart.label)}
               </button>
             ))}
           </div>
@@ -153,7 +155,7 @@ export default function WeeklyBarChartToggle({
             colors={
               current.groupMode === "stacked"
                 ? (bar) => activityColors.get(String(bar.id)) ?? "#94a3b8"
-                : "#2a7ef0"
+                : tr("m245c6c890216")
             }
             enableTotals={current.groupMode === "stacked" ? true : false}
             valueFormat={(value) =>
@@ -190,14 +192,14 @@ export default function WeeklyBarChartToggle({
               legendOffset: 32,
               truncateTickAt: 0,
               format: isSmallScreen
-                ? (value: string) => value.split(", ")[1] ?? value
-                : undefined,
+                ? (value: string) => String(value).split(", ")[1] ?? value
+                : (value: string) => String(value).replace(/\b[A-Za-z]+\b/g, word => tr(word)),
             }}
             axisLeft={{
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: current.axisLeftLegend,
+              legend: tr(current.axisLeftLegend),
               legendPosition: "middle",
               legendOffset: -40,
               truncateTickAt: 0,
@@ -250,8 +252,7 @@ export default function WeeklyBarChartToggle({
                   (data as any).otherBreakdown.map(
                     (activity: { label: string; hours: number }) => (
                       <div key={activity.label}>
-                        {activity.label} – {activity.hours}h
-                      </div>
+                        {activity.label} – {activity.hours}{tr("maaa9402664f1")}</div>
                     ),
                   )}
               </div>

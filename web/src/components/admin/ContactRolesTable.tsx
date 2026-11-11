@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -30,6 +31,8 @@ type ContactRolesTableProps = {
 };
 
 function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -41,7 +44,7 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
     if (links > 0 || holders > 0) {
       setAlert({
         openState: true,
-        title: "Associated contacts exist!",
+        title: tr("m3ec946ac573d"),
         description: links
           ? `This role is used by ${links} contact link${
               links === 1 ? "" : "s"
@@ -60,7 +63,7 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
     if (roleId) {
       const { success, message } = await deleteContactRoleById(roleId);
       if (success) {
-        toastSuccess("Contact role has been deleted successfully");
+        toastSuccess(tr("m1352fc15eac2"));
         reloadRoles();
       } else {
         toastError(message);
@@ -73,11 +76,11 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Role</TableHead>
-            <TableHead className="hidden sm:table-cell">Value</TableHead>
-            <TableHead>Contacts Linked</TableHead>
+            <TableHead>{tr("m14736a2eb9f4")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m8e37953d23da")}</TableHead>
+            <TableHead>{tr("m7557025db57f")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -97,18 +100,17 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
                     <DropdownMenuTrigger asChild>
                       <Button aria-haspopup="true" size="icon" variant="ghost">
                         <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">{tr("mc02651240c87")}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                       <DropdownMenuItem
                         className="text-red-600 cursor-pointer"
                         onClick={() => onDeleteRole(role)}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
+                        <Trash className="me-2 h-4 w-4" />
+                        {tr("me2d0a54968ea")}</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -41,6 +42,8 @@ function AddResumeSummary({
   setDialogOpen,
   summaryToEdit,
 }: AddResumeSummaryProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const pageTitle = summaryToEdit ? "Edit Summary" : "Add Summary";
@@ -112,9 +115,9 @@ function AddResumeSummary({
                 name="sectionTitle"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Section Title</FormLabel>
+                    <FormLabel>{tr("mcde8d07e9b3b")}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Ex: Summary" />
+                      <Input {...field} placeholder={tr("m52754e232018")} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,7 +131,7 @@ function AddResumeSummary({
                 name="content"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Resume Summary</FormLabel>
+                    <FormLabel>{tr("m18e5becfd852")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>

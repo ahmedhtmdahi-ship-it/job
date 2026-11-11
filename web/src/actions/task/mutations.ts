@@ -1,4 +1,5 @@
 "use server";
+import {message} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { TaskStatus } from "@/models/task.model";
@@ -119,14 +120,14 @@ export const deleteTaskById = async (
     });
 
     if (!task) {
-      return { success: false, message: "Task not found" };
+      return { success: false, message: message("mb19fa2937342") };
     }
 
     if (task.activities.length > 0) {
       return {
         success: false,
         message:
-          "Cannot delete task with linked activity. Remove the activity first.",
+          message("mbcac88dfbeb2"),
       };
     }
 

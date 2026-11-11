@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Resume, ResumeSection, SectionType } from "@/models/profile.model";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { AddResumeSectionRef } from "./AddResumeSection";
@@ -40,6 +41,8 @@ function ResumeContainer({
   resume: Resume;
   defaultResumeId?: string | null;
 }) {
+  const tr = useT();
+
   const router = useRouter();
   const goBack = () => router.back();
   const isDefault = !!resume?.id && resume.id === defaultResumeId;
@@ -187,7 +190,7 @@ function ResumeContainer({
     if (!resume?.id) return;
     const { success, message } = await setDefaultResume(resume.id);
     if (success) {
-      toastSuccess("This resume is now your default.");
+      toastSuccess(tr("m6f3c63013e9b"));
       router.refresh();
     } else {
       toastError(message);
@@ -223,8 +226,7 @@ function ResumeContainer({
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <Sparkles className="h-4 w-4" />
-              AI Review
-            </CardTitle>
+              {tr("m66af8f4e341e")}</CardTitle>
             <ReviewDetails reviewData={parsedReviewData} />
           </CardHeader>
         </Card>

@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import db from "@/lib/db";
@@ -11,7 +12,7 @@ export async function POST(
   const userId = session?.user?.id;
 
   if (!session || !userId) {
-    return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
+    return NextResponse.json({ message: message("m13d9eb180ca2") }, { status: 401 });
   }
 
   const { id: automationId } = await params;
@@ -24,7 +25,7 @@ export async function POST(
   });
 
   if (!automation) {
-    return NextResponse.json({ message: "Automation not found" }, { status: 404 });
+    return NextResponse.json({ message: message("ma963fc58d684") }, { status: 404 });
   }
 
   automationLogger.clearLogs(automationId);

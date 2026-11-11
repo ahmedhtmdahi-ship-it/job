@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import {
   Table,
@@ -27,6 +28,8 @@ function ContactsTable({
   editContact,
   hideCompanyColumn,
 }: ContactsTableProps) {
+  const tr = useT();
+
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
@@ -53,7 +56,7 @@ function ContactsTable({
     if (contactId) {
       const { success, message } = await deleteContactById(contactId);
       if (success) {
-        toastSuccess("Contact has been deleted successfully");
+        toastSuccess(tr("m9e6643970dfd"));
         reloadContacts();
       } else {
         toastError(message);
@@ -67,16 +70,16 @@ function ContactsTable({
         <TableHeader>
           <TableRow>
             <TableHead className="w-8">
-              <span className="sr-only">Expand</span>
+              <span className="sr-only">{tr("m07548c2c6511")}</span>
             </TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead className="hidden sm:table-cell">Title</TableHead>
-            {!hideCompanyColumn && <TableHead>Company</TableHead>}
-            <TableHead>Roles</TableHead>
-            <TableHead>Jobs</TableHead>
-            <TableHead>Last contacted</TableHead>
+            <TableHead>{tr("mdcd1d5223f73")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m7e8cd2056da7")}</TableHead>
+            {!hideCompanyColumn && <TableHead>{tr("mde4743c87973")}</TableHead>}
+            <TableHead>{tr("mc25337055464")}</TableHead>
+            <TableHead>{tr("m2f17a0f8d518")}</TableHead>
+            <TableHead>{tr("m9a1027dd5b23")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>

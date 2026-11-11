@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Loader, Sparkles } from "lucide-react";
 import type { AiModel } from "@/models/ai.model";
 import { ResponsiveCardHeader } from "../../ResponsiveCardHeader";
@@ -18,13 +19,14 @@ export function StructureWithAiCard({
   isStructuring: boolean;
   onStructure: () => void;
 }) {
+  const tr = useT();
+
   return (
     <Card className="border-dashed">
       <ResponsiveCardHeader>
         <div>
           <p className="text-sm text-muted-foreground">
-            A file is attached. Structure it into sections using AI.
-          </p>
+            {tr("m155e9a6937ce")}</p>
           {aiModel.provider === "ollama" &&
             ollamaConnected === false &&
             connectionError && (
@@ -43,11 +45,11 @@ export function StructureWithAiCard({
           onClick={onStructure}
         >
           {isStructuring ? (
-            <Loader className="h-4 w-4 animate-spin mr-2" />
+            <Loader className="h-4 w-4 animate-spin me-2" />
           ) : (
-            <Sparkles className="h-4 w-4 mr-2" />
+            <Sparkles className="h-4 w-4 me-2" />
           )}
-          {isStructuring ? "Structuring…" : "Structure with AI"}
+          {isStructuring ? tr("m941a9dec9d73") : tr("m09894c7d176f")}
         </Button>
       </ResponsiveCardHeader>
     </Card>

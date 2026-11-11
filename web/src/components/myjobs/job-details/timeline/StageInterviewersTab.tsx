@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useTransition } from "react";
 import { UserPlus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,8 @@ export function StageInterviewersTab({
   onLinkInterviewers,
   onChanged,
 }: StageInterviewersTabProps) {
+  const tr = useT();
+
   const [, startTransition] = useTransition();
 
   const unlink = (linkId: string) => {
@@ -34,8 +37,7 @@ export function StageInterviewersTab({
     <div>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[11px] font-bold tracking-wide text-muted-foreground">
-          INTERVIEWERS
-        </span>
+          {tr("m5926b4e87f17")}</span>
         <Button
           variant="outline"
           size="sm"
@@ -43,14 +45,12 @@ export function StageInterviewersTab({
           onClick={onLinkInterviewers}
         >
           <UserPlus className="h-3 w-3" />
-          Add Interviewers
-        </Button>
+          {tr("m5ec6bebb0fd4")}</Button>
       </div>
 
       {stage.interviewers.length === 0 ? (
         <p className="mt-2.5 rounded-lg border border-dashed p-4 text-center text-sm text-muted-foreground">
-          No interviewers linked yet.
-        </p>
+          {tr("me0c2edd669b4")}</p>
       ) : (
         <ul className="mt-2.5 space-y-2">
           {stage.interviewers.map((link) => (
@@ -74,7 +74,7 @@ export function StageInterviewersTab({
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7 cursor-pointer"
-                aria-label={`Unlink ${link.Contact.name}`}
+                aria-label={tr("m2494d4ab3b38", {v0: link.Contact.name})}
                 onClick={() => unlink(link.id)}
               >
                 <X className="h-3.5 w-3.5" />

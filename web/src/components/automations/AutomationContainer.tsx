@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -24,6 +25,8 @@ interface AutomationContainerProps {
 }
 
 export function AutomationContainer({ resumes }: AutomationContainerProps) {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [automations, setAutomations] = useState<AutomationWithResume[]>([]);
@@ -83,15 +86,14 @@ export function AutomationContainer({ resumes }: AutomationContainerProps) {
     <>
       <Card>
         <ResponsiveCardHeader>
-          <CardTitle>Automations</CardTitle>
+          <CardTitle>{tr("mad1fb9ec0cb3")}</CardTitle>
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="icon" onClick={loadAutomations}>
               <RefreshCw className="h-4 w-4" />
             </Button>
             <Button variant="outline" onClick={() => setWizardOpen(true)}>
-              <Plus className="h-4 w-4 mr-2" />
-              Create Automation
-            </Button>
+              <Plus className="h-4 w-4 me-2" />
+              {tr("mc3078d7906bd")}</Button>
           </div>
         </ResponsiveCardHeader>
         <CardContent>

@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddContactInfoFormSchema = z.object({
@@ -7,32 +8,32 @@ export const AddContactInfoFormSchema = z.object({
   resumeId: z.string().optional(),
   firstName: z
     .string({
-      error: "First Name is required.",
+      error: message("m13695d8f7932"),
     })
     .min(2, {
-      message: "First name must be at least 2 characters.",
+      message: message("m9e8b38f7bdaf"),
     }),
   lastName: z
     .string({
-      error: "Last Name is required.",
+      error: message("m24d9a924ec5e"),
     })
     .min(2, {
-      message: "Last name must be at least 2 characters.",
+      message: message("ma3be47ccb423"),
     }),
   headline: z
     .string({
-      error: "Headline is required.",
+      error: message("m2cd15adfb697"),
     })
     .min(2, {
-      message: "Headline must be at least 2 characters.",
+      message: message("m537c98bffd17"),
     }),
   email: z
     .string({
-      error: "Email is required!",
+      error: message("ma11345c6c6fb"),
     })
     .email("Please enter a valid email!"),
   phone: z.string({
-    error: "Phone is required!",
+    error: message("mfadac94be3a4"),
   }),
   address: z.string().optional(),
   url1: z

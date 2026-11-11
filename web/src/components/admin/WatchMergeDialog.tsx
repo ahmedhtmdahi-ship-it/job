@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,20 +29,20 @@ type Props = {
 // There is no "create a separate entry" option: @@unique([value, createdBy])
 // forbids a second row with the same canonical value.
 export function WatchMergeDialog({ pending, onConfirm, onCancel }: Props) {
+  const tr = useT();
+
   return (
     <AlertDialog open={!!pending} onOpenChange={(o) => !o && onCancel()}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Link this board?</AlertDialogTitle>
+          <AlertDialogTitle>{tr("mafb3f541b99b")}</AlertDialogTitle>
           <AlertDialogDescription>
-            You already track <strong>{pending?.existing.label}</strong>. Link
-            its {pending && PROVIDER_META[pending.provider].label} board{" "}
-            <code>{pending?.board.token}</code> to that company?
-          </AlertDialogDescription>
+            {tr("m9a7710cdfabb")}<strong>{pending?.existing.label}</strong>{tr("m9e136bc3aeec")}{pending && PROVIDER_META[pending.provider].label} {tr("m859169b38185")}{" "}
+            <code>{pending?.board.token}</code> {tr("m9a1bb1e057dd")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Link board</AlertDialogAction>
+          <AlertDialogCancel onClick={onCancel}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>{tr("m8cf63f081d42")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

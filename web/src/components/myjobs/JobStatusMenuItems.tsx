@@ -20,13 +20,13 @@ export function JobStatusMenuItems({
     <>
       {jobStatuses.map((status) => (
         <DropdownMenuItem
-          className="cursor-pointer relative pl-8"
+          className="cursor-pointer relative ps-8"
           key={status.id}
           onSelect={() => onSelectStatus(status)}
           disabled={status.id === currentStatusId}
         >
           {status.id === currentStatusId && (
-            <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+            <span className="absolute start-2 flex h-3.5 w-3.5 items-center justify-center">
               <Check className="h-4 w-4" />
             </span>
           )}

@@ -49,7 +49,7 @@ export function SelectRow<T extends string>({
         {label}
       </Label>
       <Select value={value} onValueChange={(next) => onSelect(next as T)}>
-        <SelectTrigger id={id} aria-label={label} className="ml-auto h-8 w-40">
+        <SelectTrigger id={id} aria-label={label} className="ms-auto h-8 w-40">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -104,7 +104,7 @@ export function StepperRow({
       <Label htmlFor={id} className="cursor-pointer font-normal">
         {spec.label}
       </Label>
-      <div className="ml-auto flex items-center gap-1">
+      <div className="ms-auto flex items-center gap-1">
         <Button
           type="button"
           variant="outline"
@@ -164,12 +164,12 @@ export function DisclosureGroup({
         {open ? (
           <ChevronDown className="h-4 w-4" aria-hidden />
         ) : (
-          <ChevronRight className="h-4 w-4" aria-hidden />
+          <ChevronRight className="rtl-mirror h-4 w-4" aria-hidden />
         )}
         {title}
       </CollapsibleTrigger>
       {!open && (
-        <p className="pl-[1.375rem] text-xs text-muted-foreground">{summary}</p>
+        <p className="ps-[1.375rem] text-xs text-muted-foreground">{summary}</p>
       )}
       <CollapsibleContent className="mt-2 rounded-lg border bg-muted/40">
         {children}

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useTransition } from "react";
 import { Check, Loader, X } from "lucide-react";
 import type { ImportCardPayload } from "@/actions/resumeImport.actions";
@@ -32,16 +33,18 @@ function DetailRow({ label, value }: { label: string; value?: unknown }) {
 }
 
 function PendingCardDetail({ card }: { card: ImportCardPayload }) {
+  const tr = useT();
+
   if (card.type === "contactInfo") {
     const d = card.data;
     const name = `${d.firstName ?? ""} ${d.lastName ?? ""}`.trim();
     return (
       <div className="space-y-1 mt-1">
-        {name && <DetailRow label="Name" value={name} />}
-        <DetailRow label="Headline" value={d.headline} />
-        <DetailRow label="Email" value={d.email} />
-        <DetailRow label="Phone" value={d.phone} />
-        <DetailRow label="Address" value={d.address} />
+        {name && <DetailRow label={tr("mdcd1d5223f73")} value={name} />}
+        <DetailRow label={tr("mc5f5a4c81575")} value={d.headline} />
+        <DetailRow label={tr("m969ccbd3cf63")} value={d.email} />
+        <DetailRow label={tr("m63dceb8800b2")} value={d.phone} />
+        <DetailRow label={tr("m56ef8f20955f")} value={d.address} />
       </div>
     );
   }
@@ -59,12 +62,12 @@ function PendingCardDetail({ card }: { card: ImportCardPayload }) {
     const dates = [d.startDate, d.endDate].filter(Boolean).join(" – ");
     return (
       <div className="space-y-1 mt-1">
-        <DetailRow label="Title" value={d.jobTitle} />
-        <DetailRow label="Company" value={d.company} />
-        <DetailRow label="Location" value={d.location} />
-        {dates && <DetailRow label="Dates" value={dates} />}
+        <DetailRow label={tr("m7e8cd2056da7")} value={d.jobTitle} />
+        <DetailRow label={tr("mde4743c87973")} value={d.company} />
+        <DetailRow label={tr("m15b61974b270")} value={d.location} />
+        {dates && <DetailRow label={tr("m78963905f399")} value={dates} />}
         {typeof d.description === "string" && d.description && (
-          <p className="text-xs text-foreground mt-1 whitespace-pre-wrap pl-[5.5rem]">
+          <p className="text-xs text-foreground mt-1 whitespace-pre-wrap ps-[5.5rem]">
             {d.description}
           </p>
         )}
@@ -77,13 +80,13 @@ function PendingCardDetail({ card }: { card: ImportCardPayload }) {
     const dates = [d.startDate, d.endDate].filter(Boolean).join(" – ");
     return (
       <div className="space-y-1 mt-1">
-        <DetailRow label="Institution" value={d.institution} />
-        <DetailRow label="Degree" value={d.degree} />
-        <DetailRow label="Field" value={d.fieldOfStudy} />
-        <DetailRow label="Location" value={d.location} />
-        {dates && <DetailRow label="Dates" value={dates} />}
+        <DetailRow label={tr("m65a1553729e3")} value={d.institution} />
+        <DetailRow label={tr("m719738a85289")} value={d.degree} />
+        <DetailRow label={tr("mf45fc1dfdc96")} value={d.fieldOfStudy} />
+        <DetailRow label={tr("m15b61974b270")} value={d.location} />
+        {dates && <DetailRow label={tr("m78963905f399")} value={dates} />}
         {typeof d.description === "string" && d.description && (
-          <p className="text-xs text-foreground mt-1 whitespace-pre-wrap pl-[5.5rem]">
+          <p className="text-xs text-foreground mt-1 whitespace-pre-wrap ps-[5.5rem]">
             {d.description}
           </p>
         )}
@@ -95,11 +98,11 @@ function PendingCardDetail({ card }: { card: ImportCardPayload }) {
     const d = card.data;
     return (
       <div className="space-y-1 mt-1">
-        <DetailRow label="Title" value={d.title} />
-        <DetailRow label="Issuer" value={d.organization} />
-        <DetailRow label="Issued" value={d.issueDate} />
-        <DetailRow label="Expires" value={d.expirationDate} />
-        <DetailRow label="URL" value={d.credentialUrl} />
+        <DetailRow label={tr("m7e8cd2056da7")} value={d.title} />
+        <DetailRow label={tr("m39e02c46a083")} value={d.organization} />
+        <DetailRow label={tr("m0221e4875188")} value={d.issueDate} />
+        <DetailRow label={tr("mf6725f3af08a")} value={d.expirationDate} />
+        <DetailRow label={tr("me7a241debad5")} value={d.credentialUrl} />
       </div>
     );
   }
@@ -149,6 +152,8 @@ export function PendingCardRow({
   onDiscard: (id: string) => void;
   locked?: boolean;
 }) {
+  const tr = useT();
+
   const [isSaving, startSaving] = useTransition();
 
   return (
@@ -157,7 +162,7 @@ export function PendingCardRow({
         <Badge variant="outline" className="text-xs shrink-0">
           {cardSectionLabel(pending.card.type)}
         </Badge>
-        <div className="flex items-center gap-1 shrink-0 ml-auto">
+        <div className="flex items-center gap-1 shrink-0 ms-auto">
           <Button
             size="sm"
             variant="outline"
@@ -174,7 +179,7 @@ export function PendingCardRow({
             ) : (
               <Check className="h-3 w-3" />
             )}
-            <span className="ml-1">Accept</span>
+            <span className="ms-1">{tr("m89713b9c9c1b")}</span>
           </Button>
           <Button
             size="sm"

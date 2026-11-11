@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -11,6 +12,8 @@ import { Button } from "../ui/button";
 import { RecordsCount } from "../RecordsCount";
 
 function JobSourcesContainer() {
+  const tr = useT();
+
   const [sources, setSources] = useState<JobSource[]>([]);
   const [totalJobSources, setTotalJobSources] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -47,12 +50,12 @@ function JobSourcesContainer() {
         <Card x-chunk="dashboard-06-chunk-0">
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Job Sources</CardTitle>
+              <CardTitle>{tr("m4886b555faed")}</CardTitle>
               {!loading && totalJobSources > 0 && (
-                <RecordsCount count={sources.length} total={totalJobSources} label="job sources" />
+                <RecordsCount count={sources.length} total={totalJobSources} label={tr("m17789a916d72")} />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
             </div>
           </ResponsiveCardHeader>
           <CardContent>
@@ -74,7 +77,7 @@ function JobSourcesContainer() {
                   disabled={loading}
                   className="btn btn-primary"
                 >
-                  {loading ? "Loading..." : "Load More"}
+                  {loading ? tr("m47d2a515ef2f") : tr("m3f06cd334f48")}
                 </Button>
               </div>
             )}

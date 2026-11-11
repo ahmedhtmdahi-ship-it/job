@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import {
@@ -35,6 +36,8 @@ export function ClearJobsDialog({
   automationId,
   onRefresh,
 }: ClearJobsDialogProps) {
+  const tr = useT();
+
   const [clearing, setClearing] = useState(false);
 
   const handleClear = async () => {
@@ -58,13 +61,10 @@ export function ClearJobsDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Clear discovered jobs?</AlertDialogTitle>
+          <AlertDialogTitle>{tr("mb41fc1dbbad4")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Accepted jobs are always kept. This permanently deletes all
-            dismissed jobs
-            {includeNew && newCount > 0 ? " and all unreviewed new jobs" : ""}
-            . This action cannot be undone.
-          </AlertDialogDescription>
+            {tr("mdd89a5e922e8")}{includeNew && newCount > 0 ? tr("m437304de277b") : ""}
+            {tr("me3a16e1be8cc")}</AlertDialogDescription>
         </AlertDialogHeader>
         {newCount > 0 && (
           <label className="flex items-center gap-2 text-sm">
@@ -74,11 +74,10 @@ export function ClearJobsDialog({
               checked={includeNew}
               onChange={(e) => onIncludeNewChange(e.target.checked)}
             />
-            Also delete {newCount} unreviewed new job(s)
-          </label>
+            {tr("m97921a034f32")}{newCount} {tr("m50b231ebf0fb")}</label>
         )}
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={clearing}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={clearing}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: "destructive" })}
             disabled={clearing}

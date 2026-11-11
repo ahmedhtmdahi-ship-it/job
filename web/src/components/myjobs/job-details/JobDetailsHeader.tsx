@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   ArrowLeft,
   FileText,
@@ -53,6 +54,8 @@ export function JobDetailsHeader({
   onDelete,
   onAddNote,
 }: JobDetailsHeaderProps) {
+  const tr = useT();
+
   const details = [
     job.Location?.label,
     getJobTypeLabel(job.jobType),
@@ -64,8 +67,8 @@ export function JobDetailsHeader({
   return (
     <div className="flex flex-col gap-4 @5xl/main:flex-row @5xl/main:items-center">
       <div className="flex flex-1 min-w-0 items-center gap-3">
-        <Button title="Go Back" variant="ghost" size="icon" onClick={onBack}>
-          <ArrowLeft className="h-4 w-4" />
+        <Button title={tr("mb8d99df1066e")} variant="ghost" size="icon" onClick={onBack}>
+          <ArrowLeft className="rtl-mirror h-4 w-4" />
         </Button>
         <CompanyLogo
           logoUrl={job.Company?.logoUrl}
@@ -93,13 +96,12 @@ export function JobDetailsHeader({
           variant="outline"
           className="cursor-pointer"
           disabled={chatBusy}
-          title={chatBusy ? "The assistant is busy" : undefined}
+          title={chatBusy ? tr("m529a808b8ac0") : undefined}
           onClick={onMatch}
         >
-          <Sparkles className="h-4 w-4 sm:mr-2" />
+          <Sparkles className="h-4 w-4 sm:me-2" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            AI Match
-          </span>
+            {tr("mae539b9a1559")}</span>
         </Button>
         <Button
           variant="outline"
@@ -109,23 +111,23 @@ export function JobDetailsHeader({
           title={coverLetterBlockedReason}
           onClick={onCoverLetter}
         >
-          <FileText className="h-4 w-4 sm:mr-2" />
+          <FileText className="h-4 w-4 sm:me-2" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            {job.coverLetterId ? "Regenerate Letter" : "Cover Letter"}
+            {job.coverLetterId ? tr("me4df89c79485") : tr("m1120f0ed04fb")}
           </span>
         </Button>
         <Button
-          title="Edit"
+          title={tr("m464c4ffd019e")}
           variant="outline"
           size="icon"
           onClick={onEdit}
           data-testid="job-details-edit-btn"
         >
           <Pencil className="h-4 w-4" />
-          <span className="sr-only">Edit</span>
+          <span className="sr-only">{tr("m464c4ffd019e")}</span>
         </Button>
         <Button
-          title="Delete"
+          title={tr("me2d0a54968ea")}
           variant="outline"
           size="icon"
           className="text-destructive hover:text-destructive"
@@ -133,7 +135,7 @@ export function JobDetailsHeader({
           data-testid="job-details-delete-btn"
         >
           <Trash2 className="h-4 w-4" />
-          <span className="sr-only">Delete</span>
+          <span className="sr-only">{tr("me2d0a54968ea")}</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -144,28 +146,25 @@ export function JobDetailsHeader({
               data-testid="job-details-actions-menu-btn"
             >
               <MoreVertical className="h-4 w-4" />
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">{tr("mc02651240c87")}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[200px]">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer" onClick={onEdit}>
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit Job
-              </DropdownMenuItem>
+                <Pencil className="me-2 h-4 w-4" />
+                {tr("mc492f013040b")}</DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" onClick={onAddNote}>
-                <StickyNote className="mr-2 h-4 w-4" />
-                Add a Note
-              </DropdownMenuItem>
+                <StickyNote className="me-2 h-4 w-4" />
+                {tr("mc1c718f3954b")}</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-red-600 cursor-pointer"
                 onClick={onDelete}
               >
-                <Trash className="mr-2 h-4 w-4" />
-                Delete
-              </DropdownMenuItem>
+                <Trash className="me-2 h-4 w-4" />
+                {tr("me2d0a54968ea")}</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

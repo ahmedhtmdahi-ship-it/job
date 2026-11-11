@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { AddExperienceFormSchema } from "@/models/addExperienceForm.schema";
 import { ResumeSection, WorkExperience } from "@/models/profile.model";
 import { useCallback, useEffect, useState, useTransition } from "react";
@@ -48,6 +49,8 @@ function AddExperience({
   setDialogOpen,
   experienceToEdit,
 }: AddExperienceProps) {
+  const tr = useT();
+
   const [companies, setCompanies] = useState<Company[]>([]);
   const [locations, setLocations] = useState<JobLocation[]>([]);
   const [jobTitles, setJobTitles] = useState<JobTitle[]>([]);
@@ -161,9 +164,9 @@ function AddExperience({
                     name="sectionTitle"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Section Title</FormLabel>
+                        <FormLabel>{tr("mcde8d07e9b3b")}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="Ex: Experience" />
+                          <Input {...field} placeholder={tr("mdca9c05d1868")} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -181,7 +184,7 @@ function AddExperience({
                 name="title"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Job Title</FormLabel>
+                    <FormLabel>{tr("mde2c88352242")}</FormLabel>
                     <FormControl>
                       <Combobox options={jobTitles} field={field} creatable />
                     </FormControl>
@@ -198,7 +201,7 @@ function AddExperience({
                 name="company"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Company</FormLabel>
+                    <FormLabel>{tr("mde4743c87973")}</FormLabel>
                     <FormControl>
                       <Combobox options={companies} field={field} creatable />
                     </FormControl>
@@ -214,7 +217,7 @@ function AddExperience({
                 name="location"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Job Location</FormLabel>
+                    <FormLabel>{tr("mdc04497effc8")}</FormLabel>
                     <FormControl>
                       <Combobox options={locations!} field={field} creatable />
                     </FormControl>
@@ -231,7 +234,7 @@ function AddExperience({
                 name="startDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Start Date</FormLabel>
+                    <FormLabel>{tr("m4c52faad5dc6")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -258,8 +261,8 @@ function AddExperience({
                         onCurrentJob(c);
                       }}
                     />
-                    <FormLabel className="flex items-center ml-4 mb-2">
-                      {field.value ? "Current Job" : "Job Ended"}
+                    <FormLabel className="flex items-center ms-4 mb-2">
+                      {field.value ? tr("m571d3586323e") : tr("m0fb54d3354a0")}
                     </FormLabel>
 
                     <FormMessage />
@@ -275,7 +278,7 @@ function AddExperience({
                 name="endDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>End Date</FormLabel>
+                    <FormLabel>{tr("me970951cfb6b")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -295,7 +298,7 @@ function AddExperience({
                 name="jobDescription"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Job Description</FormLabel>
+                    <FormLabel>{tr("meddf43c6d489")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>

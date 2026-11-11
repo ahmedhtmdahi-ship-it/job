@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { FileDown, Loader } from "lucide-react";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
@@ -48,6 +49,8 @@ function CreateCoverLetter({
   reloadDocuments,
   contactInfo,
 }: CreateCoverLetterProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [exportOpen, setExportOpen] = useState(false);
 
@@ -131,11 +134,11 @@ function CreateCoverLetter({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cover Letter Title</FormLabel>
+                  <FormLabel>{tr("m0500c9fff776")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Ex: Software Engineer - Google"
+                      placeholder={tr("m8a0d31cf9338")}
                     />
                   </FormControl>
                   <FormMessage>
@@ -155,7 +158,7 @@ function CreateCoverLetter({
               key={coverLetterToEdit?.id ?? "new"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel>{tr("m47bd29075f8b")}</FormLabel>
                   <FormControl>
                     <Tiptap field={field} />
                   </FormControl>
@@ -180,8 +183,7 @@ function CreateCoverLetter({
                   onClick={() => setExportOpen(true)}
                 >
                   <FileDown className="h-4 w-4" />
-                  Export to PDF
-                </Button>
+                  {tr("mccd4fda2f607")}</Button>
                 <div>
                   <Button
                     type="reset"
@@ -189,12 +191,10 @@ function CreateCoverLetter({
                     className="mt-2 md:mt-0 w-full"
                     onClick={closeDialog}
                   >
-                    Cancel
-                  </Button>
+                    {tr("m19766ed6ccb2")}</Button>
                 </div>
                 <Button type="submit" disabled={!isValid}>
-                  Save
-                  {isPending && (
+                  {tr("m1509f561f241")}{isPending && (
                     <Loader className="h-4 w-4 shrink-0 spinner" />
                   )}
                 </Button>

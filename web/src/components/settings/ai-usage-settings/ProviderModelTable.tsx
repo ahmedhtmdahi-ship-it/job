@@ -1,16 +1,19 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { AlertTriangle, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { AiUsageSummary } from "@/models/aiUsage.model";
 import { formatSeconds, formatTokens, providerLabel } from "./format";
 
-const NUM = "text-right tabular-nums";
+const NUM = "text-end tabular-nums";
 
 export default function ProviderModelTable({
   providers,
 }: Pick<AiUsageSummary, "providers">) {
+  const tr = useT();
+
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const maxTokens = Math.max(1, ...providers.map((p) => p.tokens));
   const toggle = (provider: string) =>
@@ -24,21 +27,20 @@ export default function ProviderModelTable({
   return (
     <section className="overflow-hidden rounded-lg border">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b px-5 py-3.5">
-        <h2 className="text-[15px] font-semibold">By provider and model</h2>
+        <h2 className="text-[15px] font-semibold">{tr("m506d78acf9ba")}</h2>
         <span className="text-xs text-muted-foreground">
-          Per call · chat excludes the review, match or letter it started
-        </span>
+          {tr("mc014dafd319a")}</span>
       </div>
       <div className="overflow-x-auto">
         <div className="min-w-[720px]">
           <div className="flex items-center gap-2.5 border-b px-5 py-2.5 text-xs font-medium text-muted-foreground">
-            <span className="w-[204px]">Provider / model</span>
-            <span className="grow">Share of tokens</span>
-            <span className={cn("w-16", NUM)}>Tokens</span>
-            <span className={cn("w-12", NUM)}>Calls</span>
-            <span className={cn("w-16", NUM)}>Median</span>
-            <span className={cn("w-16", NUM)}>p95</span>
-            <span className={cn("w-20", NUM)}>First token</span>
+            <span className="w-[204px]">{tr("m51686a90ea97")}</span>
+            <span className="grow">{tr("ma86adb00560e")}</span>
+            <span className={cn("w-16", NUM)}>{tr("ma039dfb9628b")}</span>
+            <span className={cn("w-12", NUM)}>{tr("mb73a5e2ca645")}</span>
+            <span className={cn("w-16", NUM)}>{tr("mdaab7c435134")}</span>
+            <span className={cn("w-16", NUM)}>{tr("mf771f4d32eee")}</span>
+            <span className={cn("w-20", NUM)}>{tr("m2b2cc212058b")}</span>
           </div>
           {providers.map((p) => {
             const open = !collapsed.has(p.provider);
@@ -49,7 +51,7 @@ export default function ProviderModelTable({
                     type="button"
                     onClick={() => toggle(p.provider)}
                     aria-expanded={open}
-                    className="flex w-[204px] items-center gap-2.5 text-left font-semibold"
+                    className="flex w-[204px] items-center gap-2.5 text-start font-semibold"
                   >
                     <ChevronDown
                       className={cn(
@@ -79,7 +81,7 @@ export default function ProviderModelTable({
                   p.models.map((m) => (
                     <div
                       key={m.model}
-                      className="flex items-center gap-2.5 pb-2.5 pl-11 pr-5 text-xs text-muted-foreground"
+                      className="flex items-center gap-2.5 pb-2.5 ps-11 pe-5 text-xs text-muted-foreground"
                     >
                       <span
                         className="w-[180px] truncate font-mono text-foreground/80"
@@ -91,7 +93,7 @@ export default function ProviderModelTable({
                         {m.nearContextLimit > 0 && (
                           <span className="inline-flex h-[22px] items-center gap-1.5 rounded-full bg-amber-100 px-2 text-[11px] font-medium text-amber-800 dark:bg-amber-950 dark:text-amber-400">
                             <AlertTriangle className="h-3 w-3" />
-                            {`${m.nearContextLimit} ${m.nearContextLimit === 1 ? "call" : "calls"} near context limit`}
+                            {tr("m90e4ecbafeec", {v0: m.nearContextLimit, v1: m.nearContextLimit === 1 ? "call" : "calls"})}
                           </span>
                         )}
                       </span>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useRef, useState } from "react";
 import { format } from "date-fns";
 import { PlusCircle, Trash, Users } from "lucide-react";
@@ -36,6 +37,8 @@ export function JobContactsTab({
   companies = [],
   locations = [],
 }: JobContactsTabProps) {
+  const tr = useT();
+
   const [showForm, setShowForm] = useState(false);
   const [contacts, setContacts] = useState<ContactRef[]>([]);
   const [roles, setRoles] = useState<ContactRole[]>([]);
@@ -82,8 +85,7 @@ export function JobContactsTab({
             onClick={openForm}
           >
             <PlusCircle className="h-3.5 w-3.5" />
-            Add Contact
-          </Button>
+            {tr("maeb71d6de03b")}</Button>
         </div>
       )}
 
@@ -106,8 +108,8 @@ export function JobContactsTab({
       {links.length === 0 && !showForm && (
         <JobTabEmptyState
           icon={Users}
-          title="No contacts on this job"
-          description="Link the recruiter, the panel, or a reference you named for this application."
+          title={tr("m64985766d4d8")}
+          description={tr("m44538d133a17")}
           actionLabel="Add Contact"
           onAction={openForm}
         />
@@ -155,19 +157,18 @@ export function JobContactsTab({
                   rel="noopener noreferrer"
                   className="text-primary underline-offset-4 hover:underline"
                 >
-                  LinkedIn
-                </a>
+                  {tr("mdd84425b72da")}</a>
               )}
               {row.Contact?.lastContactedAt && (
                 <span className="text-muted-foreground">
-                  Last contacted {format(row.Contact.lastContactedAt, "PP")}
+                  {tr("m9a1027dd5b23")}{format(row.Contact.lastContactedAt, "PP")}
                 </span>
               )}
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-auto cursor-pointer"
-                aria-label={`Remove ${row.Contact?.name}`}
+                className="ms-auto cursor-pointer"
+                aria-label={tr("m9fc9271b9acf", {v0: row.Contact?.name})}
                 onClick={() => setRemoveTarget(row)}
               >
                 <Trash className="h-4 w-4 text-red-600" />

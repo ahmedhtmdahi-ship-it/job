@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useMemo } from "react";
 import Link from "next/link";
 import MarkdownIt from "markdown-it";
@@ -24,6 +25,8 @@ interface MatchDetailsProps {
 }
 
 export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
+  const tr = useT();
+
   const html = useMemo(
     () => (matchData?.body ? md.render(matchData.body) : ""),
     [matchData?.body],
@@ -43,10 +46,9 @@ export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
           matchData.descriptionCompleteness !== "full" && (
             <Badge
               variant="secondary"
-              title="Scored from an incomplete job description — re-run the match after adding the full posting."
+              title={tr("mfde6d6b89d83")}
             >
-              Provisional score
-            </Badge>
+              {tr("m50bfcc6e89c6")}</Badge>
           )}
       </div>
 
@@ -58,16 +60,14 @@ export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
         <div className="space-y-2">
           <p className="text-sm">{matchData.summary}</p>
           <p className="text-xs text-muted-foreground italic">
-            This match was saved before the latest update. Re-run the match for
-            the full breakdown.
-          </p>
+            {tr("mdd35de95767f")}</p>
         </div>
       ) : null}
 
       <div className="text-xs text-muted-foreground space-y-1">
         {matchData.resumeTitle && (
           <p>
-            Matched with resume:{" "}
+            {tr("m22bbb83a31df")}{" "}
             {matchData.resumeId ? (
               <Link
                 href={`/dashboard/profile/resume/${matchData.resumeId}`}
@@ -82,7 +82,7 @@ export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
         )}
         {matchData.provider && (
           <p>
-            Model:{" "}
+            {tr("m11a931060dad")}{" "}
             <span className="font-medium">
               {matchData.provider}
               {matchData.model ? ` / ${matchData.model}` : ""}
@@ -91,9 +91,9 @@ export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
         )}
         <p>
           {matchData.matchedAt
-            ? `Matched on ${format(new Date(matchData.matchedAt), "MMM d, yyyy 'at' h:mm a")}`
+            ? tr("m54ced5722fe2", {v0: format(new Date(matchData.matchedAt), "MMM d, yyyy 'at' h:mm a")})
             : discoveredAt
-              ? `Discovered on ${format(new Date(discoveredAt), "MMM d, yyyy 'at' h:mm a")}`
+              ? tr("m3554f6a1ea7b", {v0: format(new Date(discoveredAt), "MMM d, yyyy 'at' h:mm a")})
               : null}
         </p>
       </div>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { NoteResponse } from "@/models/note.model";
 import {
@@ -26,6 +27,8 @@ type NotesCollapsibleSectionProps = {
 export function NotesCollapsibleSection({
   jobId,
 }: NotesCollapsibleSectionProps) {
+  const tr = useT();
+
   const [notes, setNotes] = useState<NoteResponse[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [editingNote, setEditingNote] = useState<NoteResponse | null>(null);
@@ -96,7 +99,7 @@ export function NotesCollapsibleSection({
     startTransition(async () => {
       const result = await deleteNote(deleteConfirmId);
       if (result.success) {
-        toastSuccess("Note deleted successfully");
+        toastSuccess(tr("med7194c9bf41"));
         setDeleteConfirmId(null);
         loadNotes();
       } else {
@@ -108,7 +111,7 @@ export function NotesCollapsibleSection({
   const inlineEditor = (
     <div className="border rounded-lg p-4 space-y-3">
       <p className="text-sm font-medium">
-        {editingNote ? "Edit Note" : "Add Note"}
+        {editingNote ? tr("mab224ee3a8e4") : tr("me30f00b3a3fd")}
       </p>
       <TiptapEditor
         field={
@@ -128,16 +131,14 @@ export function NotesCollapsibleSection({
           size="sm"
           onClick={handleCancel}
         >
-          Cancel
-        </Button>
+          {tr("m19766ed6ccb2")}</Button>
         <Button
           type="button"
           size="sm"
           onClick={handleSave}
           disabled={isPending || !editorContent.trim()}
         >
-          Save
-          {isPending && <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />}
+          {tr("m1509f561f241")}{isPending && <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />}
         </Button>
       </div>
     </div>
@@ -152,7 +153,7 @@ export function NotesCollapsibleSection({
       <div className="flex items-center gap-2">
         <CollapsibleTrigger className="flex items-center gap-2 hover:opacity-80">
           <StickyNote className="h-4 w-4" />
-          <span className="text-sm font-medium">Notes</span>
+          <span className="text-sm font-medium">{tr("m8a7525b1492f")}</span>
           {notes.length > 0 && (
             <Badge variant="secondary" className="text-xs">
               {notes.length}
@@ -166,17 +167,16 @@ export function NotesCollapsibleSection({
           variant="outline"
           size="sm"
           type="button"
-          className="h-7 gap-1 ml-auto"
+          className="h-7 gap-1 ms-auto"
           onClick={handleAddNote}
         >
           <PlusCircle className="h-3.5 w-3.5" />
-          New Note
-        </Button>
+          {tr("mb763c5ea3c57")}</Button>
       </div>
       <CollapsibleContent className="mt-3 space-y-3">
         {isAdding && inlineEditor}
         {notes.length === 0 && !isAdding ? (
-          <p className="text-sm text-muted-foreground">No notes yet.</p>
+          <p className="text-sm text-muted-foreground">{tr("m57bde4deb215")}</p>
         ) : (
           notes.map((note) =>
             editingNote?.id === note.id ? (
@@ -187,11 +187,9 @@ export function NotesCollapsibleSection({
                 className="border border-destructive rounded-lg p-4 space-y-3"
               >
                 <p className="text-sm font-medium">
-                  Are you sure you want to delete this note?
-                </p>
+                  {tr("m00783962c5f3")}</p>
                 <p className="text-sm text-muted-foreground">
-                  This action cannot be undone.
-                </p>
+                  {tr("m3d6a45267218")}</p>
                 <div className="flex justify-end gap-2">
                   <Button
                     type="button"
@@ -199,8 +197,7 @@ export function NotesCollapsibleSection({
                     size="sm"
                     onClick={() => setDeleteConfirmId(null)}
                   >
-                    Cancel
-                  </Button>
+                    {tr("m19766ed6ccb2")}</Button>
                   <Button
                     type="button"
                     variant="destructive"
@@ -208,9 +205,8 @@ export function NotesCollapsibleSection({
                     onClick={handleDeleteConfirm}
                     disabled={isPending}
                   >
-                    Delete
-                    {isPending && (
-                      <Loader className="ml-2 h-4 w-4 shrink-0 spinner" />
+                    {tr("me2d0a54968ea")}{isPending && (
+                      <Loader className="ms-2 h-4 w-4 shrink-0 spinner" />
                     )}
                   </Button>
                 </div>

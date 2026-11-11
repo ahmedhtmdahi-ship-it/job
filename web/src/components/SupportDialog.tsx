@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +23,8 @@ export function SupportDialog({
   onOpenChange,
   version,
 }: SupportDialogProps) {
+  const tr = useT();
+
   const appVersion = packageJson.version;
   const currentYear = new Date().getFullYear();
 
@@ -29,7 +32,7 @@ export function SupportDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Support</DialogTitle>
+          <DialogTitle>{tr("mbe91940b79f4")}</DialogTitle>
           <DialogDescription className="space-y-1">
             <a
               href="https://github.com/Gsync/jobsync/issues"
@@ -37,16 +40,14 @@ export function SupportDialog({
               rel="noopener noreferrer"
               className="block text-primary hover:underline"
             >
-              https://github.com/Gsync/jobsync/issues
-            </a>
+              {tr("m28dcef4d6f16")}</a>
             <a
               href="https://github.com/Gsync/jobsync/discussions"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-primary hover:underline"
             >
-              https://github.com/Gsync/jobsync/discussions
-            </a>
+              {tr("m286d36372621")}</a>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -59,16 +60,14 @@ export function SupportDialog({
             <Star className="h-5 w-5 shrink-0 fill-amber-400 text-amber-500 transition-transform group-hover:scale-110" />
             <span className="space-y-0.5">
               <span className="block text-sm font-semibold">
-                Is JobSync helping your search? Give it a star
-              </span>
+                {tr("mf93f4d787cd1")}</span>
               <span className="block text-xs text-muted-foreground">
-                It takes one click and helps other job seekers find it.
-              </span>
+                {tr("m5d6b2f527467")}</span>
             </span>
           </a>
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold">Version</h3>
-            <p className="text-sm text-muted-foreground">v{appVersion}</p>
+            <h3 className="text-sm font-semibold">{tr("mdd167905de0d")}</h3>
+            <p className="text-sm text-muted-foreground">{tr("m4c94485e0c21")}{appVersion}</p>
             {version?.updateAvailable && (
               <p className="text-sm">
                 <a
@@ -77,24 +76,21 @@ export function SupportDialog({
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
                 >
-                  {version.latest} is available
-                </a>
+                  {version.latest} {tr("m56e6117995b5")}</a>
               </p>
             )}
           </div>
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold">Copyright</h3>
+            <h3 className="text-sm font-semibold">{tr("m8dfc77ab4089")}</h3>
             <p className="text-sm text-muted-foreground">
-              © {currentYear} JobSync. All rights reserved.
-            </p>
+              © {currentYear} {tr("m9fef97654994")}</p>
             <a
               href="https://jobsync.ca/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-primary hover:underline"
             >
-              https://jobsync.ca/
-            </a>
+              {tr("m0d70584f686b")}</a>
           </div>
         </div>
       </DialogContent>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,6 +96,8 @@ function AddContact({
   pickersLoading,
   onSaved,
 }: AddContactProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const pageTitle = editContact ? "Edit Contact" : "Add Contact";
@@ -210,8 +213,7 @@ function AddContact({
         >
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            New Contact
-          </span>
+            {tr("m3fe263538d19")}</span>
         </Button>
       )}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -231,9 +233,9 @@ function AddContact({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{tr("mdcd1d5223f73")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Dana Whitfield" {...field} />
+                      <Input placeholder={tr("m45f92d008bfb")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -245,9 +247,9 @@ function AddContact({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{tr("m7e8cd2056da7")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Engineering Manager" {...field} />
+                      <Input placeholder={tr("m9b148149d954")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -259,11 +261,11 @@ function AddContact({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{tr("m969ccbd3cf63")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="name@company.com"
+                        placeholder={tr("m35d973d92927")}
                         {...field}
                       />
                     </FormControl>
@@ -277,9 +279,9 @@ function AddContact({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone</FormLabel>
+                    <FormLabel>{tr("m63dceb8800b2")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. +1 416 555 0134" {...field} />
+                      <Input placeholder={tr("m84498016d1f8")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -292,10 +294,10 @@ function AddContact({
                   name="linkedinUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>LinkedIn URL</FormLabel>
+                      <FormLabel>{tr("m8f1ce6b75bb1")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="https://www.linkedin.com/in/..."
+                          placeholder={tr("m57176c8e70e7")}
                           {...field}
                         />
                       </FormControl>
@@ -305,14 +307,14 @@ function AddContact({
                 />
               </div>
 
-              <SectionHeading>Where they work</SectionHeading>
+              <SectionHeading>{tr("m8477c1986efe")}</SectionHeading>
 
               <FormField
                 control={form.control}
                 name="company"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Company</FormLabel>
+                    <FormLabel>{tr("mde4743c87973")}</FormLabel>
                     <Combobox options={companies} field={field} creatable fullWidth />
                     <FormMessage />
                   </FormItem>
@@ -324,7 +326,7 @@ function AddContact({
                 name="location"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Location</FormLabel>
+                    <FormLabel>{tr("m15b61974b270")}</FormLabel>
                     <Combobox options={locations} field={field} creatable fullWidth />
                     <FormMessage />
                   </FormItem>
@@ -336,7 +338,7 @@ function AddContact({
                 name="contactRole"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>{tr("m14736a2eb9f4")}</FormLabel>
                     <Combobox
                       options={roles}
                       field={{
@@ -345,7 +347,7 @@ function AddContact({
                       }}
                       creatable
                       fullWidth
-                      label="role"
+                      label={tr("m4b168d88dc87")}
                     />
                     <FormMessage />
                   </FormItem>
@@ -354,16 +356,16 @@ function AddContact({
 
               {isReference && (
                 <>
-                  <SectionHeading>How you know them</SectionHeading>
+                  <SectionHeading>{tr("m7b7c14ee0bc6")}</SectionHeading>
 
                   <FormField
                     control={form.control}
                     name="relationship"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Relationship</FormLabel>
+                        <FormLabel>{tr("m25490a10d071")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. my manager, peer" {...field} />
+                          <Input placeholder={tr("md455df343d79")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -375,13 +377,13 @@ function AddContact({
                     name="workedAtCompany"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Worked together at</FormLabel>
+                        <FormLabel>{tr("m038a357b901d")}</FormLabel>
                         <Combobox
                           options={companies}
                           field={field}
                           creatable
                           fullWidth
-                          label="company"
+                          label={tr("mf168ccdd9154")}
                         />
                         <FormMessage />
                       </FormItem>
@@ -395,7 +397,7 @@ function AddContact({
                     name="workedFrom"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>From</FormLabel>
+                        <FormLabel>{tr("m218197693424")}</FormLabel>
                         <DatePicker
                           field={field}
                           presets={false}
@@ -413,7 +415,7 @@ function AddContact({
                     name="workedTo"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>To</FormLabel>
+                        <FormLabel>{tr("mf4b06ef6d3c8")}</FormLabel>
                         <DatePicker
                           field={field}
                           presets={false}
@@ -428,14 +430,14 @@ function AddContact({
                 </>
               )}
 
-              <SectionHeading>Follow-up</SectionHeading>
+              <SectionHeading>{tr("m09b2d9cd1123")}</SectionHeading>
 
               <FormField
                 control={form.control}
                 name="lastContactedAt"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Last contacted</FormLabel>
+                    <FormLabel>{tr("m9a1027dd5b23")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -455,11 +457,11 @@ function AddContact({
                   name="notes"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Notes</FormLabel>
+                      <FormLabel>{tr("m8a7525b1492f")}</FormLabel>
                       <FormControl>
                         <Textarea
                           className="min-h-24"
-                          placeholder="How you met, what to follow up on..."
+                          placeholder={tr("m03dc613fe47a")}
                           {...field}
                         />
                       </FormControl>

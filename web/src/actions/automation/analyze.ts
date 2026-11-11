@@ -1,5 +1,6 @@
 "use server";
 
+import {message} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import { generateText } from "ai";
@@ -43,20 +44,20 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
     });
 
     if (!job) {
-      return { success: false, message: "Discovered job not found" };
+      return { success: false, message: message("mdffd7a3dba78") };
     }
 
     if (job.automationId && automationLogger.isRunning(job.automationId)) {
       return {
         success: false,
         message:
-          "A run is in progress for this automation. Please wait until it completes before analyzing jobs.",
+          message("m7b3702484522"),
       };
     }
 
     const resumeId = job.automation?.resumeId;
     if (!resumeId) {
-      return { success: false, message: "Automation resume is missing" };
+      return { success: false, message: message("mcadc2f29381f") };
     }
 
     const userSettings = await db.userSettings.findUnique({
@@ -80,7 +81,7 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
     ]);
 
     if (!resumePre.success || !jobPre.success) {
-      return { success: false, message: "Failed to prepare match inputs" };
+      return { success: false, message: message("m3c62a4a007ef") };
     }
 
     const model = await getModel(ai.provider, ai.model || "qwen3.5:9b", user.id);
@@ -146,7 +147,7 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
 
     const { scores, body } = parseJobMatch(result.text);
     if (!scores) {
-      return { success: false, message: "AI did not return a match score" };
+      return { success: false, message: message("m0af400f4a475") };
     }
 
     let previous: Record<string, unknown> = {};

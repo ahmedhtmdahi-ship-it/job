@@ -1,5 +1,8 @@
 "use client";
 
+import {useLocale} from "next-intl";
+import {useT} from "@/i18n/useT";
+import {message} from "@/i18n/message";
 import { useMemo, useState } from "react";
 import {
   GcMonthCalendar,
@@ -28,11 +31,11 @@ import type {
 
 // The summary's rings need labels only; targets vary by month
 const RINGS = [
-  { id: GOAL_IDS.JOBS, label: "Jobs applied" },
-  { id: GOAL_IDS.HOURS, label: "Activity" },
+  { id: GOAL_IDS.JOBS, label: message("m5dc6bab8d9a9") },
+  { id: GOAL_IDS.HOURS, label: message("m38da1505ca83") },
 ];
 
-const CALENDAR_LABELS = { settings: "Set goals" };
+
 
 const goalsFor = (targets: GoalTargets): GcGoal[] => [
   { ...RINGS[0], target: targets.jobs },
@@ -50,6 +53,9 @@ export default function DailyGoalsCalendar({
   initialData,
   initialStreaks,
 }: DailyGoalsCalendarProps) {
+  const tr = useT();
+  const locale = useLocale();
+  const rings = RINGS.map(r => ({...r, label: tr(r.label)}));
   const { minMonth, maxMonth } = goalMonthRange(today);
   const [month, setMonth] = useState(maxMonth);
   // null = the server fetch failed: leave uncached so it shows "—"
@@ -106,6 +112,7 @@ export default function DailyGoalsCalendar({
     className: cn("daily-goals-calendar p-4", loading && "opacity-60"),
   };
   const monthProps = {
+    locale,
     today,
     month,
     minMonth,
@@ -116,14 +123,15 @@ export default function DailyGoalsCalendar({
   return (
     <>
       <Card {...cardProps}>
-        <GcMonthSummary rings={RINGS} data={summaries} {...monthProps} />
+        <GcMonthSummary rings={rings} labels={{previousMonth: tr("Previous month"), nextMonth: tr("Next month"), goalHit: tr("Goal hit"), noData: tr("no data")}} data={summaries} {...monthProps} />
       </Card>
       <Card {...cardProps}>
         <GcMonthCalendar
-          goals={goalsFor(targetsFor(month))}
+          goals={goalsFor(targetsFor(month)).map(g => ({...g, label: tr(g.label), unit: g.unit ? tr("h") : undefined}))}
           values={valuesByMonth[month]}
           legend
-          labels={CALENDAR_LABELS}
+          labels={{settings: tr("Set goals"), previousMonth: tr("Previous month"), nextMonth: tr("Next month"), legend: tr("Daily goal")}}
+          formatDayLabel={(_day, dateText) => dateText}
           // No button until targets load: the pre-fill would be defaults
           onSettingsClick={
             storedTargets ? () => setDialogOpen(true) : undefined

@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import type { NextAuthConfig } from "next-auth";
 
 declare module "next-auth" {

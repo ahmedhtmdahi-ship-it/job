@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import type { UseFormReturn } from "react-hook-form";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -17,13 +18,15 @@ export function StepMatching({
 }: {
   form: UseFormReturn<CreateAutomationInput>;
 }) {
+  const tr = useT();
+
   return (
     <FormField
       control={form.control}
       name="matchThreshold"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Match Threshold: {field.value}%</FormLabel>
+          <FormLabel>{tr("ma3a7f40f0648")}{field.value}%</FormLabel>
           <FormControl>
             <Slider
               min={0}
@@ -34,10 +37,7 @@ export function StepMatching({
             />
           </FormControl>
           <FormDescription>
-            Only save listings whose AI match score reaches this threshold.
-            Analyzed listings that score below it are discarded — set it lower
-            to keep more.
-          </FormDescription>
+            {tr("m174ecf4c441d")}</FormDescription>
           <FormMessage />
         </FormItem>
       )}

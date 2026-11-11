@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 export type PdfFont = "helvetica" | "times" | "courier";
 
 export const PDF_FONT_LABELS: Record<PdfFont, string> = {
@@ -30,13 +31,13 @@ export type NumericSettingSpec = {
 // One table: the stepper rows, the summaries and the storage validators all
 // read their bounds from here.
 export const PDF_NUMERIC_SETTINGS: Record<NumericSetting, NumericSettingSpec> = {
-  fontSize: { label: "Font size", min: 8, max: 16, step: 0.5, decimals: 1, unit: "pt" },
-  lineHeight: { label: "Line height", min: 1, max: 2, step: 0.05, decimals: 2, unit: "" },
-  marginVertical: { label: "Margin top/bottom", min: 18, max: 90, step: 2, decimals: 0, unit: "pt" },
-  marginHorizontal: { label: "Margin left/right", min: 18, max: 90, step: 2, decimals: 0, unit: "pt" },
-  sectionSpacing: { label: "Section spacing", min: 0, max: 32, step: 1, decimals: 0, unit: "pt" },
-  entrySpacing: { label: "Entry spacing", min: 0, max: 32, step: 1, decimals: 0, unit: "pt" },
-  paragraphSpacing: { label: "Paragraph spacing", min: 0, max: 24, step: 1, decimals: 0, unit: "pt" },
+  fontSize: { label: message("m6d784d95c638"), min: 8, max: 16, step: 0.5, decimals: 1, unit: "pt" },
+  lineHeight: { label: message("m127166f79c33"), min: 1, max: 2, step: 0.05, decimals: 2, unit: "" },
+  marginVertical: { label: message("m9da0ea2412d9"), min: 18, max: 90, step: 2, decimals: 0, unit: "pt" },
+  marginHorizontal: { label: message("m3fc638456ee4"), min: 18, max: 90, step: 2, decimals: 0, unit: "pt" },
+  sectionSpacing: { label: message("md467364f261d"), min: 0, max: 32, step: 1, decimals: 0, unit: "pt" },
+  entrySpacing: { label: message("m2f88630e4c82"), min: 0, max: 32, step: 1, decimals: 0, unit: "pt" },
+  paragraphSpacing: { label: message("mf2eabb336ef4"), min: 0, max: 24, step: 1, decimals: 0, unit: "pt" },
 };
 
 // The shape styleTokens consumes — the settings both documents share.

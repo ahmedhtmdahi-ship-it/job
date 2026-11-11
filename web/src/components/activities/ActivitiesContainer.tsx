@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import ActivitiesTable from "./ActivitiesTable";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -26,6 +27,8 @@ import { useActivity } from "@/context/ActivityContext";
 import { useActivitySwitchConfirm } from "@/hooks/useActivitySwitchConfirm";
 
 function ActivitiesContainer() {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const autoOpenHandled = useRef(false);
@@ -63,7 +66,7 @@ function ActivitiesContainer() {
           toastError(message);
         }
       } catch (error) {
-        toastError("Failed to load activities. Please try again.");
+        toastError(tr("mb08853e77eb4"));
       } finally {
         setInitialLoading(false);
         setLoadingMore(false);
@@ -161,16 +164,16 @@ function ActivitiesContainer() {
     <Card>
       <ResponsiveCardHeader>
         <div className="flex items-baseline gap-2">
-          <CardTitle>Activities</CardTitle>
+          <CardTitle>{tr("m4d0076e6b4c7")}</CardTitle>
           {!initialLoading && totalActivities > 0 && (
-            <RecordsCount count={activitiesList.length} total={totalActivities} label="activities" />
+            <RecordsCount count={activitiesList.length} total={totalActivities} label={tr("m624c95540620")} />
           )}
         </div>
         <div className="flex flex-wrap items-center justify-end gap-2">
           <SearchInput
             value={searchTerm}
             onChange={setSearchTerm}
-            placeholder="Search activities..."
+            placeholder={tr("m09a7a22218c2")}
           />
           <Dialog open={activityFormOpen} onOpenChange={setActivityFormOpen}>
             <DialogTrigger asChild>
@@ -182,16 +185,14 @@ function ActivitiesContainer() {
               >
                 <PlusCircle className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  New Activity
-                </span>
+                  {tr("m3f59084b7e79")}</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Add New Activity</DialogTitle>
+                <DialogTitle>{tr("m2cc7e9b42c26")}</DialogTitle>
                 <DialogDescription>
-                  Log a new activity to track your time and progress.
-                </DialogDescription>
+                  {tr("me01eec456ed8")}</DialogDescription>
               </DialogHeader>
               <div className="p-4">
                 <ActivityForm

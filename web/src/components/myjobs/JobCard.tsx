@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Calendar,
   DollarSign,
@@ -41,6 +42,8 @@ export function JobCard({
   onAddNote,
   onDeleteJob,
 }: JobCardProps) {
+  const tr = useT();
+
   const notesCount = job._count?.Notes ?? 0;
 
   return (
@@ -63,7 +66,7 @@ export function JobCard({
                 variant="secondary"
                 className="h-5 shrink-0 px-1.5 py-0 text-xs"
               >
-                <StickyNote className="mr-0.5 h-3 w-3" />
+                <StickyNote className="me-0.5 h-3 w-3" />
                 {notesCount}
               </Badge>
             )}
@@ -133,8 +136,8 @@ export function JobCard({
           <Button
             variant="ghost"
             size="icon"
-            title="Edit Job"
-            aria-label="Edit Job"
+            title={tr("mc492f013040b")}
+            aria-label={tr("mc492f013040b")}
             onClick={() => editJob(job.id)}
           >
             <Pencil className="h-4 w-4" />
@@ -142,8 +145,8 @@ export function JobCard({
           <Button
             variant="ghost"
             size="icon"
-            title="Delete Job"
-            aria-label="Delete Job"
+            title={tr("mb58e4ff842e4")}
+            aria-label={tr("mb58e4ff842e4")}
             className="text-destructive hover:text-destructive"
             onClick={() => onDeleteJob(job.id)}
           >

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Download, History, Loader2, Upload } from "lucide-react";
 import { format } from "date-fns";
@@ -41,8 +42,10 @@ interface SnapshotInfo {
 }
 
 function CountGrid({ counts }: { counts: Record<string, number> }) {
+  const tr = useT();
+
   const rows = Object.entries(counts).filter(([, n]) => n > 0);
-  if (rows.length === 0) return <p className="text-sm text-muted-foreground">Nothing.</p>;
+  if (rows.length === 0) return <p className="text-sm text-muted-foreground">{tr("m9cc3e24fe9d0")}</p>;
   return (
     <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
       {rows.map(([model, n]) => (
@@ -56,6 +59,8 @@ function CountGrid({ counts }: { counts: Record<string, number> }) {
 }
 
 export default function DataSettings() {
+  const tr = useT();
+
   const fileInput = useRef<HTMLInputElement>(null);
   const [selected, setSelected] = useState<File | null>(null);
   const [preflight, setPreflight] = useState<PreflightResult | null>(null);
@@ -94,12 +99,12 @@ export default function DataSettings() {
         return;
       }
       toastSuccess(
-        "Your data has been rolled back. Reload the page to see it.",
+        tr("m9882c47d87a1"),
         "Rollback complete",
       );
       await loadSnapshots();
     } catch {
-      toastError("Could not reach the server.", "Rollback failed");
+      toastError(tr("m111ff6e1879b"), "Rollback failed");
     } finally {
       setBusy(false);
     }
@@ -127,7 +132,7 @@ export default function DataSettings() {
       }
       setPreflight(json as PreflightResult);
     } catch {
-      toastError("Could not reach the server.", "Could not read that backup");
+      toastError(tr("m111ff6e1879b"), "Could not read that backup");
     } finally {
       setBusy(false);
     }
@@ -166,7 +171,7 @@ export default function DataSettings() {
       if (fileInput.current) fileInput.current.value = "";
       await loadSnapshots();
     } catch {
-      toastError("Could not reach the server.", "Import failed");
+      toastError(tr("m111ff6e1879b"), "Import failed");
     } finally {
       setBusy(false);
     }
@@ -176,39 +181,30 @@ export default function DataSettings() {
     <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-medium">Export your data</CardTitle>
+          <CardTitle className="text-lg font-medium">{tr("m9c80b04be554")}</CardTitle>
           <CardDescription>
-            Downloads one zip with every job, resume, task, activity and question on
-            this account, plus your uploaded resume files.
-          </CardDescription>
+            {tr("md51efd90ed34")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            The file contains <strong>no API keys</strong>, no MCP tokens and no
-            password, so it is safe to store anywhere. It does contain the
-            <strong> full text</strong> of every job description, note and resume.
-          </p>
+            {tr("m49dc4ff58a0f")}<strong>{tr("m98f0d95dca67")}</strong>{tr("m9362c3d4d23e")}<strong> {tr("m6e3da9a2a9be")}</strong> {tr("m2e22b23aead7")}</p>
           <Button asChild>
             <a href="/api/backup/export" download>
-              <Download className="mr-2 h-4 w-4" />
-              Download backup
-            </a>
+              <Download className="me-2 h-4 w-4" />
+              {tr("m669211280b63")}</a>
           </Button>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-medium">Import a backup</CardTitle>
+          <CardTitle className="text-lg font-medium">{tr("m4ccc73205558")}</CardTitle>
           <CardDescription>
-            Replaces everything on this account with the contents of the backup.
-            Your API keys and MCP tokens are left alone; the agent chat history is
-            cleared.
-          </CardDescription>
+            {tr("m9329b4827d6e")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="backup-file">Backup file</Label>
+            <Label htmlFor="backup-file">{tr("maf754deecdae")}</Label>
             <Input
               id="backup-file"
               ref={fileInput}
@@ -222,33 +218,28 @@ export default function DataSettings() {
           {busy && !preflight && (
             <p className="flex items-center gap-2 text-sm text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" />
-              Reading backup…
-            </p>
+              {tr("me72fbb36b74a")}</p>
           )}
 
           {preflight && (
             <div className="space-y-3 rounded-md border p-4">
               <div className="text-sm">
                 <p>
-                  Exported{" "}
-                  {format(new Date(preflight.manifest.exportedAt), "PPp")} from
-                  JobSync {preflight.manifest.appVersion}
+                  {tr("m391065e4dc23")}{" "}
+                  {format(new Date(preflight.manifest.exportedAt), "PPp")} {tr("ma79f20055f79")}{preflight.manifest.appVersion}
                 </p>
                 <p className="text-muted-foreground">
-                  Source account: {preflight.manifest.sourceEmail}
+                  {tr("m2ffa7659339d")}{preflight.manifest.sourceEmail}
                 </p>
               </div>
 
               {!preflight.emailMatches && (
                 <p className="rounded-sm bg-destructive/10 p-2 text-sm font-medium text-destructive">
-                  This backup came from a different account
-                  ({preflight.manifest.sourceEmail}). Importing it will still wipe
-                  the account you are signed in to.
-                </p>
+                  {tr("m4308c4237a1d")}{preflight.manifest.sourceEmail}{tr("m47bb255d1f6f")}</p>
               )}
 
               <div>
-                <p className="mb-1 text-sm font-medium">Backup contains</p>
+                <p className="mb-1 text-sm font-medium">{tr("ma9c8314f15b6")}</p>
                 <CountGrid counts={preflight.manifest.counts} />
               </div>
 
@@ -257,9 +248,8 @@ export default function DataSettings() {
                 onClick={() => setConfirming(true)}
                 disabled={busy}
               >
-                <Upload className="mr-2 h-4 w-4" />
-                Replace my data with this backup
-              </Button>
+                <Upload className="me-2 h-4 w-4" />
+                {tr("m8add8fcf8762")}</Button>
             </div>
           )}
         </CardContent>
@@ -268,11 +258,9 @@ export default function DataSettings() {
       {snapshots.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-medium">Undo an import</CardTitle>
+            <CardTitle className="text-lg font-medium">{tr("m8df062cbe979")}</CardTitle>
             <CardDescription>
-              Every import saves your previous data first. If you imported the
-              wrong file, restore the snapshot from just before it.
-            </CardDescription>
+              {tr("m76d7c36c67ea")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             {snapshots.map((snapshot) => (
@@ -285,9 +273,8 @@ export default function DataSettings() {
                     {format(new Date(snapshot.exportedAt), "PPp")}
                   </p>
                   <p className="text-muted-foreground">
-                    {snapshot.counts.Job ?? 0} jobs, {snapshot.counts.Resume ?? 0}{" "}
-                    resumes &middot; {(snapshot.sizeBytes / 1024 / 1024).toFixed(1)} MB
-                  </p>
+                    {snapshot.counts.Job ?? 0} {tr("m746efc6de172")}{snapshot.counts.Resume ?? 0}{" "}
+                    {tr("m6e696bebff0a")}{(snapshot.sizeBytes / 1024 / 1024).toFixed(1)} {tr("m1d09f6fa2323")}</p>
                 </div>
                 <Button
                   variant="outline"
@@ -295,9 +282,8 @@ export default function DataSettings() {
                   disabled={busy}
                   onClick={() => setRestoring(snapshot)}
                 >
-                  <History className="mr-2 h-4 w-4" />
-                  Restore
-                </Button>
+                  <History className="me-2 h-4 w-4" />
+                  {tr("ma76e13b98392")}</Button>
               </div>
             ))}
           </CardContent>
@@ -310,19 +296,15 @@ export default function DataSettings() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Roll back to this snapshot?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("me1b161efe007")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Everything on this account will be replaced with the data from{" "}
-              {restoring && format(new Date(restoring.exportedAt), "PPp")}. A
-              snapshot of the current state is saved first, so this is itself
-              undoable.
-            </AlertDialogDescription>
+              {tr("mb1fad716517e")}{" "}
+              {restoring && format(new Date(restoring.exportedAt), "PPp")}{tr("mfe6b8bbc0950")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction onClick={runRollback}>
-              Roll back
-            </AlertDialogAction>
+              {tr("m931f703d1509")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -330,38 +312,34 @@ export default function DataSettings() {
       <AlertDialog open={confirming} onOpenChange={setConfirming}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete this account&apos;s data?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("m789cf5bf7191")}</AlertDialogTitle>
             <AlertDialogDescription asChild>
               <div className="space-y-2">
                 <p>
-                  This cannot be undone. The following will be permanently deleted
-                  and replaced with the backup&apos;s contents:
-                </p>
+                  {tr("mb7787a54d821")}</p>
                 <ul className="list-inside list-disc text-sm">
                   {destroyed.map(([model, n]) => (
                     <li key={model}>
                       {n} {model.toLowerCase()}
-                      {n === 1 ? "" : "s"}
+                      {n === 1 ? "" : tr("m043a718774c5")}
                     </li>
                   ))}
-                  {destroyed.length === 0 && <li>nothing — this account is empty</li>}
+                  {destroyed.length === 0 && <li>{tr("m3a93c17124b9")}</li>}
                 </ul>
                 {preflight && !preflight.emailMatches && (
                   <p className="font-medium text-destructive">
-                    The backup is from a different account.
-                  </p>
+                    {tr("m6971f559d916")}</p>
                 )}
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction
               className="bg-destructive-bg text-destructive-foreground hover:bg-destructive-bg/90"
               onClick={runImport}
             >
-              Delete everything and import
-            </AlertDialogAction>
+              {tr("m64f6668a0d18")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

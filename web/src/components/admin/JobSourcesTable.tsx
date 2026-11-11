@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -34,6 +35,8 @@ function JobSourcesTable({
   jobSources,
   reloadJobSources,
 }: JobSourcesTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -44,7 +47,7 @@ function JobSourcesTable({
     if (totalJobs > 0) {
       setAlert({
         openState: true,
-        title: "Associated jobs exist!",
+        title: tr("mcaedc6cab895"),
         description: `This source has ${totalJobs} associated job${
           totalJobs === 1 ? "" : "s"
         } (applied or not). Remove or reassign them before deleting this source.`,
@@ -76,13 +79,13 @@ function JobSourcesTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Source</TableHead>
-            <TableHead className="hidden sm:table-cell">Value</TableHead>
-            <TableHead>Total Jobs</TableHead>
-            <TableHead>Jobs Applied</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>{tr("m0e570ca6fabe")}</TableHead>
+            <TableHead className="hidden sm:table-cell">{tr("m8e37953d23da")}</TableHead>
+            <TableHead>{tr("mfb1411144fac")}</TableHead>
+            <TableHead>{tr("mefb0685ba90b")}</TableHead>
+            <TableHead>{tr("mff8059dc6752")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -123,28 +126,26 @@ function JobSourcesTable({
                     <DropdownMenuTrigger asChild>
                       <Button aria-haspopup="true" size="icon" variant="ghost">
                         <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">{tr("mc02651240c87")}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                       {source._count?.jobsApplied ? (
                         <DropdownMenuItem className="cursor-pointer" asChild>
                           <Link
                             href={`/dashboard/myjobs?source=${encodeURIComponent(source.value)}&applied=true`}
                           >
-                            <Briefcase className="mr-2 h-4 w-4" />
-                            View Jobs
-                          </Link>
+                            <Briefcase className="me-2 h-4 w-4" />
+                            {tr("mcf89bb5127a0")}</Link>
                         </DropdownMenuItem>
                       ) : null}
                       <DropdownMenuItem
                         className="text-red-600 cursor-pointer"
                         onClick={() => onDeleteJobSource(source)}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
+                        <Trash className="me-2 h-4 w-4" />
+                        {tr("me2d0a54968ea")}</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

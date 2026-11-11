@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import "server-only";
 
 import { NextRequest, NextResponse } from "next/server";
@@ -41,7 +42,7 @@ export async function POST(
   const userId = session?.user?.id;
 
   if (!session || !userId) {
-    return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
+    return NextResponse.json({ message: message("m13d9eb180ca2") }, { status: 401 });
   }
 
   const { id: automationId } = await params;
@@ -58,7 +59,7 @@ export async function POST(
     });
 
     if (!automation) {
-      return NextResponse.json({ message: "Automation not found" }, { status: 404 });
+      return NextResponse.json({ message: message("ma963fc58d684") }, { status: 404 });
     }
 
     if (isRetiredBoard(automation.jobBoard)) {
@@ -72,7 +73,7 @@ export async function POST(
 
     if (!automation.resume) {
       return NextResponse.json(
-        { message: "Resume is missing. Please edit the automation and select a resume." },
+        { message: message("m47a795e2ae4c") },
         { status: 400 }
       );
     }
@@ -87,7 +88,7 @@ export async function POST(
 
     if (activeRun) {
       return NextResponse.json(
-        { success: false, message: "A run is already in progress for this automation." },
+        { success: false, message: message("m04069f48654e") },
         { status: 409 }
       );
     }

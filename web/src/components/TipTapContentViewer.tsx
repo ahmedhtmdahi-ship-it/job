@@ -14,12 +14,12 @@ export const TipTapContentViewer = ({ content }: { content: string }) => {
         },
         bulletList: {
           HTMLAttributes: {
-            class: "list-disc pl-4",
+            class: "list-disc ps-4",
           },
         },
         orderedList: {
           HTMLAttributes: {
-            class: "list-decimal pl-4",
+            class: "list-decimal ps-4",
           },
         },
       }),

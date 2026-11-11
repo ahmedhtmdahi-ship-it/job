@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { ResponsiveCardHeader } from "../ResponsiveCardHeader";
@@ -12,6 +13,8 @@ import { RecordsCount } from "../RecordsCount";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 function JobLocationsContainer() {
+  const tr = useT();
+
   const [locations, setLocations] = useState<JobTitle[]>([]);
   const [totalJobLocations, setTotalJobLocations] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -61,12 +64,12 @@ function JobLocationsContainer() {
         <Card x-chunk="dashboard-06-chunk-0">
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Job Locations</CardTitle>
+              <CardTitle>{tr("m1cb2f659953d")}</CardTitle>
               {!initialLoading && totalJobLocations > 0 && (
-                <RecordsCount count={locations.length} total={totalJobLocations} label="job locations" />
+                <RecordsCount count={locations.length} total={totalJobLocations} label={tr("mb936bd6743ff")} />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
               {/* <AddCompany reloadCompanies={reloadJobLocations} /> */}
             </div>
           </ResponsiveCardHeader>

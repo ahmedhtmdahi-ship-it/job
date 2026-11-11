@@ -1,4 +1,5 @@
 "use server";
+import {message} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { requireUser } from "../shared";
@@ -62,7 +63,7 @@ export const addJobContact = async (
     if (error?.code === "P2002") {
       return {
         success: false,
-        message: "That contact already holds this role on this job.",
+        message: message("me4c6893fb90c"),
       };
     }
     return handleError(error, "Failed to link contact to job.");

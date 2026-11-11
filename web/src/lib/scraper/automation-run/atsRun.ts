@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import type {
   Automation,
   FunnelStage,
@@ -187,25 +188,25 @@ export async function runAtsRun(
 
     const buildFunnel = (analyzed: number, highlighted: number): string => {
       const stages: FunnelStage[] = [
-        { key: "fetched", label: "Fetched", count: jobsSearched },
-        { key: "dedup", label: "New", count: jobsDeduplicated },
+        { key: "fetched", label: message("m0013b4c9a802"), count: jobsSearched },
+        { key: "dedup", label: message("m18fdd549b2ed"), count: jobsDeduplicated },
       ];
       if (pipeline.funnel.located !== null) {
         stages.push({
           key: "located",
-          label: "In location",
+          label: message("m542137474281"),
           count: pipeline.funnel.located,
         });
       }
       stages.push({
         key: "floor",
-        label: "Relevant",
+        label: message("m982ee79a0a6a"),
         count: pipeline.funnel.relevant,
       });
-      stages.push({ key: "analyzed", label: "Analyzed", count: analyzed });
+      stages.push({ key: "analyzed", label: message("mbca82adc9f9b"), count: analyzed });
       stages.push({
         key: "highlighted",
-        label: "Strong match",
+        label: message("m1b002acbba29"),
         count: highlighted,
       });
       return JSON.stringify(stages);

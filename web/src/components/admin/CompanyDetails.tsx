@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DeleteAlertDialog } from "../DeleteAlertDialog";
@@ -37,6 +38,8 @@ function blockedDescription(total: number, dismissed: number) {
 }
 
 function CompanyDetails({ details }: CompanyDetailsProps) {
+  const tr = useT();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const backHref =
@@ -90,7 +93,7 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
       setAlert({
         openState: true,
         deleteAction: false,
-        title: "Associated jobs exist!",
+        title: tr("mcaedc6cab895"),
         description: blockedDescription(total, dismissedJobsCount),
       });
     } else {
@@ -101,7 +104,7 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
   const deleteCompany = async () => {
     const { success, message } = await deleteCompanyById(details.id);
     if (success) {
-      toastSuccess("Company has been deleted successfully");
+      toastSuccess(tr("m5e37cf96d858"));
       router.push(backHref);
     } else {
       toastError(message);
@@ -129,17 +132,15 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList>
             <TabsTrigger value="jobs">
-              Jobs
-              {jobs.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("m2f17a0f8d518")}{jobs.length > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {jobs.length}
                 </Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="contacts">
-              Contacts
-              {contactsCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
+              {tr("mb450645debe2")}{contactsCount > 0 && (
+                <Badge variant="secondary" className="ms-2">
                   {contactsCount}
                 </Badge>
               )}

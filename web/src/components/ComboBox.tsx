@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { Check, ChevronsUpDown, CirclePlus, Loader } from "lucide-react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -50,8 +51,10 @@ export function Combobox({
   onSearchChange,
   fullWidth,
 }: ComboboxProps) {
+  const tr = useT();
+
   // Placeholder text only; the accessible name comes from FormLabel/FormControl
-  const displayName = label ?? field.name;
+  const displayName = tr(label ?? field.name);
   const [newOption, setNewOption] = useState<string>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -152,13 +155,13 @@ export function Combobox({
               {field.value
                 ? (options.find((option) => option.id === field.value)?.label ??
                   (freeText ? field.value : null))
-                : `Select ${displayName}`}
+                : tr("m84805b3f51e7", {v0: displayName})}
             </span>
 
             {isPending ? (
               <Loader className="h-4 w-4 shrink-0 spinner" />
             ) : (
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
             )}
           </Button>
         </FormControl>
@@ -182,7 +185,7 @@ export function Combobox({
               setNewOption(val);
               onSearchChange?.(val);
             }}
-            placeholder={`${creatable ? "Create or " : ""}Search ${displayName}`}
+            placeholder={tr("ma4b0e8811bd6", {v0: creatable ? "Create or " : "", v1: displayName})}
             onKeyDown={(e) => handleEnterKey(e)}
           />
           <CommandList>
@@ -199,13 +202,13 @@ export function Combobox({
               {creatable ? (
                 <>
                   <CirclePlus className="h-4 w-4" />
-                  <p>Create: </p>
+                  <p>{tr("m02184950e3ed")}</p>
                   <p className="block max-w-48 truncate font-semibold text-primary">
                     {newOption}
                   </p>
                 </>
               ) : (
-                <p className="font-semibold text-primary">No source found!</p>
+                <p className="font-semibold text-primary">{tr("me28235306e05")}</p>
               )}
             </CommandEmpty>
             <CommandGroup>
@@ -222,7 +225,7 @@ export function Combobox({
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "me-2 h-4 w-4",
                       option.id === field.value ? "opacity-100" : "opacity-0"
                     )}
                   />

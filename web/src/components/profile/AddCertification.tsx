@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { AddCertificationFormSchema } from "@/models/addCertificationForm.schema";
 import { LicenseOrCertification, ResumeSection } from "@/models/profile.model";
 import { useForm } from "react-hook-form";
@@ -45,6 +46,8 @@ function AddCertification({
   setDialogOpen,
   certificationToEdit,
 }: AddCertificationProps) {
+  const tr = useT();
+
   const pageTitle = certificationToEdit
     ? "Edit Certification / License"
     : "Add Certification / License";
@@ -140,12 +143,12 @@ function AddCertification({
                     name="sectionTitle"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Section Title</FormLabel>
+                        <FormLabel>{tr("mcde8d07e9b3b")}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             value={field.value ?? ""}
-                            placeholder="Ex: Certifications"
+                            placeholder={tr("m093b26a0ea6b")}
                           />
                         </FormControl>
                         <FormMessage />
@@ -164,12 +167,12 @@ function AddCertification({
                 name="title"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Certification / License Name</FormLabel>
+                    <FormLabel>{tr("m53abe2b20f23")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         value={field.value ?? ""}
-                        placeholder="Ex: AWS Certified Solutions Architect"
+                        placeholder={tr("m9f6b96c84ffe")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -185,12 +188,12 @@ function AddCertification({
                 name="organization"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Issuing Organization</FormLabel>
+                    <FormLabel>{tr("m756413902ac1")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         value={field.value ?? ""}
-                        placeholder="Ex: Amazon Web Services"
+                        placeholder={tr("m82438be8d7cd")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -206,7 +209,7 @@ function AddCertification({
                 name="issueDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Issue Date</FormLabel>
+                    <FormLabel>{tr("m496372bfbc72")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -226,7 +229,7 @@ function AddCertification({
                 name="expirationDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Expiration Date</FormLabel>
+                    <FormLabel>{tr("md93e003a1bcf")}</FormLabel>
                     <DatePicker
                       field={field}
                       presets={false}
@@ -253,8 +256,8 @@ function AddCertification({
                         onNoExpirationChange(c);
                       }}
                     />
-                    <FormLabel className="flex items-center ml-4 mb-2">
-                      {field.value ? "No Expiration" : "Has Expiration Date"}
+                    <FormLabel className="flex items-center ms-4 mb-2">
+                      {field.value ? tr("me21db2d2b84d") : tr("m4e35e338a125")}
                     </FormLabel>
                     <FormMessage />
                   </FormItem>
@@ -269,12 +272,12 @@ function AddCertification({
                 name="credentialUrl"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Credential URL (optional)</FormLabel>
+                    <FormLabel>{tr("med4eee9d7295")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         value={field.value ?? ""}
-                        placeholder="https://www.credly.com/badges/..."
+                        placeholder={tr("m1919d6eaaab3")}
                       />
                     </FormControl>
                     <FormMessage />

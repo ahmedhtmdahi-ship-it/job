@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { format } from "date-fns";
 import type { GcMonthSummaryProps } from "react-goal-calendar";
 import { DAILY_GOALS } from "@/lib/constants";
@@ -147,18 +148,18 @@ export function buildMonthSummary(
     rings,
     stats: [
       {
-        label: "Current streak",
+        label: message("mf1758c281584"),
         value: streaks ? formatDays(streaks.current) : "—",
         tone: "primary",
       },
       {
-        label: "Best streak (12 mo)",
+        label: message("m4cbea5d5c7f8"),
         value: streaks ? formatDays(streaks.best) : "—",
         tone: "warning",
       },
-      { label: "Both goals met", value: formatDays(bothMet), tone: "success" },
+      { label: message("m8c81514abd93"), value: formatDays(bothMet), tone: "success" },
       {
-        label: "Nothing logged",
+        label: message("m70ed86c1f970"),
         value: formatDays(nothingLogged),
         tone: "danger",
       },

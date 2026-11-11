@@ -1,4 +1,6 @@
 "use client";
+import {message} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import {
   Table,
   TableBody,
@@ -86,22 +88,22 @@ const priorityConfig: Record<
   low: {
     icon: ArrowDown,
     color: "text-green-600 bg-green-100 dark:bg-green-900/30",
-    label: "Low",
+    label: message("mf793de205ead"),
   },
   medium: {
     icon: ArrowRight,
     color: "text-cyan-600 bg-cyan-100 dark:bg-cyan-900/30",
-    label: "Medium",
+    label: message("m8e588cd18774"),
   },
   high: {
     icon: ArrowUp,
     color: "text-orange-600 bg-orange-100 dark:bg-orange-900/30",
-    label: "High",
+    label: message("mc4ebc6d4a583"),
   },
   critical: {
     icon: Flame,
     color: "text-red-600 bg-red-100 dark:bg-red-900/30",
-    label: "Critical",
+    label: message("m427dd2969bd1"),
   },
 };
 
@@ -200,6 +202,8 @@ function TasksTable({
   onStartActivity,
   groupBy = "none",
 }: TasksTableProps) {
+  const tr = useT();
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState("");
 
@@ -216,7 +220,7 @@ function TasksTable({
         task.status === "complete" && "opacity-60",
       )}
     >
-      <TableCell className="w-[24px] py-1 pl-1 pr-1">
+      <TableCell className="w-[24px] py-1 ps-1 pe-1">
         <button
           onClick={() =>
             onChangeTaskStatus(
@@ -232,8 +236,8 @@ function TasksTable({
           )}
           aria-label={
             task.status === "complete"
-              ? "Mark as in progress"
-              : "Mark as complete"
+              ? tr("m66bc4d306378")
+              : tr("m834a0609b7c8")
           }
         >
           {task.status === "complete" && <Check className="h-3 w-3" />}
@@ -248,8 +252,8 @@ function TasksTable({
         <span className="inline-flex items-center gap-1.5">
           <button
             onClick={() => editTask(task.id)}
-            className="text-left hover:underline cursor-pointer"
-            aria-label={`Edit ${task.title}`}
+            className="text-start hover:underline cursor-pointer"
+            aria-label={tr("meab6cca5fe7d", {v0: task.title})}
           >
             {task.title}
           </button>
@@ -258,7 +262,7 @@ function TasksTable({
               <TooltipTrigger asChild>
                 <AlignLeft
                   className="h-3.5 w-3.5 shrink-0 text-muted-foreground"
-                  aria-label="Has description"
+                  aria-label={tr("m07d0a435fbf8")}
                   data-testid="task-description-indicator"
                 />
               </TooltipTrigger>
@@ -310,25 +314,23 @@ function TasksTable({
               data-testid="task-actions-menu-btn"
             >
               <MoreVertical className="h-4 w-4" />
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">{tr("mc02651240c87")}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[200px]">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
             <DropdownMenuGroup>
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => editTask(task.id)}
               >
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit Task
-              </DropdownMenuItem>
+                <Pencil className="me-2 h-4 w-4" />
+                {tr("mdda79d5a0e25")}</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  <Tags className="mr-2 h-4 w-4" />
-                  Change Status
-                </DropdownMenuSubTrigger>
+                  <Tags className="me-2 h-4 w-4" />
+                  {tr("m9ea1f4a2bba5")}</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="p-0">
                     {(Object.keys(TASK_STATUSES) as TaskStatus[]).map(
@@ -351,24 +353,22 @@ function TasksTable({
                 className="cursor-pointer text-green-600"
                 onClick={() => onStartActivity(task.id)}
               >
-                <CirclePlay className="mr-2 h-4 w-4" />
-                Start Activity
-              </DropdownMenuItem>
+                <CirclePlay className="me-2 h-4 w-4" />
+                {tr("m20209b27f575")}</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-red-600 cursor-pointer"
                 onClick={() => onDeleteTask(task.id)}
               >
-                <Trash className="mr-2 h-4 w-4" />
-                Delete
-              </DropdownMenuItem>
+                <Trash className="me-2 h-4 w-4" />
+                {tr("me2d0a54968ea")}</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
       <TableCell className="hidden sm:table-cell py-1 px-1">
         <Button
-          title="Start Activity"
+          title={tr("m20209b27f575")}
           aria-haspopup="true"
           size="icon"
           variant="ghost"
@@ -388,22 +388,20 @@ function TasksTable({
     <TableHeader>
       <TableRow>
         <TableHead className="w-[24px] h-9 px-1">
-          <span className="sr-only">Complete</span>
+          <span className="sr-only">{tr("m143b270a3260")}</span>
         </TableHead>
-        <TableHead className="h-9 px-2">Title</TableHead>
-        <TableHead className="h-9 px-2">Type (Project)</TableHead>
-        <TableHead className="hidden md:table-cell h-9 px-2">Status</TableHead>
+        <TableHead className="h-9 px-2">{tr("m7e8cd2056da7")}</TableHead>
+        <TableHead className="h-9 px-2">{tr("me41076cafcdb")}</TableHead>
+        <TableHead className="hidden md:table-cell h-9 px-2">{tr("m920e413c7d41")}</TableHead>
         <TableHead className="hidden md:table-cell h-9 px-2 text-center">
-          Priority
-        </TableHead>
+          {tr("md60dbba07922")}</TableHead>
         <TableHead className="hidden md:table-cell h-9 px-2 text-center">
-          Progress
-        </TableHead>
+          {tr("m4664827f8e89")}</TableHead>
         <TableHead className="h-9 px-1">
-          <span className="sr-only">Actions</span>
+          <span className="sr-only">{tr("mff8059dc6752")}</span>
         </TableHead>
         <TableHead className="hidden sm:table-cell h-9 px-1">
-          <span className="sr-only">Start Activity</span>
+          <span className="sr-only">{tr("m20209b27f575")}</span>
         </TableHead>
       </TableRow>
     </TableHeader>
@@ -439,8 +437,7 @@ function TasksTable({
   if (tasks.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        No tasks found. Create your first task to get started.
-      </div>
+        {tr("md956501b04dc")}</div>
     );
   }
 

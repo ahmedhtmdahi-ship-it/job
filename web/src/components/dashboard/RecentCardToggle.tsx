@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -72,6 +73,8 @@ export default function RecentCardToggle({
   jobs,
   activities,
 }: RecentCardToggleProps) {
+  const tr = useT();
+
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_RECENT_CARD_STORAGE_KEY,
     tabs,
@@ -84,7 +87,7 @@ export default function RecentCardToggle({
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <CardTitle className="text-lg text-green-600 min-w-0 truncate">
-            Recent {tabs[activeIndex]}
+            {tr("m690dbe9dc099")}{tabs[activeIndex]}
           </CardTitle>
           <div
             className="flex shrink-0 rounded-md border text-xs"
@@ -96,8 +99,8 @@ export default function RecentCardToggle({
                 onClick={() => selectTab(index)}
                 className={cn(
                   "px-2 py-1 transition-colors",
-                  index === 0 && "rounded-l-md",
-                  index === tabs.length - 1 && "rounded-r-md",
+                  index === 0 && "rounded-s-md",
+                  index === tabs.length - 1 && "rounded-e-md",
                   activeIndex === index
                     ? "bg-primary text-primary-foreground"
                     : "hover:bg-muted",
@@ -128,9 +131,9 @@ export default function RecentCardToggle({
                     <Avatar className="hidden h-8 w-8 sm:flex">
                       <AvatarImage
                         src={job.Company?.logoUrl || "/images/jobsync-logo.svg"}
-                        alt="Avatar"
+                        alt={tr("mca8e826d9c2e")}
                       />
-                      <AvatarFallback>JS</AvatarFallback>
+                      <AvatarFallback>{tr("m0917e7be3804")}</AvatarFallback>
                     </Avatar>
                     <Link href={`/dashboard/myjobs/${job?.id}`} className="min-w-0">
                       <div className="grid gap-1">
@@ -147,7 +150,7 @@ export default function RecentCardToggle({
                       <StatusBadge
                         label={job.Status.label}
                         color={getJobStatusBadgeColor(job.Status.value)}
-                        className="ml-auto shrink-0 justify-center text-xs px-1.5 py-0 h-5"
+                        className="ms-auto shrink-0 justify-center text-xs px-1.5 py-0 h-5"
                       />
                     ) : null}
                   </div>
@@ -174,7 +177,7 @@ export default function RecentCardToggle({
                       className="relative flex items-center gap-2"
                     >
                       <Button
-                        title="Start Activity"
+                        title={tr("m20209b27f575")}
                         data-testid="recent-activity-start-btn"
                         size="icon"
                         variant="ghost"
@@ -190,10 +193,10 @@ export default function RecentCardToggle({
                           {activity.activityName}
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          {activity.activityType?.label || "Unknown"}
+                          {activity.activityType?.label || tr("mb764cdc0eab7")}
                         </p>
                       </div>
-                      <div className="ml-auto text-right shrink-0">
+                      <div className="ms-auto text-end shrink-0">
                         <p className="text-sm font-medium">
                           {formatDuration(activity.duration ?? 0)}
                         </p>

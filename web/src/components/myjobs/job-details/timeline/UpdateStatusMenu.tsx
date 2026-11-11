@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { HelpCircle, Plus, Tags, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,6 +39,8 @@ export function UpdateStatusMenu({
   onLinkInterviewers,
   onAddPrepQuestions,
 }: UpdateStatusMenuProps) {
+  const tr = useT();
+
   // Disabled with a visible reason rather than hidden: an item that comes and
   // goes as you change tabs is harder to learn than one that greys out.
   const reason = !targetStage
@@ -53,9 +56,9 @@ export function UpdateStatusMenu({
     onSelect: () => void;
     reason: string | null;
   }[] = [
-    { key: "add", label: "Add Stage", icon: Plus, onSelect: onAddStage, reason: null },
-    { key: "link", label: "Add Interviewers", icon: Users, onSelect: onLinkInterviewers, reason },
-    { key: "prep", label: "Add to Prep List", icon: HelpCircle, onSelect: onAddPrepQuestions, reason },
+    { key: "add", label: tr("mafe6f5a22533"), icon: Plus, onSelect: onAddStage, reason: null },
+    { key: "link", label: tr("m5ec6bebb0fd4"), icon: Users, onSelect: onLinkInterviewers, reason },
+    { key: "prep", label: tr("m5a89219de3ae"), icon: HelpCircle, onSelect: onAddPrepQuestions, reason },
   ];
 
   return (
@@ -66,22 +69,20 @@ export function UpdateStatusMenu({
           className="cursor-pointer"
           data-testid="update-status-menu-btn"
         >
-          <Tags className="h-4 w-4 sm:mr-2" />
+          <Tags className="h-4 w-4 sm:me-2" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Update Status
-          </span>
+            {tr("m3030ddce9921")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
-        <DropdownMenuLabel>Update Status</DropdownMenuLabel>
+        <DropdownMenuLabel>{tr("m3030ddce9921")}</DropdownMenuLabel>
         <DropdownMenuGroup>
           {/* Moved out of the ⋮ menu: one control answers "where is this job
               now", instead of two with near-identical names. */}
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="cursor-pointer">
-              <Tags className="mr-2 h-4 w-4" />
-              Change status
-            </DropdownMenuSubTrigger>
+              <Tags className="me-2 h-4 w-4" />
+              {tr("madf6fa877b9d")}</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent className="p-0">
                 <JobStatusMenuItems
@@ -101,7 +102,7 @@ export function UpdateStatusMenu({
               disabled={!!itemReason}
               onSelect={onSelect}
             >
-              <Icon className="mr-2 h-4 w-4" />
+              <Icon className="me-2 h-4 w-4" />
               <span>
                 {label}
                 {itemReason && (

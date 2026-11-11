@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 
 function polarToCartesian(cx: number, cy: number, r: number, angle: number) {
@@ -44,6 +45,8 @@ export function RadialChartComponent({
   score: number;
   size?: number;
 }) {
+  const tr = useT();
+
   const cx = 130;
   const cy = 130;
   const innerRadius = 80;
@@ -150,7 +153,7 @@ export function RadialChartComponent({
           </tspan>
         </text>
         <text x={cx} y={cy + 8} textAnchor="middle" dominantBaseline="middle">
-          <tspan className="fill-muted-foreground text-sm">Score</tspan>
+          <tspan className="fill-muted-foreground text-sm">{tr("m38e5a46cbc5a")}</tspan>
         </text>
       </svg>
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { TableHead } from "@/components/ui/table";
@@ -20,6 +21,8 @@ export function SortableTableHead<F extends string>({
   className,
   children,
 }: SortableTableHeadProps<F>) {
+  const tr = useT();
+
   const dir = sort?.field === field ? sort.dir : null;
   const Icon = dir === "asc" ? ArrowUp : dir === "desc" ? ArrowDown : ArrowUpDown;
 

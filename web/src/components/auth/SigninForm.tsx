@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,6 +21,8 @@ import Loading from "../Loading";
 import { Eye, EyeOff } from "lucide-react";
 
 function SigninForm() {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof SigninFormSchema>>({
@@ -65,13 +68,13 @@ function SigninForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email">{tr("m969ccbd3cf63")}</FormLabel>
                     <FormControl>
                       <Input
                         id="email"
                         type="email"
                         autoComplete="email"
-                        placeholder="id@example.com"
+                        placeholder={tr("ma6238bfc4db6")}
                         {...field}
                       />
                     </FormControl>
@@ -86,7 +89,7 @@ function SigninForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormLabel htmlFor="password">{tr("me7cf3ef4f17c")}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
@@ -102,10 +105,10 @@ function SigninForm() {
                           type="button"
                           variant="ghost"
                           size="icon"
-                          className="absolute right-0 top-0 h-full px-3 text-muted-foreground"
+                          className="absolute end-0 top-0 h-full px-3 text-muted-foreground"
                           onClick={() => setShowPassword((v) => !v)}
                           aria-label={
-                            showPassword ? "Hide password" : "Show password"
+                            showPassword ? tr("ma60a56c584b3") : tr("m6aeaa6a53d09")
                           }
                           tabIndex={-1}
                         >
@@ -123,7 +126,7 @@ function SigninForm() {
               />
             </div>
             <Button type="submit" disabled={isPending} className="w-full">
-              {isPending ? <Loading /> : "Login"}
+              {isPending ? <Loading /> : tr("m9d6322c1f4d9")}
             </Button>
             <div
               className="flex h-8 items-end space-x-1"
@@ -132,7 +135,7 @@ function SigninForm() {
             >
               {errorMessage && (
                 <>
-                  <p className="text-sm text-red-500">{errorMessage}</p>
+                  <p className="text-sm text-red-500">{tr(errorMessage)}</p>
                 </>
               )}
             </div>

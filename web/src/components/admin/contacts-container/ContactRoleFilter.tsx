@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   Select,
   SelectContent,
@@ -19,16 +20,18 @@ type Props = {
 };
 
 export function ContactRoleFilter({ roles, roleId, onRoleChange }: Props) {
+  const tr = useT();
+
   return (
     <Select
       value={roleId ?? ALL}
       onValueChange={(v) => onRoleChange(v === ALL ? undefined : v)}
     >
-      <SelectTrigger aria-label="Filter by role" className="h-8 w-[160px]">
+      <SelectTrigger aria-label={tr("m67fd9c1a7c7d")} className="h-8 w-[160px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value={ALL}>All roles</SelectItem>
+        <SelectItem value={ALL}>{tr("m78f133afd3ec")}</SelectItem>
         {roles.map((role) => (
           <SelectItem key={role.id} value={role.id}>
             {role.label}

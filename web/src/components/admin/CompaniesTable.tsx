@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -47,6 +48,8 @@ function CompaniesTable({
   editCompany,
   scope = "mine",
 }: CompaniesTableProps) {
+  const tr = useT();
+
   const [alert, setAlert] = useState<AlertDialog>({
     openState: false,
     deleteAction: false,
@@ -57,7 +60,7 @@ function CompaniesTable({
     if (totalJobs > 0) {
       setAlert({
         openState: true,
-        title: "Associated jobs exist!",
+        title: tr("mcaedc6cab895"),
         description: `This company has ${totalJobs} associated job${
           totalJobs === 1 ? "" : "s"
         } (applied or not). Remove or reassign them before deleting this company.`,
@@ -108,27 +111,27 @@ function CompaniesTable({
         <TableHeader>
           <TableRow>
             <TableHead className="hidden w-[100px] sm:table-cell">
-              <span className="sr-only">Company Logo</span>
+              <span className="sr-only">{tr("md6e2a199bcd7")}</span>
             </TableHead>
-            <TableHead>Company Name</TableHead>
+            <TableHead>{tr("mb48362246239")}</TableHead>
             {scope === "watchlist" ? (
               <>
-                <TableHead>Board</TableHead>
-                <TableHead>Jobs</TableHead>
-                <TableHead>Watched</TableHead>
+                <TableHead>{tr("m4816cbfd74aa")}</TableHead>
+                <TableHead>{tr("m2f17a0f8d518")}</TableHead>
+                <TableHead>{tr("m1ca8c1c0de6f")}</TableHead>
               </>
             ) : (
               <>
-                <TableHead className="hidden sm:table-cell">Value</TableHead>
-                <TableHead>Total Jobs</TableHead>
-                <TableHead>Jobs Applied</TableHead>
-                <TableHead>Rejected</TableHead>
-                <TableHead>Contacts</TableHead>
+                <TableHead className="hidden sm:table-cell">{tr("m8e37953d23da")}</TableHead>
+                <TableHead>{tr("mfb1411144fac")}</TableHead>
+                <TableHead>{tr("mefb0685ba90b")}</TableHead>
+                <TableHead>{tr("maea4a04a8042")}</TableHead>
+                <TableHead>{tr("mb450645debe2")}</TableHead>
               </>
             )}
-            <TableHead>Actions</TableHead>
+            <TableHead>{tr("mff8059dc6752")}</TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{tr("mff8059dc6752")}</span>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -139,7 +142,7 @@ function CompaniesTable({
                 <TableCell className="hidden sm:table-cell">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    alt="Company logo"
+                    alt={tr("m87a86135f7dc")}
                     className="w-8 h-8 rounded-md object-cover"
                     src={company.logoUrl || "/images/jobsync-logo.svg"}
                     onError={(e) => {
@@ -158,7 +161,7 @@ function CompaniesTable({
                     </Link>
                     {company.watched && (
                       <span
-                        title="On your watchlist"
+                        title={tr("mf2b3107637f9")}
                         className="text-emerald-600 dark:text-emerald-400"
                       >
                         <Eye className="h-3.5 w-3.5" />
@@ -227,52 +230,48 @@ function CompaniesTable({
                     <DropdownMenuTrigger asChild>
                       <Button aria-haspopup="true" size="icon" variant="ghost">
                         <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Toggle menu</span>
+                        <span className="sr-only">{tr("mc02651240c87")}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
                       <DropdownMenuItem className="cursor-pointer" asChild>
                         <Link href={detailsHref(company.id)}>
-                          <Building2 className="mr-2 h-4 w-4" />
-                          View details
-                        </Link>
+                          <Building2 className="me-2 h-4 w-4" />
+                          {tr("md1bf045bb524")}</Link>
                       </DropdownMenuItem>
                       {company._count?.jobsApplied ? (
                         <DropdownMenuItem className="cursor-pointer" asChild>
                           <Link
                             href={`/dashboard/myjobs?company=${encodeURIComponent(company.value)}&applied=true`}
                           >
-                            <Briefcase className="mr-2 h-4 w-4" />
-                            View Jobs
-                          </Link>
+                            <Briefcase className="me-2 h-4 w-4" />
+                            {tr("mcf89bb5127a0")}</Link>
                         </DropdownMenuItem>
                       ) : null}
                       <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={() => editCompany(company.id)}
                       >
-                        <Pencil className="mr-2 h-4 w-4" />
-                        Edit Company
-                      </DropdownMenuItem>
+                        <Pencil className="me-2 h-4 w-4" />
+                        {tr("m5b5fc3eeb5e6")}</DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={() => toggleWatch(company)}
                       >
                         {company.watched ? (
-                          <EyeOff className="mr-2 h-4 w-4" />
+                          <EyeOff className="me-2 h-4 w-4" />
                         ) : (
-                          <Eye className="mr-2 h-4 w-4" />
+                          <Eye className="me-2 h-4 w-4" />
                         )}
-                        {company.watched ? "Unwatch" : "Watch"}
+                        {company.watched ? tr("m2aaf52f0a013") : tr("ma71e75732446")}
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="text-red-600 cursor-pointer"
                         onClick={() => onDeleteCompany(company)}
                       >
-                        <Trash className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
+                        <Trash className="me-2 h-4 w-4" />
+                        {tr("me2d0a54968ea")}</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

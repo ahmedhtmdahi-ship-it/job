@@ -1,5 +1,8 @@
 "use client";
 
+import {useLocale} from "next-intl";
+import {ar, enUS} from "date-fns/locale";
+import {useT} from "@/i18n/useT";
 import { addDays, addYears, format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -47,6 +50,9 @@ export function DatePicker({
   disableFuture,
   futureYears,
 }: DatePickerProps) {
+  const tr = useT();
+  const locale = useLocale();
+
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
   return (
@@ -56,14 +62,14 @@ export function DatePicker({
           <Button
             variant={"outline"}
             className={cn(
-              "justify-start text-left font-normal",
+              "justify-start text-start font-normal",
               fullWidth ? "w-full" : "md:w-[240px] lg:w-[280px]",
               !field.value && "text-muted-foreground"
             )}
             disabled={!isEnabled}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {field.value ? format(field.value, "PP") : <span>Pick a date</span>}
+            <CalendarIcon className="me-2 h-4 w-4" />
+            {field.value ? format(field.value, "PP", {locale: locale === "ar" ? ar : enUS}) : <span>{tr("m29241ab2d244")}</span>}
           </Button>
         </FormControl>
       </PopoverTrigger>
@@ -76,13 +82,13 @@ export function DatePicker({
             }}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select Preset" />
+              <SelectValue placeholder={tr("m1de8ca36a20f")} />
             </SelectTrigger>
             <SelectContent position="popper">
-              <SelectItem value="0">Today</SelectItem>
-              <SelectItem value="1">Tomorrow</SelectItem>
-              <SelectItem value="3">In 3 days</SelectItem>
-              <SelectItem value="7">In a week</SelectItem>
+              <SelectItem value="0">{tr("m2b065c7c9ce4")}</SelectItem>
+              <SelectItem value="1">{tr("m456a73bbcefb")}</SelectItem>
+              <SelectItem value="3">{tr("m9f7dbc405864")}</SelectItem>
+              <SelectItem value="7">{tr("mf17d88698f34")}</SelectItem>
             </SelectContent>
           </Select>
         )}

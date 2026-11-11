@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { PanelLeft } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -13,6 +14,8 @@ import { APP_CONSTANTS } from "@/lib/constants";
 
 // Desktop counterpart to the mobile Sheet trigger in Header.
 function SidebarToggle() {
+  const tr = useT();
+
   const { expanded, toggle } = useSidebar();
 
   return (
@@ -25,15 +28,15 @@ function SidebarToggle() {
             onClick={toggle}
             aria-expanded={expanded}
             aria-controls={APP_CONSTANTS.SIDEBAR_DOM_ID}
-            aria-label={expanded ? "Collapse sidebar" : "Expand sidebar"}
+            aria-label={expanded ? tr("maab31cde23ba") : tr("m37a5d6485e10")}
             className="hidden sm:inline-flex"
           >
             <PanelLeft className="h-5 w-5" />
           </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom">
-          {expanded ? "Collapse sidebar" : "Expand sidebar"}
-          <kbd className="ml-2 rounded-sm border px-1 text-[10px]">⌘B</kbd>
+          {expanded ? tr("maab31cde23ba") : tr("m37a5d6485e10")}
+          <kbd className="ms-2 rounded-sm border px-1 text-[10px]">{tr("m30a628952ece")}</kbd>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

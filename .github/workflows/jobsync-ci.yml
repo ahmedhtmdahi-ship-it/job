@@ -1,9 +1,9 @@
-name: JobSync M0
+name: JobSync M1
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [m0-jobsync]
+    branches: [m1-i18n-rtl]
 permissions:
   contents: read
 jobs:
@@ -129,13 +129,13 @@ jobs:
         run: |
           npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
           echo "$!" > "$RUNNER_TEMP/jobsync-server.pid"
-      - name: Create fictional account, sign in and capture screenshots
-        run: node ../.github/scripts/m0-browser-smoke.cjs
-      - name: Upload login and dashboard screenshots
+      - name: Verify Arabic and English pages and capture screenshots
+        run: node ../.github/scripts/m1-i18n-smoke.cjs
+      - name: Upload Arabic and English screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: m0-login-dashboard
-          path: ${{ runner.temp }}/m0-screenshots/*.png
+          name: m1-arabic-english
+          path: ${{ runner.temp }}/m1-screenshots/*.png
           if-no-files-found: error
           retention-days: 7
       - name: Stop application

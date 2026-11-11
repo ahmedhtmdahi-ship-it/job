@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Briefcase } from "lucide-react";
@@ -23,12 +24,14 @@ type CompanyJobsTabProps = {
 
 // Read-only on purpose: every job action already lives on the job's own page
 export function CompanyJobsTab({ jobs }: CompanyJobsTabProps) {
+  const tr = useT();
+
   if (jobs.length === 0) {
     return (
       <JobTabEmptyState
         icon={Briefcase}
-        title="No jobs at this company yet"
-        description="Jobs you add or accept from an automation for this company show up here."
+        title={tr("m0ca9ccf2ff74")}
+        description={tr("m42f5e9600ba8")}
       />
     );
   }
@@ -37,12 +40,12 @@ export function CompanyJobsTab({ jobs }: CompanyJobsTabProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Title</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead className="hidden md:table-cell">Location</TableHead>
-          <TableHead className="hidden md:table-cell">Applied</TableHead>
-          <TableHead>Match</TableHead>
-          <TableHead className="hidden md:table-cell">Source</TableHead>
+          <TableHead>{tr("m7e8cd2056da7")}</TableHead>
+          <TableHead>{tr("m920e413c7d41")}</TableHead>
+          <TableHead className="hidden md:table-cell">{tr("m15b61974b270")}</TableHead>
+          <TableHead className="hidden md:table-cell">{tr("m0c79a9c22284")}</TableHead>
+          <TableHead>{tr("m03c0e806becb")}</TableHead>
+          <TableHead className="hidden md:table-cell">{tr("m0e570ca6fabe")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

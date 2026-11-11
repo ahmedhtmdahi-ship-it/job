@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { DialogFooter } from "../ui/dialog";
@@ -48,6 +49,8 @@ const ActivityFormComponent = ({
   onClose,
   reloadActivities,
 }: ActivityFormProps) => {
+  const tr = useT();
+
   const [activityTypes, setActivityTypes] = useState<ActivityType[]>([]);
   const [duration, setDuration] = useState<Duration | null>(null);
   const defaultValues = useMemo(() => {
@@ -149,7 +152,7 @@ const ActivityFormComponent = ({
       });
     } catch (error) {
       console.error("Error parsing date and time:", error);
-      toastError("Failed to create activity.");
+      toastError(tr("m4787831d1b49"));
     }
   };
   return (
@@ -165,11 +168,11 @@ const ActivityFormComponent = ({
             name="activityName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activity Name</FormLabel>
+                <FormLabel>{tr("mac7d0d08f515")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="Ex: Job Search, Learning skill, etc"
+                    placeholder={tr("mf69a2257d807")}
                   />
                 </FormControl>
                 <FormMessage>
@@ -191,7 +194,7 @@ const ActivityFormComponent = ({
             name="activityType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activity Type</FormLabel>
+                <FormLabel>{tr("mf7b447cd9688")}</FormLabel>
                 <FormControl>
                   <Combobox options={activityTypes} field={field} creatable />
                 </FormControl>
@@ -208,7 +211,7 @@ const ActivityFormComponent = ({
             name="startDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{tr("m4c52faad5dc6")}</FormLabel>
                 <DatePicker field={field} presets={false} isEnabled={true} />
                 <FormMessage />
               </FormItem>
@@ -223,7 +226,7 @@ const ActivityFormComponent = ({
             name="startTime"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Time</FormLabel>
+                <FormLabel>{tr("m271189ae389a")}</FormLabel>
                 <TimePicker field={field} />
                 <FormMessage>
                   {errors.startTime && (
@@ -244,7 +247,7 @@ const ActivityFormComponent = ({
             name="endDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>End Date</FormLabel>
+                <FormLabel>{tr("me970951cfb6b")}</FormLabel>
                 <DatePicker field={field} presets={false} isEnabled={true} />
                 <FormMessage />
               </FormItem>
@@ -260,8 +263,7 @@ const ActivityFormComponent = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  End Time
-                  <span className="text-sm">
+                  {tr("m48bccddd89a9")}<span className="text-sm">
                     {duration && (
                       <span>
                         {" "}
@@ -271,7 +273,7 @@ const ActivityFormComponent = ({
                               duration.minutes
                             } min`
                           : ""}
-                        {!duration.hours && !duration.minutes ? "0 mins" : ""})
+                        {!duration.hours && !duration.minutes ? tr("m0d2cd6b1dfdf") : ""})
                       </span>
                     )}
                   </span>
@@ -296,7 +298,7 @@ const ActivityFormComponent = ({
             name="description"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel id="job-description-label">Description</FormLabel>
+                <FormLabel id="job-description-label">{tr("m526e0087cc3f")}</FormLabel>
                 <FormControl>
                   <TiptapEditor field={field} />
                 </FormControl>
@@ -315,12 +317,10 @@ const ActivityFormComponent = ({
                 className="mt-2 md:mt-0 w-full"
                 onClick={() => onClose()}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
             </div>
             <Button type="submit" data-testid="save-activity-btn">
-              Save
-              {/* {isPending && <Loader className="h-4 w-4 shrink-0 spinner" />} */}
+              {tr("m1509f561f241")}{/* {isPending && <Loader className="h-4 w-4 shrink-0 spinner" />} */}
             </Button>
           </DialogFooter>
         </div>

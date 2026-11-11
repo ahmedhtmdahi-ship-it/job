@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Loader, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
@@ -53,6 +54,8 @@ function CreateResume({
   reloadResumes,
   setNewResumeId,
 }: CreateResumeProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [autoFill, setAutoFill] = useState(true);
   const [aiAvailable, setAiAvailable] = useState(false);
@@ -207,11 +210,11 @@ function CreateResume({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Resume Title</FormLabel>
+                    <FormLabel>{tr("m3681792df3bf")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Ex: Full Stack Developer Angular, Java"
+                        placeholder={tr("mcf914f6665ad")}
                         data-testid="resume-title-input"
                       />
                     </FormControl>
@@ -234,7 +237,7 @@ function CreateResume({
                 name="file"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Upload Resume (Optional)</FormLabel>
+                    <FormLabel>{tr("mb6812bd60a62")}</FormLabel>
                     <FormControl>
                       <Input
                         type="file"
@@ -271,18 +274,16 @@ function CreateResume({
                 >
                   <span className="flex items-center gap-1">
                     <Sparkles className="h-3.5 w-3.5" />
-                    Auto-fill with AI
-                  </span>
+                    {tr("m956c86d1b5bd")}</span>
                   {!aiAvailable && (
                     <span className="text-muted-foreground text-xs block mt-0.5">
-                      AI unavailable —{" "}
+                      {tr("m7db4fad7a0ba")}{" "}
                       <Link
                         href="/dashboard/settings"
                         className="underline hover:text-foreground"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Configure AI under Settings
-                      </Link>
+                        {tr("md2549887fa1d")}</Link>
                     </span>
                   )}
                 </label>
@@ -297,11 +298,9 @@ function CreateResume({
                   className="mt-2 md:mt-0"
                   onClick={closeDialog}
                 >
-                  Cancel
-                </Button>
+                  {tr("m19766ed6ccb2")}</Button>
                 <Button type="submit" disabled={!isValid || isPending}>
-                  Save
-                  {isPending && (
+                  {tr("m1509f561f241")}{isPending && (
                     <Loader className="h-4 w-4 shrink-0 animate-spin" />
                   )}
                 </Button>

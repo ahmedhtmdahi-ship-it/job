@@ -1,17 +1,19 @@
+import {useT} from "@/i18n/useT";
 import { AI_USAGE_FEATURES, type AiUsageSummary } from "@/models/aiUsage.model";
 import { formatSeconds, formatTokens } from "./format";
 
 export default function FeatureBreakdown({
   features,
 }: Pick<AiUsageSummary, "features">) {
+  const tr = useT();
+
   const maxTokens = Math.max(1, ...features.map((f) => f.tokens));
   return (
     <section className="overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between border-b px-5 py-3.5">
-        <h2 className="text-[15px] font-semibold">By feature</h2>
+        <h2 className="text-[15px] font-semibold">{tr("m97cc3cfc853b")}</h2>
         <span className="text-xs text-muted-foreground">
-          Tokens · Calls · Median
-        </span>
+          {tr("m96eb8d8a2f6b")}</span>
       </div>
       <div className="py-1.5">
         {features.map((f) => (
@@ -28,13 +30,13 @@ export default function FeatureBreakdown({
                 style={{ width: `${(f.tokens / maxTokens) * 100}%` }}
               />
             </span>
-            <span className="w-[52px] text-right font-medium tabular-nums">
+            <span className="w-[52px] text-end font-medium tabular-nums">
               {formatTokens(f.tokens)}
             </span>
-            <span className="w-9 text-right tabular-nums text-muted-foreground">
+            <span className="w-9 text-end tabular-nums text-muted-foreground">
               {f.calls.toLocaleString("en-US")}
             </span>
-            <span className="w-11 text-right tabular-nums text-muted-foreground">
+            <span className="w-11 text-end tabular-nums text-muted-foreground">
               {formatSeconds(f.medianMs)}
             </span>
           </div>

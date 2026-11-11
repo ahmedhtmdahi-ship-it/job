@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { NoteResponse } from "@/models/note.model";
 import { TipTapContentViewer } from "../TipTapContentViewer";
 import { format } from "date-fns";
@@ -12,13 +13,15 @@ type NoteCardProps = {
 };
 
 export function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
+  const tr = useT();
+
   return (
     <div className="border rounded-lg p-4 space-y-2">
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           {format(new Date(note.createdAt), "PPp")}
           {note.isEdited && (
-            <span className="ml-2 text-xs text-muted-foreground">(edited)</span>
+            <span className="ms-2 text-xs text-muted-foreground">{tr("mde44febe4cc8")}</span>
           )}
         </div>
         <div className="flex gap-1">

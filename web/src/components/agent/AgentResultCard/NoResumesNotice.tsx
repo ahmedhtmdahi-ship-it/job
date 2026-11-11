@@ -1,9 +1,11 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 export function NoResumesNotice() {
+  const tr = useT();
+
   return (
     <p className="text-sm">
-      You don&apos;t have any resumes yet — create one on the Profile page.
-    </p>
+      {tr("m4c7c963342f3")}</p>
   );
 }

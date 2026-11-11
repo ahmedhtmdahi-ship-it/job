@@ -41,7 +41,7 @@ export function JobTabEmptyState({
           title={actionTitle}
           data-testid={actionTestId}
         >
-          <Icon className="h-4 w-4 mr-2" />
+          <Icon className="h-4 w-4 me-2" />
           {actionLabel}
         </Button>
       )}

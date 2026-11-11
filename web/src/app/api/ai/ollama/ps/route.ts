@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { auth } from "@/auth";
 import { getOllamaBaseUrl } from "@/actions/apiKey.actions";
 import { NextResponse } from "next/server";
@@ -8,7 +9,7 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: message("md089c8a9fc28") }, { status: 401 });
     }
 
     const baseUrl = await getOllamaBaseUrl();
@@ -18,7 +19,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch running models" },
+        { error: message("m7aa4e30ffd52") },
         { status: response.status },
       );
     }
@@ -31,7 +32,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Cannot connect to Ollama service" },
+      { error: message("m738de92f5866") },
       { status: 502 },
     );
   }

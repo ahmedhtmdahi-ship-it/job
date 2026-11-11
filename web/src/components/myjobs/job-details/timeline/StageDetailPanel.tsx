@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -40,6 +41,8 @@ export function StageDetailPanel({
   onAddPrepQuestions,
   onChanged,
 }: StageDetailPanelProps) {
+  const tr = useT();
+
   const [, startTransition] = useTransition();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [tab, setTab] = useState("overview");
@@ -62,36 +65,32 @@ export function StageDetailPanel({
       <>
         {isCurrent && (
           <p>
-            This is the current stage. Deleting it makes the furthest-along
-            dated stage current, and the job&apos;s status follows that stage.
-          </p>
+            {tr("m1d1921feb351")}</p>
         )}
         {hasLinks && (
           <>
-            <p className={cn(isCurrent && "mt-2")}>Deleting it also removes:</p>
-            <ul className="mt-1.5 list-disc space-y-1 pl-5">
+            <p className={cn(isCurrent && "mt-2")}>{tr("m39f2033b4045")}</p>
+            <ul className="mt-1.5 list-disc space-y-1 ps-5">
               {interviewerCount > 0 && (
                 <li>
                   <span className="font-semibold text-foreground">
-                    {interviewerCount} linked{" "}
-                    {interviewerCount === 1 ? "interviewer" : "interviewers"}
+                    {interviewerCount} {tr("m2272bea616a0")}{" "}
+                    {interviewerCount === 1 ? tr("m1f8391309ece") : tr("m440aadc69df0")}
                   </span>{" "}
-                  on this stage
-                </li>
+                  {tr("m73fe15b47e2a")}</li>
               )}
               {prepCount > 0 && (
                 <li>
                   <span className="font-semibold text-foreground">
-                    {prepCount} prep{" "}
-                    {prepCount === 1 ? "question" : "questions"}
+                    {prepCount} {tr("mb10b18f906fc")}{" "}
+                    {prepCount === 1 ? tr("m1f5087db919c") : tr("m17d5efa695de")}
                   </span>{" "}
-                  on this stage, and which of them were asked
-                </li>
+                  {tr("m8d873dcc3051")}</li>
               )}
             </ul>
             <p className="mt-2">
               {interviewerCount > 0 && prepCount > 0
-                ? "Nothing is removed from the job's Contacts tab or your question bank."
+                ? tr("m23a258553921")
                 : interviewerCount > 0
                   ? "Nothing is removed from the job's Contacts tab."
                   : "Nothing is removed from your question bank."}
@@ -119,7 +118,7 @@ export function StageDetailPanel({
           <h3 className="text-lg font-bold">{stage.StageType.label}</h3>
           {isCurrent && (
             <StatusBadge
-              label="CURRENT STAGE"
+              label={tr("mba2cbea56ba4")}
               color="emerald"
               className="text-[11px] font-bold"
             />
@@ -130,7 +129,7 @@ export function StageDetailPanel({
             variant="outline"
             size="icon"
             className="h-8 w-8 cursor-pointer"
-            aria-label={`Edit ${stage.StageType.label}`}
+            aria-label={tr("meab6cca5fe7d", {v0: stage.StageType.label})}
             onClick={onEdit}
           >
             <Pencil className="h-3.5 w-3.5" />
@@ -139,7 +138,7 @@ export function StageDetailPanel({
             variant="outline"
             size="icon"
             className="h-8 w-8 cursor-pointer text-destructive hover:text-destructive"
-            aria-label={`Delete ${stage.StageType.label}`}
+            aria-label={tr("m3468c78743f0", {v0: stage.StageType.label})}
             onClick={() => setDeleteOpen(true)}
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -161,21 +160,18 @@ export function StageDetailPanel({
         <Tabs value={tab} onValueChange={setTab} className="mt-4">
           <TabsList className="h-auto w-full justify-start gap-6 rounded-none border-b bg-transparent p-0">
             <TabsTrigger value="overview" className={TAB_TRIGGER}>
-              Overview
-            </TabsTrigger>
+              {tr("md4b1ea5708dd")}</TabsTrigger>
             <TabsTrigger value="interviewer" className={TAB_TRIGGER}>
-              Interviewer
-              {stage.interviewers.length > 0 && (
-                <span className="ml-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+              {tr("m67b21e748742")}{stage.interviewers.length > 0 && (
+                <span className="ms-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
                   {stage.interviewers.length}
                 </span>
               )}
             </TabsTrigger>
             <TabsTrigger value="prep" className={TAB_TRIGGER}>
-              Prep List
-              {total > 0 && (
-                <span className="ml-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
-                  {asked} of {total}
+              {tr("me45c02ccf496")}{total > 0 && (
+                <span className="ms-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                  {asked} {tr("m28391d3bc64e")}{total}
                 </span>
               )}
             </TabsTrigger>

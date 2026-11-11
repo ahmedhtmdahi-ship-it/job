@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ResumeSection } from "@/models/profile.model";
 import {
   Card,
@@ -21,10 +22,12 @@ function EducationCard({
   educationSection,
   openDialogForEdit,
 }: EducationCardProps) {
+  const tr = useT();
+
   const { sectionTitle, educations } = educationSection!;
   return (
     <>
-      <CardTitle className="pl-6 py-3">{sectionTitle}</CardTitle>
+      <CardTitle className="ps-6 py-3">{sectionTitle}</CardTitle>
       {educations?.map(
         ({
           id,
@@ -38,16 +41,16 @@ function EducationCard({
         }) => (
           <Card key={id}>
             <CardHeader className="p-2 pb-0 flex-row justify-between relative">
-              <CardTitle className="text-xl pl-4">{institution}</CardTitle>
+              <CardTitle className="text-xl ps-4">{institution}</CardTitle>
               <Button
-                title="Edit"
+                title={tr("m464c4ffd019e")}
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 absolute top-2 right-2"
+                className="h-8 w-8 absolute top-2 end-2"
                 onClick={() => openDialogForEdit(id!)}
               >
                 <Pencil className="h-3.5 w-3.5" />
-                <span className="sr-only">Edit</span>
+                <span className="sr-only">{tr("m464c4ffd019e")}</span>
               </Button>
             </CardHeader>
             <CardContent>
@@ -56,7 +59,7 @@ function EducationCard({
               </h3>
               <CardDescription>
                 {format(startDate, "MMM yyyy")} -{" "}
-                {endDate ? format(endDate, "MMM yyyy") : "Present"}
+                {endDate ? format(endDate, "MMM yyyy") : tr("m43f9b89c0b9d")}
                 <br />
                 {label}
               </CardDescription>

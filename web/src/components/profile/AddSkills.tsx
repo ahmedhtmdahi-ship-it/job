@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,6 +48,8 @@ function AddSkills({
   setDialogOpen,
   skillsToEdit,
 }: AddSkillsProps) {
+  const tr = useT();
+
   const isEditing = !!skillsToEdit;
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [isPending, startTransition] = useTransition();
@@ -71,7 +74,7 @@ function AddSkills({
       if (Array.isArray(tags)) {
         setAllTags(tags);
       } else {
-        toastError("Failed to load skills. Please close and reopen the dialog.");
+        toastError(tr("ma4b68f3f5999"));
       }
     });
 
@@ -138,11 +141,9 @@ function AddSkills({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="max-h-[85vh] md:max-w-[40rem] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditing ? "Edit Skills" : "Add Skills"}</DialogTitle>
+          <DialogTitle>{isEditing ? tr("m93c53917f38b") : tr("m4b6166085446")}</DialogTitle>
           <DialogDescription>
-            Group your skills into categories. Leave a name blank to list skills
-            without a heading.
-          </DialogDescription>
+            {tr("mcd2cb44e1463")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -154,9 +155,9 @@ function AddSkills({
               name="sectionTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Section heading</FormLabel>
+                  <FormLabel>{tr("m7ae41e8e786b")}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="e.g. Core Skills" />
+                    <Input {...field} placeholder={tr("ma533f307d781")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -180,7 +181,7 @@ function AddSkills({
                           <FormControl>
                             <Input
                               {...f}
-                              placeholder="Category name (optional, e.g. Languages)"
+                              placeholder={tr("m76fd5ffbe52f")}
                               className="uppercase text-xs font-medium"
                             />
                           </FormControl>
@@ -211,7 +212,7 @@ function AddSkills({
                             selectedTagIds={f.value}
                             onChange={f.onChange}
                             max={APP_CONSTANTS.MAX_SKILLS_PER_CATEGORY}
-                            placeholder="Search or add a skill…"
+                            placeholder={tr("m0354014182ae")}
                             onTagCreated={handleTagCreated}
                           />
                         </FormControl>
@@ -231,9 +232,8 @@ function AddSkills({
               disabled={fields.length >= APP_CONSTANTS.MAX_SKILL_CATEGORIES}
               onClick={() => append({ label: "", tagIds: [] })}
             >
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add category
-            </Button>
+              <PlusCircle className="h-4 w-4 me-2" />
+              {tr("maafdf428fd02")}</Button>
 
             <DialogFooter>
               <Button
@@ -241,11 +241,9 @@ function AddSkills({
                 variant="outline"
                 onClick={() => setDialogOpen(false)}
               >
-                Cancel
-              </Button>
+                {tr("m19766ed6ccb2")}</Button>
               <Button type="submit" disabled={isPending}>
-                Save
-                {isPending && <Loader className="h-4 w-4 shrink-0 spinner ml-2" />}
+                {tr("m1509f561f241")}{isPending && <Loader className="h-4 w-4 shrink-0 spinner ms-2" />}
               </Button>
             </DialogFooter>
           </form>

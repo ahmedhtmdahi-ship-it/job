@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
 import type { Resume } from "@/models/profile.model";
@@ -32,6 +33,8 @@ export function ExportPdfDialog({
   resume,
   onExport,
 }: ExportPdfDialogProps) {
+  const tr = useT();
+
   const { settings, setSettings, ready, reset } = useResumeExportSettings(open);
   const isDefault =
     settingsKey(settings) ===
@@ -51,8 +54,8 @@ export function ExportPdfDialog({
     <PdfExportDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Export to PDF"
-      description="Adjust the settings and preview the file before exporting."
+      title={tr("mccd4fda2f607")}
+      description={tr("m1932fa58694c")}
       previewLabel="Resume preview"
       emptyMessage={EMPTY_MESSAGE}
       blob={blob}

@@ -13,6 +13,7 @@ datasource db {
 }
 
 model User {
+  locale         String           @default("ar")
   id             String           @id @default(uuid())
   name           String
   email          String           @unique

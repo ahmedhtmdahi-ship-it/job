@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ListCollapse, MoreVertical, StickyNote, Tags } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -31,6 +32,8 @@ export function JobActionsMenu({
   onChangeJobStatus,
   onAddNote,
 }: JobActionsMenuProps) {
+  const tr = useT();
+
   const router = useRouter();
 
   return (
@@ -43,32 +46,29 @@ export function JobActionsMenu({
           data-testid="job-actions-menu-btn"
         >
           <MoreVertical className="h-4 w-4" />
-          <span className="sr-only">Toggle menu</span>
+          <span className="sr-only">{tr("mc02651240c87")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>{tr("mff8059dc6752")}</DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => router.push(`/dashboard/myjobs/${job?.id}`)}
           >
-            <ListCollapse className="mr-2 h-4 w-4" />
-            View Details
-          </DropdownMenuItem>
+            <ListCollapse className="me-2 h-4 w-4" />
+            {tr("m90789c12d073")}</DropdownMenuItem>
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => onAddNote(job.id)}
           >
-            <StickyNote className="mr-2 h-4 w-4" />
-            Add a Note
-          </DropdownMenuItem>
+            <StickyNote className="me-2 h-4 w-4" />
+            {tr("mc1c718f3954b")}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <Tags className="mr-2 h-4 w-4" />
-              Change status
-            </DropdownMenuSubTrigger>
+              <Tags className="me-2 h-4 w-4" />
+              {tr("madf6fa877b9d")}</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent className="p-0">
                 <JobStatusMenuItems

@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import React from "react";
 import { Document, Link, Page, Text, View } from "@react-pdf/renderer";
 import { format } from "date-fns";
@@ -43,6 +44,8 @@ export function SimpleResumeDocument({
   styles,
   showPageNumbers,
 }: Props) {
+  const tr = useT();
+
   const { ContactInfo, ResumeSections } = resume;
 
   const skillsSection = ResumeSections?.find(
@@ -99,7 +102,7 @@ export function SimpleResumeDocument({
         {/* Summary */}
         {htmlNodes.summary.length > 0 && (
           <View>
-            <SectionHeading title="Summary" styles={styles} />
+            <SectionHeading title={tr("m8e76a94ac832")} styles={styles} />
             {htmlNodes.summary}
           </View>
         )}
@@ -174,7 +177,7 @@ export function SimpleResumeDocument({
                     </Text>
                     <Text style={styles.entryMeta}>
                       {formatDate(edu.startDate)} –{" "}
-                      {edu.endDate ? formatDate(edu.endDate) : "Present"}
+                      {edu.endDate ? formatDate(edu.endDate) : tr("m43f9b89c0b9d")}
                       {formatLocation(edu.location.label) &&
                         ` · ${formatLocation(edu.location.label)}`}
                     </Text>

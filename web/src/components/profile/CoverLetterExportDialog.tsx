@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
 import { triggerDownload } from "@/components/pdf-export/download";
@@ -35,6 +36,8 @@ export function CoverLetterExportDialog({
   letter,
   contactInfo,
 }: CoverLetterExportDialogProps) {
+  const tr = useT();
+
   const { settings, setSettings, ready, reset } = useExportSettings({
     storageKey: APP_CONSTANTS.COVER_LETTER_EXPORT_SETTINGS_STORAGE_KEY,
     defaults: defaultCoverLetterExportSettings,
@@ -100,7 +103,7 @@ export function CoverLetterExportDialog({
     prepared: { blob: Blob; filename: string } | null,
   ) => {
     if (!letter || !canExportCoverLetter(letter.content)) {
-      toastError("Add some content before exporting.", "Nothing to export");
+      toastError(tr("m19f3a7487ec4"), "Nothing to export");
       return;
     }
     try {
@@ -108,9 +111,9 @@ export function CoverLetterExportDialog({
       // failed preview.
       const output = prepared ?? (await generate(previewInput));
       triggerDownload(output.blob, output.filename);
-      toastSuccess("Saved to your Downloads folder.", "PDF exported");
+      toastSuccess(tr("m147c208c6b5c"), "PDF exported");
     } catch {
-      toastError("Failed to generate PDF. Please try again.");
+      toastError(tr("mcc047b292207"));
     }
   };
 
@@ -118,8 +121,8 @@ export function CoverLetterExportDialog({
     <PdfExportDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Export to PDF"
-      description="Adjust the settings and preview the file before exporting."
+      title={tr("mccd4fda2f607")}
+      description={tr("m1932fa58694c")}
       previewLabel="Cover letter preview"
       emptyMessage={EMPTY_MESSAGE}
       blob={blob}

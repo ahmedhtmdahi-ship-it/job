@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -44,7 +45,7 @@ function StageMarker({
       {hasNext && (
         <span
           className={cn(
-            "absolute left-1/2 top-full h-5 w-0.5 -translate-x-1/2",
+            "absolute start-1/2 top-full h-5 w-0.5 -translate-x-1/2",
             nextReached ? "bg-emerald-500 dark:bg-emerald-400" : "bg-border",
           )}
         />
@@ -61,13 +62,14 @@ export function StageHistoryList({
   onSelect,
   onAddStage,
 }: StageHistoryListProps) {
+  const tr = useT();
+
   const currentIndex = stages.findIndex((s) => s.id === currentStageId);
 
   return (
     <div className="rounded-lg border bg-card p-2.5">
       <h3 className="px-2.5 py-2 text-xs font-bold tracking-wide text-muted-foreground">
-        STAGE HISTORY
-      </h3>
+        {tr("m24d2d7182619")}</h3>
 
       {/* The complete history lives here, and only here: every stage is
           reachable without a sideways scroll. */}
@@ -83,7 +85,7 @@ export function StageHistoryList({
                 onClick={() => onSelect(stage.id)}
                 aria-current={isCurrent ? "step" : undefined}
                 className={cn(
-                  "flex w-full cursor-pointer items-center gap-2.5 rounded-md p-2.5 text-left",
+                  "flex w-full cursor-pointer items-center gap-2.5 rounded-md p-2.5 text-start",
                   "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
                   isSelected ? "bg-accent" : "hover:bg-accent/50",
                 )}
@@ -111,7 +113,7 @@ export function StageHistoryList({
                 >
                   {formatStageDate(stage.occurredAt)}
                 </span>
-                {isCurrent && <span className="sr-only">Current stage</span>}
+                {isCurrent && <span className="sr-only">{tr("m91766a00731b")}</span>}
               </button>
             </li>
           );
@@ -141,9 +143,8 @@ export function StageHistoryList({
         onClick={onAddStage}
         data-testid="timeline-add-stage-btn"
       >
-        <Plus className="mr-1.5 h-3.5 w-3.5" />
-        Add stage
-      </Button>
+        <Plus className="me-1.5 h-3.5 w-3.5" />
+        {tr("m76fa771d57f8")}</Button>
     </div>
   );
 }

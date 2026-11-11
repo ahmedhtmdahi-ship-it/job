@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -26,12 +27,14 @@ export function StatusSegment({
   value,
   onValueChange,
 }: StatusSegmentProps) {
+  const tr = useT();
+
   const { primary, more } = splitStatuses(statuses);
   const moreSelected = more.find((s) => s.id === value);
 
   return (
     <SegmentedRadio
-      aria-label="Status"
+      aria-label={tr("m920e413c7d41")}
       options={primary.map((s) => ({ value: s.id, label: s.label }))}
       value={value}
       onValueChange={onValueChange}
@@ -48,15 +51,15 @@ export function StatusSegment({
                 moreSelected && SEGMENT_CHECKED_CLASS,
               )}
             >
-              {moreSelected?.label ?? "More"}
-              {moreSelected && <span className="sr-only">, selected</span>}
+              {tr(moreSelected?.label ?? tr("md47d7cb0e4f8"))}
+              {moreSelected && <span className="sr-only">{tr("mbd44f3ef31ee")}</span>}
               <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {more.map((s) => (
               <DropdownMenuItem key={s.id} onSelect={() => onValueChange(s.id)}>
-                {s.label}
+                {tr(s.label)}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

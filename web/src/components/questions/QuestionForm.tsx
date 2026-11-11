@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import {
   Dialog,
   DialogContent,
@@ -48,6 +49,8 @@ export function QuestionForm({
   dialogOpen,
   setDialogOpen,
 }: QuestionFormProps) {
+  const tr = useT();
+
   const [isPending, startTransition] = useTransition();
   const [localAvailableTags, setLocalAvailableTags] =
     useState<Tag[]>(availableTags);
@@ -140,9 +143,9 @@ export function QuestionForm({
                 name="question"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Question *</FormLabel>
+                    <FormLabel>{tr("m1fde33e11c58")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter interview question" {...field} />
+                      <Input placeholder={tr("mf1b8f374462b")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +157,7 @@ export function QuestionForm({
                 name="tagIds"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Skill Tags</FormLabel>
+                    <FormLabel>{tr("m1f7cbb22bb10")}</FormLabel>
                     <FormControl>
                       <TagInput
                         availableTags={localAvailableTags}
@@ -172,7 +175,7 @@ export function QuestionForm({
                 name="answer"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Answer *</FormLabel>
+                    <FormLabel>{tr("m2be38687608f")}</FormLabel>
                     <FormControl>
                       <TiptapEditor field={field} />
                     </FormControl>
@@ -188,12 +191,10 @@ export function QuestionForm({
                   className="mt-2 md:mt-0"
                   onClick={closeDialog}
                 >
-                  Cancel
-                </Button>
+                  {tr("m19766ed6ccb2")}</Button>
                 <Button type="submit">
-                  Save
-                  {isPending && (
-                    <Loader className="h-4 w-4 shrink-0 spinner ml-2" />
+                  {tr("m1509f561f241")}{isPending && (
+                    <Loader className="h-4 w-4 shrink-0 spinner ms-2" />
                   )}
                 </Button>
               </DialogFooter>

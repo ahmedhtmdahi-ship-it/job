@@ -1,4 +1,6 @@
 "use client";
+import {message} from "@/i18n/message";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import {
@@ -24,13 +26,15 @@ import {
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark", "system"], {
-    error: "Please select a theme.",
+    error: message("mc67c4c3d81c5"),
   }),
 });
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 
 function DisplaySettings() {
+  const tr = useT();
+
   const { setTheme, theme, systemTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -73,13 +77,13 @@ function DisplaySettings() {
       const result = await updateDisplaySettings({ theme: data.theme });
       if (result.success) {
         setTheme(data.theme);
-        toastSuccess("Your selected theme has been saved.");
+        toastSuccess(tr("m6effb44eb3a2"));
       } else {
         toastError(result.message || "Failed to save display settings.");
       }
     } catch (error) {
       console.error("Error saving display settings:", error);
-      toastError("Failed to save display settings.");
+      toastError(tr("m23349bbafc86"));
     } finally {
       setIsSaving(false);
     }
@@ -89,14 +93,13 @@ function DisplaySettings() {
     return (
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium">Appearance</h3>
+          <h3 className="text-lg font-medium">{tr("m3907fa7f8072")}</h3>
           <p className="text-sm text-muted-foreground">
-            Customize the look and feel of the application.
-          </p>
+            {tr("m543014d452a0")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
-          <span>Loading settings...</span>
+          <span>{tr("m157fd50d1133")}</span>
         </div>
       </div>
     );
@@ -105,10 +108,9 @@ function DisplaySettings() {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-medium">Appearance</h3>
+        <h3 className="text-lg font-medium">{tr("m3907fa7f8072")}</h3>
         <p className="text-sm text-muted-foreground">
-          Customize the look and feel of the application.
-        </p>
+          {tr("m543014d452a0")}</p>
       </div>
       <div className="@container">
         <Form {...form}>
@@ -118,10 +120,9 @@ function DisplaySettings() {
               name="theme"
               render={({ field }) => (
                 <FormItem className="space-y-1">
-                  <FormLabel>Theme</FormLabel>
+                  <FormLabel>{tr("mefb52e7172b7")}</FormLabel>
                   <FormDescription>
-                    Select the theme for the app.
-                  </FormDescription>
+                    {tr("m476ef1fb2046")}</FormDescription>
                   <FormMessage />
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -135,8 +136,7 @@ function DisplaySettings() {
                         </FormControl>
                         <LightThemeElement />
                         <span className="block w-full p-2 text-center font-normal">
-                          Light
-                        </span>
+                          {tr("mdbcd5e7bb7a0")}</span>
                       </FormLabel>
                     </FormItem>
                     <FormItem>
@@ -146,8 +146,7 @@ function DisplaySettings() {
                         </FormControl>
                         <DarkThemeElement />
                         <span className="block w-full p-2 text-center font-normal">
-                          Dark
-                        </span>
+                          {tr("m60acc53f13a5")}</span>
                       </FormLabel>
                     </FormItem>
                     <FormItem>
@@ -161,8 +160,7 @@ function DisplaySettings() {
                           <LightThemeElement />
                         )}
                         <span className="block w-full p-2 text-center font-normal">
-                          System
-                        </span>
+                          {tr("m6725e7bbcd28")}</span>
                       </FormLabel>
                     </FormItem>
                   </RadioGroup>
@@ -171,9 +169,8 @@ function DisplaySettings() {
             />
 
             <Button type="submit" disabled={isSaving}>
-              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Save
-            </Button>
+              {isSaving && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+              {tr("m1509f561f241")}</Button>
           </form>
         </Form>
       </div>

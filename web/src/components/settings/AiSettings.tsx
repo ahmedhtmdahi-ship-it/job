@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import {
   AiModel,
@@ -29,6 +30,8 @@ import { getUserSettings, updateAiSettings } from "@/actions/userSettings.action
 import { useAgentChat } from "@/components/agent/AgentChatProvider";
 
 function AiSettings() {
+  const tr = useT();
+
   const { isOpen: isAgentChatOpen, refreshPreflight } = useAgentChat();
   const [selectedModel, setSelectedModel] = useState<AiModel>(defaultModel);
   const [fetchedModels, setFetchedModels] = useState<string[]>([]);
@@ -175,7 +178,7 @@ function AiSettings() {
 
   const saveModelSettings = async () => {
     if (!selectedModel.model) {
-      toastError("Please select a model to save.");
+      toastError(tr("m5c7d864c8811"));
       return;
     }
     setIsSaving(true);
@@ -185,14 +188,14 @@ function AiSettings() {
         model: selectedModel.model,
       });
       if (result.success) {
-        toastSuccess("AI Settings saved successfully.", "Saved!");
+        toastSuccess(tr("m1efa5c4966d7"), "Saved!");
         if (isAgentChatOpen) void refreshPreflight();
       } else {
         toastError(result.message || "Failed to save AI settings.");
       }
     } catch (error) {
       console.error("Error saving AI settings:", error);
-      toastError("Failed to save AI settings.");
+      toastError(tr("mf5c69cb7585d"));
     } finally {
       setIsSaving(false);
     }
@@ -210,14 +213,13 @@ function AiSettings() {
     return (
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium">AI Provider</h3>
+          <h3 className="text-lg font-medium">{tr("m84e1ec2c5bd3")}</h3>
           <p className="text-sm text-muted-foreground">
-            Configure your AI service provider and model.
-          </p>
+            {tr("m815dcc65f4cc")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
-          <span>Loading settings...</span>
+          <span>{tr("m157fd50d1133")}</span>
         </div>
       </div>
     );
@@ -226,25 +228,23 @@ function AiSettings() {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-medium">AI Provider</h3>
+        <h3 className="text-lg font-medium">{tr("m84e1ec2c5bd3")}</h3>
         <p className="text-sm text-muted-foreground">
-          Configure your AI service provider and model.
-        </p>
+          {tr("m815dcc65f4cc")}</p>
       </div>
       <div>
         <Label className="my-4" htmlFor="ai-provider">
-          AI Service Provider
-        </Label>
+          {tr("m810a56f75fe9")}</Label>
         <Select
           value={selectedModel.provider}
           onValueChange={setSelectedProvider}
         >
           <SelectTrigger
             id="ai-provider"
-            aria-label="Select AI provider"
+            aria-label={tr("m0e092b42d164")}
             className="w-[180px]"
           >
-            <SelectValue placeholder="Select AI Service Provider" />
+            <SelectValue placeholder={tr("mc84c235c1775")} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -262,8 +262,7 @@ function AiSettings() {
       </div>
       <div>
         <Label className="my-4" htmlFor="ai-model">
-          Model
-        </Label>
+          {tr("m5e2c614c23f0")}</Label>
         <div className="flex flex-wrap items-start gap-2">
           <Select
             value={isLoadingModels ? "" : modelValue}
@@ -272,7 +271,7 @@ function AiSettings() {
           >
             <SelectTrigger
               id="ai-model"
-              aria-label="Select Model"
+              aria-label={tr("me4813fd58ccf")}
               className="w-[180px]"
             >
               {/* a flex row here must nest inside SelectValue's span, which the
@@ -282,8 +281,7 @@ function AiSettings() {
                   isLoadingModels ? (
                     <span className="flex items-center gap-2 whitespace-nowrap">
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                      Loading models...
-                    </span>
+                      {tr("m802435241f0a")}</span>
                   ) : (
                     "Select Model"
                   )
@@ -316,8 +314,7 @@ function AiSettings() {
                 disabled={isLoadingModels}
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoadingModels ? "animate-spin" : ""}`} />
-                Retry
-              </Button>
+                {tr("m942087cc2d41")}</Button>
               <div className="flex items-start gap-1 text-red-600 text-sm">
                 <XCircle className="h-4 w-4 shrink-0 mt-0.5" />
                 <span>{connectionError}</span>
@@ -331,9 +328,8 @@ function AiSettings() {
         onClick={saveModelSettings}
         disabled={!selectedModel.model || isLoadingModels || isSaving}
       >
-        {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        Save
-      </Button>
+        {isSaving && <Loader2 className="me-2 h-4 w-4 animate-spin" />}
+        {tr("m1509f561f241")}</Button>
     </div>
   );
 }

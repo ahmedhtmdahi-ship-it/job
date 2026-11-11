@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { getToolName, type ToolUIPart } from "ai";
 import {
@@ -37,6 +38,8 @@ function AddJobBody({
   input: Record<string, unknown>;
   pastedText?: string;
 }) {
+  const tr = useT();
+
   const description = pastedText ?? text(input.jobDescription);
   const source = pastedText ? "pasted verbatim" : "model-supplied";
   const completeness = description
@@ -46,19 +49,18 @@ function AddJobBody({
 
   return (
     <div>
-      <Row label="Company" value={text(input.company)} />
-      <Row label="Job title" value={text(input.jobTitle)} />
-      <Row label="Location" value={text(input.location)} />
-      <Row label="Source" value={text(input.source)} />
-      <Row label="URL" value={text(input.jobUrl)} />
-      <Row label="Salary" value={text(input.salaryRange)} />
-      <Row label="Tags" value={tags} />
+      <Row label={tr("mde4743c87973")} value={text(input.company)} />
+      <Row label={tr("m86db80a8096b")} value={text(input.jobTitle)} />
+      <Row label={tr("m15b61974b270")} value={text(input.location)} />
+      <Row label={tr("m0e570ca6fabe")} value={text(input.source)} />
+      <Row label={tr("me7a241debad5")} value={text(input.jobUrl)} />
+      <Row label={tr("m888b94f3307d")} value={text(input.salaryRange)} />
+      <Row label={tr("m1331275bc537")} value={tags} />
       {description ? (
         <div className="mt-2 rounded-sm border bg-muted/20 p-2">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>
-              Description · {source} · {description.length} chars
-            </span>
+              {tr("ma1f73d6fdb75")}{source} · {description.length} {tr("m1ce93dacbcf4")}</span>
             {completeness && <Badge variant="outline">{completeness}</Badge>}
           </div>
           {/* Collapsed to ~200 chars: this is verbatim third-party content
@@ -70,8 +72,7 @@ function AddJobBody({
         </div>
       ) : (
         <p className="mt-2 text-xs text-muted-foreground">
-          No description — the assistant will ask for one.
-        </p>
+          {tr("mdaddc7d47a4b")}</p>
       )}
     </div>
   );
@@ -86,6 +87,8 @@ export function AgentApprovalCard({
   pastedText?: string;
   onRespond: Respond;
 }) {
+  const tr = useT();
+
   const [declining, setDeclining] = useState(false);
   const [reason, setReason] = useState("");
   const cardRef = useRef<HTMLDivElement>(null);
@@ -120,14 +123,14 @@ export function AgentApprovalCard({
       className="rounded-sm p-3 outline-hidden"
     >
       <div className="flex items-center gap-2">
-        <Badge variant="secondary">Needs approval</Badge>
+        <Badge variant="secondary">{tr("mdb0e960b68b5")}</Badge>
         <span className="text-sm font-semibold">{toolName}</span>
       </div>
 
       {body}
 
       {part.state === "approval-responded" && (
-        <p className="text-xs text-muted-foreground">Waiting…</p>
+        <p className="text-xs text-muted-foreground">{tr("m612ffc5ce9d4")}</p>
       )}
 
       <ConfirmationRequest>
@@ -136,7 +139,7 @@ export function AgentApprovalCard({
             <Textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="What was wrong? (optional)"
+              placeholder={tr("m55f313af1016")}
               rows={2}
             />
             <div className="flex gap-2">
@@ -146,16 +149,14 @@ export function AgentApprovalCard({
                   onRespond({ id: approvalId, approved: false, reason })
                 }
               >
-                Send
-              </ConfirmationAction>
+                {tr("mf6f4688ff23d")}</ConfirmationAction>
               <ConfirmationAction
                 variant="ghost"
                 onClick={() =>
                   approvalId && onRespond({ id: approvalId, approved: false })
                 }
               >
-                Skip
-              </ConfirmationAction>
+                {tr("m28d03596d24e")}</ConfirmationAction>
             </div>
           </div>
         )}
@@ -168,13 +169,11 @@ export function AgentApprovalCard({
               approvalId && onRespond({ id: approvalId, approved: true })
             }
           >
-            Confirm
-          </ConfirmationAction>
+            {tr("meebdd24a77d9")}</ConfirmationAction>
           {/* Client-side and always available — it must not depend on a
               server round-trip succeeding. */}
           <ConfirmationAction variant="outline" onClick={() => setDeclining(true)}>
-            Cancel
-          </ConfirmationAction>
+            {tr("m19766ed6ccb2")}</ConfirmationAction>
         </ConfirmationActions>
       )}
     </Confirmation>

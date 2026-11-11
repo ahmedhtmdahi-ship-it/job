@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Trash2 } from "lucide-react";
@@ -17,6 +18,8 @@ import { clearAllDataAction } from "@/actions/mock.actions";
 import { toastActionResult } from "@/lib/toast";
 
 export function ClearAllDataButton() {
+  const tr = useT();
+
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
@@ -43,21 +46,16 @@ export function ClearAllDataButton() {
         ) : (
           <Trash2 className="h-4 w-4" />
         )}
-        Clear all data
-      </Button>
+        {tr("m70378e4ca135")}</Button>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete all data?</AlertDialogTitle>
+            <AlertDialogTitle>{tr("m5d55ea8d8ddc")}</AlertDialogTitle>
             <AlertDialogDescription>
-              This permanently deletes all your jobs, resumes, activities,
-              tasks, contacts, companies, questions, automations and chat
-              history, including uploaded resume files. Your account and
-              settings are kept. This cannot be undone.
-            </AlertDialogDescription>
+              {tr("m14c86247a8ad")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isClearing}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isClearing}>{tr("m19766ed6ccb2")}</AlertDialogCancel>
             <AlertDialogAction
               disabled={isClearing}
               onClick={(e) => {
@@ -65,8 +63,7 @@ export function ClearAllDataButton() {
                 handleClear();
               }}
             >
-              Delete everything
-            </AlertDialogAction>
+              {tr("m71eb8a08ffd7")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

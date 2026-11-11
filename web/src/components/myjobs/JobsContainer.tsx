@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Loader } from "lucide-react";
@@ -47,6 +48,8 @@ function JobsContainer({
   sources,
   tags,
 }: MyJobsProps) {
+  const tr = useT();
+
   const router = useRouter();
   const [editJob, setEditJob] = useState(null);
   const [noteDialogOpen, setNoteDialogOpen] = useState(false);
@@ -182,14 +185,13 @@ function JobsContainer({
             jobs.length === 0 &&
             hasJobFacets(facets) && (
             <div className="flex flex-col items-center gap-2 py-10 text-sm text-muted-foreground">
-              <p>No jobs match these filters.</p>
+              <p>{tr("m735c43b33bab")}</p>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => applyFacets(EMPTY_JOB_FACETS)}
               >
-                Clear all
-              </Button>
+                {tr("m29a390f9237e")}</Button>
             </div>
           )}
           {jobs.length > 0 &&

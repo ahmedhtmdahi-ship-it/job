@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Loader } from "lucide-react";
@@ -30,6 +31,8 @@ function TasksContainer({
   filterKey,
   onTasksChanged,
 }: TasksContainerProps) {
+  const tr = useT();
+
   const { refreshCurrentActivity } = useActivity();
   const { requestStart, confirmDialog } = useActivitySwitchConfirm();
   const [editTask, setEditTask] = useState<Task | null>(null);
@@ -122,8 +125,7 @@ function TasksContainer({
           )}
           {!initialLoading && tasks.length === 0 && (
             <div className="text-center py-8 text-muted-foreground">
-              No tasks found. Create your first task to get started.
-            </div>
+              {tr("md956501b04dc")}</div>
           )}
           {tasks.length < totalTasks && (
             <div ref={sentinelRef} className="flex justify-center p-4">

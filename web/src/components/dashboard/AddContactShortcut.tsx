@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useRef, useState } from "react";
 import { Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,8 @@ import type { ContactRole } from "@/models/contact.model";
 import type { Company, JobLocation } from "@/models/job.model";
 
 export default function AddContactShortcut() {
+  const tr = useT();
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [locations, setLocations] = useState<JobLocation[]>([]);
@@ -39,8 +42,8 @@ export default function AddContactShortcut() {
         className="justify-start min-w-0"
         onClick={() => openDialog(true)}
       >
-        <Users className="h-3.5 w-3.5 mr-1 shrink-0" />
-        <span className="min-w-0 truncate">Add Contact</span>
+        <Users className="h-3.5 w-3.5 me-1 shrink-0" />
+        <span className="min-w-0 truncate">{tr("maeb71d6de03b")}</span>
       </Button>
       <AddContact
         hideTrigger

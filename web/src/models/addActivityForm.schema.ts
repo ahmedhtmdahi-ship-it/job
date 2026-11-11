@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { APP_CONSTANTS } from "@/lib/constants";
 import { combineDateAndTime } from "@/lib/utils";
 import { differenceInMinutes, startOfDay } from "date-fns";
@@ -9,13 +10,13 @@ export const AddActivityFormSchema = z
     userId: z.string().optional(),
     activityName: z
       .string({
-        error: "Activity name is required.",
+        error: message("mfc2e409a1bba"),
       })
       .min(2, {
-        message: "Activity name must be at least 2 characters.",
+        message: message("m955b3fa5e41e"),
       }),
     activityType: z.string().min(1, {
-      message: "Activity type is required.",
+      message: message("m3ea0536f9756"),
     }),
     startDate: z.date(),
     startTime: z
@@ -39,7 +40,7 @@ export const AddActivityFormSchema = z
     description: z
       .string()
       .max(1000, {
-        message: "Description cannot be more than 1000 characters.",
+        message: message("mfba91e8b3483"),
       })
       .optional(),
   })
@@ -51,7 +52,7 @@ export const AddActivityFormSchema = z
       return startOfDay(data.endDate) >= startOfDay(data.startDate);
     },
     {
-      message: "End date must be the same as or after the start date",
+      message: message("m884388a40b34"),
       path: ["endDate"], // Target the error message to `endDate`
     }
   )
@@ -67,7 +68,7 @@ export const AddActivityFormSchema = z
       return endDateTime > startDateTime; // Valid only if endDateTime is after startDateTime
     },
     {
-      message: "End time must be after the start time",
+      message: message("m4ab22e266dbd"),
       path: ["endTime"],
     }
   )
@@ -107,7 +108,7 @@ export const AddActivityFormSchema = z
   .refine(
     (data) => combineDateAndTime(data.startDate, data.startTime) <= new Date(),
     {
-      message: "Start date/time cannot be in the future",
+      message: message("mf0c6a9b53a33"),
       path: ["startTime"],
     }
   );

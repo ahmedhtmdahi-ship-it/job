@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useState } from "react";
 import { Loader } from "lucide-react";
 import AddCompany from "./AddCompany";
@@ -24,6 +25,8 @@ import {
 import type { LeverCompany } from "@/models/automation.model";
 
 function CompaniesContainer() {
+  const tr = useT();
+
   const { scope, setScope } = useCompanyScope();
   const provider = boardProvider(scope);
   const [searchTerm, setSearchTerm] = useState("");
@@ -83,21 +86,21 @@ function CompaniesContainer() {
         <Card x-chunk="dashboard-06-chunk-0">
           <ResponsiveCardHeader>
             <div className="flex items-baseline gap-2">
-              <CardTitle>Companies</CardTitle>
+              <CardTitle>{tr("m4923413b40d7")}</CardTitle>
               {!loading && shownCount > 0 && (
                 <RecordsCount
                   count={shownCount}
                   total={shownTotal}
-                  label="companies"
+                  label={tr("m1701cfb023a1")}
                 />
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
               <CompaniesScopeSelect scope={scope} onScopeChange={setScope} />
               <SearchInput
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Search companies..."
+                placeholder={tr("mb8d22af2e495")}
               />
               <AddCompany
                 editCompany={editCompany}

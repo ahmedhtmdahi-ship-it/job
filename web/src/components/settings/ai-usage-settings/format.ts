@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { format } from "date-fns";
 import {
   AI_PROVIDER_LABELS,
@@ -76,29 +77,29 @@ export const STATUS_META: Record<
   { label: string; className: string }
 > = {
   ok: {
-    label: "OK",
+    label: message("m565339bc4d33"),
     className:
       "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-400",
   },
   truncated: {
-    label: "Truncated",
+    label: message("md9d9fcf3bd8a"),
     className:
       "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400",
   },
   error: {
-    label: "Error",
+    label: message("m54a0e8c17ebb"),
     className: "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300",
   },
   timed_out: {
-    label: "Timed out",
+    label: message("m9718cc761cfd"),
     className:
       "bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-300",
   },
   interrupted: {
-    label: "Interrupted",
+    label: message("m132d124d6bb3"),
     className: "bg-muted text-muted-foreground",
   },
-  stopped: { label: "Stopped", className: "bg-muted text-muted-foreground" },
+  stopped: { label: message("m1a4f630ac1b6"), className: "bg-muted text-muted-foreground" },
 };
 
 export const FAILURE_META: Record<
@@ -106,23 +107,23 @@ export const FAILURE_META: Record<
   { label: string; description: string; dotClassName: string }
 > = {
   error: {
-    label: "Provider error",
-    description: "Unreachable, rejected key or rate limit",
+    label: message("m9ade31ecd1b5"),
+    description: message("m1b2640858b64"),
     dotClassName: "bg-red-400",
   },
   timed_out: {
-    label: "Timed out",
-    description: "Hit the time limit before finishing",
+    label: message("m9718cc761cfd"),
+    description: message("m1857cdb7d37a"),
     dotClassName: "bg-orange-400",
   },
   truncated: {
-    label: "Truncated",
-    description: "Hit the output limit before finishing",
+    label: message("md9d9fcf3bd8a"),
+    description: message("m192a72d48d5f"),
     dotClassName: "bg-amber-400",
   },
   interrupted: {
-    label: "Interrupted",
-    description: "Stream ended early with no error",
+    label: message("m132d124d6bb3"),
+    description: message("mdb27e62d0274"),
     dotClassName: "bg-slate-400",
   },
 };

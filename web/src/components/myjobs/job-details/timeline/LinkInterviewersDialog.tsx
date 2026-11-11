@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Check, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,6 +58,8 @@ export function LinkInterviewersDialog({
   onOpenChange,
   onLinked,
 }: LinkInterviewersDialogProps) {
+  const tr = useT();
+
   const [contacts, setContacts] = useState<ContactRow[]>([]);
   const [search, setSearch] = useState("");
   const [linkedIds, setLinkedIds] = useState<string[]>([]);
@@ -139,16 +142,16 @@ export function LinkInterviewersDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[520px] max-h-[720px] overflow-hidden">
         <DialogHeader>
-          <DialogTitle>Add and Link Interviewers</DialogTitle>
+          <DialogTitle>{tr("m251a447e2198")}</DialogTitle>
           <DialogDescription>{stageHeading(stage)}</DialogDescription>
         </DialogHeader>
 
         <div className="max-h-[60vh] space-y-4 overflow-y-auto p-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              className="pl-9"
-              placeholder="Search contacts by name or company…"
+              className="ps-9"
+              placeholder={tr("m3541d43d9497")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -157,8 +160,7 @@ export function LinkInterviewersDialog({
           <ul className="overflow-hidden rounded-lg border">
             {visible.length === 0 && (
               <li className="px-3.5 py-4 text-[13px] text-muted-foreground">
-                No contacts match that search.
-              </li>
+                {tr("me62a7e291ce6")}</li>
             )}
             {visible.map((contact, index) => {
               const isLinked = linkedIds.includes(contact.id);
@@ -187,7 +189,7 @@ export function LinkInterviewersDialog({
                   </span>
                   {isLinked ? (
                     <span
-                      aria-label={`${contact.label} is already linked`}
+                      aria-label={tr("md9268de771ee", {v0: contact.label})}
                       className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-300"
                     >
                       <Check className="h-3.5 w-3.5" />
@@ -199,8 +201,8 @@ export function LinkInterviewersDialog({
                       disabled={isPending}
                       onClick={() => link(contact.id)}
                     >
-                      <span className="sr-only">Add {contact.label}</span>
-                      <span aria-hidden="true">Add</span>
+                      <span className="sr-only">{tr("m9fd728c66c9a")}{contact.label}</span>
+                      <span aria-hidden="true">{tr("m9fd728c66c9a")}</span>
                     </Button>
                   )}
                 </li>
@@ -209,19 +211,19 @@ export function LinkInterviewersDialog({
           </ul>
 
           <div className="space-y-3 rounded-lg border border-dashed p-3.5">
-            <p className="text-[13px] font-semibold">Add a new contact</p>
+            <p className="text-[13px] font-semibold">{tr("m86b1e1fc6e9e")}</p>
             <div className="grid grid-cols-2 gap-3">
               <Input
-                placeholder="Full name"
-                aria-label="Full name"
+                placeholder={tr("mf13a64ba2fea")}
+                aria-label={tr("mf13a64ba2fea")}
                 value={newContact.name}
                 onChange={(e) =>
                   setNewContact((v) => ({ ...v, name: e.target.value }))
                 }
               />
               <Input
-                placeholder="Role / title"
-                aria-label="Role / title"
+                placeholder={tr("me921726628aa")}
+                aria-label={tr("me921726628aa")}
                 value={newContact.title}
                 onChange={(e) =>
                   setNewContact((v) => ({ ...v, title: e.target.value }))
@@ -230,8 +232,8 @@ export function LinkInterviewersDialog({
               <div className="col-span-2">
                 <Input
                   type="email"
-                  placeholder="Email"
-                  aria-label="Email"
+                  placeholder={tr("m969ccbd3cf63")}
+                  aria-label={tr("m969ccbd3cf63")}
                   value={newContact.email}
                   onChange={(e) =>
                     setNewContact((v) => ({ ...v, email: e.target.value }))
@@ -245,15 +247,13 @@ export function LinkInterviewersDialog({
               disabled={isPending || !newContact.name.trim()}
               onClick={addAndLink}
             >
-              Add Contact
-            </Button>
+              {tr("maeb71d6de03b")}</Button>
           </div>
         </div>
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
-          </Button>
+            {tr("m19766ed6ccb2")}</Button>
           <Button onClick={() => onOpenChange(false)}>{doneLabel}</Button>
         </DialogFooter>
       </DialogContent>

@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import "server-only";
 
 import { tool, type LanguageModel, type UIMessageStreamWriter } from "ai";

@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useState } from "react";
 import {
   Select,
@@ -21,6 +22,8 @@ type Props = {
 };
 
 export function CompaniesScopeSelect({ scope, onScopeChange }: Props) {
+  const tr = useT();
+
   // Counts are decoration; fetched on first open so a visit that never
   // touches Browse pays no round-trips.
   const [counts, setCounts] = useState<Record<string, number> | null>(null);
@@ -45,22 +48,22 @@ export function CompaniesScopeSelect({ scope, onScopeChange }: Props) {
       onValueChange={(v) => onScopeChange(v as CompanyScope)}
       onOpenChange={onOpenChange}
     >
-      <SelectTrigger aria-label="Select company scope" className="h-8 w-[180px]">
+      <SelectTrigger aria-label={tr("m1951a140b604")} className="h-8 w-[180px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Library</SelectLabel>
-          <SelectItem value="mine">My Companies</SelectItem>
-          <SelectItem value="watchlist">Watchlist</SelectItem>
+          <SelectLabel>{tr("mdc20b3d5d2cd")}</SelectLabel>
+          <SelectItem value="mine">{tr("m9597e908b927")}</SelectItem>
+          <SelectItem value="watchlist">{tr("meff2ec588be1")}</SelectItem>
         </SelectGroup>
         <SelectGroup>
-          <SelectLabel>Browse boards</SelectLabel>
+          <SelectLabel>{tr("m054f8050a86b")}</SelectLabel>
           {ATS_BOARDS.map((provider) => (
             <SelectItem key={provider} value={`board:${provider}`}>
               {PROVIDER_META[provider].label}
               {counts?.[provider] !== undefined && (
-                <span className="ml-2 text-xs text-muted-foreground">
+                <span className="ms-2 text-xs text-muted-foreground">
                   {counts[provider].toLocaleString()}
                 </span>
               )}

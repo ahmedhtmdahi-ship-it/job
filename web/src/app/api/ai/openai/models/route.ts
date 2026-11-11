@@ -1,3 +1,4 @@
+import {message} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { resolveApiKey } from "@/lib/api-key-resolver";
@@ -12,7 +13,7 @@ export async function GET() {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "OpenAI API key not configured" },
+        { error: message("m22f1e4d696dd") },
         { status: 500 }
       );
     }
@@ -25,7 +26,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to fetch OpenAI models" },
+        { error: message("mb3e864c3e5a7") },
         { status: response.status }
       );
     }
@@ -38,7 +39,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: "Failed to fetch OpenAI models" },
+      { error: message("mb3e864c3e5a7") },
       { status: 500 }
     );
   }

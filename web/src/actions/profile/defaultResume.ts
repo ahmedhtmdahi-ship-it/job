@@ -1,4 +1,5 @@
 "use server";
+import {message} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import {
@@ -51,7 +52,7 @@ export const setDefaultResume = async (
     return (
       handleError(error, "Failed to set default resume.") ?? {
         success: false,
-        message: "Failed to set default resume.",
+        message: message("mdba5606fe12e"),
       }
     );
   }

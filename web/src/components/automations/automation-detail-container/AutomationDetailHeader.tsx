@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -46,12 +47,14 @@ export function AutomationDetailHeader({
   onAbort,
   onRunNow,
 }: AutomationDetailHeaderProps) {
+  const tr = useT();
+
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
       <div className="flex flex-1 min-w-0 items-center gap-3">
         <Button variant="ghost" size="icon" asChild>
           <Link href="/dashboard/automations">
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="rtl-mirror h-4 w-4" />
           </Link>
         </Button>
         <div className="flex-1 min-w-0">
@@ -59,9 +62,7 @@ export function AutomationDetailHeader({
           {retired && (
             <p className="flex items-center gap-2 text-amber-600 text-sm">
               <AlertTriangle className="h-4 w-4 shrink-0" />
-              The {automation.jobBoard} job board was removed and no longer
-              runs. Delete this automation.
-            </p>
+              {tr("mb344d80e24a3")}{automation.jobBoard} {tr("md38b5b404cc6")}</p>
           )}
           {(automation.keywords || automation.location) && (
             <p className="text-sm text-muted-foreground">
@@ -78,18 +79,16 @@ export function AutomationDetailHeader({
         </Button>
         {!retired && (
           <Button variant="outline" onClick={onEdit}>
-            <Pencil className="h-4 w-4 mr-2" />
-            Edit
-          </Button>
+            <Pencil className="h-4 w-4 me-2" />
+            {tr("m464c4ffd019e")}</Button>
         )}
         <Button
           variant="outline"
           className="text-destructive hover:text-destructive"
           onClick={onDelete}
         >
-          <Trash2 className="h-4 w-4 mr-2" />
-          Delete
-        </Button>
+          <Trash2 className="h-4 w-4 me-2" />
+          {tr("me2d0a54968ea")}</Button>
         {!retired && (
           <Button
             variant="outline"
@@ -97,13 +96,13 @@ export function AutomationDetailHeader({
             disabled={actionLoading || resumeMissing}
           >
             {actionLoading ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Loader2 className="h-4 w-4 me-2 animate-spin" />
             ) : automation.status === "active" ? (
-              <Pause className="h-4 w-4 mr-2" />
+              <Pause className="h-4 w-4 me-2" />
             ) : (
-              <Play className="h-4 w-4 mr-2" />
+              <Play className="h-4 w-4 me-2" />
             )}
-            {automation.status === "active" ? "Pause" : "Resume"}
+            {automation.status === "active" ? tr("m858e4ba7a29f") : tr("md640c7421da0")}
           </Button>
         )}
         {retired ? null : runActive ? (
@@ -112,8 +111,8 @@ export function AutomationDetailHeader({
             onClick={onAbort}
             disabled={aborting}
           >
-            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            {aborting ? "Aborting…" : "Abort Run"}
+            <Loader2 className="h-4 w-4 me-2 animate-spin" />
+            {aborting ? tr("m4a395152a74f") : tr("mb30c6162cca9")}
           </Button>
         ) : (
           <Button
@@ -124,13 +123,12 @@ export function AutomationDetailHeader({
             }
             title={
               jobsBusy
-                ? "Wait for the in-progress job analysis to finish"
+                ? tr("me494b49c3e83")
                 : undefined
             }
           >
-            <PlayCircle className="h-4 w-4 mr-2" />
-            Run Now
-          </Button>
+            <PlayCircle className="h-4 w-4 me-2" />
+            {tr("m849ccb784cf3")}</Button>
         )}
       </div>
     </div>

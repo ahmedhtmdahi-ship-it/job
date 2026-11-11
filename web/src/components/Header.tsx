@@ -1,3 +1,4 @@
+import {getT} from "@/i18n/getT";
 import Link from "next/link";
 import { PanelLeft, Briefcase } from "lucide-react";
 
@@ -15,17 +16,19 @@ import { AgentChatTrigger } from "./AgentChatTrigger";
 import { NotificationBell } from "./notifications/NotificationBell";
 
 async function Header() {
+  const tr = await getT();
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
             <PanelLeft className="h-5 w-5" />
-            <span className="sr-only">Toggle Menu</span>
+            <span className="sr-only">{tr("mf2fca5f98405")}</span>
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
-          <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+          <SheetTitle className="sr-only">{tr("mac362dfcb090")}</SheetTitle>
           <nav className="grid gap-6 text-lg font-medium">
             <SheetClose asChild>
               <Link
@@ -33,7 +36,7 @@ async function Header() {
                 className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
               >
                 <Briefcase className="h-5 w-5 transition-all group-hover:scale-110" />
-                <span className="sr-only">JobSync</span>
+                <span className="sr-only">{tr("m00d43de3b952")}</span>
               </Link>
             </SheetClose>
             {SIDEBAR_LINKS.map((item) => {
@@ -42,13 +45,13 @@ async function Header() {
                 return null;
               }
               return (
-                <SheetClose asChild key={item.label}>
+                <SheetClose asChild key={tr(item.label)}>
                   <Link
                     href={item.route}
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <item.icon className="h-5 w-5" />
-                    {item.label}
+                    {tr(item.label)}
                   </Link>
                 </SheetClose>
               );
@@ -58,15 +61,15 @@ async function Header() {
       </Sheet>
       <SidebarToggle />
       <h1 className="font-semibold">
-        JobSync<span className="hidden sm:inline"> - Job Search Assistant</span>
+        {tr("m00d43de3b952")}<span className="hidden sm:inline"> {tr("m69dcb8c12daa")}</span>
       </h1>
-      <div className="relative ml-auto flex-1 md:grow-0">
-        {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+      <div className="relative ms-auto flex-1 md:grow-0">
+        {/* <Search className="absolute start-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
           id="search"
           type="search"
           placeholder="Search..."
-          className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+          className="w-full rounded-lg bg-background ps-8 md:w-[200px] lg:w-[336px]"
         /> */}
       </div>
 

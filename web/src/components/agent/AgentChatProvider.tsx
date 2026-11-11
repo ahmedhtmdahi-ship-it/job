@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import {
   createContext,
   useCallback,
@@ -77,6 +78,8 @@ function createdJobToolCallIds(messages: UIMessage[]): string[] {
 }
 
 function useAgentChatValue(initialMessages: UIMessage[]) {
+  const tr = useT();
+
   const router = useRouter();
   const pathname = usePathname();
   const { holder, requestOpen, close: releaseRail } = useRightRail();
@@ -226,7 +229,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
       setInterruptedTurn(true);
       // The one abort the user gets no on-screen signal for — the panel they
       // would have read it in is the thing that just went away.
-      toastInfo("Generation stopped. Reopen the assistant to continue.");
+      toastInfo(tr("me335970fcf13"));
     }
     setIsOpen(false);
     releaseRail(AGENT_CHAT_PANEL_ID);
@@ -245,7 +248,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
         checked: true,
         ok: false,
         error:
-          "No AI model is configured. Pick one in Settings to use the assistant.",
+          tr("m1e29dae32cf6"),
         provider,
       });
       return;
@@ -302,7 +305,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
     setToolStreams({});
     setQueued(undefined);
     // Clearing an idle conversation aborted nothing worth reporting.
-    if (wasStreaming) toastInfo("Conversation cleared and generation stopped.");
+    if (wasStreaming) toastInfo(tr("mf4be1621e259"));
   }, [chat]);
 
   const approvalPending = useMemo(

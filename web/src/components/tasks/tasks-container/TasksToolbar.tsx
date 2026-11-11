@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { PlusCircle, SlidersHorizontal } from "lucide-react";
 import { Button } from "../../ui/button";
@@ -51,6 +52,8 @@ export function TasksToolbar({
   onGroupByChange: (value: string) => void;
   onAddTask: () => void;
 }) {
+  const tr = useT();
+
   const [mounted, setMounted] = useState(false);
 
   // Avoid hydration mismatch with Radix UI components
@@ -61,16 +64,16 @@ export function TasksToolbar({
   return (
     <ResponsiveCardHeader>
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <CardTitle>Tasks</CardTitle>
+        <CardTitle>{tr("mb3a60e61a523")}</CardTitle>
         {!initialLoading && totalTasks > 0 && (
-          <RecordsCount count={tasksCount} total={totalTasks} label="tasks" />
+          <RecordsCount count={tasksCount} total={totalTasks} label={tr("m085154084c74")} />
         )}
       </div>
-      <div className="flex flex-wrap items-center justify-end gap-2 sm:ml-auto">
+      <div className="flex flex-wrap items-center justify-end gap-2 sm:ms-auto">
         <SearchInput
           value={searchTerm}
           onChange={onSearchTermChange}
-          placeholder="Search tasks..."
+          placeholder={tr("mc1af8370c5f6")}
         />
         {mounted ? (
           <DropdownMenu>
@@ -79,13 +82,13 @@ export function TasksToolbar({
                 variant="outline"
                 size="sm"
                 className="h-8 w-8 p-0"
-                aria-label="Filter tasks"
+                aria-label={tr("m7b7fdf7fd61e")}
               >
                 <SlidersHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+              <DropdownMenuLabel>{tr("me71a1a19361c")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {(Object.keys(TASK_STATUSES) as TaskStatus[]).map((status) => (
                 <DropdownMenuCheckboxItem
@@ -97,7 +100,7 @@ export function TasksToolbar({
                 </DropdownMenuCheckboxItem>
               ))}
               <DropdownMenuSeparator />
-              <DropdownMenuLabel>Group by</DropdownMenuLabel>
+              <DropdownMenuLabel>{tr("m956a51f6b098")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
                 value={groupBy}
@@ -118,7 +121,7 @@ export function TasksToolbar({
             variant="outline"
             size="sm"
             className="h-8 w-8 p-0"
-            aria-label="Filter tasks"
+            aria-label={tr("m7b7fdf7fd61e")}
           >
             <SlidersHorizontal className="h-4 w-4" />
           </Button>
@@ -132,8 +135,7 @@ export function TasksToolbar({
         >
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            New Task
-          </span>
+            {tr("m718e58cc20d6")}</span>
         </Button>
       </div>
     </ResponsiveCardHeader>
