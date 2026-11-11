@@ -1689,6 +1689,8 @@
     "m324b134f57c7": "Preview",
     "m3626161a4685": "Fit page",
     "mb911c419e49d": "Fit width",
-    "md46e57d6ac42": "{count} pages"
+    "md46e57d6ac42": "{count} pages",
+    "m995a5d67159c": "Decrease {label}",
+    "mbbf5fc94e903": "Increase {label}"
   }
 }
