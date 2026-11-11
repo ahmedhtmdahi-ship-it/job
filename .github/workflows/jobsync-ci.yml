@@ -66,7 +66,7 @@ jobs:
 
   browser-smoke:
     needs: original-tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
       postgres:
@@ -114,7 +114,17 @@ jobs:
       - name: Restore tested production build
         run: tar -xzf "$RUNNER_TEMP/jobsync-build/jobsync-build.tar.gz"
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: |
+          if ! npx playwright install --with-deps chromium > "$RUNNER_TEMP/playwright-install.log" 2>&1; then
+            python3 - <<'PYCODE'
+          import os
+          from pathlib import Path
+          text = Path(os.environ['RUNNER_TEMP'], 'playwright-install.log').read_text()[-6000:]
+          text = text.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::error title=Playwright install failed::' + text)
+          PYCODE
+            exit 1
+          fi
       - name: Start production application
         run: |
           npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
