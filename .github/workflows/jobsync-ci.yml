@@ -4,19 +4,54 @@ on:
     branches: [main]
   push:
     branches: [m0-jobsync]
+permissions:
+  contents: read
 jobs:
   original-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: jobsync_ci
+          POSTGRES_PASSWORD: disposable-ci-password
+          POSTGRES_DB: jobsync_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jobsync_ci -d jobsync_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://jobsync_ci:disposable-ci-password@localhost:5432/jobsync_ci
+      NEXT_TELEMETRY_DISABLED: '1'
+      MCP_ENABLED: 'false'
     defaults:
       run:
         working-directory: web
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - run: npm ci
-      - run: npx prisma generate
-      - run: npm test
+      - name: Generate disposable runtime secrets
+        run: |
+          node -e 'const c = require("node:crypto"); for (const k of ["AUTH_SECRET", "ENCRYPTION_KEY"]) console.log(`${k}=${c.randomBytes(32).toString("hex")}`)' >> "$GITHUB_ENV"
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Generate Prisma client
+        run: npx prisma generate
+      - name: Apply migrations to Postgres
+        id: migrate
+        run: npx prisma migrate deploy
+      - name: Run original tests
+        run: npm test
+      - name: Build application
+        if: ${{ !cancelled() && steps.migrate.outcome == 'success' }}
+        run: npm run build
