@@ -124,7 +124,7 @@ function ApiKeySettings() {
     setVerifying(true);
     try {
       const verifyRes = await fetch("/api/settings/api-keys/verify", {
-        method: uiMessage("m9aee6b1bcdf6"),
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ provider, key: inputValue }),
       });

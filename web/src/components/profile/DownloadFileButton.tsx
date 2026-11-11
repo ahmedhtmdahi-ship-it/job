@@ -14,7 +14,7 @@ export function DownloadFileButton(
     const response = await fetch(
       `/api/profile/resume?resumeId=${encodeURIComponent(resumeId)}`,
       {
-        method: uiMessage("m14e30cd163c7"),
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },

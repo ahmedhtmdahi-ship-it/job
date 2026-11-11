@@ -164,7 +164,7 @@ export default function WeeklyBarChartToggle({
                 : value.toFixed(0)
             }
             theme={{
-              text: {
+              text: {fontFamily: "inherit",
                 fill: "#9ca3af",
               },
               tooltip: {
@@ -237,9 +237,9 @@ export default function WeeklyBarChartToggle({
                         .trim()
                         .replace(/\b\w/g, (c) => c.toUpperCase())
                     : String(id) === OTHER_SLICE_ID
-                      ? otherBucketLabel(
+                      ? tr(otherBucketLabel(
                           current.keys.filter((key) => key !== OTHER_SLICE_ID),
-                        )
+                        ))
                       : String(id)}
                 :{" "}
                 <strong>

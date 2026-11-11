@@ -1,3 +1,4 @@
+import {useUsageFormats} from "./format";
 import {useT} from "@/i18n/useT";
 import { cn } from "@/lib/utils";
 import type { AiUsageSummary } from "@/models/aiUsage.model";
@@ -32,6 +33,7 @@ export default function UsageSummaryCards({
   onShowFailures: () => void;
 }) {
   const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
 
   const change = formatChange(totals.calls, totals.previousCalls);
   const errorRate =

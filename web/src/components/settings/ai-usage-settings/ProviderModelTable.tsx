@@ -1,3 +1,4 @@
+import {useUsageFormats} from "./format";
 "use client";
 
 import {useT} from "@/i18n/useT";
@@ -13,6 +14,7 @@ export default function ProviderModelTable({
   providers,
 }: Pick<AiUsageSummary, "providers">) {
   const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
 
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const maxTokens = Math.max(1, ...providers.map((p) => p.tokens));

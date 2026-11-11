@@ -1713,6 +1713,11 @@
     "m65a79c4cac47": "workedAtCompany",
     "m19e82138c35f": "Due today",
     "mb0e0db70e969": "{count, plural, one {In # day} other {In # days}}",
-    "m2f30450b6198": "{count, plural, one {# day ago} other {# days ago}}"
+    "m2f30450b6198": "{count, plural, one {# day ago} other {# days ago}}",
+    "m566181254b29": "Yesterday",
+    "m6ecb2acbbe0c": "Other activity types",
+    "m3574459a743d": "Time Spent",
+    "maabd1a894a2e": "Invalid credentials.",
+    "m0c953ab32c60": "Something went wrong."
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import {CONTACT_ROLES} from "@/lib/constants";
 import {useT} from "@/i18n/useT";
 import {
   Select,
@@ -34,7 +35,7 @@ export function ContactRoleFilter({ roles, roleId, onRoleChange }: Props) {
         <SelectItem value={ALL}>{tr("m78f133afd3ec")}</SelectItem>
         {roles.map((role) => (
           <SelectItem key={role.id} value={role.id}>
-            {role.label}
+            {CONTACT_ROLES.some(item => item.value === role.value && item.label === role.label) ? tr(role.label) : role.label}
           </SelectItem>
         ))}
       </SelectContent>

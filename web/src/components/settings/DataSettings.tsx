@@ -93,7 +93,7 @@ export default function DataSettings() {
     setBusy(true);
     try {
       const res = await fetch("/api/backup/rollback", {
-        method: uiMessage("m9aee6b1bcdf6"),
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ snapshotId }),
       });
@@ -128,7 +128,7 @@ export default function DataSettings() {
     try {
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/backup/import/preflight", { method: uiMessage("m9aee6b1bcdf6"), body });
+      const res = await fetch("/api/backup/import/preflight", { method: "POST", body });
       const json = await res.json();
       if (!res.ok) {
         toastError(tr(json.error), tr("mf7f9715fc63c"));
@@ -150,7 +150,7 @@ export default function DataSettings() {
       const body = new FormData();
       body.append("file", selected);
       body.append("confirmWipe", "true");
-      const res = await fetch("/api/backup/import", { method: uiMessage("m9aee6b1bcdf6"), body });
+      const res = await fetch("/api/backup/import", { method: "POST", body });
       const json = await res.json();
       if (!res.ok) {
         toastError(tr(json.error), tr("m0a26f41abd00"));

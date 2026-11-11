@@ -145,7 +145,7 @@ function CreateResume({
 
     startTransition(async () => {
       const res = await fetch("/api/profile/resume", {
-        method: uiMessage("m9aee6b1bcdf6"),
+        method: "POST",
         body: formData,
       });
       const response = await res.json();

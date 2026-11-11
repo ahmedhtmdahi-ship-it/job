@@ -22,6 +22,7 @@ import {
   CHART_HEIGHT,
   donutLayout,
   DonutSlice,
+  OTHER_SLICE_ID,
 } from "./jobsActivityChart";
 
 interface JobsActivityCardProps {
@@ -98,7 +99,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
     otherHours,
     theme,
     otherActivities,
-  );
+  ).map(slice => slice.id === OTHER_SLICE_ID ? {...slice, label: topActivities.some(activity => activity.label === tr("Other")) ? tr("Other activity types") : tr(slice.label)} : slice);
   const layout = donutLayout(chartWidth);
   const roomyTotal = layout.holeDiameter >= FULL_TOTAL_HOLE;
   const maxLabelChars = useRef(layout.maxLabelChars);
@@ -181,7 +182,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                 arcLinkLabelsColor={{ from: "data.color" }}
                 arcLinkLabelsTextColor={ARC_LABEL_TEXT_COLOR[theme]}
                 theme={{
-                  text: { fontSize: 11 },
+                  text: {fontFamily: "inherit", fontSize: 11 },
                   tooltip: {
                     container: { background: "#1e293b", color: "#fff" },
                   },

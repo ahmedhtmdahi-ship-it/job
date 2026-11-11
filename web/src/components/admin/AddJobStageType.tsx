@@ -139,6 +139,7 @@ function AddJobStageType({
                   <SelectFormCtrl
                     label={tr("m073c1634c496")}
                     options={statuses}
+                      localizeOptions
                     field={field}
                   />
                   <FormMessage />

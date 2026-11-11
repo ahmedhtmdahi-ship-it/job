@@ -1,3 +1,4 @@
+import {useUsageFormats} from "./format";
 import {useT} from "@/i18n/useT";
 import { AI_USAGE_FEATURES, type AiUsageSummary } from "@/models/aiUsage.model";
 import { formatSeconds, formatTokens } from "./format";
@@ -6,6 +7,7 @@ export default function FeatureBreakdown({
   features,
 }: Pick<AiUsageSummary, "features">) {
   const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
 
   const maxTokens = Math.max(1, ...features.map((f) => f.tokens));
   return (

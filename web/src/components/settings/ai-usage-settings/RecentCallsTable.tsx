@@ -1,3 +1,4 @@
+import {useUsageFormats} from "./format";
 import {useT} from "@/i18n/useT";
 import { cn } from "@/lib/utils";
 import { AI_USAGE_CONSTANTS } from "@/lib/constants";
@@ -13,6 +14,7 @@ const NUM = "text-end tabular-nums";
 
 export default function RecentCallsTable({ recent }: { recent: AiCallRow[] }) {
   const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
 
   return (
     <section className="overflow-hidden rounded-lg border">

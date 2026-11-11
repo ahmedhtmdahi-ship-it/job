@@ -49,6 +49,8 @@ function SigninForm() {
         setError(errorResponse);
       } else {
         router.push("/dashboard");
+        // A new session can have a different saved locale than the visitor.
+        router.refresh();
       }
     });
   };
@@ -57,7 +59,7 @@ function SigninForm() {
     <>
       <Form {...form}>
         <form
-          method={tr("m9aee6b1bcdf6")}
+          method={"POST"}
           onSubmit={form.handleSubmit(onSubmit)}
           // className="w-2/3 space-y-6"
         >

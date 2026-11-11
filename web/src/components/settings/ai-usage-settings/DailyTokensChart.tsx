@@ -1,3 +1,4 @@
+import {useUsageFormats} from "./format";
 "use client";
 
 import {useDateFormat} from "@/i18n/useDateFormat";
@@ -21,6 +22,7 @@ export default function DailyTokensChart({
   const formatLocalized = useDateFormat();
 
   const tr = useT();
+  const {formatTokens, formatCount, formatSeconds, formatCallTime} = useUsageFormats();
 
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "light" ? "light" : "dark";
@@ -83,7 +85,7 @@ export default function DailyTokensChart({
             `${providerLabel(String(bar.id))} · ${formatLocalized(parseISO(String(bar.indexValue)), "MMM d")}`
           }
           theme={{
-            text: { fill: "#94A3B8" },
+            text: {fontFamily: "inherit", fill: "#94A3B8" },
             grid: {
               line: { stroke: theme === "dark" ? "#1E293B" : "#E2E8F0" },
             },

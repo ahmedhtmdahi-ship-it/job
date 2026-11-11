@@ -91,7 +91,7 @@ export default function ActivityCalendar({
             );
           }}
           theme={{
-            text: {
+            text: {fontFamily: "inherit",
               fill: "#9ca3af",
             },
             tooltip: {

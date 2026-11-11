@@ -198,6 +198,7 @@ export function AddStageDialog({
                     <SelectFormCtrl
                       label={tr("m073c1634c496")}
                       options={jobStatuses}
+                      localizeOptions
                       field={field}
                     />
                     <FormMessage />
@@ -306,6 +307,7 @@ export function AddStageDialog({
                     <SelectFormCtrl
                       label={tr("m25a63e52a98f")}
                       options={OUTCOME_OPTIONS}
+                      localizeOptions
                       field={{ ...field, value: field.value ?? "" }}
                     />
                     <FormMessage />

@@ -1,3 +1,4 @@
+import {useLocale} from "next-intl";
 import {message as uiMessage} from "@/i18n/message";
 import { format } from "date-fns";
 import {
@@ -26,12 +27,12 @@ export function formatSeconds(ms: number | null): string {
 export function formatCallTime(date: Date, now: Date = new Date()): string {
   const time = format(date, "HH:mm");
   if (format(now, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")) {
-    return `Today ${time}`;
+    return `${uiMessage("m2b065c7c9ce4")} ${time}`;
   }
   const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
   if (format(yesterday, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")) {
-    return `Yesterday ${time}`;
+    return `${uiMessage("m566181254b29")} ${time}`;
   }
   return format(date, "MMM d HH:mm");
 }
@@ -127,3 +128,16 @@ export const FAILURE_META: Record<
     dotClassName: "bg-slate-400",
   },
 };
+
+// Display-only locale adapters. The existing English formatting and numeric
+// calculations remain unchanged, including the functions exercised by tests.
+const englishFormats = {formatTokens, formatCount, formatSeconds, formatCallTime};
+const arabicFormats = {
+  formatTokens: (n: number) => new Intl.NumberFormat('ar', {notation: n >= 1000 ? 'compact' : 'standard', maximumFractionDigits: 2}).format(n),
+  formatCount: (n: number | null) => n === null ? '—' : new Intl.NumberFormat('ar').format(n),
+  formatSeconds: (ms: number | null) => ms === null ? '—' : new Intl.NumberFormat('ar', {style: 'unit', unit: 'second', unitDisplay: 'long', minimumFractionDigits: 1, maximumFractionDigits: 1}).format(ms / 1000),
+  formatCallTime: (date: Date) => new Intl.DateTimeFormat('ar', {month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}).format(date),
+};
+export function useUsageFormats() {
+  return useLocale() === 'ar' ? arabicFormats : englishFormats;
+}

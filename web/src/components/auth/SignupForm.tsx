@@ -55,13 +55,15 @@ function SignupForm() {
         setError(authError);
       } else {
         router.push("/dashboard");
+        // A new session can have a different saved locale than the visitor.
+        router.refresh();
       }
     });
   };
 
   return (
     <Form {...form}>
-      <form method={tr("m9aee6b1bcdf6")} onSubmit={form.handleSubmit(onSubmit)}>
+      <form method={"POST"} onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid gap-4">
           <div className="grid gap-2">
             <FormField
