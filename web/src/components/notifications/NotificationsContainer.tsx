@@ -185,7 +185,7 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
                     : "border-transparent font-medium text-muted-foreground",
                 )}
               >
-                {t.label}
+                {tr(t.label)}
                 <span
                   className={cn(
                     "rounded-full px-1.5 text-[11px] font-semibold",
@@ -225,9 +225,9 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
           </div>
         ) : (
           groups.map((g) => (
-            <section key={g.label} className="pt-4">
+            <section key={tr(g.label)} className="pt-4">
               <h3 className="px-4 pb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {g.label}
+                {tr(g.label)}
               </h3>
               <ul className="flex flex-col divide-y">
                 {g.items.map((item) => (

@@ -108,7 +108,7 @@ export function NotificationRow({ item, variant, onRemove, onOpenLink }: Notific
             onClick={() => onOpenLink(item.id)}
             className="self-start pt-1 text-[13px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:underline"
           >
-            {d.link.label}
+            {tr(d.link.label)}
           </Link>
         )}
       </div>

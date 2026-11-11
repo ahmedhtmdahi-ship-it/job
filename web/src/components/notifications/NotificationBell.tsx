@@ -134,7 +134,7 @@ export function NotificationBell() {
                   : "border-transparent font-medium text-muted-foreground",
               )}
             >
-              {t.label}
+              {tr(t.label)}
               {t.id === "errors" && errorCount > 0 && (
                 <span className="rounded-full bg-red-100 px-1.5 text-[11px] font-semibold text-red-700 dark:bg-red-950 dark:text-red-300">
                   {errorCount}
