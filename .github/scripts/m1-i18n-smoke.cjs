@@ -97,6 +97,22 @@ async function main() {
       await expect(page.getByRole('dialog')).toBeVisible();
       await verify(page,'ar',`${route} creation dialog`);
     }
+    // Regression: field names remain machine identifiers while labels are Arabic.
+    await page.goto(`${base}/dashboard/tasks`);
+    await page.getByRole('button',{name:label('New Task'),exact:true}).click();
+    await page.getByRole('dialog').locator('input[name="title"]').fill('مهمة تجريبية وهمية');
+    const activityPicker = page.getByRole('combobox',{name:label('Activity Type'),exact:true});
+    await activityPicker.click();
+    const activitySearch = page.locator('[cmdk-input]');
+    await activitySearch.fill('نشاط تجريبي وهمي');
+    await activitySearch.press('Enter');
+    await expect(activityPicker).toContainText('نشاط تجريبي وهمي');
+    await page.getByTestId('save-task-btn').click();
+    await expect(page.getByRole('dialog')).toBeHidden();
+    const savedTask = await db.task.findFirstOrThrow({where:{userId:user.id,title:'مهمة تجريبية وهمية'},include:{activityType:true}});
+    expect(savedTask.activityType?.label).toBe('نشاط تجريبي وهمي');
+    expect(savedTask.status).toBe('in-progress');
+    await verify(page,'ar','saved Arabic task');
     await page.goto(`${base}/dashboard/settings`);
     for(const section of ['AI Provider','AI Usage','API Keys','Appearance','MCP Access','Data']) {
       await page.getByRole('button',{name:label(section),exact:true}).click();
@@ -130,7 +146,7 @@ async function main() {
     for(const route of ['/signin','/signup']) {await visitorPage.goto(base+route);await verify(visitorPage,'en',route);}
     await visitor.close();await context.close();
     if (untranslated.length) throw new Error(untranslated.join("\n"));
-    console.log(`::notice title=M1 acceptance passed::${pageChecks} locale/page checks; saved language across sessions; five screenshots`);
+    console.log(`::notice title=M1 acceptance passed::${pageChecks} locale/page checks; Arabic task/type creation; saved language across sessions; five screenshots`);
   } finally {await db.$disconnect();await browser.close();}
 }
 main().catch(error=>{
