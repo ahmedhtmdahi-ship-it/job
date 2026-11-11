@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { ResumeSection } from "@/models/profile.model";
 import {
@@ -22,6 +23,8 @@ function EducationCard({
   educationSection,
   openDialogForEdit,
 }: EducationCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const { sectionTitle, educations } = educationSection!;
@@ -58,8 +61,8 @@ function EducationCard({
                 {degree}, {fieldOfStudy}
               </h3>
               <CardDescription>
-                {format(startDate, "MMM yyyy")} -{" "}
-                {endDate ? format(endDate, "MMM yyyy") : tr("m43f9b89c0b9d")}
+                {formatLocalized(startDate, "MMM yyyy")} -{" "}
+                {endDate ? formatLocalized(endDate, "MMM yyyy") : tr("m43f9b89c0b9d")}
                 <br />
                 {label}
               </CardDescription>

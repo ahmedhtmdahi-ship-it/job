@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NoteResponse } from "@/models/note.model";
@@ -55,7 +55,7 @@ export function NotesSection({
   const handleDelete = async () => {
     const result = await deleteNote(noteIdToDelete);
     toastActionResult(result, {
-      success: message("med7194c9bf41"),
+      success: uiMessage("med7194c9bf41"),
       onSuccess: () => loadNotes(),
     });
   };

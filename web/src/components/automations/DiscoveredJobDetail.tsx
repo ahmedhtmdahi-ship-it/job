@@ -181,7 +181,7 @@ export function DiscoveredJobDetail({
               <Badge variant="outline">{job.discoveryStatus}</Badge>
               {job.automation && (
                 <span className="text-sm text-muted-foreground">
-                  {tr("m75857a458999")}{job.automation.name}
+                  {tr("m75857a458999")}{" "}{job.automation.name}
                 </span>
               )}
             </div>

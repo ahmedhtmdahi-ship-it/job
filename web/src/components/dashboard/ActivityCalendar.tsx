@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useLocale} from "next-intl";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
@@ -25,6 +26,8 @@ export default function ActivityCalendar({
   years: string[];
   dataByYear: Record<string, any[]>;
 }) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
   const locale = useLocale();
 
@@ -81,9 +84,9 @@ export default function ActivityCalendar({
                   whiteSpace: "nowrap",
                 }}
               >
-                <div><strong>{format(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
-                <div>{day.value} {tr("m5e8c9902207a")}{Number(day.value) === 1 ? "" : tr("m043a718774c5")} {tr("mb4267ce93cbb")}</div>
-                <div>{hours} {tr("m1b52f3a2e151")}{hours === 1 ? "" : tr("m043a718774c5")} {tr("m0651863bf5d9")}</div>
+                <div><strong>{formatLocalized(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
+                <div>{day.value} {" "}{tr("m5e8c9902207a")}{Number(day.value) === 1 ? "" : tr("m043a718774c5")} {" "}{tr("mb4267ce93cbb")}</div>
+                <div>{hours} {" "}{tr("m1b52f3a2e151")}{hours === 1 ? "" : tr("m043a718774c5")} {" "}{tr("m0651863bf5d9")}</div>
               </div>
             );
           }}

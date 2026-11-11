@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -44,6 +45,8 @@ function ContactRow({
   onDelete,
   hideCompanyColumn,
 }: ContactRowProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const links = contact.jobLinks ?? [];
@@ -104,7 +107,7 @@ function ContactRow({
         </TableCell>
         <TableCell>{contact._count?.jobLinks ?? 0}</TableCell>
         <TableCell>
-          {contact.lastContactedAt ? format(contact.lastContactedAt, "PP") : "—"}
+          {contact.lastContactedAt ? formatLocalized(contact.lastContactedAt, "PP") : "—"}
         </TableCell>
         <TableCell>
           <DropdownMenu>
@@ -186,7 +189,7 @@ function ContactRow({
                         href={`/dashboard/myjobs/${link.Job?.id}`}
                         className="text-primary underline-offset-4 hover:underline"
                       >
-                        {link.Job?.JobTitle.label} {tr("mb1d6b91b67c2")}{link.Job?.Company.label}
+                        {link.Job?.JobTitle.label} {" "}{tr("mb1d6b91b67c2")}{" "}{link.Job?.Company.label}
                       </Link>
                       {" — "}
                       {link.Role.label}

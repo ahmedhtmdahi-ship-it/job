@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { FileDown, Loader } from "lucide-react";
 import { Button } from "../ui/button";
@@ -56,11 +56,11 @@ function CreateCoverLetter({
   const [exportOpen, setExportOpen] = useState(false);
 
   const pageTitle = coverLetterToEdit
-    ? message("m12d3470daa0a")
-    : message("m9cd2d2a46d12");
+    ? uiMessage("m12d3470daa0a")
+    : uiMessage("m9cd2d2a46d12");
   const pageDescription = coverLetterToEdit
-    ? message("mda4020ca4fdf")
-    : message("mde7120c10720");
+    ? uiMessage("mda4020ca4fdf")
+    : uiMessage("mde7120c10720");
 
   const form = useForm<z.infer<typeof CoverLetterFormSchema>>({
     resolver: zodResolver(CoverLetterFormSchema),

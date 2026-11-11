@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import "server-only";
 
 import { auth } from "@/auth";
@@ -36,7 +36,7 @@ export const POST = async (req: NextRequest) => {
   const userId = session?.user?.id;
 
   if (!session || !userId) {
-    return NextResponse.json({ message: message("m13d9eb180ca2") }, { status: 401 });
+    return NextResponse.json({ message: uiMessage("m13d9eb180ca2") }, { status: 401 });
   }
 
   const rateLimit = checkRateLimit(userId);
@@ -54,7 +54,7 @@ export const POST = async (req: NextRequest) => {
     body = await req.json();
   } catch {
     return NextResponse.json(
-      { error: message("m53cbd48fe38f") },
+      { error: uiMessage("m53cbd48fe38f") },
       { status: 400 },
     );
   }
@@ -62,7 +62,7 @@ export const POST = async (req: NextRequest) => {
 
   if (!resumeId || !selectedModel?.provider || !selectedModel?.model) {
     return NextResponse.json(
-      { error: message("me20ae237963c") },
+      { error: uiMessage("me20ae237963c") },
       { status: 400 },
     );
   }
@@ -75,20 +75,20 @@ export const POST = async (req: NextRequest) => {
 
   if (!resume?.File?.filePath) {
     return NextResponse.json(
-      { error: message("m3cf7f569a548") },
+      { error: uiMessage("m3cf7f569a548") },
       { status: 400 },
     );
   }
 
   // UPLOADS_DIR also holds the database and backup snapshots
   if (!isResumeFilePath(resume.File.filePath)) {
-    return NextResponse.json({ error: message("m5659e6b36e93") }, { status: 400 });
+    return NextResponse.json({ error: uiMessage("m5659e6b36e93") }, { status: 400 });
   }
   const resolvedPath = path.resolve(resume.File.filePath);
 
   if (!fs.existsSync(resolvedPath)) {
     return NextResponse.json(
-      { error: message("m60606ba46f43") },
+      { error: uiMessage("m60606ba46f43") },
       { status: 400 },
     );
   }

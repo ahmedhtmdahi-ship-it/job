@@ -134,7 +134,7 @@ export function EntityStringChipInput({
                   {tr("m47d2a515ef2f")}</div>
               )}
               {!isLoading && !input.trim() && filtered.length === 0 && (
-                <CommandEmpty>{tr("m1ea442a134b2")}{noun}{tr("ma4faaaa84876")}</CommandEmpty>
+                <CommandEmpty>{tr("m1ea442a134b2")}{" "}{noun}{tr("ma4faaaa84876")}</CommandEmpty>
               )}
               {input.trim() && alreadyAdded && (
                 <CommandEmpty>{tr("mfce4c90a4e2e")}</CommandEmpty>

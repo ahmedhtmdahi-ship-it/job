@@ -60,7 +60,7 @@ function AddJobBody({
         <div className="mt-2 rounded-sm border bg-muted/20 p-2">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>
-              {tr("ma1f73d6fdb75")}{source} · {description.length} {tr("m1ce93dacbcf4")}</span>
+              {tr("ma1f73d6fdb75")}{" "}{source} · {description.length} {" "}{tr("m1ce93dacbcf4")}</span>
             {completeness && <Badge variant="outline">{completeness}</Badge>}
           </div>
           {/* Collapsed to ~200 chars: this is verbatim third-party content

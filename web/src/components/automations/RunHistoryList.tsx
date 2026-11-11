@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
@@ -110,6 +111,8 @@ export function RunHistoryList({
   onLoadMore,
   onDelete,
 }: RunHistoryListProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [deleteRunId, setDeleteRunId] = useState<string | null>(null);
@@ -213,7 +216,7 @@ export function RunHistoryList({
                         </div>
                       </TableCell>
                       <TableCell>
-                        {format(new Date(run.startedAt), "MMM d, h:mm a")}
+                        {formatLocalized(new Date(run.startedAt), "MMM d, h:mm a")}
                       </TableCell>
                       <TableCell>
                         {duration !== null ? tr("m621689e01476", {v0: duration}) : "-"}

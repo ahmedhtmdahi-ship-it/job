@@ -1,23 +1,23 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const SignupFormSchema = z.object({
   name: z.string().min(2, {
-    message: message("m47d392c3c16a"),
+    message: uiMessage("m47d392c3c16a"),
   }),
   email: z
     .string({
-      error: message("m288e8d800174"),
+      error: uiMessage("m288e8d800174"),
     })
     .min(3, {
-      message: message("m6854517c93dd"),
+      message: uiMessage("m6854517c93dd"),
     })
     .email("Please enter a valid email."),
   password: z
     .string({
-      error: message("m99c31a349d47"),
+      error: uiMessage("m99c31a349d47"),
     })
     .min(6, {
-      message: message("m1da023356624"),
+      message: uiMessage("m1da023356624"),
     }),
 });

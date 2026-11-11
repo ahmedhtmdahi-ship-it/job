@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useId, useRef, useState, useTransition } from "react";
 import { Search, X } from "lucide-react";
@@ -38,7 +38,7 @@ const BANK_PAGE_SIZE = 200;
 
 // The question bank requires an answer; "TBD" is the app's own placeholder
 // for one that has not been written yet (QuestionForm).
-const UNANSWERED = message("m03626549a59a");
+const UNANSWERED = uiMessage("m03626549a59a");
 
 export function AddPrepQuestionsDialog({
   open,
@@ -102,7 +102,7 @@ export function AddPrepQuestionsDialog({
         tagIds: newTagIds,
       });
       toastActionResult(res, {
-        success: message("mc89e4a88358c"),
+        success: uiMessage("mc89e4a88358c"),
         onSuccess: () => {
           // Banked and selected in one click: the user asked for it here.
           setBank((prev) => [res.data, ...prev]);
@@ -121,7 +121,7 @@ export function AddPrepQuestionsDialog({
     startTransition(async () => {
       const res = await addStagePrepQuestions(stage.id, selected);
       toastActionResult(res, {
-        success: message("me1b1b15325f5"),
+        success: uiMessage("me1b1b15325f5"),
         onSuccess: () => {
           onAdded();
           onOpenChange(false);
@@ -132,7 +132,7 @@ export function AddPrepQuestionsDialog({
 
   const doneLabel =
     selected.length === 0
-      ? message("m11a6767d5674")
+      ? uiMessage("m11a6767d5674")
       : `Done — ${selected.length} question${
           selected.length === 1 ? "" : "s"
         } added to prep list`;

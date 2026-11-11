@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -21,8 +21,8 @@ import type { ContactRef, ContactRole } from "@/models/contact.model";
 import type { Company, JobLocation } from "@/models/job.model";
 
 const LinkContactSchema = z.object({
-  contact: z.string().min(1, message("m6ae9a7053cc4")),
-  contactRole: z.string().min(1, message("mb592e518913f")),
+  contact: z.string().min(1, uiMessage("m6ae9a7053cc4")),
+  contactRole: z.string().min(1, uiMessage("mb592e518913f")),
 });
 
 type LinkContactValues = z.infer<typeof LinkContactSchema>;
@@ -64,7 +64,7 @@ export function AddJobContactForm({
     startTransition(async () => {
       const res = await addJobContact(jobId, values.contact, values.contactRole);
       toastActionResult(res, {
-        success: message("mf9cae6ba195b"),
+        success: uiMessage("mf9cae6ba195b"),
         onSuccess: () => {
           form.reset();
           onLinked();

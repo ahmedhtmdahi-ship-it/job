@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   AlertCircle,

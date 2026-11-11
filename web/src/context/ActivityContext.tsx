@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   createContext,
@@ -158,7 +158,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
           ? `Activity auto-stopped after reaching maximum duration of ${
               APP_CONSTANTS.ACTIVITY_MAX_DURATION_MINUTES / 60
             } hours`
-          : message("m412e38d1b47a")
+          : uiMessage("m412e38d1b47a")
       );
       return true;
     },
@@ -190,7 +190,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
         return false;
       }
     },
-    []
+    [tr]
   );
 
   const startBreak = useCallback(

@@ -1,6 +1,7 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
@@ -148,6 +149,8 @@ function TokenRevealDialog({
 }
 
 export default function McpAccessSettings() {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [tokens, setTokens] = useState<PublicTokenMeta[]>([]);
@@ -198,7 +201,7 @@ export default function McpAccessSettings() {
     const result = await revokeMcpToken(id);
     setRevoking(null);
     if (!result.success) {
-      toastError(result.message ?? message("m804251d10e8a"));
+      toastError(result.message ?? uiMessage("m804251d10e8a"));
       return;
     }
     setTokens((prev) => prev.filter((t) => t.id !== id));
@@ -245,7 +248,7 @@ export default function McpAccessSettings() {
         <CardContent>
           {isLoading ? (
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
-              <Loader2 className="h-4 w-4 animate-spin" /> {tr("m168146c7d3c7")}</div>
+              <Loader2 className="h-4 w-4 animate-spin" /> {" "}{tr("m168146c7d3c7")}</div>
           ) : tokens.length === 0 ? (
             <p className="text-sm text-muted-foreground">{tr("m9f1eee7955e9")}</p>
           ) : (
@@ -256,9 +259,9 @@ export default function McpAccessSettings() {
                     <p className="font-medium text-sm truncate">{t.name}</p>
                     <p className="text-xs text-muted-foreground font-mono">{t.tokenPrefix}…</p>
                     <div className="flex flex-wrap gap-2 mt-1 text-xs text-muted-foreground">
-                      <span>{tr("md70b9e24bca2")}{format(new Date(t.createdAt), "PP")}</span>
-                      <span>{tr("mf6725f3af08a")}{format(new Date(t.expiresAt), "PP")}</span>
-                      {t.lastUsedAt && <span>{tr("m830ec7f812f9")}{format(new Date(t.lastUsedAt), "PP")}</span>}
+                      <span>{tr("md70b9e24bca2")}{" "}{formatLocalized(new Date(t.createdAt), "PP")}</span>
+                      <span>{tr("mf6725f3af08a")}{" "}{formatLocalized(new Date(t.expiresAt), "PP")}</span>
+                      {t.lastUsedAt && <span>{tr("m830ec7f812f9")}{" "}{formatLocalized(new Date(t.lastUsedAt), "PP")}</span>}
                     </div>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {t.scopes.map((s) => (
@@ -319,7 +322,7 @@ export default function McpAccessSettings() {
                 </SelectTrigger>
                 <SelectContent>
                   {APP_CONSTANTS.MCP_TOKEN_EXPIRY_PRESETS.map((d) => (
-                    <SelectItem key={d} value={String(d)}>{d} {tr("mab51004e9d71")}</SelectItem>
+                    <SelectItem key={d} value={String(d)}>{d} {" "}{tr("mab51004e9d71")}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

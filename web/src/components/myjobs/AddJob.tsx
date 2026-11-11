@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -140,7 +140,7 @@ export function AddJob({
   const newStatusId = jobStatuses.find((s) => s.value === "new")?.id;
   const newJobDefaultValues = {
     type: Object.keys(JOB_TYPES)[0],
-    workplaceType: message("m860e56f57145"),
+    workplaceType: uiMessage("m860e56f57145"),
     dueDate: addDays(new Date(), APP_CONSTANTS.DEFAULT_JOB_DUE_DAYS),
     status: draftStatusId,
     salaryRange: "",
@@ -245,13 +245,13 @@ export function AddJob({
     });
   }
 
-  const pageTitle = editJob ? message("mc492f013040b") : message("mfc2ab2389516");
+  const pageTitle = editJob ? uiMessage("mc492f013040b") : uiMessage("mfc2ab2389516");
   const pageDescription = editJob ? (
-    message("me4f82ce1fd41")
+    uiMessage("me4f82ce1fd41")
   ) : (
     <>
       {tr("md69c611aa906")}{" "}
-      <span className="text-destructive">*</span> {tr("m4a694330d6c4")}</>
+      <span className="text-destructive">*</span> {" "}{tr("m4a694330d6c4")}</>
   );
 
   const addJobForm = () => {

@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { requireUser } from "../shared";
@@ -67,7 +67,7 @@ export const linkStageInterviewer = async (
     if (error?.code === "P2002") {
       return {
         success: false,
-        message: message("m50d49c20bbec"),
+        message: uiMessage("m50d49c20bbec"),
       };
     }
     return handleError(error, "Failed to link interviewer.");

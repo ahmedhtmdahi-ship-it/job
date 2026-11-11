@@ -78,7 +78,7 @@ export function AutomationWizard({
             {editAutomation ? tr("ma450ea5e177b") : tr("mc3078d7906bd")}
           </DialogTitle>
           <DialogDescription>
-            {tr("m8e6a6cca7aae")}{step + 1} {tr("m28391d3bc64e")}{STEPS.length}: {STEPS[step].description}
+            {tr("m8e6a6cca7aae")}{" "}{step + 1} {" "}{tr("m28391d3bc64e")}{" "}{STEPS.length}: {STEPS[step].description}
           </DialogDescription>
         </DialogHeader>
 
@@ -172,7 +172,7 @@ export function AutomationWizard({
                   {isSubmitting && (
                     <Loader2 className="h-4 w-4 me-2 animate-spin" />
                   )}
-                  {editAutomation ? tr("mc1c1009d3f37") : tr("m4759498ac2a7")} {tr("md909750b1bbb")}</Button>
+                  {editAutomation ? tr("mc1c1009d3f37") : tr("m4759498ac2a7")} {" "}{tr("md909750b1bbb")}</Button>
               )}
             </DialogFooter>
           </form>

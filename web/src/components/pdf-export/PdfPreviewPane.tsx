@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
@@ -234,9 +234,9 @@ export function PdfPreviewPane({
   const status = showEmpty
     ? emptyMessage
     : showError
-      ? message("mb99fa6c06150")
+      ? uiMessage("mb99fa6c06150")
       : isGenerating
-        ? message("m843c063e712c")
+        ? uiMessage("m843c063e712c")
         : hasPages
           ? `Preview ready, ${pageLabel(pageCount)}`
           : "";

@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
@@ -75,7 +75,7 @@ export function StageDetailPanel({
               {interviewerCount > 0 && (
                 <li>
                   <span className="font-semibold text-foreground">
-                    {interviewerCount} {tr("m2272bea616a0")}{" "}
+                    {interviewerCount} {" "}{tr("m2272bea616a0")}{" "}
                     {interviewerCount === 1 ? tr("m1f8391309ece") : tr("m440aadc69df0")}
                   </span>{" "}
                   {tr("m73fe15b47e2a")}</li>
@@ -83,7 +83,7 @@ export function StageDetailPanel({
               {prepCount > 0 && (
                 <li>
                   <span className="font-semibold text-foreground">
-                    {prepCount} {tr("mb10b18f906fc")}{" "}
+                    {prepCount} {" "}{tr("mb10b18f906fc")}{" "}
                     {prepCount === 1 ? tr("m1f5087db919c") : tr("m17d5efa695de")}
                   </span>{" "}
                   {tr("m8d873dcc3051")}</li>
@@ -106,7 +106,7 @@ export function StageDetailPanel({
     startTransition(async () => {
       const res = await deleteJobStage(stage.id);
       toastActionResult(res, {
-        success: message("m128a78913cd0"),
+        success: uiMessage("m128a78913cd0"),
         onSuccess: onChanged,
       });
     });
@@ -172,7 +172,7 @@ export function StageDetailPanel({
             <TabsTrigger value="prep" className={TAB_TRIGGER}>
               {tr("me45c02ccf496")}{total > 0 && (
                 <span className="ms-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
-                  {asked} {tr("m28391d3bc64e")}{total}
+                  {asked} {" "}{tr("m28391d3bc64e")}{" "}{total}
                 </span>
               )}
             </TabsTrigger>

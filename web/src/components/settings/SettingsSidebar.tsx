@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { BarChart3, Bot, Database, Key, Palette, Plug } from "lucide-react";
 import { Button } from "../ui/button";
@@ -13,12 +13,12 @@ const SETTINGS_SECTIONS: {
   label: string;
   icon: typeof Bot;
 }[] = [
-  { id: "ai-provider", label: message("m84e1ec2c5bd3"), icon: Bot },
-  { id: "ai-usage", label: message("mc59713807412"), icon: BarChart3 },
-  { id: "api-keys", label: message("mc08f17eb9e11"), icon: Key },
-  { id: "appearance", label: message("m3907fa7f8072"), icon: Palette },
-  { id: "mcp-access", label: message("m844acbf008c2"), icon: Plug },
-  { id: "data", label: message("mcec3a9b89b2e"), icon: Database },
+  { id: "ai-provider", label: uiMessage("m84e1ec2c5bd3"), icon: Bot },
+  { id: "ai-usage", label: uiMessage("mc59713807412"), icon: BarChart3 },
+  { id: "api-keys", label: uiMessage("mc08f17eb9e11"), icon: Key },
+  { id: "appearance", label: uiMessage("m3907fa7f8072"), icon: Palette },
+  { id: "mcp-access", label: uiMessage("m844acbf008c2"), icon: Plug },
+  { id: "data", label: uiMessage("mcec3a9b89b2e"), icon: Database },
 ];
 
 interface SettingsSidebarProps {

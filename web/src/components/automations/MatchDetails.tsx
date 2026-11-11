@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { useMemo } from "react";
 import Link from "next/link";
@@ -25,6 +26,8 @@ interface MatchDetailsProps {
 }
 
 export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const html = useMemo(
@@ -91,9 +94,9 @@ export function MatchDetails({ matchData, discoveredAt }: MatchDetailsProps) {
         )}
         <p>
           {matchData.matchedAt
-            ? tr("m54ced5722fe2", {v0: format(new Date(matchData.matchedAt), "MMM d, yyyy 'at' h:mm a")})
+            ? tr("m54ced5722fe2", {v0: formatLocalized(new Date(matchData.matchedAt), "MMM d, yyyy 'at' h:mm a")})
             : discoveredAt
-              ? tr("m3554f6a1ea7b", {v0: format(new Date(discoveredAt), "MMM d, yyyy 'at' h:mm a")})
+              ? tr("m3554f6a1ea7b", {v0: formatLocalized(new Date(discoveredAt), "MMM d, yyyy 'at' h:mm a")})
               : null}
         </p>
       </div>

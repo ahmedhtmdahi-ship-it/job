@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -59,7 +59,7 @@ export function QuestionForm({
     resolver: zodResolver(AddQuestionFormSchema),
     defaultValues: {
       question: "",
-      answer: message("m03626549a59a"),
+      answer: uiMessage("m03626549a59a"),
       tagIds: [],
     },
   });
@@ -89,7 +89,7 @@ export function QuestionForm({
     } else {
       reset({
         question: "",
-        answer: message("m03626549a59a"),
+        answer: uiMessage("m03626549a59a"),
         tagIds: [],
       });
     }
@@ -113,10 +113,10 @@ export function QuestionForm({
     });
   }
 
-  const pageTitle = editQuestion ? message("m9e26d3777ad5") : message("m1dc7ec5f8aed");
+  const pageTitle = editQuestion ? uiMessage("m9e26d3777ad5") : uiMessage("m1dc7ec5f8aed");
   const pageDescription = editQuestion
-    ? message("m88402768e9d2")
-    : message("mc2b3662fab85");
+    ? uiMessage("m88402768e9d2")
+    : uiMessage("mc2b3662fab85");
 
   const closeDialog = () => {
     reset();

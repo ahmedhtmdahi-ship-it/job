@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition, useState } from "react";
 import { Button } from "../ui/button";
@@ -29,10 +29,10 @@ import { createActivityType } from "@/actions/activity.actions";
 
 const AddActivityTypeFormSchema = z.object({
   label: z
-    .string({ error: message("m9a9f9fcee0e6") })
-    .min(1, { message: message("m127a317e31d5") })
+    .string({ error: uiMessage("m9a9f9fcee0e6") })
+    .min(1, { message: uiMessage("m127a317e31d5") })
     .max(60, {
-      message: message("mbbb9fc69a5b0"),
+      message: uiMessage("mbbb9fc69a5b0"),
     }),
 });
 

@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import "server-only";
 
 import { auth } from "@/auth";
@@ -96,7 +96,7 @@ export const POST = async (req: NextRequest) => {
   const session = await auth();
   const userId = session?.user?.id;
   if (!session || !userId) {
-    return NextResponse.json({ error: message("m13d9eb180ca2") }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("m13d9eb180ca2") }, { status: 401 });
   }
 
   const rateLimit = checkRateLimit(userId, "chat");
@@ -109,7 +109,7 @@ export const POST = async (req: NextRequest) => {
 
   const parsed = AgentChatRequestSchema.safeParse(await req.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: message("m8599ecb96f6d") }, { status: 400 });
+    return NextResponse.json({ error: uiMessage("m8599ecb96f6d") }, { status: 400 });
   }
 
   const messages = parsed.data.messages as UIMessage[];
@@ -130,7 +130,7 @@ export const POST = async (req: NextRequest) => {
   const modelName = ai?.model;
   if (!modelName) {
     return NextResponse.json(
-      { error: message("m1e29dae32cf6") },
+      { error: uiMessage("m1e29dae32cf6") },
       { status: 503 },
     );
   }
@@ -154,7 +154,7 @@ export const POST = async (req: NextRequest) => {
   try {
     modelMessages = await convertToModelMessages(windowed);
   } catch {
-    return NextResponse.json({ error: message("m8599ecb96f6d") }, { status: 400 });
+    return NextResponse.json({ error: uiMessage("m8599ecb96f6d") }, { status: 400 });
   }
 
   // A chip-only send — paste, then Send without typing — has no text part,

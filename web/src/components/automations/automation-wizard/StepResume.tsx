@@ -83,7 +83,7 @@ export function StepResume({
           {incompleteCount === resumes.length
             ? tr("mbfb436446d5e")
             : tr("m23ed07631a58", {v0: incompleteCount})}{" "}
-          {tr("m273717e5129b")}{min} {tr("m3fed0833d7c3")}{" "}
+          {tr("m273717e5129b")}{" "}{min} {" "}{tr("m3fed0833d7c3")}{" "}
           <Link href="/dashboard/profile" className="underline">
             {tr("md696a35bdd18")}</Link>
           .

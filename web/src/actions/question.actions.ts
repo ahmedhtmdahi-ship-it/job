@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { AddQuestionFormSchema } from "@/models/addQuestionForm.schema";
@@ -82,7 +82,7 @@ export const getPrepStageLabel = async (
     });
 
     if (!stage) {
-      return { success: false, message: message("m88b50c587bdc") };
+      return { success: false, message: uiMessage("m88b50c587bdc") };
     }
 
     return {
@@ -110,7 +110,7 @@ export const getQuestionById = async (
     });
 
     if (!question) {
-      return { success: false, message: message("m048373941b1f") };
+      return { success: false, message: uiMessage("m048373941b1f") };
     }
 
     return { success: true, data: question };

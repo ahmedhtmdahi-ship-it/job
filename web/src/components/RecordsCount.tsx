@@ -16,7 +16,7 @@ export function RecordsCount({
 
   return (
     <div className="text-xs text-muted-foreground whitespace-nowrap">
-      {tr("md604310a789a")}<strong>{tr("mb6a286a95ade")}{count}</strong>
+      {tr("md604310a789a")}{" "}<strong>{tr("mb6a286a95ade")}{" "}{count}</strong>
       {total !== undefined && (
         <>
           {" "}

@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import {
@@ -52,7 +52,7 @@ export const setDefaultResume = async (
     return (
       handleError(error, "Failed to set default resume.") ?? {
         success: false,
-        message: message("mdba5606fe12e"),
+        message: uiMessage("mdba5606fe12e"),
       }
     );
   }

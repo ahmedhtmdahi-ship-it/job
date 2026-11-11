@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 // Text extraction from PDF and DOCX resume uploads
 
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -154,7 +154,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
       success: false,
       error: {
         code: "UNSUPPORTED_FORMAT",
-        message: message("mbbb9452737e1"),
+        message: uiMessage("mbbb9452737e1"),
       },
     };
   }
@@ -173,7 +173,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
         error: {
           code: "NO_TEXT",
           message:
-            message("mbc7b392ab7da"),
+            uiMessage("mbc7b392ab7da"),
         },
       };
     }
@@ -188,7 +188,7 @@ export async function extractText(buf: Buffer): Promise<ExtractionResult> {
         success: false,
         error: {
           code: "ENCRYPTED",
-          message: message("m0c96584278ef"),
+          message: uiMessage("m0c96584278ef"),
         },
       };
     }

@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { CirclePlay, MoreVertical, Trash } from "lucide-react";
 import {
@@ -36,6 +37,8 @@ function ActivitiesTable({
   reloadActivities,
   onStartActivity,
 }: ActivitiesTableProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [alertOpen, setAlertOpen] = useState(false);
@@ -91,7 +94,7 @@ function ActivitiesTable({
               >
                 <TableCell className="hidden md:table-cell w-[120px]">
                   {activity.startTime
-                    ? format(activity.startTime, "PP")
+                    ? formatLocalized(activity.startTime, "PP")
                     : tr("me2f79e5b6033")}
                 </TableCell>
                 <TableCell className="font-medium">
@@ -101,10 +104,10 @@ function ActivitiesTable({
                   {(activity.activityType as ActivityType)?.label}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {format(activity.startTime, "p")}
+                  {formatLocalized(activity.startTime, "p")}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {format(activity.endTime!, "p")}
+                  {formatLocalized(activity.endTime!, "p")}
                 </TableCell>
                 <TableCell>
                   {activity.startTime &&

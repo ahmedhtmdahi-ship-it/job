@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { format } from "date-fns";
 import { FileText, Sparkles } from "lucide-react";
@@ -19,6 +20,8 @@ export function CoverLetterTab({
   blockedReason,
   onGenerate,
 }: CoverLetterTabProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   if (!letter) {
@@ -43,7 +46,7 @@ export function CoverLetterTab({
         <span className="text-xs text-muted-foreground">
           {letter.title}
           {generatedAt &&
-            tr("m50c14a425436", {v0: format(new Date(generatedAt), "PP")})}
+            tr("m50c14a425436", {v0: formatLocalized(new Date(generatedAt), "PP")})}
         </span>
         <Button
           variant="outline"

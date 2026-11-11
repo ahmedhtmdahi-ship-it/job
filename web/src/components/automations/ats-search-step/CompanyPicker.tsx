@@ -84,14 +84,14 @@ export function CompanyPicker({
     <div className="space-y-2">
       <Label className="flex items-center justify-between">
         <span>
-          {meta.label} {tr("m4923413b40d7")}{" "}
+          {meta.label} {" "}{tr("m4923413b40d7")}{" "}
           <span className="font-normal text-muted-foreground">
             ({companies.length}/{APP_CONSTANTS.ATS_MAX_COMPANIES})
           </span>
         </span>
         {totalCount !== null && totalCount > 0 && (
           <span className="text-xs font-normal text-muted-foreground">
-            {totalCount} {tr("mddd9818abacf")}</span>
+            {totalCount} {" "}{tr("mddd9818abacf")}</span>
         )}
       </Label>
 
@@ -131,7 +131,7 @@ export function CompanyPicker({
             {watched.length > 0 && (
               <div className="flex items-center justify-between border-b px-3 py-1.5">
                 <span className="text-xs text-muted-foreground">
-                  {watched.length} {tr("mbc2549d34f77")}</span>
+                  {watched.length} {" "}{tr("mbc2549d34f77")}</span>
                 <button
                   type="button"
                   disabled={atLimit}
@@ -247,7 +247,7 @@ export function CompanyPicker({
         onResolved={onAdd}
       />
       <p className="text-sm text-muted-foreground">
-        {tr("m2a78025de6aa")}{meta.label} {tr("m775754821735")}</p>
+        {tr("m2a78025de6aa")}{" "}{meta.label} {" "}{tr("m775754821735")}</p>
     </div>
   );
 }

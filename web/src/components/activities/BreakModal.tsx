@@ -80,7 +80,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
     if (!isOver || overtimeWarnedRef.current || !breakStartedMs) return;
     overtimeWarnedRef.current = true;
     toastSuccess(tr("m6da5d05daa07"));
-  }, [isOver, breakStartedMs]);
+  }, [isOver, breakStartedMs, tr]);
 
   if (!open || !currentActivity) return null;
 
@@ -200,7 +200,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
                   variant={preset === plannedMinutes ? "default" : "outline"}
                   onClick={() => changeLength(preset)}
                 >
-                  {preset} {tr("m1f6fa6f69d18")}</Button>
+                  {preset} {" "}{tr("m1f6fa6f69d18")}</Button>
               ))}
 
               <Button

@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -24,6 +25,8 @@ type CompanyJobsTabProps = {
 
 // Read-only on purpose: every job action already lives on the job's own page
 export function CompanyJobsTab({ jobs }: CompanyJobsTabProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   if (jobs.length === 0) {
@@ -70,7 +73,7 @@ export function CompanyJobsTab({ jobs }: CompanyJobsTabProps) {
             </TableCell>
             <TableCell className="hidden md:table-cell">
               {job.appliedDate
-                ? format(new Date(job.appliedDate), "PP")
+                ? formatLocalized(new Date(job.appliedDate), "PP")
                 : job.applied
                   ? tr("m0c79a9c22284")
                   : tr("m3de0546b8c29")}

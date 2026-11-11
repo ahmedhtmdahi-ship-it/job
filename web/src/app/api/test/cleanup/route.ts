@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
@@ -10,12 +10,12 @@ import { deleteResumeById } from "@/actions/profile.actions";
 // so it can never delete real data.
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV === "production") {
-    return NextResponse.json({ error: message("me3ebaa16dd9d") }, { status: 404 });
+    return NextResponse.json({ error: uiMessage("me3ebaa16dd9d") }, { status: 404 });
   }
 
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: message("m76d1efbeed2d") }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("m76d1efbeed2d") }, { status: 401 });
   }
   const userId = session.user.id;
 

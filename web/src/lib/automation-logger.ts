@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { log as telemetryLog } from "@/lib/telemetry";
 
 export type LogLevel = "info" | "success" | "warning" | "error";

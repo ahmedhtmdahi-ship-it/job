@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {getT} from "@/i18n/getT";
 import {LocaleDirection} from "@/components/LocaleDirection";
 import {NextIntlClientProvider} from "next-intl";
@@ -23,9 +23,9 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: {
     template: "%s | JobSync",
-    default: message("m00d43de3b952"),
+    default: uiMessage("m00d43de3b952"),
   },
-  description: message("m2c533e8b1339"),
+  description: uiMessage("m2c533e8b1339"),
 };
 
 interface Props {

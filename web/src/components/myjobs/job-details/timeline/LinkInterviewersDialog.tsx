@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Check, Search } from "lucide-react";
@@ -105,7 +105,7 @@ export function LinkInterviewersDialog({
     startTransition(async () => {
       const res = await linkStageInterviewer(stage.id, contactId);
       toastActionResult(res, {
-        success: message("m88952f330428"),
+        success: uiMessage("m88952f330428"),
         onSuccess: () => {
           setLinkedIds((prev) => [...prev, contactId]);
           setLinkedCount((n) => n + 1);
@@ -118,7 +118,7 @@ export function LinkInterviewersDialog({
     startTransition(async () => {
       const res = await createContact(contactPayload(newContact));
       toastActionResult(res, {
-        success: message("m5a4307adf00a"),
+        success: uiMessage("m5a4307adf00a"),
         onSuccess: () => {
           const row: ContactRow = {
             id: res.data.id,
@@ -136,7 +136,7 @@ export function LinkInterviewersDialog({
 
   const doneLabel =
     linkedCount === 0
-      ? message("m11a6767d5674")
+      ? uiMessage("m11a6767d5674")
       : `Done — ${linkedCount} interviewer${linkedCount === 1 ? "" : "s"} linked`;
 
   return (
@@ -202,7 +202,7 @@ export function LinkInterviewersDialog({
                       disabled={isPending}
                       onClick={() => link(contact.id)}
                     >
-                      <span className="sr-only">{tr("m9fd728c66c9a")}{contact.label}</span>
+                      <span className="sr-only">{tr("m9fd728c66c9a")}{" "}{contact.label}</span>
                       <span aria-hidden="true">{tr("m9fd728c66c9a")}</span>
                     </Button>
                   )}

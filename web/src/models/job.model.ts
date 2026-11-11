@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import type { JobBoard, LeverHost } from "@/models/automation.model";
 import { CoverLetter, Resume } from "./profile.model";
 import type { JobContactLink } from "./contact.model";

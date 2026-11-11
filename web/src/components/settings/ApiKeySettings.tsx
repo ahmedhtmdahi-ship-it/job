@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import {
@@ -124,7 +124,7 @@ function ApiKeySettings() {
     setVerifying(true);
     try {
       const verifyRes = await fetch("/api/settings/api-keys/verify", {
-        method: message("m9aee6b1bcdf6"),
+        method: uiMessage("m9aee6b1bcdf6"),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ provider, key: inputValue }),
       });
@@ -134,8 +134,8 @@ function ApiKeySettings() {
         const title =
           verifyData.reason === "unreachable"
             ? `Cannot reach ${PROVIDERS.find((p) => p.id === provider)?.name ?? provider}`
-            : message("mf0f2383f8af8");
-        toastError(verifyData.error || message("m9d216344d134"), title);
+            : uiMessage("mf0f2383f8af8");
+        toastError(verifyData.error || uiMessage("m9d216344d134"), title);
         return;
       }
 
@@ -151,7 +151,7 @@ function ApiKeySettings() {
         setInputValue("");
         await fetchKeys();
       } else {
-        toastError(saveResult.message || message("me2446d6606fb"), tr("m53ad6f999b1f"));
+        toastError(saveResult.message || uiMessage("me2446d6606fb"), tr("m53ad6f999b1f"));
       }
     } catch (error) {
       console.error("Error saving API key:", error);
@@ -169,7 +169,7 @@ function ApiKeySettings() {
         toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key removed.`, tr("m2a2e2a1a3644"));
         await fetchKeys();
       } else {
-        toastError(result.message || message("mcb4de8d755c7"));
+        toastError(result.message || uiMessage("mcb4de8d755c7"));
       }
     } catch (error) {
       console.error("Error deleting API key:", error);
@@ -223,7 +223,7 @@ function ApiKeySettings() {
                       {provider.description}
                       {isBaseUrl && (
                         <span className="block text-xs text-muted-foreground/70 mt-0.5">
-                          {tr("md1f6d9e71b8b")}{provider.id === "ollama" ? defaultOllamaUrl : provider.placeholder}
+                          {tr("md1f6d9e71b8b")}{" "}{provider.id === "ollama" ? defaultOllamaUrl : provider.placeholder}
                         </span>
                       )}
                     </CardDescription>
@@ -351,7 +351,7 @@ function ApiKeySettings() {
                             <AlertDialogDescription>
                               {isBaseUrl ? (
                                 <>
-                                  {tr("m9a163eab87b8")}{provider.name} {tr("mfde41687c2ac")}{" "}
+                                  {tr("m9a163eab87b8")}{" "}{provider.name} {" "}{tr("mfde41687c2ac")}{" "}
                                   {provider.id === "ollama"
                                     ? defaultOllamaUrl
                                     : provider.placeholder}
@@ -360,7 +360,7 @@ function ApiKeySettings() {
                               ) : (
                                 <>
                                   {tr("mb6895971e24a")}{" "}
-                                  {provider.name} {tr("m34231ea8dec9")}</>
+                                  {provider.name} {" "}{tr("m34231ea8dec9")}</>
                               )}
                             </AlertDialogDescription>
                           </AlertDialogHeader>

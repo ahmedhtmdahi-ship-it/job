@@ -36,7 +36,7 @@ export function MatchJobResult({ output }: { output: AgentMatchJobResult }) {
   if (output.status === "unreadable") {
     return (
       <p className="text-sm">
-        {tr("m030e7186c3e4")}<strong>{output.title}</strong> — {output.reason}
+        {tr("m030e7186c3e4")}{" "}<strong>{output.title}</strong> — {output.reason}
       </p>
     );
   }
@@ -44,7 +44,7 @@ export function MatchJobResult({ output }: { output: AgentMatchJobResult }) {
   if (output.status === "generation_failed") {
     return (
       <p className="text-sm">
-        {tr("m8195e86b166a")}<strong>{output.jobTitle}</strong> — {output.reason}
+        {tr("m8195e86b166a")}{" "}<strong>{output.jobTitle}</strong> — {output.reason}
       </p>
     );
   }
@@ -54,12 +54,12 @@ export function MatchJobResult({ output }: { output: AgentMatchJobResult }) {
       <AgentMatchContent body={output.body} scores={output.scores} />
       <p className="mt-2 text-xs text-muted-foreground">
         {output.jobTitle}
-        {output.company ? tr("mff31d33ee656", {v0: output.company}) : ""} {tr("m495e29baabb0")}{" "}
+        {output.company ? tr("mff31d33ee656", {v0: output.company}) : ""} {" "}{tr("m495e29baabb0")}{" "}
         {output.resumeTitle}
       </p>
       {!output.saved && (
         <p className="mt-1 text-xs text-muted-foreground">
-          {tr("m9b518edbec95")}{output.saveError}
+          {tr("m9b518edbec95")}{" "}{output.saveError}
         </p>
       )}
     </div>

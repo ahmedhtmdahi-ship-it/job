@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import {
@@ -45,7 +45,7 @@ function ContactsTable({
       openState: true,
       deleteAction: true,
       itemId: contact.id,
-      title: jobs > 0 ? message("m54e5afac724c") : undefined,
+      title: jobs > 0 ? uiMessage("m54e5afac724c") : undefined,
       description:
         jobs > 0
           ? `${contact.name} is linked to ${jobs} job${jobs === 1 ? "" : "s"}. Deleting the contact removes those links. This cannot be undone.`

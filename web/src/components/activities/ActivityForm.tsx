@@ -1,6 +1,7 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -50,15 +51,17 @@ const ActivityFormComponent = ({
   onClose,
   reloadActivities,
 }: ActivityFormProps) => {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [activityTypes, setActivityTypes] = useState<ActivityType[]>([]);
   const [duration, setDuration] = useState<Duration | null>(null);
   const defaultValues = useMemo(() => {
     const now = new Date();
-    const currentTime = format(now, "hh:mm a");
+    const currentTime = formatLocalized(now, "hh:mm a");
     const nowPlus5mins = addMinutes(now, 5);
-    const estimatedEndTime = format(nowPlus5mins, "hh:mm a");
+    const estimatedEndTime = formatLocalized(nowPlus5mins, "hh:mm a");
 
     return {
       activityName: "",
@@ -145,7 +148,7 @@ const ActivityFormComponent = ({
       };
       const response = await createActivity(payload);
       toastActionResult(response, {
-        success: message("mfc0862243fca"),
+        success: uiMessage("mfc0862243fca"),
         onSuccess: () => {
           onClose();
           reloadActivities();

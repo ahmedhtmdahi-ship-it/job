@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import Link from "next/link";
@@ -23,9 +23,9 @@ import { isErrorNotification } from "./notificationDisplay";
 type PopoverTab = "all" | "errors" | "runs";
 
 const TABS: { id: PopoverTab; label: string }[] = [
-  { id: "all", label: message("ma52ace420f21") },
-  { id: "errors", label: message("mcb702378f315") },
-  { id: "runs", label: message("m848f54e89660") },
+  { id: "all", label: uiMessage("ma52ace420f21") },
+  { id: "errors", label: uiMessage("mcb702378f315") },
+  { id: "runs", label: uiMessage("m848f54e89660") },
 ];
 
 export function NotificationBell() {

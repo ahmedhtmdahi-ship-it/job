@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { Metadata } from "next";
 
 import { getJobSourceList, getStatusList } from "@/actions/job.actions";
@@ -9,7 +9,7 @@ import { getAllJobLocations } from "@/actions/jobLocation.actions";
 import { getAllTags } from "@/actions/tag.actions";
 
 export const metadata: Metadata = {
-  title: message("mc523c7796fda"),
+  title: uiMessage("mc523c7796fda"),
 };
 
 async function MyJobs() {

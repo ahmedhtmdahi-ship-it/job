@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -119,7 +119,7 @@ function AiSettings() {
             if (!connResult.isConnected) {
               if (!cancelled) {
                 setFetchedModels(fallback);
-                setConnectionError(connResult.error || message("me120afebb965"));
+                setConnectionError(connResult.error || uiMessage("me120afebb965"));
               }
               return;
             }
@@ -192,7 +192,7 @@ function AiSettings() {
         toastSuccess(tr("m1efa5c4966d7"), tr("med9b760289e6"));
         if (isAgentChatOpen) void refreshPreflight();
       } else {
-        toastError(result.message || message("mf5c69cb7585d"));
+        toastError(result.message || uiMessage("mf5c69cb7585d"));
       }
     } catch (error) {
       console.error("Error saving AI settings:", error);

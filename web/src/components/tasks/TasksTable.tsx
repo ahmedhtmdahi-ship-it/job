@@ -1,5 +1,6 @@
 "use client";
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Table,
@@ -88,22 +89,22 @@ const priorityConfig: Record<
   low: {
     icon: ArrowDown,
     color: "text-green-600 bg-green-100 dark:bg-green-900/30",
-    label: message("mf793de205ead"),
+    label: uiMessage("mf793de205ead"),
   },
   medium: {
     icon: ArrowRight,
     color: "text-cyan-600 bg-cyan-100 dark:bg-cyan-900/30",
-    label: message("m8e588cd18774"),
+    label: uiMessage("m8e588cd18774"),
   },
   high: {
     icon: ArrowUp,
     color: "text-orange-600 bg-orange-100 dark:bg-orange-900/30",
-    label: message("mc4ebc6d4a583"),
+    label: uiMessage("mc4ebc6d4a583"),
   },
   critical: {
     icon: Flame,
     color: "text-red-600 bg-red-100 dark:bg-red-900/30",
-    label: message("m427dd2969bd1"),
+    label: uiMessage("m427dd2969bd1"),
   },
 };
 
@@ -150,7 +151,7 @@ function groupTasksByActivityType(tasks: Task[]): Record<string, Task[]> {
   const groups: Record<string, Task[]> = {};
 
   tasks.forEach((task) => {
-    const key = task.activityType?.label || message("m737a61481e11");
+    const key = task.activityType?.label || uiMessage("m737a61481e11");
     if (!groups[key]) {
       groups[key] = [];
     }
@@ -202,6 +203,8 @@ function TasksTable({
   onStartActivity,
   groupBy = "none",
 }: TasksTableProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [alertOpen, setAlertOpen] = useState(false);
@@ -431,7 +434,7 @@ function TasksTable({
 
   const formatDateLabel = (dateStr: string) => {
     const date = parse(dateStr, "yyyy-MM-dd", new Date());
-    return isToday(date) ? "Today" : format(date, "MMM d, yyyy");
+    return isToday(date) ? "Today" : formatLocalized(date, "MMM d, yyyy");
   };
 
   if (tasks.length === 0) {

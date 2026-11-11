@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Resume, ResumeSection, SectionType } from "@/models/profile.model";
 import { Card, CardHeader, CardTitle } from "../ui/card";
@@ -159,7 +159,7 @@ function ResumeContainer({
     if (!skillsSection?.id) return;
     const result = await deleteSkillsSection(skillsSection.id);
     toastActionResult(result, {
-      success: message("m16166883d62c"),
+      success: uiMessage("m16166883d62c"),
       onSuccess: () => router.refresh(),
     });
   };
@@ -177,7 +177,7 @@ function ResumeContainer({
   const handleDeleteCertification = async (certificationId: string) => {
     const result = await deleteCertification(certificationId);
     toastActionResult(result, {
-      success: message("m2b3764302c9d"),
+      success: uiMessage("m2b3764302c9d"),
       onSuccess: () => router.refresh(),
     });
   };

@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Metadata } from "next";
 import {
@@ -10,8 +10,8 @@ import { ClearAllDataButton } from "@/components/developer/ClearAllDataButton";
 import { GenerateMockDataButton } from "@/components/developer/GenerateMockDataButton";
 
 export const metadata: Metadata = {
-  title: message("mcfd95b2a1fc7"),
-  description: message("mdae0f7722d12"),
+  title: uiMessage("mcfd95b2a1fc7"),
+  description: uiMessage("mdae0f7722d12"),
 };
 
 export default function DeveloperPage() {

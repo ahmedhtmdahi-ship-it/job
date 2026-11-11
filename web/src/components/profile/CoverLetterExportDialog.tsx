@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
@@ -21,7 +21,7 @@ import { canExportCoverLetter } from "./cover-letter-export-dialog/canExportCove
 
 type PreviewInput = CoverLetterExportSettings & { headline: string };
 
-const EMPTY_MESSAGE = message("m389ccc9fb879");
+const EMPTY_MESSAGE = uiMessage("m389ccc9fb879");
 
 type CoverLetterExportDialogProps = {
   open: boolean;

@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { NoteResponse } from "@/models/note.model";
 import { TipTapContentViewer } from "../TipTapContentViewer";
@@ -13,13 +14,15 @@ type NoteCardProps = {
 };
 
 export function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   return (
     <div className="border rounded-lg p-4 space-y-2">
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          {format(new Date(note.createdAt), "PPp")}
+          {formatLocalized(new Date(note.createdAt), "PPp")}
           {note.isEdited && (
             <span className="ms-2 text-xs text-muted-foreground">{tr("mde44febe4cc8")}</span>
           )}

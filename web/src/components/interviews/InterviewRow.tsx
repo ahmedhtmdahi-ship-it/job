@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import {
@@ -70,7 +70,7 @@ function InterviewRow({
   const saveOutcome = async (value: string | null) => {
     const res = await setStageOutcome(interview.id, value);
     toastActionResult(res, {
-      success: message("mfa10b8eccf2e"),
+      success: uiMessage("mfa10b8eccf2e"),
       onSuccess: () => onOutcomeSaved(),
     });
   };

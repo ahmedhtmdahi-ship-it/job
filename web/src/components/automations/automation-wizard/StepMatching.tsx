@@ -26,7 +26,7 @@ export function StepMatching({
       name="matchThreshold"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{tr("ma3a7f40f0648")}{field.value}%</FormLabel>
+          <FormLabel>{tr("ma3a7f40f0648")}{" "}{field.value}%</FormLabel>
           <FormControl>
             <Slider
               min={0}

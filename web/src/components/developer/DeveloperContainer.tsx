@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -64,8 +64,8 @@ export function MockActivitiesCard() {
       text:
         result.message ||
         (result.success
-          ? message("m4dd7cd6ea6fb")
-          : message("m5a9848b370d9")),
+          ? uiMessage("m4dd7cd6ea6fb")
+          : uiMessage("m5a9848b370d9")),
     });
     setIsGenerating(false);
   };
@@ -73,7 +73,7 @@ export function MockActivitiesCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        message("m4e729af3895f"),
+        uiMessage("m4e729af3895f"),
       )
     )
       return;
@@ -86,8 +86,8 @@ export function MockActivitiesCard() {
       text:
         result.message ||
         (result.success
-          ? message("mad8237b83faf")
-          : message("m3620c5665f3b")),
+          ? uiMessage("mad8237b83faf")
+          : uiMessage("m3620c5665f3b")),
     });
     setIsClearing(false);
   };
@@ -154,8 +154,8 @@ export function MockProfileCard() {
       text:
         result.message ||
         (result.success
-          ? message("m88d319411429")
-          : message("m921fd7ce4986")),
+          ? uiMessage("m88d319411429")
+          : uiMessage("m921fd7ce4986")),
     });
     setIsGenerating(false);
   };
@@ -163,7 +163,7 @@ export function MockProfileCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        message("m7a1fa8b0c6b5"),
+        uiMessage("m7a1fa8b0c6b5"),
       )
     )
       return;
@@ -176,8 +176,8 @@ export function MockProfileCard() {
       text:
         result.message ||
         (result.success
-          ? message("m7f45aacc9f5f")
-          : message("me05d226e20e8")),
+          ? uiMessage("m7f45aacc9f5f")
+          : uiMessage("me05d226e20e8")),
     });
     setIsClearing(false);
   };
@@ -195,7 +195,7 @@ export function MockProfileCard() {
           <div>
             <h3 className="font-semibold mb-2">{tr("m91ac357bdb2b")}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              {tr("m887e32f84166")}<code>{tr("m9b9869301449")}</code> {tr("mbb240a5305ba")}</p>
+              {tr("m887e32f84166")}{" "}<code>{tr("m9b9869301449")}</code> {" "}{tr("mbb240a5305ba")}</p>
             <Button
               onClick={handleGenerate}
               disabled={isGenerating || isClearing}
@@ -211,7 +211,7 @@ export function MockProfileCard() {
           <div className="border-t pt-4">
             <h3 className="font-semibold mb-2">{tr("meb24b863358f")}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              {tr("me3235df8a2c2")}<code>{tr("m9b9869301449")}</code>{tr("m3550ce7bee52")}</p>
+              {tr("me3235df8a2c2")}{" "}<code>{tr("m9b9869301449")}</code>{tr("m3550ce7bee52")}</p>
             <Button
               onClick={handleClear}
               disabled={isClearing || isGenerating}
@@ -244,8 +244,8 @@ export function MockJobsCard() {
       text:
         result.message ||
         (result.success
-          ? message("m980a894f3e53")
-          : message("mad3fde30155a")),
+          ? uiMessage("m980a894f3e53")
+          : uiMessage("mad3fde30155a")),
     });
     setIsGenerating(false);
   };
@@ -253,7 +253,7 @@ export function MockJobsCard() {
   const handleClear = async () => {
     if (
       !confirm(
-        message("m1e5ee73590e4"),
+        uiMessage("m1e5ee73590e4"),
       )
     )
       return;
@@ -266,8 +266,8 @@ export function MockJobsCard() {
       text:
         result.message ||
         (result.success
-          ? message("m1d4191a90f70")
-          : message("m2293ba504223")),
+          ? uiMessage("m1d4191a90f70")
+          : uiMessage("m2293ba504223")),
     });
     setIsClearing(false);
   };

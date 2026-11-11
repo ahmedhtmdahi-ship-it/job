@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ function groupJobsByDate(jobs: JobResponse[]) {
   for (const job of jobs) {
     const key = job.appliedDate
       ? format(job.appliedDate, "EEE MMMM d, yyyy")
-      : message("m4214c2fd737c");
+      : uiMessage("m4214c2fd737c");
     const existing = groups.get(key);
     if (existing) {
       existing.push(job);
@@ -57,7 +57,7 @@ function groupActivitiesByDate(activities: RecentActivity[]) {
   for (const activity of activities) {
     const key = activity.endTime
       ? format(activity.endTime, "EEE MMMM d, yyyy")
-      : message("mc1f88e9d6c41");
+      : uiMessage("mc1f88e9d6c41");
     const existing = groups.get(key);
     if (existing) {
       existing.push(activity);
@@ -68,7 +68,7 @@ function groupActivitiesByDate(activities: RecentActivity[]) {
   return Array.from(groups.entries());
 }
 
-const tabs = [message("m2f17a0f8d518"), message("m4d0076e6b4c7")] as const;
+const tabs = [uiMessage("m2f17a0f8d518"), uiMessage("m4d0076e6b4c7")] as const;
 
 export default function RecentCardToggle({
   jobs,
@@ -88,7 +88,7 @@ export default function RecentCardToggle({
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <CardTitle className="text-lg text-green-600 min-w-0 truncate">
-            {tr("m690dbe9dc099")}{tabs[activeIndex]}
+            {tr("m690dbe9dc099")}{" "}{tabs[activeIndex]}
           </CardTitle>
           <div
             className="flex shrink-0 rounded-md border text-xs"

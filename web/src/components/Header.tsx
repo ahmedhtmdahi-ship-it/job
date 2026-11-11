@@ -61,7 +61,7 @@ async function Header() {
       </Sheet>
       <SidebarToggle />
       <h1 className="font-semibold">
-        {tr("m00d43de3b952")}<span className="hidden sm:inline"> {tr("m69dcb8c12daa")}</span>
+        {tr("m00d43de3b952")}<span className="hidden sm:inline"> {" "}{tr("m69dcb8c12daa")}</span>
       </h1>
       <div className="relative ms-auto flex-1 md:grow-0">
         {/* <Search className="absolute start-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

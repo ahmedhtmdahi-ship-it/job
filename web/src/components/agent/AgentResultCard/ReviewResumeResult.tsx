@@ -23,7 +23,7 @@ export function ReviewResumeResult({ output }: { output: AgentReviewResumeResult
   if (output.status === "unreadable" || output.status === "generation_failed") {
     return (
       <p className="text-sm">
-        {tr("m03a90d774b1b")}<strong>{output.title}</strong> — {output.reason}
+        {tr("m03a90d774b1b")}{" "}<strong>{output.title}</strong> — {output.reason}
       </p>
     );
   }
@@ -33,7 +33,7 @@ export function ReviewResumeResult({ output }: { output: AgentReviewResumeResult
       <AgentReviewContent body={output.body} scores={output.scores} />
       {!output.saved && (
         <p className="mt-2 text-xs text-muted-foreground">
-          {tr("md0ab85c2e8fb")}{output.saveError}
+          {tr("md0ab85c2e8fb")}{" "}{output.saveError}
         </p>
       )}
     </div>

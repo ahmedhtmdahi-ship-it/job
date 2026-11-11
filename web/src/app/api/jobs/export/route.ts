@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { NextResponse } from "next/server";
 import Papa from "papaparse";
 import { PassThrough } from "node:stream";
@@ -65,7 +65,7 @@ const transformJobData = (
 export const POST = async () => {
   const session = await auth();
   if (!session) {
-    return NextResponse.json({ error: message("md089c8a9fc28") }, { status: 401 });
+    return NextResponse.json({ error: uiMessage("md089c8a9fc28") }, { status: 401 });
   }
 
   const passThrough = new PassThrough();

@@ -17,7 +17,7 @@ export function GetResumeResult({ output }: { output: AgentGetResumeResult }) {
   if (output.status === "unreadable") {
     return (
       <p className="text-sm">
-        {tr("m030e7186c3e4")}<strong>{output.title}</strong> — {output.reason}
+        {tr("m030e7186c3e4")}{" "}<strong>{output.title}</strong> — {output.reason}
       </p>
     );
   }
@@ -36,11 +36,11 @@ export function GetResumeResult({ output }: { output: AgentGetResumeResult }) {
   return (
     <div className="text-sm">
       <p>
-        {tr("m9b9a8d05a7ec")}<strong>{output.title}</strong>
+        {tr("m9b9a8d05a7ec")}{" "}<strong>{output.title}</strong>
         {sourceNote}.
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        {output.chars.toLocaleString()} {tr("m25d939ffd0d7")}{output.truncated ? tr("m0a59daa2612f") : ""}
+        {output.chars.toLocaleString()} {" "}{tr("m25d939ffd0d7")}{output.truncated ? tr("m0a59daa2612f") : ""}
         {output.ambiguousTitle ? tr("ma308a585ec73") : ""}
       </p>
     </div>

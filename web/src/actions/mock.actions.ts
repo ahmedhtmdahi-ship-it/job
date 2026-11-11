@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { requireUser } from "./shared";
@@ -477,7 +477,7 @@ export const generateMockJobsAction = async (): Promise<any> => {
       return {
         success: false,
         message:
-          message("m5f7bafb251aa"),
+          uiMessage("m5f7bafb251aa"),
       };
     }
 
@@ -515,11 +515,11 @@ export const generateMockJobsAction = async (): Promise<any> => {
       ]);
 
     if (statuses.length === 0) {
-      return { success: false, message: message("m6bfb8680da94") };
+      return { success: false, message: uiMessage("m6bfb8680da94") };
     }
 
     if (jobSources.length === 0) {
-      return { success: false, message: message("m163073aa32d6") };
+      return { success: false, message: uiMessage("m163073aa32d6") };
     }
 
     const statusMap = new Map(statuses.map((s) => [s.value, s.id]));
@@ -639,7 +639,7 @@ export const clearMockJobsAction = async (): Promise<any> => {
     const jobIds = mockJobs.map((j) => j.id);
 
     if (jobIds.length === 0) {
-      return { success: true, message: message("mba727a1af12e") };
+      return { success: true, message: uiMessage("mba727a1af12e") };
     }
 
     // Delete related records first (FK constraints)
@@ -720,7 +720,7 @@ export const clearAllDataAction = async (): Promise<any> => {
 
     await Promise.all(files.map((f) => removeResumeFile(f.filePath)));
 
-    return { success: true, message: message("m6d7d3cb7d856") };
+    return { success: true, message: uiMessage("m6d7d3cb7d856") };
   } catch (error) {
     return handleError(error, "Failed to clear all data");
   }

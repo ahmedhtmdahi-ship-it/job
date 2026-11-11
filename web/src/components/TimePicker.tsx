@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { Clock, Minus, Plus } from "lucide-react";
 import { addMinutes, format, parse } from "date-fns";
@@ -99,6 +100,8 @@ interface TimePickerProps {
 }
 
 export function TimePicker({ field, fullWidth }: TimePickerProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
@@ -119,7 +122,7 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
       ? field.value
       : FALLBACK_TIME;
     const stepped = addMinutes(parse(current, TIME_FORMAT, new Date()), minutes);
-    field.onChange(format(stepped, TIME_FORMAT));
+    field.onChange(formatLocalized(stepped, TIME_FORMAT));
   };
 
   return (

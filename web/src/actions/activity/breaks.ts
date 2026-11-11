@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import {
@@ -25,7 +25,7 @@ export const startBreak = async (
     }
 
     if (activity.breakStartedAt) {
-      return { success: false, message: message("m0b831a436bc3") };
+      return { success: false, message: uiMessage("m0b831a436bc3") };
     }
 
     const updated = await prisma.activity.update({
@@ -94,7 +94,7 @@ export const updateBreakLength = async (
     });
 
     if (!activity?.breakStartedAt) {
-      return { success: false, message: message("me4690e72b3e8") };
+      return { success: false, message: uiMessage("me4690e72b3e8") };
     }
 
     const updated = await prisma.activity.update({

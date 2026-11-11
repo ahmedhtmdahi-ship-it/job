@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { TaskGroupBy, TaskStatus } from "@/models/task.model";
@@ -125,7 +125,7 @@ export const getTaskById = async (
     });
 
     if (!task) {
-      return { success: false, message: message("mb19fa2937342") };
+      return { success: false, message: uiMessage("mb19fa2937342") };
     }
 
     return {

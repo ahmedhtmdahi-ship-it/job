@@ -107,11 +107,11 @@ export default function WeeklyBarChartToggle({
         <div className="flex items-center justify-between gap-2 mb-1 mt-3">
           <div className="flex items-baseline gap-2 min-w-0">
             <CardTitle className="text-lg text-green-600 truncate">
-              {tr("m2975132481a7")}{tr(current.label)}
+              {tr("m2975132481a7")}{" "}{tr(current.label)}
             </CardTitle>
             {totalHours !== null && (
               <span className="text-sm text-muted-foreground whitespace-nowrap">
-                {totalHours.toFixed(1)} {tr("m4e9682fa850e")}</span>
+                {totalHours.toFixed(1)} {" "}{tr("m4e9682fa850e")}</span>
             )}
           </div>
           <div

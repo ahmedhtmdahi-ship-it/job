@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Loader, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
@@ -63,10 +63,10 @@ function CreateResume({
   const [selectedModel, setSelectedModel] = useState<AiModel>(defaultModel);
   const router = useRouter();
 
-  const pageTitle = resumeToEdit ? message("m34676bbb6a74") : message("m2ed68e68826c");
+  const pageTitle = resumeToEdit ? uiMessage("m34676bbb6a74") : uiMessage("m2ed68e68826c");
   const pageDescription = resumeToEdit
-    ? message("m2a122eaae566")
-    : message("m0d997911de86");
+    ? uiMessage("m2a122eaae566")
+    : uiMessage("m0d997911de86");
 
   const form = useForm<z.infer<typeof CreateResumeFormSchema>>({
     resolver: zodResolver(CreateResumeFormSchema),
@@ -145,7 +145,7 @@ function CreateResume({
 
     startTransition(async () => {
       const res = await fetch("/api/profile/resume", {
-        method: message("m9aee6b1bcdf6"),
+        method: uiMessage("m9aee6b1bcdf6"),
         body: formData,
       });
       const response = await res.json();

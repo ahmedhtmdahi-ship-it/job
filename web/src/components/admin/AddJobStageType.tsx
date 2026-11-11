@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition, useEffect } from "react";
 import { Button } from "../ui/button";
@@ -35,12 +35,12 @@ import {
 
 const AddJobStageTypeFormSchema = z.object({
   label: z
-    .string({ error: message("m1c61e0ca7a15") })
-    .min(1, { message: message("m215f93e1150b") })
-    .max(80, { message: message("m309bb622510c") }),
+    .string({ error: uiMessage("m1c61e0ca7a15") })
+    .min(1, { message: uiMessage("m215f93e1150b") })
+    .max(80, { message: uiMessage("m309bb622510c") }),
   statusId: z
-    .string({ error: message("m5129d03c4960") })
-    .min(1, { message: message("me63ff0d44832") }),
+    .string({ error: uiMessage("m5129d03c4960") })
+    .min(1, { message: uiMessage("me63ff0d44832") }),
 });
 
 type AddJobStageTypeProps = {

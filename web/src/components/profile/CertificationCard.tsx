@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { ResumeSection } from "@/models/profile.model";
 import {
@@ -34,6 +35,8 @@ function CertificationCard({
   openDialogForEdit,
   onDelete,
 }: CertificationCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const { sectionTitle, licenseOrCertifications } = certificationSection!;
@@ -97,11 +100,11 @@ function CertificationCard({
               <h3>{organization}</h3>
               <CardDescription>
                 {issueDate && (
-                  <>{tr("m2b7dcdb1716b")}{format(new Date(issueDate), "MMM yyyy")}</>
+                  <>{tr("m2b7dcdb1716b")}{" "}{formatLocalized(new Date(issueDate), "MMM yyyy")}</>
                 )}
                 {issueDate && expirationDate && " · "}
                 {expirationDate ? (
-                  <>{tr("m8353d67bd934")}{format(new Date(expirationDate), "MMM yyyy")}</>
+                  <>{tr("m8353d67bd934")}{" "}{formatLocalized(new Date(expirationDate), "MMM yyyy")}</>
                 ) : (
                   issueDate && " · No Expiration"
                 )}

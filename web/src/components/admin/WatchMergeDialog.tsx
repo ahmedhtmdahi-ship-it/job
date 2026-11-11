@@ -37,8 +37,8 @@ export function WatchMergeDialog({ pending, onConfirm, onCancel }: Props) {
         <AlertDialogHeader>
           <AlertDialogTitle>{tr("mafb3f541b99b")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {tr("m9a7710cdfabb")}<strong>{pending?.existing.label}</strong>{tr("m9e136bc3aeec")}{pending && PROVIDER_META[pending.provider].label} {tr("m859169b38185")}{" "}
-            <code>{pending?.board.token}</code> {tr("m9a1bb1e057dd")}</AlertDialogDescription>
+            {tr("m9a7710cdfabb")}{" "}<strong>{pending?.existing.label}</strong>{tr("m9e136bc3aeec")}{" "}{pending && PROVIDER_META[pending.provider].label} {" "}{tr("m859169b38185")}{" "}
+            <code>{pending?.board.token}</code> {" "}{tr("m9a1bb1e057dd")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>{tr("m19766ed6ccb2")}</AlertDialogCancel>

@@ -1,5 +1,4 @@
-import {message} from "@/i18n/message";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {getT} from "@/i18n/getT";
 import { format } from "date-fns";
 import {
@@ -24,7 +23,7 @@ import WeeklyBarChartToggle from "@/components/dashboard/WeeklyBarChartToggle";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: message("m67b696468610"),
+  title: uiMessage("m67b696468610"),
 };
 
 export default async function Dashboard() {
@@ -62,21 +61,21 @@ export default async function Dashboard() {
             <JobsApplied />
             <JobsActivityCard
               data={[
-                { label: message("ma7c742643c7c"), summary: summary7Days },
-                { label: message("me3ba17e32240"), summary: summary30Days },
+                { label: uiMessage("ma7c742643c7c"), summary: summary7Days },
+                { label: uiMessage("me3ba17e32240"), summary: summary30Days },
               ]}
             />
           </div>
           <WeeklyBarChartToggle
             charts={[
               {
-                label: message("m2f17a0f8d518"),
+                label: uiMessage("m2f17a0f8d518"),
                 data: weeklyData,
                 keys: ["value"],
                 axisLeftLegend: tr("m1510dc88cb5d"),
               },
               {
-                label: message("m4d0076e6b4c7"),
+                label: uiMessage("m4d0076e6b4c7"),
                 data: activitiesData.data,
                 keys: activitiesData.keys,
                 groupMode: "stacked",

@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import type { AutomationRun } from "@/models/automation.model";
@@ -30,7 +30,7 @@ export async function getAutomationRuns(
     });
 
     if (!automation) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     const [runs, total] = await Promise.all([
@@ -64,7 +64,7 @@ export async function deleteAutomationRun(
       where: { id: runId, automation: { userId: user.id } },
     });
 
-    if (!run) return { success: false, message: message("m8c2ef559f91d") };
+    if (!run) return { success: false, message: uiMessage("m8c2ef559f91d") };
 
     await db.automationRun.delete({ where: { id: runId } });
 

@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { resolveApiKey } from "@/lib/api-key-resolver";
@@ -13,7 +13,7 @@ export async function GET() {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: message("m2df73551dc21") },
+        { error: uiMessage("m2df73551dc21") },
         { status: 500 }
       );
     }
@@ -26,7 +26,7 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: message("m8046fdc684db") },
+        { error: uiMessage("m8046fdc684db") },
         { status: response.status }
       );
     }
@@ -39,7 +39,7 @@ export async function GET() {
       error: String(error),
     });
     return NextResponse.json(
-      { error: message("m8046fdc684db") },
+      { error: uiMessage("m8046fdc684db") },
       { status: 500 }
     );
   }

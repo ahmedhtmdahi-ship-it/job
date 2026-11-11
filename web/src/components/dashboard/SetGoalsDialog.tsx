@@ -1,5 +1,6 @@
 "use client";
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -41,7 +42,7 @@ interface SetGoalsDialogProps {
 const FIELDS = [
   {
     name: "jobs",
-    label: message("m7b5c14851d4d"),
+    label: uiMessage("m7b5c14851d4d"),
     noun: "jobs",
     ring: "var(--gc-ring-1)",
     min: DAILY_GOALS.JOBS_MIN,
@@ -49,7 +50,7 @@ const FIELDS = [
   },
   {
     name: "hours",
-    label: message("m5abb5177d8ac"),
+    label: uiMessage("m5abb5177d8ac"),
     noun: "hours",
     ring: "var(--gc-ring-2)",
     min: DAILY_GOALS.HOURS_MIN,
@@ -64,6 +65,8 @@ export default function SetGoalsDialog({
   targets,
   onSaved,
 }: SetGoalsDialogProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [isPending, startTransition] = useTransition();
@@ -84,7 +87,7 @@ export default function SetGoalsDialog({
     startTransition(async () => {
       const result = await updateGoalTargets({ month, ...values });
       toastActionResult(result, {
-        success: message("mfb3a0d9e8e4a"),
+        success: uiMessage("mfb3a0d9e8e4a"),
         onSuccess: (data) => {
           if (!data) return;
           onSaved(data);
@@ -93,7 +96,7 @@ export default function SetGoalsDialog({
       });
     });
 
-  const monthName = format(new Date(`${month}-01T00:00:00`), "MMMM yyyy");
+  const monthName = formatLocalized(new Date(`${month}-01T00:00:00`), "MMMM yyyy");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -124,7 +127,7 @@ export default function SetGoalsDialog({
             <div className="flex items-start gap-2.5 rounded-lg bg-muted p-3">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <DialogDescription className="text-[13px]">
-                {tr("m4dd08a491752")}{monthName} {tr("mf8cfab627728")}</DialogDescription>
+                {tr("m4dd08a491752")}{" "}{monthName} {" "}{tr("mf8cfab627728")}</DialogDescription>
             </div>
             <DialogFooter>
               <Button

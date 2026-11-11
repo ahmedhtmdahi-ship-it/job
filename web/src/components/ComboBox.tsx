@@ -202,7 +202,7 @@ export function Combobox({
               {creatable ? (
                 <>
                   <CirclePlus className="h-4 w-4" />
-                  <p>{tr("m02184950e3ed")}</p>
+                  <p>{tr("m02184950e3ed")}{" "}</p>
                   <p className="block max-w-48 truncate font-semibold text-primary">
                     {newOption}
                   </p>

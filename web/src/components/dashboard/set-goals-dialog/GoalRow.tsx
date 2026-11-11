@@ -72,11 +72,11 @@ export default function GoalRow({
                 <FormMessage className="text-xs" />
               ) : changed ? (
                 <span className="text-xs font-medium text-primary">
-                  {tr("m9f276c3991cc")}{previous} {tr("m4bd85caaf454")}{value}
+                  {tr("m9f276c3991cc")}{" "}{previous} {" "}{tr("m4bd85caaf454")}{" "}{value}
                 </span>
               ) : (
                 <span className="text-xs text-muted-foreground">
-                  {min} {tr("m663ea1bfffe5")}{max}
+                  {min} {" "}{tr("m663ea1bfffe5")}{" "}{max}
                 </span>
               )}
             </div>

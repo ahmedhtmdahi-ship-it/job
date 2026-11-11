@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import { generateText } from "ai";
@@ -44,20 +44,20 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
     });
 
     if (!job) {
-      return { success: false, message: message("mdffd7a3dba78") };
+      return { success: false, message: uiMessage("mdffd7a3dba78") };
     }
 
     if (job.automationId && automationLogger.isRunning(job.automationId)) {
       return {
         success: false,
         message:
-          message("m7b3702484522"),
+          uiMessage("m7b3702484522"),
       };
     }
 
     const resumeId = job.automation?.resumeId;
     if (!resumeId) {
-      return { success: false, message: message("mcadc2f29381f") };
+      return { success: false, message: uiMessage("mcadc2f29381f") };
     }
 
     const userSettings = await db.userSettings.findUnique({
@@ -81,7 +81,7 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
     ]);
 
     if (!resumePre.success || !jobPre.success) {
-      return { success: false, message: message("m3c62a4a007ef") };
+      return { success: false, message: uiMessage("m3c62a4a007ef") };
     }
 
     const model = await getModel(ai.provider, ai.model || "qwen3.5:9b", user.id);
@@ -147,7 +147,7 @@ export async function analyzeDiscoveredJob(jobId: string): Promise<{
 
     const { scores, body } = parseJobMatch(result.text);
     if (!scores) {
-      return { success: false, message: message("m0af400f4a475") };
+      return { success: false, message: uiMessage("m0af400f4a475") };
     }
 
     let previous: Record<string, unknown> = {};

@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useRef, useState } from "react";
 import { CheckCheck, Trash2 } from "lucide-react";
@@ -39,10 +39,10 @@ interface NotificationsContainerProps {
 }
 
 const TABS: { id: NotificationTab; label: string }[] = [
-  { id: "all", label: message("ma52ace420f21") },
-  { id: "unread", label: message("m1b9f384c1436") },
-  { id: "errors", label: message("mcb702378f315") },
-  { id: "runs", label: message("m848f54e89660") },
+  { id: "all", label: uiMessage("ma52ace420f21") },
+  { id: "unread", label: uiMessage("m1b9f384c1436") },
+  { id: "errors", label: uiMessage("mcb702378f315") },
+  { id: "runs", label: uiMessage("m848f54e89660") },
 ];
 const TAB_IDS = TABS.map((t) => t.id);
 const ALL_AUTOMATIONS = "all";

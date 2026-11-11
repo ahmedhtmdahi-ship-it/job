@@ -22,7 +22,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
   if (output.status === "no_description") {
     return (
       <p className="text-sm">
-        <strong>{output.jobTitle}</strong> {tr("m63c8858105c6")}</p>
+        <strong>{output.jobTitle}</strong> {" "}{tr("m63c8858105c6")}</p>
     );
   }
 
@@ -45,7 +45,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
   if (output.status === "unreadable") {
     return (
       <p className="text-sm">
-        {tr("m030e7186c3e4")}<strong>{output.title}</strong> — {output.reason}
+        {tr("m030e7186c3e4")}{" "}<strong>{output.title}</strong> — {output.reason}
       </p>
     );
   }
@@ -53,7 +53,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
   if (output.status === "generation_failed") {
     return (
       <p className="text-sm">
-        {tr("m773f2e89eb81")}<strong>{output.jobTitle}</strong> —{" "}
+        {tr("m773f2e89eb81")}{" "}<strong>{output.jobTitle}</strong> —{" "}
         {output.reason}
       </p>
     );
@@ -64,7 +64,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
       <AgentMarkdown text={output.body} />
       <p className="mt-2 text-xs text-muted-foreground">
         {output.jobTitle}
-        {output.company ? tr("mff31d33ee656", {v0: output.company}) : ""} {tr("mf68cf7c70208")}{" "}
+        {output.company ? tr("mff31d33ee656", {v0: output.company}) : ""} {" "}{tr("mf68cf7c70208")}{" "}
         {output.resumeTitle}
       </p>
       {output.saved ? (
@@ -75,7 +75,7 @@ export function CoverLetterResult({ output }: { output: AgentCoverLetterResult }
         </p>
       ) : (
         <p className="mt-1 text-xs text-muted-foreground">
-          {tr("mc98b88a1fb69")}{output.saveError}
+          {tr("mc98b88a1fb69")}{" "}{output.saveError}
         </p>
       )}
     </div>

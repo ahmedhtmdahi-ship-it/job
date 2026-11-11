@@ -104,7 +104,7 @@ export function QuestionCard({
         {question.createdVia && (
           <div className="mt-2">
             <Badge variant="outline" className="text-xs text-muted-foreground">
-              {tr("m4d327af41f96")}{question.createdVia}
+              {tr("m4d327af41f96")}{" "}{question.createdVia}
             </Badge>
           </div>
         )}

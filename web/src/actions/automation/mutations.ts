@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import { calculateNextRunAt } from "@/lib/scraper/schedule";
@@ -57,7 +57,7 @@ export async function createAutomation(input: CreateAutomationInput): Promise<{
     if (!resume) {
       return {
         success: false,
-        message: message("md7a084661325"),
+        message: uiMessage("md7a084661325"),
       };
     }
 
@@ -115,7 +115,7 @@ export async function updateAutomation(
     });
 
     if (!existing) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     if (isRetiredBoard(existing.jobBoard)) {
@@ -135,7 +135,7 @@ export async function updateAutomation(
       if (!resume) {
         return {
           success: false,
-          message: message("md7a084661325"),
+          message: uiMessage("md7a084661325"),
         };
       }
     }
@@ -203,7 +203,7 @@ export async function deleteAutomation(id: string): Promise<{
     });
 
     if (!automation) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     await db.automation.delete({ where: { id } });
@@ -229,7 +229,7 @@ export async function pauseAutomation(id: string): Promise<{
     });
 
     if (!automation) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     const updated = await db.automation.update({
@@ -269,7 +269,7 @@ export async function resumeAutomation(id: string): Promise<{
     });
 
     if (!automation) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     const nextRunAt = calculateNextRunAt(automation.scheduleHour);

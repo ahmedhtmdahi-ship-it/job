@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { differenceInCalendarDays } from "date-fns";
 import { JobStatus } from "@/models/job.model";
 
@@ -34,7 +34,7 @@ export function dueDateHint(due: Date | undefined, today: Date): string {
 export type RequiredField = "title" | "company" | "location" | "source";
 
 export const REQUIRED_FIELD_LABELS: Record<RequiredField, string> = {
-  title: message("mde2c88352242"),
+  title: uiMessage("mde2c88352242"),
   company: "Company",
   location: "Job Location",
   source: "Job Source",

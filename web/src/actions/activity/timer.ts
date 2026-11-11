@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { APP_CONSTANTS } from "@/lib/constants";
@@ -28,7 +28,7 @@ export const startActivityById = async (
     if (existingActive) {
       return {
         success: false,
-        message: message("mad3f897013a9"),
+        message: uiMessage("mad3f897013a9"),
       };
     }
 

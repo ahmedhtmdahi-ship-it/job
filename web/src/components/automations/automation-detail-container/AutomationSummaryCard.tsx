@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -26,6 +27,8 @@ export function AutomationSummaryCard({
   totalJobs,
   newJobsCount,
 }: AutomationSummaryCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   return (
@@ -83,7 +86,7 @@ export function AutomationSummaryCard({
             <p className="text-sm text-muted-foreground">{tr("m2e65ffbea246")}</p>
             <p className="text-sm font-medium">
               {automation.nextRunAt && automation.status === "active"
-                ? format(new Date(automation.nextRunAt), "MMM d, h:mm a")
+                ? formatLocalized(new Date(automation.nextRunAt), "MMM d, h:mm a")
                 : "-"}
             </p>
           </div>
@@ -91,16 +94,16 @@ export function AutomationSummaryCard({
             <p className="text-sm text-muted-foreground">{tr("m9c05e80faaf8")}</p>
             <p className="text-sm font-medium">
               {automation.lastRunAt
-                ? format(new Date(automation.lastRunAt), "MMM d, h:mm a")
+                ? formatLocalized(new Date(automation.lastRunAt), "MMM d, h:mm a")
                 : tr("m6300ef800bb8")}
             </p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">{tr("m3457f3cfe808")}</p>
             <p className="text-sm font-medium">
-              {totalJobs} {tr("m11239872d178")}{newJobsCount > 0 && (
+              {totalJobs} {" "}{tr("m11239872d178")}{newJobsCount > 0 && (
                 <Badge variant="secondary" className="ms-2">
-                  {newJobsCount} {tr("m11507a0e2f5e")}</Badge>
+                  {newJobsCount} {" "}{tr("m11507a0e2f5e")}</Badge>
               )}
             </p>
           </div>

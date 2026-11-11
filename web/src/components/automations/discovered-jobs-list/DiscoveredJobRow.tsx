@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,8 @@ export function DiscoveredJobRow({
   onAccept,
   onDismiss,
 }: DiscoveredJobRowProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const analyzed = isAnalyzed(job);
@@ -136,7 +139,7 @@ export function DiscoveredJobRow({
           color={getDiscoveryStatusBadgeColor(job.discoveryStatus)}
         />
       </TableCell>
-      <TableCell>{format(new Date(job.discoveredAt), "MMM d, yyyy")}</TableCell>
+      <TableCell>{formatLocalized(new Date(job.discoveredAt), "MMM d, yyyy")}</TableCell>
       <TableCell className="text-end">
         {job.discoveryStatus === "new" && (
           <div className="flex justify-end gap-2">

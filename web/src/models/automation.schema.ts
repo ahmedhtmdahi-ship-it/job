@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 import { APP_CONSTANTS } from "@/lib/constants";
 // Deep-import (NOT the barrel) — utils.ts is pure; the barrel pulls scraper
@@ -86,7 +86,7 @@ export const CreateAutomationSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["sourceConfig", data.jobBoard, "companies"],
-        message: message("m7515e77aec20"),
+        message: uiMessage("m7515e77aec20"),
       });
     }
   });
@@ -109,7 +109,7 @@ export const UpdateAutomationSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["sourceConfig", data.jobBoard, "companies"],
-        message: message("m7515e77aec20"),
+        message: uiMessage("m7515e77aec20"),
       });
     }
   });

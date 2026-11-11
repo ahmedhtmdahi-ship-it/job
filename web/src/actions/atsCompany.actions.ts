@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { getCurrentUser } from "@/utils/user.utils";
 import { APP_CONSTANTS } from "@/lib/constants";
 import { ATS_TOKEN_REGEX } from "@/lib/scraper/utils";
@@ -65,12 +65,12 @@ export async function resolveAtsBoard(
   input: string,
 ): Promise<ResolveResult> {
   const user = await getCurrentUser();
-  if (!user) return { success: false, message: message("m76d1efbeed2d") };
+  if (!user) return { success: false, message: uiMessage("m76d1efbeed2d") };
 
   if (provider === "greenhouse") return resolveGreenhouse(input);
   if (provider === "lever") return resolveLever(input);
   if (provider === "ashby") return resolveAshby(input);
-  return { success: false, message: message("m1609d5fba47c") };
+  return { success: false, message: uiMessage("m1609d5fba47c") };
 }
 
 // Greenhouse: extract token from a board URL or bare token; validate via
@@ -97,7 +97,7 @@ async function resolveGreenhouse(input: string): Promise<ResolveResult> {
   if (!token) {
     return {
       success: false,
-      message: message("mde07683ebb2e"),
+      message: uiMessage("mde07683ebb2e"),
     };
   }
 
@@ -122,12 +122,12 @@ async function resolveGreenhouse(input: string): Promise<ResolveResult> {
     const data: { name?: string } = await response.json();
     const name = data.name?.trim();
     if (!name) {
-      return { success: false, message: message("ma954c43385ad") };
+      return { success: false, message: uiMessage("ma954c43385ad") };
     }
 
     return { success: true, name, token };
   } catch {
-    return { success: false, message: message("m5b53c6631fa6") };
+    return { success: false, message: uiMessage("m5b53c6631fa6") };
   }
 }
 
@@ -180,7 +180,7 @@ async function resolveLever(input: string): Promise<ResolveResult> {
   if (!extracted) {
     return {
       success: false,
-      message: message("m68ef362aa2af"),
+      message: uiMessage("m68ef362aa2af"),
     };
   }
 
@@ -212,7 +212,7 @@ async function resolveLever(input: string): Promise<ResolveResult> {
     const name = seeded?.name ?? humanizeToken(token);
     return { success: true, name, token, host };
   } catch {
-    return { success: false, message: message("m1ccbd3c5825a") };
+    return { success: false, message: uiMessage("m1ccbd3c5825a") };
   }
 }
 
@@ -239,7 +239,7 @@ async function resolveAshby(input: string): Promise<ResolveResult> {
   if (!token) {
     return {
       success: false,
-      message: message("m55eb4a1b2980"),
+      message: uiMessage("m55eb4a1b2980"),
     };
   }
 
@@ -267,6 +267,6 @@ async function resolveAshby(input: string): Promise<ResolveResult> {
     const seeded = (ashbySeed as SeedCompany[]).find((c) => c.token === token);
     return { success: true, name: seeded?.name ?? humanizeToken(token), token };
   } catch {
-    return { success: false, message: message("m1ea3aea7d8b5") };
+    return { success: false, message: uiMessage("m1ea3aea7d8b5") };
   }
 }

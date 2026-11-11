@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   createContext,
@@ -234,7 +234,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
     }
     setIsOpen(false);
     releaseRail(AGENT_CHAT_PANEL_ID);
-  }, [chat, releaseRail]);
+  }, [chat, releaseRail, tr]);
 
   const runPreflight = useCallback(async () => {
     const settings = await getUserSettings();
@@ -265,11 +265,11 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
       ok: result.isConnected,
       error: result.isConnected
         ? undefined
-        : (result.error ?? message("me120afebb965")),
+        : (result.error ?? uiMessage("me120afebb965")),
       provider,
       model: ai.model,
     });
-  }, []);
+  }, [tr]);
 
   // Collapsing the rail buys the docked panel ~140px of page width.
   const open = useCallback(() => {
@@ -307,7 +307,7 @@ function useAgentChatValue(initialMessages: UIMessage[]) {
     setQueued(undefined);
     // Clearing an idle conversation aborted nothing worth reporting.
     if (wasStreaming) toastInfo(tr("mf4be1621e259"));
-  }, [chat]);
+  }, [chat, tr]);
 
   const approvalPending = useMemo(
     () => hasPendingApproval(chat.messages),

@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -30,6 +31,8 @@ export function JobSummaryCard({
   currentStatus,
   matchData,
 }: JobSummaryCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const expired =
@@ -74,7 +77,7 @@ export function JobSummaryCard({
             <p className="text-sm text-muted-foreground">{tr("m0c79a9c22284")}</p>
             <p className="mt-1 text-sm font-medium">
               {job.appliedDate
-                ? format(new Date(job.appliedDate), "PP")
+                ? formatLocalized(new Date(job.appliedDate), "PP")
                 : job.applied
                   ? tr("m1c3963c19724")
                   : tr("m3de0546b8c29")}
@@ -122,7 +125,7 @@ export function JobSummaryCard({
             <p className="text-sm text-muted-foreground">{tr("m6b02e0d363a4")}</p>
             <div className="mt-1 flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium">
-                {job.createdAt ? format(new Date(job.createdAt), "PP") : "-"}
+                {job.createdAt ? formatLocalized(new Date(job.createdAt), "PP") : "-"}
               </span>
               {job.createdVia && (
                 <Badge
@@ -130,7 +133,7 @@ export function JobSummaryCard({
                   className={cn("gap-1", BADGE_COLORS.violet)}
                 >
                   <Sparkles className="h-3.5 w-3.5" />
-                  {tr("m4d327af41f96")}{job.createdVia}
+                  {tr("m4d327af41f96")}{" "}{job.createdVia}
                 </Badge>
               )}
             </div>

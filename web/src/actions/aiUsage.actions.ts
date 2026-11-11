@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "./shared";
 import { handleError } from "@/lib/utils";
@@ -39,7 +39,7 @@ export async function getAiUsage(input: {
   try {
     const user = await requireUser();
     if (input.rangeDays !== 7 && input.rangeDays !== 30) {
-      return { success: false, message: message("mc85af57a0e4a") };
+      return { success: false, message: uiMessage("mc85af57a0e4a") };
     }
     const now = new Date();
     const timeZone = validTimeZone(input.timeZone);

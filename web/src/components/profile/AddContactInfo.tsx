@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
@@ -48,11 +48,11 @@ function AddContactInfo({
   const [showLink2, setShowLink2] = useState(false);
 
   const pageTitle = contactInfoToEdit
-    ? message("m0b940c7ff862")
-    : message("m8a0071a9cb9e");
+    ? uiMessage("m0b940c7ff862")
+    : uiMessage("m8a0071a9cb9e");
   const pageDescription = contactInfoToEdit
-    ? message("m6f4d7048fd41")
-    : message("m328c34c54414");
+    ? uiMessage("m6f4d7048fd41")
+    : uiMessage("m328c34c54414");
 
   const form = useForm<z.infer<typeof AddContactInfoFormSchema>>({
     resolver: zodResolver(AddContactInfoFormSchema),

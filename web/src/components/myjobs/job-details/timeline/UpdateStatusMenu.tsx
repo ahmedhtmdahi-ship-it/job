@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { HelpCircle, Plus, Tags, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ export function UpdateStatusMenu({
   // Disabled with a visible reason rather than hidden: an item that comes and
   // goes as you change tabs is harder to learn than one that greys out.
   const reason = !targetStage
-    ? message("m97f1586bac20")
+    ? uiMessage("m97f1586bac20")
     : isInterviewStage(targetStage)
       ? null
       : `${targetStage.StageType.label} is not an interview stage`;

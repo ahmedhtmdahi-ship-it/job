@@ -512,7 +512,7 @@ describe("ActivitiesContainer Search Functionality", () => {
 
       // Search input should have the correct container structure
       const searchInput = screen.getByPlaceholderText("Search activities...");
-      expect(searchInput).toHaveClass("pl-8");
+      expect(searchInput).toHaveClass("ps-8");
     });
 
     it("should have correct input type", async () => {

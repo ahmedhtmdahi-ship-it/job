@@ -74,7 +74,7 @@ export function ClearJobsDialog({
               checked={includeNew}
               onChange={(e) => onIncludeNewChange(e.target.checked)}
             />
-            {tr("m97921a034f32")}{newCount} {tr("m50b231ebf0fb")}</label>
+            {tr("m97921a034f32")}{" "}{newCount} {" "}{tr("m50b231ebf0fb")}</label>
         )}
         <AlertDialogFooter>
           <AlertDialogCancel disabled={clearing}>{tr("m19766ed6ccb2")}</AlertDialogCancel>

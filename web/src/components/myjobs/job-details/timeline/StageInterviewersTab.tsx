@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition } from "react";
 import { UserPlus, X } from "lucide-react";
@@ -28,7 +28,7 @@ export function StageInterviewersTab({
     startTransition(async () => {
       const res = await unlinkStageInterviewer(linkId);
       toastActionResult(res, {
-        success: message("ma8d33614e442"),
+        success: uiMessage("ma8d33614e442"),
         onSuccess: onChanged,
       });
     });

@@ -62,7 +62,7 @@ export function AutomationDetailHeader({
           {retired && (
             <p className="flex items-center gap-2 text-amber-600 text-sm">
               <AlertTriangle className="h-4 w-4 shrink-0" />
-              {tr("mb344d80e24a3")}{automation.jobBoard} {tr("md38b5b404cc6")}</p>
+              {tr("mb344d80e24a3")}{" "}{automation.jobBoard} {" "}{tr("md38b5b404cc6")}</p>
           )}
           {(automation.keywords || automation.location) && (
             <p className="text-sm text-muted-foreground">

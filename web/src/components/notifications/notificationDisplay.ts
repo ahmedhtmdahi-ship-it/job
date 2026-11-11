@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import type {
   BoardErrorCode,
   BoardPayload,
@@ -38,11 +38,11 @@ export function describeNotification(n: NotificationItem) {
     const status = p.code === "http_error" ? p.reason.match(/returned (\d{3})/)?.[1] : undefined;
     return {
       icon: "warn" as const,
-      title: message("md026c34a461e"),
+      title: uiMessage("md026c34a461e"),
       lead: `${p.provider} · ${p.companyName}`,
       detail: ` ${status ? `returned ${status}.` : BOARD_COPY[p.code]}${repeat}`,
       hint: p.reason,
-      link: { label: message("ma629e3e3bbf9"), href: `${base}?edit=1` },
+      link: { label: uiMessage("ma629e3e3bbf9"), href: `${base}?edit=1` },
     };
   }
 
@@ -53,12 +53,12 @@ export function describeNotification(n: NotificationItem) {
       : "";
     return {
       icon: "fail" as const,
-      title: message("m12a1fd11983f"),
+      title: uiMessage("m12a1fd11983f"),
       lead: plural(p.jobsSaved, "job") + " saved",
       // Reasons may already end in a period ("…no longer exists.").
       detail: ` · ${name} stopped: ${p.reason.replace(/\.$/, "")}${boards}.`,
       hint: null,
-      link: { label: message("m80bfa30575b7"), href: `${base}?tab=history` },
+      link: { label: uiMessage("m80bfa30575b7"), href: `${base}?tab=history` },
     };
   }
 

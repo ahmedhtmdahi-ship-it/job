@@ -1,5 +1,6 @@
 "use client";
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Dialog,
@@ -62,6 +63,8 @@ export function TaskForm({
   setDialogOpen,
   onSaveAndStart,
 }: TaskFormProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [isPending, startTransition] = useTransition();
@@ -135,10 +138,10 @@ export function TaskForm({
     onSubmit(data, true),
   );
 
-  const pageTitle = editTask ? message("mdda79d5a0e25") : message("m402df3f5878b");
+  const pageTitle = editTask ? uiMessage("mdda79d5a0e25") : uiMessage("m402df3f5878b");
   const pageDescription = editTask
-    ? message("mb95c24be6d5a")
-    : message("m5220de3dc310");
+    ? uiMessage("mb95c24be6d5a")
+    : uiMessage("m5220de3dc310");
 
   const closeDialog = () => {
     reset();
@@ -228,7 +231,7 @@ export function TaskForm({
                   name="priority"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>{tr("m34574af1e694")}{priorityValue}</FormLabel>
+                      <FormLabel>{tr("m34574af1e694")}{" "}{priorityValue}</FormLabel>
                       <FormControl>
                         <Slider
                           min={0}
@@ -256,7 +259,7 @@ export function TaskForm({
                   name="percentComplete"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>{tr("mec049db28603")}{percentCompleteValue}%</FormLabel>
+                      <FormLabel>{tr("mec049db28603")}{" "}{percentCompleteValue}%</FormLabel>
                       <FormControl>
                         <Slider
                           min={0}
@@ -303,7 +306,7 @@ export function TaskForm({
                     <p className="text-sm font-medium">{tr("md70b9e24bca2")}</p>
                     <p className="text-sm text-muted-foreground">
                       {editTask.createdAt
-                        ? format(
+                        ? formatLocalized(
                             new Date(editTask.createdAt),
                             "MMM d, yyyy h:mm a",
                           )
@@ -314,7 +317,7 @@ export function TaskForm({
                     <p className="text-sm font-medium">{tr("m3a5ecca188c0")}</p>
                     <p className="text-sm text-muted-foreground">
                       {editTask.updatedAt
-                        ? format(
+                        ? formatLocalized(
                             new Date(editTask.updatedAt),
                             "MMM d, yyyy h:mm a",
                           )

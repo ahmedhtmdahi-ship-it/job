@@ -36,7 +36,7 @@ function PasteChip({ data }: { data: AgentPastePartData }) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-sm border bg-muted/30 px-2 py-1 text-xs text-muted-foreground">
       <FileTextIcon className="size-3" />
-      {tr("m26a2ba06c2f5")}{chars} {tr("m1ce93dacbcf4")}{data.truncated ? tr("m05382ab6760c") : ""}
+      {tr("m26a2ba06c2f5")}{" "}{chars} {" "}{tr("m1ce93dacbcf4")}{data.truncated ? tr("m05382ab6760c") : ""}
     </span>
   );
 }

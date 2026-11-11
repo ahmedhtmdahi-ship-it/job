@@ -1,6 +1,7 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Download, History, Loader2, Upload } from "lucide-react";
@@ -60,6 +61,8 @@ function CountGrid({ counts }: { counts: Record<string, number> }) {
 }
 
 export default function DataSettings() {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -90,7 +93,7 @@ export default function DataSettings() {
     setBusy(true);
     try {
       const res = await fetch("/api/backup/rollback", {
-        method: message("m9aee6b1bcdf6"),
+        method: uiMessage("m9aee6b1bcdf6"),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ snapshotId }),
       });
@@ -125,7 +128,7 @@ export default function DataSettings() {
     try {
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/backup/import/preflight", { method: message("m9aee6b1bcdf6"), body });
+      const res = await fetch("/api/backup/import/preflight", { method: uiMessage("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
         toastError(json.error, tr("mf7f9715fc63c"));
@@ -147,7 +150,7 @@ export default function DataSettings() {
       const body = new FormData();
       body.append("file", selected);
       body.append("confirmWipe", "true");
-      const res = await fetch("/api/backup/import", { method: message("m9aee6b1bcdf6"), body });
+      const res = await fetch("/api/backup/import", { method: uiMessage("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
         toastError(json.error, tr("m0a26f41abd00"));
@@ -188,7 +191,7 @@ export default function DataSettings() {
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            {tr("m49dc4ff58a0f")}<strong>{tr("m98f0d95dca67")}</strong>{tr("m9362c3d4d23e")}<strong> {tr("m6e3da9a2a9be")}</strong> {tr("m2e22b23aead7")}</p>
+            {tr("m49dc4ff58a0f")}{" "}<strong>{tr("m98f0d95dca67")}</strong>{tr("m9362c3d4d23e")}<strong> {" "}{tr("m6e3da9a2a9be")}</strong> {" "}{tr("m2e22b23aead7")}</p>
           <Button asChild>
             <a href="/api/backup/export" download>
               <Download className="me-2 h-4 w-4" />
@@ -227,10 +230,10 @@ export default function DataSettings() {
               <div className="text-sm">
                 <p>
                   {tr("m391065e4dc23")}{" "}
-                  {format(new Date(preflight.manifest.exportedAt), "PPp")} {tr("ma79f20055f79")}{preflight.manifest.appVersion}
+                  {formatLocalized(new Date(preflight.manifest.exportedAt), "PPp")} {" "}{tr("ma79f20055f79")}{" "}{preflight.manifest.appVersion}
                 </p>
                 <p className="text-muted-foreground">
-                  {tr("m2ffa7659339d")}{preflight.manifest.sourceEmail}
+                  {tr("m2ffa7659339d")}{" "}{preflight.manifest.sourceEmail}
                 </p>
               </div>
 
@@ -271,11 +274,11 @@ export default function DataSettings() {
               >
                 <div className="min-w-0 text-sm">
                   <p className="font-medium">
-                    {format(new Date(snapshot.exportedAt), "PPp")}
+                    {formatLocalized(new Date(snapshot.exportedAt), "PPp")}
                   </p>
                   <p className="text-muted-foreground">
-                    {snapshot.counts.Job ?? 0} {tr("m746efc6de172")}{snapshot.counts.Resume ?? 0}{" "}
-                    {tr("m6e696bebff0a")}{(snapshot.sizeBytes / 1024 / 1024).toFixed(1)} {tr("m1d09f6fa2323")}</p>
+                    {snapshot.counts.Job ?? 0} {" "}{tr("m746efc6de172")}{" "}{snapshot.counts.Resume ?? 0}{" "}
+                    {tr("m6e696bebff0a")}{" "}{(snapshot.sizeBytes / 1024 / 1024).toFixed(1)} {" "}{tr("m1d09f6fa2323")}</p>
                 </div>
                 <Button
                   variant="outline"
@@ -300,7 +303,7 @@ export default function DataSettings() {
             <AlertDialogTitle>{tr("me1b161efe007")}</AlertDialogTitle>
             <AlertDialogDescription>
               {tr("mb1fad716517e")}{" "}
-              {restoring && format(new Date(restoring.exportedAt), "PPp")}{tr("mfe6b8bbc0950")}</AlertDialogDescription>
+              {restoring && formatLocalized(new Date(restoring.exportedAt), "PPp")}{tr("mfe6b8bbc0950")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{tr("m19766ed6ccb2")}</AlertDialogCancel>

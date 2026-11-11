@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -56,6 +57,8 @@ export function AutomationList({
   onEdit,
   onRefresh,
 }: AutomationListProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -196,7 +199,7 @@ export function AutomationList({
                       ))}
                       {atsCompanies.length > 3 && (
                         <Badge variant="secondary">
-                          +{atsCompanies.length - 3} {tr("m187897ce0afc")}</Badge>
+                          +{atsCompanies.length - 3} {" "}{tr("m187897ce0afc")}</Badge>
                       )}
                     </div>
                     <div className="flex flex-wrap gap-x-6 gap-y-1">
@@ -253,7 +256,7 @@ export function AutomationList({
                     automation.status === "active" && (
                       <span className="text-xs">
                         {tr("m5693e770dd67")}{" "}
-                        {format(
+                        {formatLocalized(
                           new Date(automation.nextRunAt),
                           "MMM d, h:mm a",
                         )}
@@ -262,7 +265,7 @@ export function AutomationList({
                   {automation.lastRunAt && (
                     <span className="text-xs">
                       {tr("md57a5a051efe")}{" "}
-                      {format(new Date(automation.lastRunAt), "MMM d, h:mm a")}
+                      {formatLocalized(new Date(automation.lastRunAt), "MMM d, h:mm a")}
                     </span>
                   )}
                 </div>

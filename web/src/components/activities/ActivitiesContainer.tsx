@@ -72,7 +72,7 @@ function ActivitiesContainer() {
         setLoadingMore(false);
       }
     },
-    [],
+    [tr],
   );
 
   const reloadActivities = useCallback(async () => {

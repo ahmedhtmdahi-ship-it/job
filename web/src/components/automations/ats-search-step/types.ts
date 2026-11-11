@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import type { LeverSourceConfig } from "@/models/automation.model";
 
 // The step is provider-agnostic; it edits the canonical Lever config shape — a
@@ -13,17 +13,17 @@ export const PROVIDER_META: Record<
   { label: string; urlHint: string; searchExample: string }
 > = {
   greenhouse: {
-    label: message("md5150bb6c5de"),
+    label: uiMessage("md5150bb6c5de"),
     urlHint: "Or paste a boards.greenhouse.io link",
     searchExample: "Anthropic",
   },
   lever: {
-    label: message("m2ea541c5d4da"),
+    label: uiMessage("m2ea541c5d4da"),
     urlHint: "Or paste a jobs.lever.co link or token",
     searchExample: "Netflix",
   },
   ashby: {
-    label: message("m0a1c8fde28ed"),
+    label: uiMessage("m0a1c8fde28ed"),
     urlHint: "Or paste a jobs.ashbyhq.com link or token",
     searchExample: "Ramp",
   },

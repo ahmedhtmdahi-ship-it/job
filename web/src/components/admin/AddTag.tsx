@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition, useState } from "react";
 import { Button } from "../ui/button";
@@ -29,9 +29,9 @@ import { createTag } from "@/actions/tag.actions";
 
 const AddTagFormSchema = z.object({
   label: z
-    .string({ error: message("m7791058576d6") })
-    .min(1, { message: message("ma46d5ff87f5c") })
-    .max(60, { message: message("ma048b584aaf2") }),
+    .string({ error: uiMessage("m7791058576d6") })
+    .min(1, { message: uiMessage("ma46d5ff87f5c") })
+    .max(60, { message: uiMessage("ma048b584aaf2") }),
 });
 
 type AddTagProps = {
@@ -65,7 +65,7 @@ function AddTag({ reloadTags }: AddTagProps) {
         reset();
         reloadTags();
       } else {
-        toastError(result?.message ?? message("m8cb9c68b3a31"));
+        toastError(result?.message ?? uiMessage("m8cb9c68b3a31"));
       }
     });
   };

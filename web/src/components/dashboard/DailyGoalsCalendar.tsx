@@ -2,7 +2,7 @@
 
 import {useLocale} from "next-intl";
 import {useT} from "@/i18n/useT";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { useMemo, useState } from "react";
 import {
   GcMonthCalendar,
@@ -31,8 +31,8 @@ import type {
 
 // The summary's rings need labels only; targets vary by month
 const RINGS = [
-  { id: GOAL_IDS.JOBS, label: message("m5dc6bab8d9a9") },
-  { id: GOAL_IDS.HOURS, label: message("m38da1505ca83") },
+  { id: GOAL_IDS.JOBS, label: uiMessage("m5dc6bab8d9a9") },
+  { id: GOAL_IDS.HOURS, label: uiMessage("m38da1505ca83") },
 ];
 
 
@@ -131,7 +131,7 @@ export default function DailyGoalsCalendar({
           values={valuesByMonth[month]}
           legend
           labels={{settings: tr("Set goals"), previousMonth: tr("Previous month"), nextMonth: tr("Next month"), legend: tr("Daily goal")}}
-          formatDayLabel={(_day, dateText) => dateText}
+          formatDayLabel={locale === "ar" ? (day, dateText) => `${dateText}: ${day.goals.map(g => `${g.goal.label} ${g.done} / ${g.target}${g.goal.unit ? ` ${g.goal.unit}` : ""}`).join("، ")}` : undefined}
           // No button until targets load: the pre-fill would be defaults
           onSettingsClick={
             storedTargets ? () => setDialogOpen(true) : undefined

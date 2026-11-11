@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddEducationFormSchema = z.object({
@@ -9,25 +9,25 @@ export const AddEducationFormSchema = z.object({
   sectionType: z.string().optional(),
   institution: z
     .string({
-      error: message("m6913622e5b9d"),
+      error: uiMessage("m6913622e5b9d"),
     })
     .min(2),
   degree: z
     .string({
-      error: message("m4cd5790e7224"),
+      error: uiMessage("m4cd5790e7224"),
     })
     .min(2),
   fieldOfStudy: z
     .string({
-      error: message("mecb35c47ed14"),
+      error: uiMessage("mecb35c47ed14"),
     })
     .min(2),
   location: z
     .string({
-      error: message("me56d59f22012"),
+      error: uiMessage("me56d59f22012"),
     })
     .min(2, {
-      message: message("m796c3d751696"),
+      message: uiMessage("m796c3d751696"),
     }),
   description: z.string().nullable().optional(),
   startDate: z.date(),

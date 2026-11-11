@@ -117,7 +117,7 @@ function ActivityTypesTable({
                 {at._count?.Tasks ?? 0}
               </TableCell>
               <TableCell className="font-medium">
-                {formatHours(at.totalDuration)} {tr("m4e9682fa850e")}</TableCell>
+                {formatHours(at.totalDuration)} {" "}{tr("m4e9682fa850e")}</TableCell>
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

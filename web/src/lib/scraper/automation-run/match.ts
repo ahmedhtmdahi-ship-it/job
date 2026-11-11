@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { generateText } from "ai";
 import {
   getModel,
@@ -114,7 +114,7 @@ ${removeHtmlTags(job.description)}
 
     const { scores, body } = parseJobMatch(result.text);
     if (!scores) {
-      return { success: false, score: 0, error: message("m230d3c1a689c") };
+      return { success: false, score: 0, error: uiMessage("m230d3c1a689c") };
     }
 
     return {

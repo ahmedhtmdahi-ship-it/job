@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import {
   Calendar,
@@ -42,6 +43,8 @@ export function JobCard({
   onAddNote,
   onDeleteJob,
 }: JobCardProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const notesCount = job._count?.Notes ?? 0;
@@ -101,7 +104,7 @@ export function JobCard({
         <span className="flex items-center gap-1 whitespace-nowrap">
           <Calendar className="h-3.5 w-3.5 shrink-0" />
           {job.appliedDate
-            ? format(job.appliedDate, "PP")
+            ? formatLocalized(job.appliedDate, "PP")
             : job.applied
               ? tr("m0c79a9c22284")
               : tr("m3de0546b8c29")}

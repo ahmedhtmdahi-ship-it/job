@@ -1,6 +1,6 @@
 "use server";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import db from "@/lib/db";
 import { requireUser } from "../shared";
 import type { AutomationWithResume, AutomationRun } from "@/models/automation.model";
@@ -68,7 +68,7 @@ export async function getAutomationById(id: string): Promise<{
     });
 
     if (!automation) {
-      return { success: false, message: message("ma963fc58d684") };
+      return { success: false, message: uiMessage("ma963fc58d684") };
     }
 
     return {

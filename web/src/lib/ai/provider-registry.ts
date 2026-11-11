@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 export type CredentialType = "api-key" | "base-url";
 export type ProviderCategory = "cloud" | "local";
 
@@ -36,7 +36,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "http://127.0.0.1:11434",
       inputType: "text",
-      description: message("m1b74142067de"),
+      description: uiMessage("m1b74142067de"),
       sensitive: false,
     },
   },
@@ -57,7 +57,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-...",
       inputType: "password",
-      description: message("m951ca0976dbd"),
+      description: uiMessage("m951ca0976dbd"),
       sensitive: true,
     },
   },
@@ -75,7 +75,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-...",
       inputType: "password",
-      description: message("md76abdd88f57"),
+      description: uiMessage("md76abdd88f57"),
       sensitive: true,
     },
   },
@@ -93,7 +93,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "sk-or-...",
       inputType: "password",
-      description: message("m1c0c7e7a37ec"),
+      description: uiMessage("m1c0c7e7a37ec"),
       sensitive: true,
     },
   },
@@ -112,7 +112,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderRegistryEntry> = {
     keyConfig: {
       placeholder: "AIza...",
       inputType: "password",
-      description: message("mdfe475a9e9bb"),
+      description: uiMessage("mdfe475a9e9bb"),
       sensitive: true,
     },
   },

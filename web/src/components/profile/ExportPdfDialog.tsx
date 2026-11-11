@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { PdfExportDialog } from "@/components/pdf-export/PdfExportDialog";
@@ -16,7 +16,7 @@ import { useResumeExportSettings } from "./resume-container/useResumeExportSetti
 import { useResumePdfPreview } from "./resume-container/useResumePdfPreview";
 
 const EMPTY_MESSAGE =
-  message("md1e2e509a357");
+  uiMessage("md1e2e509a357");
 
 type ExportPdfDialogProps = {
   open: boolean;

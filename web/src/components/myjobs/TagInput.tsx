@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { X, ChevronsUpDown, CirclePlus, Loader } from "lucide-react";
@@ -39,7 +39,7 @@ export function TagInput({
   selectedTagIds,
   onChange,
   max = APP_CONSTANTS.MAX_JOB_TAGS,
-  placeholder = message("m15d1cc7d7753"),
+  placeholder = uiMessage("m15d1cc7d7753"),
   noun = "skills",
   onTagCreated,
 }: TagInputProps) {
@@ -101,7 +101,7 @@ export function TagInput({
     startTransition(async () => {
       const result = await createTag(label);
       if (!result?.success) {
-        toastError(result?.message ?? message("m8cb9c68b3a31"));
+        toastError(result?.message ?? uiMessage("m8cb9c68b3a31"));
         return;
       }
       const newTag: Tag = result.data;

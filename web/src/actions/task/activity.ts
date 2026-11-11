@@ -1,5 +1,5 @@
 "use server";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import prisma from "@/lib/db";
 import { handleError } from "@/lib/utils";
 import { requireUser } from "../shared";
@@ -18,20 +18,20 @@ export const startActivityFromTask = async (
     });
 
     if (!task) {
-      return { success: false, message: message("mb19fa2937342") };
+      return { success: false, message: uiMessage("mb19fa2937342") };
     }
 
     if (task.status === "complete" || task.status === "cancelled") {
       return {
         success: false,
-        message: message("m5e7ca0687cd5"),
+        message: uiMessage("m5e7ca0687cd5"),
       };
     }
 
     if (!task.activityTypeId) {
       return {
         success: false,
-        message: message("mb42c3604357d"),
+        message: uiMessage("mb42c3604357d"),
       };
     }
 
@@ -46,7 +46,7 @@ export const startActivityFromTask = async (
       return {
         success: false,
         message:
-          message("m5af8eb49aed8"),
+          uiMessage("m5af8eb49aed8"),
       };
     }
 

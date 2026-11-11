@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useState, useTransition } from "react";
 import { ChevronDown, Plus, X } from "lucide-react";
@@ -50,7 +50,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await setPrepQuestionAsked(linkId, next);
       toastActionResult(res, {
-        success: next ? message("m97a0d6ac958e") : message("m58e4fbc8420f"),
+        success: next ? uiMessage("m97a0d6ac958e") : uiMessage("m58e4fbc8420f"),
         onSuccess: onChanged,
       });
       // Rolled back only on failure: on success the reload lands on the same
@@ -65,7 +65,7 @@ export function StagePrepList({
     startTransition(async () => {
       const res = await removeStagePrepQuestion(linkId);
       toastActionResult(res, {
-        success: message("mcb74c320c673"),
+        success: uiMessage("mcb74c320c673"),
         onSuccess: onChanged,
       });
     });

@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { APP_CONSTANTS } from "@/lib/constants";
 import { combineDateAndTime } from "@/lib/utils";
 import { differenceInMinutes, startOfDay } from "date-fns";
@@ -10,13 +10,13 @@ export const AddActivityFormSchema = z
     userId: z.string().optional(),
     activityName: z
       .string({
-        error: message("mfc2e409a1bba"),
+        error: uiMessage("mfc2e409a1bba"),
       })
       .min(2, {
-        message: message("m955b3fa5e41e"),
+        message: uiMessage("m955b3fa5e41e"),
       }),
     activityType: z.string().min(1, {
-      message: message("m3ea0536f9756"),
+      message: uiMessage("m3ea0536f9756"),
     }),
     startDate: z.date(),
     startTime: z
@@ -40,7 +40,7 @@ export const AddActivityFormSchema = z
     description: z
       .string()
       .max(1000, {
-        message: message("mfba91e8b3483"),
+        message: uiMessage("mfba91e8b3483"),
       })
       .optional(),
   })
@@ -52,7 +52,7 @@ export const AddActivityFormSchema = z
       return startOfDay(data.endDate) >= startOfDay(data.startDate);
     },
     {
-      message: message("m884388a40b34"),
+      message: uiMessage("m884388a40b34"),
       path: ["endDate"], // Target the error message to `endDate`
     }
   )
@@ -68,7 +68,7 @@ export const AddActivityFormSchema = z
       return endDateTime > startDateTime; // Valid only if endDateTime is after startDateTime
     },
     {
-      message: message("m4ab22e266dbd"),
+      message: uiMessage("m4ab22e266dbd"),
       path: ["endTime"],
     }
   )
@@ -108,7 +108,7 @@ export const AddActivityFormSchema = z
   .refine(
     (data) => combineDateAndTime(data.startDate, data.startTime) <= new Date(),
     {
-      message: message("mf0c6a9b53a33"),
+      message: uiMessage("mf0c6a9b53a33"),
       path: ["startTime"],
     }
   );

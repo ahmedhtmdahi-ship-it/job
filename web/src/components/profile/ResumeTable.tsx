@@ -1,5 +1,6 @@
 "use client";
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Copy,
@@ -63,6 +64,8 @@ function DocumentTable({
   reloadDocuments,
   defaultResumeId,
 }: DocumentTableProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [alertOpen, setAlertOpen] = useState(false);
@@ -137,7 +140,7 @@ function DocumentTable({
         : await deleteCoverLetterById(doc.id);
 
     if (success) {
-      const label = doc.type === "resume" ? message("md640c7421da0") : message("md9adba2207cb");
+      const label = doc.type === "resume" ? uiMessage("md640c7421da0") : uiMessage("md9adba2207cb");
       toastSuccess(`${label} has been deleted successfully`);
       reloadDocuments();
     } else {
@@ -201,10 +204,10 @@ function DocumentTable({
                   />
                 </TableCell>
                 <TableCell className="whitespace-nowrap">
-                  {doc.createdAt && format(doc.createdAt, "PP")}
+                  {doc.createdAt && formatLocalized(doc.createdAt, "PP")}
                 </TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
-                  {doc.updatedAt && format(doc.updatedAt, "PP")}
+                  {doc.updatedAt && formatLocalized(doc.updatedAt, "PP")}
                 </TableCell>
                 <TableCell>{doc.jobCount}</TableCell>
                 <TableCell>

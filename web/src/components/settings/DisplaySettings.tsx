@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -26,7 +26,7 @@ import {
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark", "system"], {
-    error: message("mc67c4c3d81c5"),
+    error: uiMessage("mc67c4c3d81c5"),
   }),
 });
 
@@ -79,7 +79,7 @@ function DisplaySettings() {
         setTheme(data.theme);
         toastSuccess(tr("m6effb44eb3a2"));
       } else {
-        toastError(result.message || message("m23349bbafc86"));
+        toastError(result.message || uiMessage("m23349bbafc86"));
       }
     } catch (error) {
       console.error("Error saving display settings:", error);

@@ -1,4 +1,5 @@
 "use client";
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import {
   Table,
@@ -52,6 +53,8 @@ function MyJobsTable({
   sort,
   onSort,
 }: MyJobsTableProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [alertOpen, setAlertOpen] = useState(false);
@@ -120,11 +123,11 @@ function MyJobsTable({
                 </TableCell>
                 <TableCell className="hidden md:table-cell w-[120px] whitespace-nowrap">
                   {job.appliedDate
-                    ? format(job.appliedDate, "PP")
+                    ? formatLocalized(job.appliedDate, "PP")
                     : tr("m94fb836726d8")}
                   {job.createdAt && (
                     <span className="block text-xs text-muted-foreground">
-                      {tr("m6b02e0d363a4")}{format(job.createdAt, "PP")}
+                      {tr("m6b02e0d363a4")}{" "}{formatLocalized(job.createdAt, "PP")}
                     </span>
                   )}
                 </TableCell>

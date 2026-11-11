@@ -19,7 +19,7 @@ export function RunOptionsFields({ value, onChange }: RunOptionsFieldsProps) {
     <>
       <div className="space-y-2">
         <Label>
-          {tr("m1c1527427892")}{value.topK ?? APP_CONSTANTS.MAX_JOBS_PER_RUN}
+          {tr("m1c1527427892")}{" "}{value.topK ?? APP_CONSTANTS.MAX_JOBS_PER_RUN}
         </Label>
         <Slider
           min={1}

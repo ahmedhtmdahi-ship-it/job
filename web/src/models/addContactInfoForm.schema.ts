@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import { z } from "zod";
 
 export const AddContactInfoFormSchema = z.object({
@@ -8,32 +8,32 @@ export const AddContactInfoFormSchema = z.object({
   resumeId: z.string().optional(),
   firstName: z
     .string({
-      error: message("m13695d8f7932"),
+      error: uiMessage("m13695d8f7932"),
     })
     .min(2, {
-      message: message("m9e8b38f7bdaf"),
+      message: uiMessage("m9e8b38f7bdaf"),
     }),
   lastName: z
     .string({
-      error: message("m24d9a924ec5e"),
+      error: uiMessage("m24d9a924ec5e"),
     })
     .min(2, {
-      message: message("ma3be47ccb423"),
+      message: uiMessage("ma3be47ccb423"),
     }),
   headline: z
     .string({
-      error: message("m2cd15adfb697"),
+      error: uiMessage("m2cd15adfb697"),
     })
     .min(2, {
-      message: message("m537c98bffd17"),
+      message: uiMessage("m537c98bffd17"),
     }),
   email: z
     .string({
-      error: message("ma11345c6c6fb"),
+      error: uiMessage("ma11345c6c6fb"),
     })
     .email("Please enter a valid email!"),
   phone: z.string({
-    error: message("mfadac94be3a4"),
+    error: uiMessage("mfadac94be3a4"),
   }),
   address: z.string().optional(),
   url1: z

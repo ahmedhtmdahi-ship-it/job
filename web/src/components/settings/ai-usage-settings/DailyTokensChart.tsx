@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { useMemo } from "react";
 import { useTheme } from "next-themes";
@@ -17,6 +18,8 @@ export default function DailyTokensChart({
   days,
   providers,
 }: Pick<AiUsageSummary, "days" | "providers">) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const { resolvedTheme } = useTheme();
@@ -73,11 +76,11 @@ export default function DailyTokensChart({
             tickSize: 0,
             tickPadding: 8,
             tickValues,
-            format: (v: string) => format(parseISO(v), "MMM d"),
+            format: (v: string) => formatLocalized(parseISO(v), "MMM d"),
           }}
           valueFormat={(v) => formatTokens(v)}
           tooltipLabel={(bar) =>
-            `${providerLabel(String(bar.id))} · ${format(parseISO(String(bar.indexValue)), "MMM d")}`
+            `${providerLabel(String(bar.id))} · ${formatLocalized(parseISO(String(bar.indexValue)), "MMM d")}`
           }
           theme={{
             text: { fill: "#94A3B8" },

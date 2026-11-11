@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Company,
@@ -170,9 +170,9 @@ function JobDetails({
   // Regenerate all key on this one reason.
   const coverLetterBlockedReason =
     job.descriptionCompleteness === "title-only"
-      ? message("m1b1b80d5a268")
+      ? uiMessage("m1b1b80d5a268")
       : chatBusy
-        ? message("m529a808b8ac0")
+        ? uiMessage("m529a808b8ac0")
         : undefined;
 
   const onEditJob = () => {

@@ -20,7 +20,7 @@ export function AddJobResult({
   if (output.validationError) {
     return (
       <p className="text-sm">
-        {tr("m56b498ac1619")}{output.displayError ?? output.validationError}
+        {tr("m56b498ac1619")}{" "}{output.displayError ?? output.validationError}
       </p>
     );
   }
@@ -29,7 +29,7 @@ export function AddJobResult({
     return (
       <div className="text-sm">
         <p>
-          {tr("m3799de13d446")}<strong>{output.duplicateOf.title}</strong> {tr("mb1d6b91b67c2")}{" "}
+          {tr("m3799de13d446")}{" "}<strong>{output.duplicateOf.title}</strong> {" "}{tr("mb1d6b91b67c2")}{" "}
           <strong>{output.duplicateOf.company}</strong>{tr("mfa7f9c3d2bf7")}</p>
         <Link
           className="text-xs underline"
@@ -49,7 +49,7 @@ export function AddJobResult({
   return (
     <div className="text-sm">
       <p>
-        {tr("m6b02e0d363a4")}<strong>{jobTitle}</strong>
+        {tr("m6b02e0d363a4")}{" "}<strong>{jobTitle}</strong>
         {company ? tr("mff31d33ee656", {v0: company}) : ""}.
       </p>
       {output.jobId && (
@@ -61,7 +61,7 @@ export function AddJobResult({
       )}
       {newEntities.length > 0 && (
         <p className="mt-1 text-xs text-muted-foreground">
-          {tr("m46dafc1f7af9")}{newEntities.join(", ")}
+          {tr("m46dafc1f7af9")}{" "}{newEntities.join(", ")}
         </p>
       )}
       {output.descriptionChars !== undefined && (
@@ -71,7 +71,7 @@ export function AddJobResult({
             {output.descriptionSource === "pasted"
               ? tr("m09d6f5da8c93")
               : tr("ma15633ecdebb")}{" "}
-            · {output.descriptionChars} {tr("m1ce93dacbcf4")}</span>
+            · {output.descriptionChars} {" "}{tr("m1ce93dacbcf4")}</span>
           {output.descriptionCompleteness && (
             <Badge variant="outline">{output.descriptionCompleteness}</Badge>
           )}

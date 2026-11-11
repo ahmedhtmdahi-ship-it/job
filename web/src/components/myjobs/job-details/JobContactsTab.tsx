@@ -1,5 +1,6 @@
 "use client";
-import {message} from "@/i18n/message";
+import {useDateFormat} from "@/i18n/useDateFormat";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useRef, useState } from "react";
 import { format } from "date-fns";
@@ -38,6 +39,8 @@ export function JobContactsTab({
   companies = [],
   locations = [],
 }: JobContactsTabProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [showForm, setShowForm] = useState(false);
@@ -70,7 +73,7 @@ export function JobContactsTab({
     const res = await removeJobContact(removeTarget.id);
     setRemoveTarget(null);
     toastActionResult(res, {
-      success: message("me17b15ce746b"),
+      success: uiMessage("me17b15ce746b"),
       onSuccess: reload,
     });
   };
@@ -162,7 +165,7 @@ export function JobContactsTab({
               )}
               {row.Contact?.lastContactedAt && (
                 <span className="text-muted-foreground">
-                  {tr("m9a1027dd5b23")}{format(row.Contact.lastContactedAt, "PP")}
+                  {tr("m9a1027dd5b23")}{" "}{formatLocalized(row.Contact.lastContactedAt, "PP")}
                 </span>
               )}
               <Button

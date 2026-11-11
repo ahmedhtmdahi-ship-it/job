@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {useT} from "@/i18n/useT";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -40,6 +41,8 @@ interface LogsTabProps {
 }
 
 export function LogsTab({ logData, onClearLogs }: LogsTabProps) {
+  const formatLocalized = useDateFormat();
+
   const tr = useT();
 
   const [filter, setFilter] = useState<LogLevel | "all">("all");
@@ -139,12 +142,12 @@ export function LogsTab({ logData, onClearLogs }: LogsTabProps) {
         </div>
         {logData.startedAt && (
           <p className="text-sm text-muted-foreground">
-            {tr("m8301e51f74b1")}{format(new Date(logData.startedAt), "MMM d, h:mm:ss a")}
+            {tr("m8301e51f74b1")}{" "}{formatLocalized(new Date(logData.startedAt), "MMM d, h:mm:ss a")}
             {logData.completedAt && (
               <>
                 {" "}
                 {tr("m5aa45ccab51a")}{" "}
-                {format(new Date(logData.completedAt), "MMM d, h:mm:ss a")}
+                {formatLocalized(new Date(logData.completedAt), "MMM d, h:mm:ss a")}
               </>
             )}
           </p>
@@ -173,7 +176,7 @@ export function LogsTab({ logData, onClearLogs }: LogsTabProps) {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-muted-foreground">
-                        {format(new Date(log.timestamp), "HH:mm:ss.SSS")}
+                        {formatLocalized(new Date(log.timestamp), "HH:mm:ss.SSS")}
                       </span>
                       <Badge
                         variant={getLevelBadgeVariant(log.level)}

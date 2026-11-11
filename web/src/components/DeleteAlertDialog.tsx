@@ -1,4 +1,4 @@
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import {
@@ -31,9 +31,9 @@ export function DeleteAlertDialog({
   onOpenChange,
   onDelete,
   alertTitle,
-  alertDescription = message("m15c6b9cb370e"),
+  alertDescription = uiMessage("m15c6b9cb370e"),
   deleteAction = true,
-  actionLabel = "Delete",
+  actionLabel = uiMessage("me2d0a54968ea"),
   actionVariant = "destructive",
 }: DeleteAlertDialogProps) {
   const tr = useT();
@@ -43,11 +43,11 @@ export function DeleteAlertDialog({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {alertTitle ?? tr("m90d3f19c10dc", {v0: pageTitle})}
+            {alertTitle ? tr(alertTitle) : tr("m90d3f19c10dc", {v0: pageTitle})}
           </AlertDialogTitle>
           {/* asChild: a description may carry a list, which cannot nest in a p. */}
           <AlertDialogDescription asChild>
-            <div>{alertDescription}</div>
+            <div>{typeof alertDescription === "string" ? tr(alertDescription) : alertDescription}</div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

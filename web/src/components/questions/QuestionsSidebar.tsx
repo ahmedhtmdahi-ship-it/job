@@ -60,7 +60,7 @@ function QuestionsSidebar({
                 variant={!selectedFilter ? "default" : "secondary"}
                 className="cursor-pointer"
               >
-                {totalQuestions} {tr("ma52ace420f21")}</QuestionTagBadge>
+                {totalQuestions} {" "}{tr("ma52ace420f21")}</QuestionTagBadge>
             </button>
             {sortedTags.map((tag) => (
               <button

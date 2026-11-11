@@ -76,14 +76,14 @@ export function SupportDialog({
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
                 >
-                  {version.latest} {tr("m56e6117995b5")}</a>
+                  {version.latest} {" "}{tr("m56e6117995b5")}</a>
               </p>
             )}
           </div>
           <div className="space-y-2">
             <h3 className="text-sm font-semibold">{tr("m8dfc77ab4089")}</h3>
             <p className="text-sm text-muted-foreground">
-              © {currentYear} {tr("m9fef97654994")}</p>
+              © {currentYear} {" "}{tr("m9fef97654994")}</p>
             <a
               href="https://jobsync.ca/"
               target="_blank"

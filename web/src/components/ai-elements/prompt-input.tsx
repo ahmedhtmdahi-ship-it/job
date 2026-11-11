@@ -1,6 +1,6 @@
 "use client";
 
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import {
   Command,
@@ -417,7 +417,7 @@ export type PromptInputActionAddAttachmentsProps = ComponentProps<
 };
 
 export const PromptInputActionAddAttachments = ({
-  label = message("m555359916cdf"),
+  label = uiMessage("m555359916cdf"),
   ...props
 }: PromptInputActionAddAttachmentsProps) => {
   const attachments = usePromptInputAttachments();
@@ -444,7 +444,7 @@ export type PromptInputActionAddScreenshotProps = ComponentProps<
 };
 
 export const PromptInputActionAddScreenshot = ({
-  label = message("m9c118198e693"),
+  label = uiMessage("m9c118198e693"),
   onSelect,
   ...props
 }: PromptInputActionAddScreenshotProps) => {
@@ -627,7 +627,7 @@ export const PromptInput = ({
         return [...prev, ...next];
       });
     },
-    [matchesAccept, maxFiles, maxFileSize, onError]
+    [matchesAccept, maxFiles, maxFileSize, onError, tr]
   );
 
   const removeLocal = useCallback(
@@ -683,7 +683,7 @@ export const PromptInput = ({
         controller?.attachments.add(capped);
       }
     },
-    [matchesAccept, maxFileSize, maxFiles, onError, files.length, controller]
+    [matchesAccept, maxFileSize, maxFiles, onError, files.length, controller, tr]
   );
 
   const clearAttachments = useCallback(
@@ -961,7 +961,7 @@ export const PromptInputTextarea = ({
   onChange,
   onKeyDown,
   className,
-  placeholder = message("m7b3091d59ac7"),
+  placeholder = uiMessage("m7b3091d59ac7"),
   ...props
 }: PromptInputTextareaProps) => {
   const controller = useOptionalPromptInputController();

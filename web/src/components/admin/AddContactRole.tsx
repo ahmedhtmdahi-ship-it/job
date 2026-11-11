@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useTransition, useState } from "react";
 import { Button } from "../ui/button";
@@ -29,9 +29,9 @@ import { createContactRole } from "@/actions/contactRole.actions";
 
 const AddContactRoleFormSchema = z.object({
   label: z
-    .string({ error: message("mfd852f103ceb") })
-    .min(1, { message: message("m1ba3f7b9039d") })
-    .max(60, { message: message("m899e6a27217a") }),
+    .string({ error: uiMessage("mfd852f103ceb") })
+    .min(1, { message: uiMessage("m1ba3f7b9039d") })
+    .max(60, { message: uiMessage("m899e6a27217a") }),
 });
 
 type AddContactRoleProps = {
@@ -60,7 +60,7 @@ function AddContactRole({ reloadRoles }: AddContactRoleProps) {
     startTransition(async () => {
       const res = await createContactRole(values.label);
       toastActionResult(res, {
-        success: message("m459302d39f9b"),
+        success: uiMessage("m459302d39f9b"),
         onSuccess: () => {
           setDialogOpen(false);
           reset();

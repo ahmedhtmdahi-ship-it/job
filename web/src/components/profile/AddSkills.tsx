@@ -1,5 +1,5 @@
 "use client";
-import {message} from "@/i18n/message";
+import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useEffect, useState, useTransition } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -59,7 +59,7 @@ function AddSkills({
     resolver: zodResolver(AddSkillsFormSchema),
     defaultValues: {
       resumeId: resumeId ?? "",
-      sectionTitle: message("mf0518e5e8dfc"),
+      sectionTitle: uiMessage("mf0518e5e8dfc"),
       categories: [{ label: "", tagIds: [] }],
     },
   });
@@ -104,11 +104,11 @@ function AddSkills({
     } else {
       form.reset({
         resumeId: resumeId ?? "",
-        sectionTitle: message("mf0518e5e8dfc"),
+        sectionTitle: uiMessage("mf0518e5e8dfc"),
         categories: [{ label: "", tagIds: [] }],
       });
     }
-  }, [dialogOpen, isEditing, skillsToEdit, resumeId, form]);
+  }, [dialogOpen, isEditing, skillsToEdit, resumeId, form, tr]);
 
   const handleTagCreated = (newTag: Tag) => {
     setAllTags((prev) =>
