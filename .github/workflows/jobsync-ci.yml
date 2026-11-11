@@ -15,17 +15,17 @@ jobs:
         image: postgres:18
         env:
           POSTGRES_USER: jobsync_ci
-          POSTGRES_PASSWORD: disposable-ci-password
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: jobsync_ci
         ports:
-          - 5432:5432
+          - 127.0.0.1:5432:5432
         options: >-
           --health-cmd "pg_isready -U jobsync_ci -d jobsync_ci"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
     env:
-      DATABASE_URL: postgresql://jobsync_ci:disposable-ci-password@localhost:5432/jobsync_ci
+      DATABASE_URL: postgresql://jobsync_ci@localhost:5432/jobsync_ci
       NEXT_TELEMETRY_DISABLED: '1'
       MCP_ENABLED: 'false'
     defaults:
@@ -55,3 +55,82 @@ jobs:
       - name: Build application
         if: ${{ !cancelled() && steps.migrate.outcome == 'success' }}
         run: npm run build
+      - name: Package production build
+        run: tar -czf "$RUNNER_TEMP/jobsync-build.tar.gz" .next
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jobsync-production-build
+          path: ${{ runner.temp }}/jobsync-build.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+
+  browser-smoke:
+    needs: original-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: jobsync_ci
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: jobsync_ci
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jobsync_ci -d jobsync_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://jobsync_ci@localhost:5432/jobsync_ci
+      NEXT_TELEMETRY_DISABLED: '1'
+      MCP_ENABLED: 'false'
+      NEXTAUTH_URL: http://localhost:3737
+      AUTH_TRUST_HOST: 'true'
+      PORT: '3737'
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Generate disposable runtime secrets
+        run: |
+          node -e 'const c = require("node:crypto"), fs = require("node:fs"); for (const k of ["AUTH_SECRET", "ENCRYPTION_KEY"]) { const v = c.randomBytes(32).toString("hex"); console.log(`::add-mask::${v}`); fs.appendFileSync(process.env.GITHUB_ENV, `${k}=${v}\n`); }'
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma migrate deploy
+      - uses: actions/download-artifact@v4
+        with:
+          name: jobsync-production-build
+          path: ${{ runner.temp }}/jobsync-build
+      - name: Restore tested production build
+        run: tar -xzf "$RUNNER_TEMP/jobsync-build/jobsync-build.tar.gz"
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start production application
+        run: |
+          npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
+          echo "$!" > "$RUNNER_TEMP/jobsync-server.pid"
+      - name: Create fictional account, sign in and capture screenshots
+        run: node ../.github/scripts/m0-browser-smoke.cjs
+      - name: Upload login and dashboard screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: m0-login-dashboard
+          path: ${{ runner.temp }}/m0-screenshots/*.png
+          if-no-files-found: error
+          retention-days: 7
+      - name: Stop application
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/jobsync-server.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/jobsync-server.pid")" 2>/dev/null || true
+          fi
