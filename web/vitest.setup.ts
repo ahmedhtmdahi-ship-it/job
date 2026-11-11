@@ -21,6 +21,11 @@ global.IntersectionObserver = class IntersectionObserver {
 vi.mock("next-intl", async (importOriginal) => {
   const intl = await importOriginal<typeof import("next-intl")>();
   const messages = (await import("./messages/en.json")).default;
-  return {...intl, useLocale: () => "en", useTranslations: (namespace?: "ui" | "locale") => intl.createTranslator({locale: "en", messages, namespace})};
+  const translators = {
+    ui: intl.createTranslator({locale: "en", messages, namespace: "ui"}),
+    locale: intl.createTranslator({locale: "en", messages, namespace: "locale"}),
+    root: intl.createTranslator({locale: "en", messages}),
+  };
+  return {...intl, useLocale: () => "en", useTranslations: (namespace?: "ui" | "locale") => translators[namespace ?? "root"]};
 });
 vi.mock("@/actions/locale.actions", () => ({setLocale: vi.fn()}));
