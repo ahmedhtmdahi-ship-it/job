@@ -118,7 +118,7 @@ function CreateCoverLetter({
       <DialogContent className="lg:max-w-screen-md lg:max-h-screen overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{tr(pageTitle)}</DialogTitle>
-          <DialogDescription>{tr(pageDescription)}</DialogDescription>
+          <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form

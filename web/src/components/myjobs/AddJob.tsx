@@ -360,7 +360,7 @@ export function AddJob({
               <DialogTitle data-testid="add-job-dialog-title">
                 {tr(pageTitle)}
               </DialogTitle>
-              <DialogDescription>{tr(pageDescription)}</DialogDescription>
+              <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form

@@ -126,7 +126,7 @@ function AddCertification({
       <DialogContent className="h-full md:h-[85%] lg:max-h-screen md:max-w-[40rem] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{tr(pageTitle)}</DialogTitle>
-          <DialogDescription>{tr(pageDescription)}</DialogDescription>
+          <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form

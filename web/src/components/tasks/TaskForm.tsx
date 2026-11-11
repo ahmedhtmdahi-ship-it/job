@@ -157,7 +157,7 @@ export function TaskForm({
             <DialogTitle data-testid="task-form-dialog-title">
               {tr(pageTitle)}
             </DialogTitle>
-            <DialogDescription>{tr(pageDescription)}</DialogDescription>
+            <DialogDescription>{typeof pageDescription === "string" ? tr(pageDescription) : pageDescription}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
