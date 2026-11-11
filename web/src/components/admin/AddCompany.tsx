@@ -139,7 +139,7 @@ function AddCompany({
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="lg:max-h-screen overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>{pageTitle}</DialogTitle>
+            <DialogTitle>{tr(pageTitle)}</DialogTitle>
             {editCompany && (
               <DialogDescription className="text-orange-600 dark:text-orange-500">
                 {tr("mb419c7fe5553")}</DialogDescription>

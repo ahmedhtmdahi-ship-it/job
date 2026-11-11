@@ -193,7 +193,7 @@ function CreateResume({
     <Dialog open={resumeDialogOpen} onOpenChange={setResumeDialogOpen}>
       <DialogContent className="lg:max-h-screen overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
+          <DialogTitle>{tr(pageTitle)}</DialogTitle>
           <DialogDescription>{pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>

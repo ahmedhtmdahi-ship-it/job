@@ -358,7 +358,7 @@ export function AddJob({
           <DialogContent className="flex max-h-[95vh] flex-col gap-0 p-0 lg:max-w-[880px]">
             <DialogHeader className="px-8 pt-6 pb-5">
               <DialogTitle data-testid="add-job-dialog-title">
-                {pageTitle}
+                {tr(pageTitle)}
               </DialogTitle>
               <DialogDescription>{pageDescription}</DialogDescription>
             </DialogHeader>

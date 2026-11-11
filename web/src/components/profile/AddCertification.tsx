@@ -125,7 +125,7 @@ function AddCertification({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="h-full md:h-[85%] lg:max-h-screen md:max-w-[40rem] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
+          <DialogTitle>{tr(pageTitle)}</DialogTitle>
           <DialogDescription>{pageDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>

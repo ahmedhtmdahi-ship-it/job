@@ -130,7 +130,7 @@ export function QuestionForm({
         <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle data-testid="question-form-dialog-title">
-              {pageTitle}
+              {tr(pageTitle)}
             </DialogTitle>
             <DialogDescription>{pageDescription}</DialogDescription>
           </DialogHeader>

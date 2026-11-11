@@ -1,5 +1,6 @@
 "use client";
 
+import {useDateFormat} from "@/i18n/useDateFormat";
 import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,11 +37,11 @@ function formatDuration(totalMinutes: number) {
   return totalMinutes === 0 ? "0min" : `${hours}h ${minutes}min`;
 }
 
-function groupJobsByDate(jobs: JobResponse[]) {
+function groupJobsByDate(jobs: JobResponse[], formatDate = format) {
   const groups = new Map<string, JobResponse[]>();
   for (const job of jobs) {
     const key = job.appliedDate
-      ? format(job.appliedDate, "EEE MMMM d, yyyy")
+      ? formatDate(job.appliedDate, "EEE MMMM d, yyyy")
       : uiMessage("m4214c2fd737c");
     const existing = groups.get(key);
     if (existing) {
@@ -52,11 +53,11 @@ function groupJobsByDate(jobs: JobResponse[]) {
   return Array.from(groups.entries());
 }
 
-function groupActivitiesByDate(activities: RecentActivity[]) {
+function groupActivitiesByDate(activities: RecentActivity[], formatDate = format) {
   const groups = new Map<string, RecentActivity[]>();
   for (const activity of activities) {
     const key = activity.endTime
-      ? format(activity.endTime, "EEE MMMM d, yyyy")
+      ? formatDate(activity.endTime, "EEE MMMM d, yyyy")
       : uiMessage("mc1f88e9d6c41");
     const existing = groups.get(key);
     if (existing) {
@@ -75,6 +76,7 @@ export default function RecentCardToggle({
   activities,
 }: RecentCardToggleProps) {
   const tr = useT();
+  const formatLocalized = useDateFormat();
 
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_RECENT_CARD_STORAGE_KEY,
@@ -88,7 +90,7 @@ export default function RecentCardToggle({
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <CardTitle className="text-lg text-green-600 min-w-0 truncate">
-            {tr("m690dbe9dc099")}{" "}{tabs[activeIndex]}
+            {tr("m690dbe9dc099")}{" "}{tr(tabs[activeIndex])}
           </CardTitle>
           <div
             className="flex shrink-0 rounded-md border text-xs"
@@ -96,7 +98,7 @@ export default function RecentCardToggle({
           >
             {tabs.map((tab, index) => (
               <button
-                key={tab}
+                key={tr(tab)}
                 onClick={() => selectTab(index)}
                 className={cn(
                   "px-2 py-1 transition-colors",
@@ -107,7 +109,7 @@ export default function RecentCardToggle({
                     : "hover:bg-muted",
                 )}
               >
-                {tab}
+                {tr(tab)}
               </button>
             ))}
           </div>
@@ -122,10 +124,10 @@ export default function RecentCardToggle({
               activeIndex !== 0 && "invisible",
             )}
           >
-            {groupJobsByDate(jobs).map(([date, dateJobs]) => (
-              <div key={date} className="grid gap-4">
+            {groupJobsByDate(jobs, formatLocalized).map(([date, dateJobs]) => (
+              <div key={tr(date)} className="grid gap-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {date}
+                  {tr(date)}
                 </p>
                 {dateJobs.map((job) => (
                   <div key={job.id} className="flex items-center gap-4">
@@ -165,10 +167,10 @@ export default function RecentCardToggle({
               activeIndex !== 1 && "invisible",
             )}
           >
-            {groupActivitiesByDate(activities).map(([date, dateActivities]) => (
-              <div key={date} className="grid gap-4">
+            {groupActivitiesByDate(activities, formatLocalized).map(([date, dateActivities]) => (
+              <div key={tr(date)} className="grid gap-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {date}
+                  {tr(date)}
                 </p>
                 <div className="grid gap-4">
                   {dateActivities.map((activity) => (

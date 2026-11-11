@@ -220,7 +220,7 @@ function AddContact({
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{pageTitle}</DialogTitle>
+            <DialogTitle>{tr(pageTitle)}</DialogTitle>
           </DialogHeader>
           {pickersLoading && <Loading />}
           {!pickersLoading && (
