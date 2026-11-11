@@ -46,7 +46,7 @@ function ActivitiesTable({
   const calculateDuration = (totalMinutes: number) => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return totalMinutes === 0 ? "0min" : `${hours}h ${minutes}min`;
+    return totalMinutes === 0 ? tr("m0ace3ee48c54") : tr("m1fba636d2eab", {hours, minutes});
   };
 
   const onDeleteActivity = useMemo(
