@@ -68,7 +68,7 @@ function TasksContainer({
   const onEditTask = async (taskId: string) => {
     const { data, success, message } = await getTaskById(taskId);
     if (!success) {
-      toastError(message);
+      toastError(tr(message));
       return;
     }
     setEditTask(data);

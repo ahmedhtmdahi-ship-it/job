@@ -101,7 +101,7 @@ export function TagInput({
     startTransition(async () => {
       const result = await createTag(label);
       if (!result?.success) {
-        toastError(result?.message ?? uiMessage("m8cb9c68b3a31"));
+        toastError(tr(result?.message ?? uiMessage("m8cb9c68b3a31")));
         return;
       }
       const newTag: Tag = result.data;

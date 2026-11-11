@@ -102,9 +102,9 @@ function JobsContainer({
   const onDeleteJob = async (jobId: string) => {
     const { res, success, message } = await deleteJobById(jobId);
     if (success) {
-      toastSuccess(`Job has been deleted successfully`);
+      toastSuccess(tr(`Job has been deleted successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
     reloadJobs();
   };
@@ -112,7 +112,7 @@ function JobsContainer({
   const onEditJob = async (jobId: string) => {
     const { job, success, message } = await getJobDetails(jobId);
     if (!success) {
-      toastError(message);
+      toastError(tr(message));
       return;
     }
     setEditJob(job);
@@ -122,9 +122,9 @@ function JobsContainer({
     const { success, message } = await updateJobStatus(jobId, jobStatus);
     if (success) {
       router.refresh();
-      toastSuccess(`Job has been updated successfully`);
+      toastSuccess(tr(`Job has been updated successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
     reloadJobs();
   };

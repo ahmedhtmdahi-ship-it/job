@@ -44,10 +44,10 @@ export function AutomationContainer({ resumes }: AutomationContainerProps) {
     if (result.success && result.data) {
       setAutomations(result.data);
     } else {
-      toastError(result.message || uiMessage("m0538f7e8d1c5"));
+      toastError(tr(result.message || uiMessage("m0538f7e8d1c5")));
     }
     setLoading(false);
-  }, []);
+  }, [tr]);
 
   useEffect(() => {
     loadAutomations();

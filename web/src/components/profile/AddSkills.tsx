@@ -129,11 +129,11 @@ function AddSkills({
       }
 
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         form.reset();
         setDialogOpen(false);
-        toastSuccess(`Skills section ${isEditing ? "updated" : "added"} successfully`);
+        toastSuccess(tr("md4f2776fe4f6", {v0: isEditing ? "updated" : "added"}));
       }
     });
   };

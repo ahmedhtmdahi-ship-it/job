@@ -100,7 +100,7 @@ export default function DailyGoalsCalendar({
       // Only fills a failed initial load; a save may be newer than this read
       setStoredTargets((prev) => prev ?? result.data.targets);
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
     // A later navigation may already own the busy state
     setLoadingMonth((current) => (current === next ? null : current));

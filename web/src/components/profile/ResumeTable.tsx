@@ -94,10 +94,10 @@ function DocumentTable({
     if (!doc.id) return;
     const { success, message } = await setDefaultResume(doc.id);
     if (success) {
-      toastSuccess(`"${doc.title}" is now your default resume.`);
+      toastSuccess(tr("m4f7c1d77fc84", {v0: doc.title}));
       reloadDocuments();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
@@ -131,7 +131,7 @@ function DocumentTable({
     if (!doc.id) return;
     if (doc.jobCount > 0) {
       const label = doc.type === "resume" ? "resume" : "cover letter";
-      return toastError(`Number of jobs using ${label} must be 0!`);
+      return toastError(tr("mc37751890b4f", {v0: label}));
     }
 
     const { success, message } =
@@ -141,10 +141,10 @@ function DocumentTable({
 
     if (success) {
       const label = doc.type === "resume" ? uiMessage("md640c7421da0") : uiMessage("md9adba2207cb");
-      toastSuccess(`${label} has been deleted successfully`);
+      toastSuccess(tr("m5a9da1f26d5d", {v0: label}));
       reloadDocuments();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

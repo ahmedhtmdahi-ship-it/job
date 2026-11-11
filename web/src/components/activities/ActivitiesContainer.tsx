@@ -63,7 +63,7 @@ function ActivitiesContainer() {
           setTotalActivities(total);
           setPage(page);
         } else {
-          toastError(message);
+          toastError(tr(message));
         }
       } catch (error) {
         toastError(tr("mb08853e77eb4"));

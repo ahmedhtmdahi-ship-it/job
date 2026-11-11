@@ -60,7 +60,7 @@ function ContactsTable({
         toastSuccess(tr("m9e6643970dfd"));
         reloadContacts();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };

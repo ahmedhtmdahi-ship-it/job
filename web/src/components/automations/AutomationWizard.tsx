@@ -100,14 +100,14 @@ export function AutomationWizard({
                 selectedResume &&
                 !hasMinResumeSections(selectedResume.sectionCount)
               ) {
-                toastError(buildIncompleteResumeHint());
+                toastError(tr(buildIncompleteResumeHint()));
                 return;
               }
               return onSubmit(data);
             }, (errors) => {
               const firstError = Object.values(errors)[0];
               if (firstError?.message) {
-                toastError(firstError.message as string, tr("m142762b3bdf8"));
+                toastError(tr(firstError.message as string), tr("m142762b3bdf8"));
               }
             })}
           >

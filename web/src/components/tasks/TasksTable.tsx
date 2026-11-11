@@ -281,7 +281,7 @@ function TasksTable({
       </TableCell>
       <TableCell className="hidden md:table-cell py-1 px-2">
         <StatusBadge
-          label={TASK_STATUSES[task.status]}
+          label={tr(TASK_STATUSES[task.status])}
           color={TASK_STATUS_BADGE_COLORS[task.status]}
           className="w-[110px] whitespace-nowrap justify-center"
         />
@@ -344,7 +344,7 @@ function TasksTable({
                           onSelect={() => onChangeTaskStatus(task.id, status)}
                           disabled={status === task.status}
                         >
-                          <span>{TASK_STATUSES[status]}</span>
+                          <span>{tr(TASK_STATUSES[status])}</span>
                         </DropdownMenuItem>
                       ),
                     )}
@@ -415,7 +415,7 @@ function TasksTable({
       {entries.map(([label, groupTasks]) => (
         <div key={label} className="mb-6">
           <h3 className="text-sm font-semibold mb-2 px-2 py-1">
-            {label} ({groupTasks.length})
+            {tr(label)} ({groupTasks.length})
           </h3>
           <Table>
             {renderTableHeader()}

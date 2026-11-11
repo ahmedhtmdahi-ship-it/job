@@ -102,13 +102,13 @@ export function QuestionForm({
         : await createQuestion(data);
 
       if (success) {
-        toastSuccess(`Question has been ${editQuestion ? "updated" : "created"} successfully`);
+        toastSuccess(tr("ma606632ef277", {v0: editQuestion ? "updated" : "created"}));
         reset();
         setDialogOpen(false);
         resetEditQuestion();
         onQuestionSaved();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     });
   }

@@ -73,10 +73,10 @@ const ProfileContainer = () => {
         setTotalResumes(total);
         setPage(page);
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     },
-    [],
+    [tr],
   );
 
   const loadCoverLetters = useCallback(async () => {
@@ -88,9 +88,9 @@ const ProfileContainer = () => {
       setCoverLetters(data);
       setTotalCoverLetters(total);
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
-  }, []);
+  }, [tr]);
 
   const loadDefaultResumeId = useCallback(async () => {
     // allSettled, not all: contactInfo stuck at undefined would spin the

@@ -64,10 +64,10 @@ function JobLocationsTable({
     if (locationId) {
       const { success, message } = await deleteJobLocationById(locationId);
       if (success) {
-        toastSuccess(`Job location has been deleted successfully`);
+        toastSuccess(tr(`Job location has been deleted successfully`));
         reloadJobLocations();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };

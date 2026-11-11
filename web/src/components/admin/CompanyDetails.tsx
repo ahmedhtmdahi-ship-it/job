@@ -68,13 +68,13 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
     const res = await setCompanyWatched(details.id, next);
     if (res.success) {
       toastSuccess(
-        next
+        tr(next
           ? `${details.label} added to your watchlist`
-          : `${details.label} removed from your watchlist. It stays in your Library.`,
+          : `${details.label} removed from your watchlist. It stays in your Library.`),
       );
       router.refresh();
     } else {
-      toastError(res.message);
+      toastError(tr(res.message));
     }
   };
 
@@ -107,7 +107,7 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
       toastSuccess(tr("m5e37cf96d858"));
       router.push(backHref);
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

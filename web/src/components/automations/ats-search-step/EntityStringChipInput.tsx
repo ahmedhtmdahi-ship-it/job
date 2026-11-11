@@ -89,7 +89,7 @@ export function EntityStringChipInput({
     startCreate(async () => {
       const created = await createOption(lbl);
       if (!created) {
-        toastError(`Failed to create ${noun}.`);
+        toastError(tr("ma0738cfec127", {v0: noun}));
         return;
       }
       setOptions((prev) =>

@@ -66,10 +66,10 @@ function JobSourcesTable({
     if (sourceId) {
       const { success, message } = await deleteJobSourceById(sourceId);
       if (success) {
-        toastSuccess(`Job source has been deleted successfully`);
+        toastSuccess(tr(`Job source has been deleted successfully`));
         reloadJobSources();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };

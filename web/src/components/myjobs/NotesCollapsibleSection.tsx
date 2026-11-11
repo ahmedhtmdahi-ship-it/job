@@ -80,11 +80,11 @@ export function NotesCollapsibleSection({
         : await addNote({ jobId, content: editorContent });
 
       if (result.success) {
-        toastSuccess(`Note ${editingNote ? "updated" : "added"} successfully`);
+        toastSuccess(tr("m44760fd132ee", {v0: editingNote ? "updated" : "added"}));
         handleCancel();
         loadNotes();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     });
   };
@@ -103,7 +103,7 @@ export function NotesCollapsibleSection({
         setDeleteConfirmId(null);
         loadNotes();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     });
   };

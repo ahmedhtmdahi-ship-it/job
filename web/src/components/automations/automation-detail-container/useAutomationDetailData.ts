@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toastError } from "@/lib/toast";
@@ -18,6 +19,8 @@ import { APP_CONSTANTS } from "@/lib/constants";
 
 // Owns the automation record plus its paginated runs and discovered jobs.
 export function useAutomationDetailData(automationId: string) {
+ const tr = useT();
+
   const router = useRouter();
 
   const [automation, setAutomation] = useState<AutomationWithResume | null>(
@@ -77,7 +80,7 @@ export function useAutomationDetailData(automationId: string) {
           setAutomation(automationResult.data);
           setRuns(automationResult.data.runs || []);
         } else {
-          toastError(automationResult.message || "Automation not found");
+          toastError(tr(automationResult.message || "Automation not found"));
           router.push("/dashboard/automations");
           return;
         }
@@ -97,7 +100,7 @@ export function useAutomationDetailData(automationId: string) {
           }
         }
       } catch (error) {
-        toastError("Failed to load automation details");
+        toastError(tr("Failed to load automation details"));
       }
       if (showLoading) setLoading(false);
     },

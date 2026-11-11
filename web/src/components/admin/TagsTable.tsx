@@ -73,7 +73,7 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
       toastSuccess(tr("md72e179c1f10"));
       reloadTags();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

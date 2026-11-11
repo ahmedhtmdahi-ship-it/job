@@ -221,7 +221,7 @@ export function AddJob({
   function onSubmit(data: z.infer<typeof AddJobFormSchema>) {
     const selected = resumes.find((r) => r.id === data.resume);
     if (selected && !hasMinResumeSections(selected._count?.ResumeSections)) {
-      toastError(buildIncompleteResumeHint());
+      toastError(tr(buildIncompleteResumeHint()));
       return;
     }
     startTransition(async () => {

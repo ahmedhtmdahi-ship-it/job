@@ -81,7 +81,7 @@ function ActivityTypesTable({
       toastSuccess(tr("m7c8d6ca8b734"));
       reloadActivityTypes();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

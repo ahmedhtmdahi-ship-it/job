@@ -50,14 +50,14 @@ function CompaniesContainer() {
       const res = await watchBoardCompany(provider, company);
       if (res.success) {
         browse.markWatched(company.token, res.data.companyId);
-        toastSuccess(`${company.name} added to your watchlist`);
+        toastSuccess(tr("m76503e1362b2", {v0: company.name}));
       } else if ("needsConfirm" in res) {
         setPendingMerge({ provider, board: company, existing: res.existing });
       } else {
-        toastError(res.message);
+        toastError(tr(res.message));
       }
     },
-    [browse, provider],
+    [browse, provider, tr],
   );
 
   const confirmMerge = async () => {
@@ -67,9 +67,9 @@ function CompaniesContainer() {
     setPendingMerge(null);
     if (res.success) {
       browse.markWatched(board.token, res.data.companyId);
-      toastSuccess(`${board.name} linked and added to your watchlist`);
+      toastSuccess(tr("m295b05f14e4a", {v0: board.name}));
     } else if (!("needsConfirm" in res)) {
-      toastError(res.message);
+      toastError(tr(res.message));
     }
   };
 

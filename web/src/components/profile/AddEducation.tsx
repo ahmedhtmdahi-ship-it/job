@@ -132,13 +132,11 @@ function AddEducation({
         ? await updateEducation(data)
         : await addEducation(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Education has been ${
-          educationToEdit ? "updated" : "added"
-        } successfully`);
+        toastSuccess(tr("mc099a29d2996", {v0: educationToEdit ? "updated" : "added"}));
       }
     });
   };

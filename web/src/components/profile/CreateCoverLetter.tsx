@@ -103,14 +103,12 @@ function CreateCoverLetter({
         : await createCoverLetter(data.title, data.content);
 
       if (!success) {
-        toastError(message);
+        toastError(tr(message));
       } else {
         reset();
         setDialogOpen(false);
         reloadDocuments();
-        toastSuccess(`Cover letter has been ${
-          coverLetterToEdit ? "updated" : "created"
-        } successfully`);
+        toastSuccess(tr("m32791e02911a", {v0: coverLetterToEdit ? "updated" : "created"}));
       }
     });
   };

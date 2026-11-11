@@ -50,10 +50,10 @@ export function ClearJobsDialog({
     onOpenChange(false);
 
     if (result.success) {
-      toastSuccess(`Removed ${result.deleted ?? 0} job(s).`, tr("mb5c79a4c25f4"));
+      toastSuccess(tr("m2a41b32861c8", {v0: result.deleted ?? 0}), tr("mb5c79a4c25f4"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 

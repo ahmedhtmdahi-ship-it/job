@@ -129,8 +129,8 @@ function AiSettings() {
             const errorData = await response.json().catch(() => null);
             const errorMsg = errorData?.error
               || (entry.category === "local"
-                ? `Failed to fetch ${entry.displayName} models. Make sure ${entry.displayName} is running.`
-                : `Failed to fetch ${entry.displayName} models. Please check your API key in API Keys settings.`);
+                ? `Failed to fetch ${tr(entry.displayName)} models. Make sure ${tr(entry.displayName)} is running.`
+                : `Failed to fetch ${tr(entry.displayName)} models. Please check your API key in API Keys settings.`);
             if (!cancelled) {
               setFetchError(errorMsg);
               setFetchedModels(fallback);
@@ -149,13 +149,13 @@ function AiSettings() {
             );
           }
         } catch (error) {
-          console.error(`Error fetching ${entry.displayName} models:`, error);
+          console.error(`Error fetching ${tr(entry.displayName)} models:`, error);
           if (!cancelled) {
             setFetchedModels(fallback);
             setFetchError(
               entry.category === "local"
-                ? `Failed to fetch ${entry.displayName} models. Make sure ${entry.displayName} is running.`
-                : `Failed to fetch ${entry.displayName} models. Please check your API key in API Keys settings.`,
+                ? `Failed to fetch ${tr(entry.displayName)} models. Make sure ${tr(entry.displayName)} is running.`
+                : `Failed to fetch ${tr(entry.displayName)} models. Please check your API key in API Keys settings.`,
             );
           }
         } finally {
@@ -165,7 +165,7 @@ function AiSettings() {
 
       return () => { cancelled = true; };
     },
-    [],
+    [tr],
   );
 
   useEffect(() => {
@@ -192,7 +192,7 @@ function AiSettings() {
         toastSuccess(tr("m1efa5c4966d7"), tr("med9b760289e6"));
         if (isAgentChatOpen) void refreshPreflight();
       } else {
-        toastError(result.message || uiMessage("mf5c69cb7585d"));
+        toastError(tr(result.message || uiMessage("mf5c69cb7585d")));
       }
     } catch (error) {
       console.error("Error saving AI settings:", error);
@@ -253,7 +253,7 @@ function AiSettings() {
                 const entry = PROVIDER_REGISTRY[id];
                 return (
                   <SelectItem key={id} value={id}>
-                    {entry.displayName}
+                    {tr(entry.displayName)}
                   </SelectItem>
                 );
               })}
@@ -302,7 +302,7 @@ function AiSettings() {
           {fetchError && (
             <div className="flex items-start gap-1 text-red-600 text-sm mt-2">
               <XCircle className="h-4 w-4 shrink-0 mt-0.5" />
-              <span>{fetchError}</span>
+              <span>{tr(fetchError)}</span>
             </div>
           )}
           {connectionError && (
@@ -318,7 +318,7 @@ function AiSettings() {
                 {tr("m942087cc2d41")}</Button>
               <div className="flex items-start gap-1 text-red-600 text-sm">
                 <XCircle className="h-4 w-4 shrink-0 mt-0.5" />
-                <span>{connectionError}</span>
+                <span>{tr(connectionError)}</span>
               </div>
             </div>
           )}

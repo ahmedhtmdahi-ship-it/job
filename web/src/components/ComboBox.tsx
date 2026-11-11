@@ -101,14 +101,14 @@ export function Combobox({
         case "location":
           const { data, success, message } = await createLocation(label);
           if (!success) {
-            toastError(message);
+            toastError(tr(message));
           }
           response = data;
           break;
         case "source":
           const sourceRes = await createJobSource(label);
           if (!sourceRes.success) {
-            toastError(sourceRes.message);
+            toastError(tr(sourceRes.message));
           }
           response = sourceRes.data;
           if (!sourceRes.success) return;
@@ -120,7 +120,7 @@ export function Combobox({
         case "contactRole":
           const roleRes = await createContactRole(label);
           if (!roleRes.success) {
-            toastError(roleRes.message);
+            toastError(tr(roleRes.message));
             return;
           }
           response = roleRes.data;

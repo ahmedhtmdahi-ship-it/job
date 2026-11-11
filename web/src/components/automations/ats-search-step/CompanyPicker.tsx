@@ -67,7 +67,7 @@ export function CompanyPicker({
     const skipped = onAddMany(watched);
     if (skipped > 0) {
       toastInfo(
-        `Added what fits — ${skipped} skipped at the ${APP_CONSTANTS.ATS_MAX_COMPANIES}-company limit.`,
+        tr("m4e094a97d55b", {v0: skipped, v1: APP_CONSTANTS.ATS_MAX_COMPANIES}),
       );
     }
   };

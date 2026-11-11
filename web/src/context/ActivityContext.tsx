@@ -139,7 +139,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
         // have already ended it — resync so a stale copy can't leave an
         // undismissable banner.
         await refreshCurrentActivity();
-        toastError(message);
+        toastError(tr(message));
         return false;
       }
 
@@ -148,21 +148,21 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
 
       if (discarded) {
         toastError(
-          `Activity not saved because duration was less than ${APP_CONSTANTS.ACTIVITY_MIN_DURATION_MINUTES} minutes`
+          tr("m0d2bd882463c", {v0: APP_CONSTANTS.ACTIVITY_MIN_DURATION_MINUTES})
         );
         return true;
       }
 
       toastSuccess(
-        autoStop
+        tr(autoStop
           ? `Activity auto-stopped after reaching maximum duration of ${
               APP_CONSTANTS.ACTIVITY_MAX_DURATION_MINUTES / 60
             } hours`
-          : uiMessage("m412e38d1b47a")
+          : uiMessage("m412e38d1b47a"))
       );
       return true;
     },
-    [currentActivity, stopTimer, refreshCurrentActivity]
+    [currentActivity, stopTimer, refreshCurrentActivity, tr]
   );
 
   useEffect(() => {
@@ -185,7 +185,7 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
         setIsLoading(false);
         return true;
       } else {
-        toastError(message);
+        toastError(tr(message));
         setIsLoading(false);
         return false;
       }
@@ -209,10 +209,10 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      toastError(message);
+      toastError(tr(message));
       await refreshCurrentActivity();
     },
-    [currentActivity, refreshCurrentActivity],
+    [currentActivity, refreshCurrentActivity, tr],
   );
 
   const endBreak = useCallback(async () => {
@@ -229,9 +229,9 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    toastError(message);
+    toastError(tr(message));
     await refreshCurrentActivity();
-  }, [currentActivity, refreshCurrentActivity]);
+  }, [currentActivity, refreshCurrentActivity, tr]);
 
   // Optimistic: the ring must redraw on the click, not a round trip later.
   const setBreakLength = useCallback(

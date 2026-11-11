@@ -74,7 +74,7 @@ export function AutomationList({
       toastSuccess(tr("m79112a7f368d"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -87,7 +87,7 @@ export function AutomationList({
       toastSuccess(tr("mebad6882a9b9"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 
@@ -103,7 +103,7 @@ export function AutomationList({
       toastSuccess(tr("mca8e1bb2621a"));
       onRefresh();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 

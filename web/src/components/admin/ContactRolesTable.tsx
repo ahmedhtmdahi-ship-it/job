@@ -66,7 +66,7 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
         toastSuccess(tr("m1352fc15eac2"));
         reloadRoles();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };

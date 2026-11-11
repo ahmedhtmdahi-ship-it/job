@@ -1,3 +1,4 @@
+import {useT} from "@/i18n/useT";
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -17,9 +18,10 @@ export function StatusBadge({
   className,
   children,
 }: StatusBadgeProps) {
+  const tr = useT();
   return (
     <Badge variant="outline" className={cn(BADGE_COLORS[color], className)}>
-      {label}
+      {tr(label)}
       {children}
     </Badge>
   );

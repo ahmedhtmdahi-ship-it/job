@@ -67,7 +67,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
         toastSuccess(tr("m420fdb857a73"));
         reloadTypes();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };
@@ -95,7 +95,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
     ]);
     const failed = results.find((res) => !res?.success);
     if (failed) {
-      toastError(failed.message);
+      toastError(tr(failed.message));
     }
     reloadTypes();
   };

@@ -53,7 +53,7 @@ function BoardsTable({
 
     if (res.success) {
       onWatched(row.token, res.data.companyId);
-      toastSuccess(`${row.name} added to your watchlist`);
+      toastSuccess(tr("m76503e1362b2", {v0: row.name}));
       return;
     }
     onUnwatched(row.token);
@@ -61,7 +61,7 @@ function BoardsTable({
       onNeedsMerge({ provider, board: row, existing: res.existing });
       return;
     }
-    toastError(res.message);
+    toastError(tr(res.message));
   };
 
   const unwatch = async (row: LeverCompany) => {
@@ -73,10 +73,10 @@ function BoardsTable({
     setBusy(null);
 
     if (res.success) {
-      toastSuccess(`${row.name} removed from your watchlist`);
+      toastSuccess(tr("m0cee5389e8a8", {v0: row.name}));
     } else {
       onWatched(row.token, companyId);
-      toastError(res.message);
+      toastError(tr(res.message));
     }
   };
 

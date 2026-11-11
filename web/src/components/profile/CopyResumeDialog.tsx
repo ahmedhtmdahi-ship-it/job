@@ -75,14 +75,14 @@ function CopyResumeDialog({
       if (success && data) {
         reset({ title: data });
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
       setLoadingTitle(false);
     })();
     return () => {
       cancelled = true;
     };
-  }, [open, sourceDoc?.id, reset]);
+  }, [open, sourceDoc?.id, reset, tr]);
 
   const onSubmit = (values: z.infer<typeof CopyResumeFormSchema>) => {
     if (!sourceDoc?.id) return;
@@ -92,13 +92,13 @@ function CopyResumeDialog({
         values.title,
       );
       if (!success) {
-        toastError(message);
+        toastError(tr(message));
         return;
       }
       reset({ title: "" });
       setOpen(false);
       onCopied();
-      toastSuccess(`Copy created: "${data.title}"`);
+      toastSuccess(tr("mb9e2d70b2c3e", {v0: data.title}));
     });
   };
 

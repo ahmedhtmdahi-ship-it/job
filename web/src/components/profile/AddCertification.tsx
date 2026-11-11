@@ -110,13 +110,11 @@ function AddCertification({
         ? await updateCertification(data)
         : await addCertification(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Certification has been ${
-          certificationToEdit ? "updated" : "added"
-        } successfully`);
+        toastSuccess(tr("m6781bae1aba2", {v0: certificationToEdit ? "updated" : "added"}));
       }
     });
   };

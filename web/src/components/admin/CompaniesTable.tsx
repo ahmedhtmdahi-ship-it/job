@@ -83,13 +83,13 @@ function CompaniesTable({
     const res = await setCompanyWatched(company.id, next);
     if (res.success) {
       toastSuccess(
-        next
+        tr(next
           ? `${company.label} added to your watchlist`
-          : `${company.label} removed from your watchlist. It stays in your Library.`,
+          : `${company.label} removed from your watchlist. It stays in your Library.`),
       );
       reloadCompanies();
     } else {
-      toastError(res.message);
+      toastError(tr(res.message));
     }
   };
 
@@ -97,10 +97,10 @@ function CompaniesTable({
     if (companyId) {
       const { res, success, message } = await deleteCompanyById(companyId);
       if (success) {
-        toastSuccess(`Company has been deleted successfully`);
+        toastSuccess(tr(`Company has been deleted successfully`));
         reloadCompanies();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };

@@ -77,7 +77,7 @@ function TimeColumn({ label, options, selected, onSelect }: TimeColumnProps) {
         const isSelected = option === selected;
         return (
           <Button
-            key={option}
+            key={tr(option)}
             ref={isSelected ? selectedRef : undefined}
             type="button"
             aria-pressed={isSelected}
@@ -86,7 +86,7 @@ function TimeColumn({ label, options, selected, onSelect }: TimeColumnProps) {
             className={cn("w-full", !isSelected && "font-normal")}
             onClick={() => onSelect(option)}
           >
-            {option}
+            {tr(option)}
           </Button>
         );
       })}
@@ -122,7 +122,7 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
       ? field.value
       : FALLBACK_TIME;
     const stepped = addMinutes(parse(current, TIME_FORMAT, new Date()), minutes);
-    field.onChange(formatLocalized(stepped, TIME_FORMAT));
+    field.onChange(format(stepped, TIME_FORMAT));
   };
 
   return (
@@ -145,7 +145,7 @@ export function TimePicker({ field, fullWidth }: TimePickerProps) {
               )}
             >
               <Clock className="me-2 h-4 w-4" />
-              {field.value ? field.value : <span>{tr("mec116342c699")}</span>}
+              {field.value ? (TIME_PATTERN.test(field.value) ? formatLocalized(parse(field.value, TIME_FORMAT, new Date()), TIME_FORMAT) : field.value) : <span>{tr("mec116342c699")}</span>}
             </Button>
           </FormControl>
         </PopoverTrigger>

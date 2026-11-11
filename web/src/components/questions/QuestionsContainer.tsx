@@ -72,11 +72,11 @@ function QuestionsContainer({
         setTotalQuestions(result.total);
         setPage(pageNum);
       } else {
-        toastError(result?.message || uiMessage("m2619febe618c"));
+        toastError(tr(result?.message || uiMessage("m2619febe618c")));
       }
       setLoading(false);
     },
-    [stageId],
+    [stageId, tr],
   );
 
   const reloadQuestions = useCallback(async () => {
@@ -95,7 +95,7 @@ function QuestionsContainer({
   const onEditQuestion = async (question: Question) => {
     const { data, success, message } = await getQuestionById(question.id);
     if (!success) {
-      toastError(message);
+      toastError(tr(message));
       return;
     }
     setEditQuestion(data);

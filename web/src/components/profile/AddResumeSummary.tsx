@@ -84,13 +84,11 @@ function AddResumeSummary({
         ? await updateResumeSummary(data)
         : await addResumeSummary(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Summary has been ${
-          summaryToEdit ? "updated" : "created"
-        } successfully`);
+        toastSuccess(tr("m159afa2227d6", {v0: summaryToEdit ? "updated" : "created"}));
       }
     });
   };

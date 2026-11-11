@@ -150,7 +150,7 @@ function CreateResume({
       });
       const response = await res.json();
       if (!response.success) {
-        toastError(response?.message);
+        toastError(tr(response?.message));
         return;
       }
 
@@ -183,7 +183,7 @@ function CreateResume({
       if (newResumeId) {
         setNewResumeId(newResumeId);
       }
-      toastSuccess(`Resume title has been ${resumeToEdit ? "updated" : "created"} successfully`);
+      toastSuccess(tr("mf4f6b3e7e3de", {v0: resumeToEdit ? "updated" : "created"}));
     });
   };
 

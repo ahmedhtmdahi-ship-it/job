@@ -1,5 +1,6 @@
 "use client";
 
+import {useT} from "@/i18n/useT";
 import { useState, useEffect } from "react";
 import { toastSuccess, toastError } from "@/lib/toast";
 import type { DiscoveredJob } from "@/models/automation.model";
@@ -15,6 +16,8 @@ export function useDiscoveredJobActions(
   onRefresh: () => void,
   onBusyChange?: (busy: boolean) => void,
 ) {
+ const tr = useT();
+
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,13 +29,13 @@ export function useDiscoveredJobActions(
     try {
       const result = await analyzeDiscoveredJob(jobId);
       if (result.success) {
-        toastSuccess("AI match score is ready.", "Match analyzed");
+        toastSuccess(tr("AI match score is ready."), "Match analyzed");
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
-      toastError("Failed to analyze job");
+      toastError(tr("Failed to analyze job"));
     } finally {
       setLoadingAction(null);
     }
@@ -43,13 +46,13 @@ export function useDiscoveredJobActions(
     try {
       const result = await acceptDiscoveredJob(job.id);
       if (result.success) {
-        toastSuccess("The job has been added to your tracked jobs.", "Job accepted");
+        toastSuccess(tr("The job has been added to your tracked jobs."), "Job accepted");
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
-      toastError("Failed to accept job");
+      toastError(tr("Failed to accept job"));
     } finally {
       setLoadingAction(null);
     }
@@ -60,13 +63,13 @@ export function useDiscoveredJobActions(
     try {
       const result = await dismissDiscoveredJob(jobId);
       if (result.success) {
-        toastSuccess("Job dismissed");
+        toastSuccess(tr("Job dismissed"));
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
-      toastError("Failed to dismiss job");
+      toastError(tr("Failed to dismiss job"));
     } finally {
       setLoadingAction(null);
     }

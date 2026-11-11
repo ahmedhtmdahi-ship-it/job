@@ -41,7 +41,7 @@ export function AddJobFooter({
                 className="underline underline-offset-2 hover:text-foreground"
                 onClick={() => onJump(f)}
               >
-                {REQUIRED_FIELD_LABELS[f]}
+                {tr(REQUIRED_FIELD_LABELS[f])}
               </button>
             </Fragment>
           ))}
@@ -59,7 +59,7 @@ export function AddJobFooter({
             aria-hidden="true"
             className="rounded border border-primary-foreground/30 px-1 text-xs font-normal"
           >
-            {shortcut}
+            {tr(shortcut)}
           </kbd>
           {isPending && <Loader className="h-4 w-4 shrink-0 spinner" />}
         </Button>

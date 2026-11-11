@@ -194,7 +194,7 @@ function ResumeContainer({
       toastSuccess(tr("m6f3c63013e9b"));
       router.refresh();
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

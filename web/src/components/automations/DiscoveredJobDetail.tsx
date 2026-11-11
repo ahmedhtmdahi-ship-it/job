@@ -70,7 +70,7 @@ export function DiscoveredJobDetail({
         onOpenChange(false);
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
       toastError(tr("mc7179e0e1d61"));
@@ -88,7 +88,7 @@ export function DiscoveredJobDetail({
         onOpenChange(false);
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
       toastError(tr("m5ed199131a29"));
@@ -106,7 +106,7 @@ export function DiscoveredJobDetail({
         onOpenChange(false);
         onRefresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     } catch {
       toastError(tr("m72ac417dc9e5"));

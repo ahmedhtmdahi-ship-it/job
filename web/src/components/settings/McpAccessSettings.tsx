@@ -186,7 +186,7 @@ export default function McpAccessSettings() {
     const result = await createMcpToken({ name: tokenName.trim(), expiryDays });
     setGenerating(false);
     if (!result.success) {
-      toastError(result.message);
+      toastError(tr(result.message));
       return;
     }
     setRevealedToken({ token: result.token, name: result.record.name });
@@ -201,7 +201,7 @@ export default function McpAccessSettings() {
     const result = await revokeMcpToken(id);
     setRevoking(null);
     if (!result.success) {
-      toastError(result.message ?? uiMessage("m804251d10e8a"));
+      toastError(tr(result.message ?? uiMessage("m804251d10e8a")));
       return;
     }
     setTokens((prev) => prev.filter((t) => t.id !== id));

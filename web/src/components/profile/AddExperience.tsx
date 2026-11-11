@@ -125,13 +125,11 @@ function AddExperience({
         ? await updateExperience(data)
         : await addExperience(data);
       if (!res.success) {
-        toastError(res.message);
+        toastError(tr(res.message));
       } else {
         reset();
         setDialogOpen(false);
-        toastSuccess(`Experience has been ${
-          experienceToEdit ? "updated" : "added"
-        } successfully`);
+        toastSuccess(tr("m3a80e12c4ac4", {v0: experienceToEdit ? "updated" : "added"}));
       }
     });
   };

@@ -194,19 +194,19 @@ function JobDetails({
       await reloadStages();
       // applied/appliedDate may have changed too, and they come from the prop.
       router.refresh();
-      toastSuccess(`Job has been updated successfully`);
+      toastSuccess(tr(`Job has been updated successfully`));
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 
   const onDeleteJob = async () => {
     const { success, message } = await deleteJobById(job.id);
     if (success) {
-      toastSuccess(`Job has been deleted successfully`);
+      toastSuccess(tr(`Job has been deleted successfully`));
       router.push("/dashboard/myjobs");
     } else {
-      toastError(message);
+      toastError(tr(message));
     }
   };
 

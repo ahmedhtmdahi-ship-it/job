@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toastError } from "@/lib/toast";
@@ -19,6 +20,8 @@ import {
 // cards, the AI availability probe behind "Structure with AI", and accepting,
 // discarding or abandoning the import.
 export function useResumeImport(resume: Resume) {
+ const tr = useT();
+
   const router = useRouter();
 
   // Import review mode state
@@ -75,7 +78,7 @@ export function useResumeImport(resume: Resume) {
         if (cards.length === 0) {
           setImportMode(false);
           toastError(
-            "No structured data could be extracted from the document.",
+            tr("No structured data could be extracted from the document."),
             "No sections found",
           );
           return;
@@ -90,7 +93,7 @@ export function useResumeImport(resume: Resume) {
         if (abortController.signal.aborted) return;
         setImportMode(false);
         toastError(
-          error instanceof Error ? error.message : "Failed to contact AI service.",
+          tr(error instanceof Error ? error.message : "Failed to contact AI service."),
         );
       } finally {
         if (importAbortRef.current === abortController) {
@@ -185,7 +188,7 @@ export function useResumeImport(resume: Resume) {
         setPendingCards((prev) => prev.filter((c) => c.id !== cardId));
         router.refresh();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     },
     [pendingCards, resume.id, router],
@@ -202,7 +205,7 @@ export function useResumeImport(resume: Resume) {
     if (result?.success) {
       router.push("/dashboard/profile");
     } else {
-      toastError(result?.message);
+      toastError(tr(result?.message));
     }
   };
 

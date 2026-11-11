@@ -79,7 +79,7 @@ function DisplaySettings() {
         setTheme(data.theme);
         toastSuccess(tr("m6effb44eb3a2"));
       } else {
-        toastError(result.message || uiMessage("m23349bbafc86"));
+        toastError(tr(result.message || uiMessage("m23349bbafc86")));
       }
     } catch (error) {
       console.error("Error saving display settings:", error);

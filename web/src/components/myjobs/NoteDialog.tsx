@@ -69,12 +69,12 @@ export function NoteDialog({
         : await addNote(data);
 
       if (result.success) {
-        toastSuccess(`Note ${editNote ? "updated" : "added"} successfully`);
+        toastSuccess(tr("m44760fd132ee", {v0: editNote ? "updated" : "added"}));
         form.reset({ jobId, content: "" });
         onOpenChange(false);
         onSaved();
       } else {
-        toastError(result.message);
+        toastError(tr(result.message));
       }
     });
   }

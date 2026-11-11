@@ -135,7 +135,7 @@ function ApiKeySettings() {
           verifyData.reason === "unreachable"
             ? `Cannot reach ${PROVIDERS.find((p) => p.id === provider)?.name ?? provider}`
             : uiMessage("mf0f2383f8af8");
-        toastError(verifyData.error || uiMessage("m9d216344d134"), title);
+        toastError(tr(verifyData.error || uiMessage("m9d216344d134")), title);
         return;
       }
 
@@ -146,12 +146,12 @@ function ApiKeySettings() {
         sensitive: providerConfig?.sensitive ?? true,
       });
       if (saveResult.success) {
-        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key verified and saved.`, tr("m934b6af41253"));
+        toastSuccess(tr("mdba59fb5cb0e", {v0: PROVIDERS.find((p) => p.id === provider)?.name}), tr("m934b6af41253"));
         setEditingProvider(null);
         setInputValue("");
         await fetchKeys();
       } else {
-        toastError(saveResult.message || uiMessage("me2446d6606fb"), tr("m53ad6f999b1f"));
+        toastError(tr(saveResult.message || uiMessage("me2446d6606fb")), tr("m53ad6f999b1f"));
       }
     } catch (error) {
       console.error("Error saving API key:", error);
@@ -166,10 +166,10 @@ function ApiKeySettings() {
     try {
       const result = await deleteApiKey(provider);
       if (result.success) {
-        toastSuccess(`${PROVIDERS.find((p) => p.id === provider)?.name} key removed.`, tr("m2a2e2a1a3644"));
+        toastSuccess(tr("m33200baa71a4", {v0: PROVIDERS.find((p) => p.id === provider)?.name}), tr("m2a2e2a1a3644"));
         await fetchKeys();
       } else {
-        toastError(result.message || uiMessage("mcb4de8d755c7"));
+        toastError(tr(result.message || uiMessage("mcb4de8d755c7")));
       }
     } catch (error) {
       console.error("Error deleting API key:", error);

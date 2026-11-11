@@ -1,4 +1,5 @@
 "use client";
+import {useT} from "@/i18n/useT";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getTasksList, updateTaskStatus } from "@/actions/task.actions";
 import { toastActionResult, toastError } from "@/lib/toast";
@@ -16,6 +17,8 @@ export function useTasksList({
   filterKey?: string;
   onTasksChanged?: () => void;
 }) {
+ const tr = useT();
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [page, setPage] = useState(1);
   const [totalTasks, setTotalTasks] = useState(0);
@@ -54,7 +57,7 @@ export function useTasksList({
         setTotalTasks(total);
         setPage(pageNum);
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
       setInitialLoading(false);
       setLoadingMore(false);

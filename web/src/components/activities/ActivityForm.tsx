@@ -1,6 +1,5 @@
 "use client";
 
-import {useDateFormat} from "@/i18n/useDateFormat";
 import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { useForm } from "react-hook-form";
@@ -51,7 +50,6 @@ const ActivityFormComponent = ({
   onClose,
   reloadActivities,
 }: ActivityFormProps) => {
-  const formatLocalized = useDateFormat();
 
   const tr = useT();
 
@@ -59,9 +57,9 @@ const ActivityFormComponent = ({
   const [duration, setDuration] = useState<Duration | null>(null);
   const defaultValues = useMemo(() => {
     const now = new Date();
-    const currentTime = formatLocalized(now, "hh:mm a");
+    const currentTime = format(now, "hh:mm a");
     const nowPlus5mins = addMinutes(now, 5);
-    const estimatedEndTime = formatLocalized(nowPlus5mins, "hh:mm a");
+    const estimatedEndTime = format(nowPlus5mins, "hh:mm a");
 
     return {
       activityName: "",

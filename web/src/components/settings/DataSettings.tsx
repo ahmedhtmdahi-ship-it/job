@@ -99,7 +99,7 @@ export default function DataSettings() {
       });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, tr("m69b0b69b890c"));
+        toastError(tr(json.error), tr("m69b0b69b890c"));
         return;
       }
       toastSuccess(
@@ -131,7 +131,7 @@ export default function DataSettings() {
       const res = await fetch("/api/backup/import/preflight", { method: uiMessage("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, tr("mf7f9715fc63c"));
+        toastError(tr(json.error), tr("mf7f9715fc63c"));
         return;
       }
       setPreflight(json as PreflightResult);
@@ -153,7 +153,7 @@ export default function DataSettings() {
       const res = await fetch("/api/backup/import", { method: uiMessage("m9aee6b1bcdf6"), body });
       const json = await res.json();
       if (!res.ok) {
-        toastError(json.error, tr("m0a26f41abd00"));
+        toastError(tr(json.error), tr("m0a26f41abd00"));
         return;
       }
       const total = Object.values(json.counts as Record<string, number>).reduce(
@@ -163,11 +163,9 @@ export default function DataSettings() {
       // Naming the snapshot is the whole point of taking one — a safety net
       // the user does not know exists is not a safety net.
       toastSuccess(
-        `Restored ${total} rows and ${json.filesWritten} file(s).${
-          json.snapshotPath
+        tr("m3cc5c7d334f9", {v0: total, v1: json.filesWritten, v2: json.snapshotPath
             ? " Your previous data was saved as a snapshot you can restore below."
-            : ""
-        } Re-enter your AI provider API keys, reissue MCP tokens, and reload the page.`,
+            : ""}),
         tr("ma9c747fe220f"),
       );
       setPreflight(null);

@@ -148,7 +148,7 @@ export function RunHistoryList({
       toastSuccess(tr("m19cdd1ec0d5c"));
       onDelete?.();
     } else {
-      toastError(result.message);
+      toastError(tr(result.message));
     }
   };
 

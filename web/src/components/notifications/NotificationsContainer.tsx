@@ -92,7 +92,7 @@ export function NotificationsContainer({ initial, automations }: NotificationsCo
   // Resyncs after an optimistic update the server rejected.
   const failed = (res: { success: boolean; message?: string }) => {
     if (res.success) return false;
-    toastError(res.message);
+    toastError(tr(res.message));
     query(tab, automationId, 0);
     return true;
   };

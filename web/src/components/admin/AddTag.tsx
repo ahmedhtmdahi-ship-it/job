@@ -65,7 +65,7 @@ function AddTag({ reloadTags }: AddTagProps) {
         reset();
         reloadTags();
       } else {
-        toastError(result?.message ?? uiMessage("m8cb9c68b3a31"));
+        toastError(tr(result?.message ?? uiMessage("m8cb9c68b3a31")));
       }
     });
   };

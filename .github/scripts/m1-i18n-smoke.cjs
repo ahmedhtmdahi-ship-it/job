@@ -25,7 +25,8 @@ async function verify(page, locale, url) {
   await expect(page.locator('html')).toHaveAttribute('dir', locale === 'ar' ? 'rtl' : 'ltr');
   await page.waitForLoadState('networkidle');
   if (locale === 'ar') {
-    const visible = await page.locator('body').innerText();
+    const placeholders = await page.locator('input[placeholder]:visible, textarea[placeholder]:visible').evaluateAll(nodes => nodes.map(n => n.getAttribute('placeholder')).join('\n'));
+    const visible = (await page.locator('body').innerText()) + '\n' + placeholders;
     const cleaned = visible
       .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '')
       .replace(/https?:\/\/[^\s]+/g, '')

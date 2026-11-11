@@ -62,10 +62,10 @@ function JobTitlesTable({ jobTitles, reloadJobTitles }: JobTitlesTableProps) {
     if (titleId) {
       const { success, message } = await deleteJobTitleById(titleId);
       if (success) {
-        toastSuccess(`Job title has been deleted successfully`);
+        toastSuccess(tr(`Job title has been deleted successfully`));
         reloadJobTitles();
       } else {
-        toastError(message);
+        toastError(tr(message));
       }
     }
   };
