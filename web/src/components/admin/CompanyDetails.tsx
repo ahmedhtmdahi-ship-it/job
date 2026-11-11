@@ -28,13 +28,13 @@ type CompanyDetailsProps = {
   details: CompanyDetailsData;
 };
 
-function blockedDescription(total: number, dismissed: number) {
-  const jobs = `This company has ${total} associated job${total === 1 ? "" : "s"} (applied or not).`;
+function blockedDescription(total: number, dismissed: number, tr: ReturnType<typeof useT>) {
+  const jobs = tr("m7d0229d7bb1e", {v0: total, v1: total === 1 ? "" : "s"});
   const hidden =
     dismissed > 0
-      ? ` ${dismissed} of them ${dismissed === 1 ? "was" : "were"} dismissed by automations; pick Dismissed (discovered) on the Jobs page to see them.`
+      ? tr("m6410b32783fc", {v0: dismissed, v1: dismissed === 1 ? "was" : "were"})
       : "";
-  return `${jobs}${hidden} Remove or reassign them before deleting this company.`;
+  return tr("m12b4d58b74b9", {v0: jobs, v1: hidden});
 }
 
 function CompanyDetails({ details }: CompanyDetailsProps) {
@@ -69,8 +69,8 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
     if (res.success) {
       toastSuccess(
         tr(next
-          ? `${details.label} added to your watchlist`
-          : `${details.label} removed from your watchlist. It stays in your Library.`),
+          ? tr("m76503e1362b2", {v0: details.label})
+          : tr("m232855ebc5fd", {v0: details.label})),
       );
       router.refresh();
     } else {
@@ -94,7 +94,7 @@ function CompanyDetails({ details }: CompanyDetailsProps) {
         openState: true,
         deleteAction: false,
         title: tr("mcaedc6cab895"),
-        description: blockedDescription(total, dismissedJobsCount),
+        description: blockedDescription(total, dismissedJobsCount, tr),
       });
     } else {
       setAlert({ openState: true, deleteAction: true, itemId: details.id });

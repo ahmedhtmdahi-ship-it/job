@@ -152,7 +152,7 @@ export function CompanyPicker({
                   {tr("mc2db04d46552")}</CommandEmpty>
               )}
               {watched.length > 0 && (
-                <CommandGroup heading={`Watched (${watched.length})`}>
+                <CommandGroup heading={tr("m23c5d8b82dbe", {v0: watched.length})}>
                   {watchedOnly.map((c) => {
                     const selected = companies.some(
                       (sel) => sel.token === c.token,

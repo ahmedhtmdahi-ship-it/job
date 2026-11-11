@@ -207,7 +207,7 @@ export function StageDetailPanel({
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         onDelete={onDelete}
-        alertTitle={`Delete the ${stage.StageType.label} stage?`}
+        alertTitle={tr("me5e1dca202ef", {v0: stage.StageType.label})}
         alertDescription={deleteDescription}
       />
     </div>

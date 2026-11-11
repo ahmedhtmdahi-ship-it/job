@@ -44,17 +44,17 @@ function TagsTable({ tags, reloadTags }: TagsTableProps) {
 
     if (jobCount > 0 || questionCount > 0 || skillCount > 0) {
       const links = [
-        jobCount > 0 ? `${jobCount} job(s)` : "",
-        questionCount > 0 ? `${questionCount} question(s)` : "",
-        skillCount > 0 ? `${skillCount} skill(s)` : "",
+        jobCount > 0 ? tr("m436cbd035fc8", {v0: jobCount}) : "",
+        questionCount > 0 ? tr("m2ee22d43d87f", {v0: questionCount}) : "",
+        skillCount > 0 ? tr("m71e543f3cb4d", {v0: skillCount}) : "",
       ]
         .filter(Boolean)
-        .join(" and ");
+        .join(tr("me3ee915a8e8c"));
 
       setAlert({
         openState: true,
         title: tr("m1788f3b81f3b"),
-        description: `This skill is linked to ${links} and cannot be deleted.`,
+        description: tr("m0224e213735f", {v0: links}),
         deleteAction: false,
       });
     } else {

@@ -48,7 +48,7 @@ export function UpdateStatusMenu({
     ? uiMessage("m97f1586bac20")
     : isInterviewStage(targetStage)
       ? null
-      : `${targetStage.StageType.label} is not an interview stage`;
+      : tr("m8d08f1fb468c", {v0: targetStage.StageType.label});
 
   const items: {
     key: string;

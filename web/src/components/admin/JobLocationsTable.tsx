@@ -47,9 +47,7 @@ function JobLocationsTable({
       setAlert({
         openState: true,
         title: tr("mcaedc6cab895"),
-        description: `This location has ${totalJobs} associated job${
-          totalJobs === 1 ? "" : "s"
-        } (applied or not). Remove or reassign them before deleting this location.`,
+        description: tr("m41282b712413", {v0: totalJobs, v1: totalJobs === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {

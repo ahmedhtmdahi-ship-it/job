@@ -48,9 +48,7 @@ function JobSourcesTable({
       setAlert({
         openState: true,
         title: tr("mcaedc6cab895"),
-        description: `This source has ${totalJobs} associated job${
-          totalJobs === 1 ? "" : "s"
-        } (applied or not). Remove or reassign them before deleting this source.`,
+        description: tr("m0d6bce4463f7", {v0: totalJobs, v1: totalJobs === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {

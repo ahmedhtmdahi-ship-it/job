@@ -129,8 +129,8 @@ function AiSettings() {
             const errorData = await response.json().catch(() => null);
             const errorMsg = errorData?.error
               || (entry.category === "local"
-                ? `Failed to fetch ${tr(entry.displayName)} models. Make sure ${tr(entry.displayName)} is running.`
-                : `Failed to fetch ${tr(entry.displayName)} models. Please check your API key in API Keys settings.`);
+                ? tr("m1fcea631e7bb", {v0: tr(entry.displayName), v1: tr(entry.displayName)})
+                : tr("m000a12f0ad6b", {v0: tr(entry.displayName)}));
             if (!cancelled) {
               setFetchError(errorMsg);
               setFetchedModels(fallback);
@@ -154,8 +154,8 @@ function AiSettings() {
             setFetchedModels(fallback);
             setFetchError(
               entry.category === "local"
-                ? `Failed to fetch ${tr(entry.displayName)} models. Make sure ${tr(entry.displayName)} is running.`
-                : `Failed to fetch ${tr(entry.displayName)} models. Please check your API key in API Keys settings.`,
+                ? tr("m1fcea631e7bb", {v0: tr(entry.displayName), v1: tr(entry.displayName)})
+                : tr("m000a12f0ad6b", {v0: tr(entry.displayName)}),
             );
           }
         } finally {

@@ -135,7 +135,7 @@ function JobDetails({
   }, [job.matchData]);
 
   const jobLabel = `${job.JobTitle?.label ?? "this job"}${
-    job.Company?.label ? ` at ${job.Company.label}` : ""
+    job.Company?.label ? tr("mff31d33ee656", {v0: job.Company.label}) : ""
   }`;
 
   // Panel first so a failed clear can never leave a button looking dead, and

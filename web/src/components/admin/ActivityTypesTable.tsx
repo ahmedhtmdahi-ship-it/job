@@ -53,16 +53,16 @@ function ActivityTypesTable({
 
     if (activityCount > 0 || taskCount > 0) {
       const links = [
-        activityCount > 0 ? `${activityCount} activity(ies)` : "",
-        taskCount > 0 ? `${taskCount} task(s)` : "",
+        activityCount > 0 ? tr("m40430af4f5da", {v0: activityCount}) : "",
+        taskCount > 0 ? tr("m68c8ad54f602", {v0: taskCount}) : "",
       ]
         .filter(Boolean)
-        .join(" and ");
+        .join(tr("me3ee915a8e8c"));
 
       setAlert({
         openState: true,
         title: tr("m7419ba74b2b0"),
-        description: `This activity type is linked to ${links} and cannot be deleted.`,
+        description: tr("mc4efe0f6867f", {v0: links}),
         deleteAction: false,
       });
     } else {

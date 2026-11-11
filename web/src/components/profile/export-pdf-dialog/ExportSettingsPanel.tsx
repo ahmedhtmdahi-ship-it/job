@@ -46,12 +46,12 @@ export function ExportSettingsPanel({
   const typographySummary = [
     PDF_FONT_LABELS[settings.font],
     formatSettingValue("fontSize", settings.fontSize),
-    `${formatSettingValue("lineHeight", settings.lineHeight)} line`,
+    tr("m7cf58a710a76", {v0: formatSettingValue("lineHeight", settings.lineHeight)}),
   ].join(" • ");
 
   const layoutSummary = [
-    `${settings.marginVertical} × ${settings.marginHorizontal} pt margins`,
-    `${settings.sectionSpacing}/${settings.entrySpacing} pt spacing`,
+    tr("m167a128a2d71", {v0: settings.marginVertical, v1: settings.marginHorizontal}),
+    tr("m7df29bc0ad37", {v0: settings.sectionSpacing, v1: settings.entrySpacing}),
   ].join(" • ");
 
   return (
@@ -120,7 +120,7 @@ export function ExportSettingsPanel({
       {!singlePage && (
         <DisclosureGroup
           title={tr("m26c87bb51e69")}
-          summary={`Page numbers ${settings.showPageNumbers ? "on" : "off"}`}
+          summary={tr("m8b139615170c", {v0: settings.showPageNumbers ? tr("mb8d31e852725") : tr("mb4dc66dde806")})}
         >
           <div className={ROW}>
             <Label

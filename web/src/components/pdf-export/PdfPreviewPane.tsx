@@ -40,9 +40,7 @@ function isRenderCancelled(error: unknown): boolean {
   );
 }
 
-function pageLabel(count: number): string {
-  return `${count} ${count === 1 ? "page" : "pages"}`;
-}
+
 
 export function PdfPreviewPane({
   blob,
@@ -55,6 +53,7 @@ export function PdfPreviewPane({
   className,
 }: PdfPreviewPaneProps) {
  const tr = useT();
+  const pageLabel = (count: number) => tr("m09e1ce4ae931", {count});
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
@@ -238,7 +237,7 @@ export function PdfPreviewPane({
       : isGenerating
         ? uiMessage("m843c063e712c")
         : hasPages
-          ? `Preview ready, ${pageLabel(pageCount)}`
+          ? tr("m70b1436b20dc", {v0: pageLabel(pageCount)})
           : "";
 
   return (

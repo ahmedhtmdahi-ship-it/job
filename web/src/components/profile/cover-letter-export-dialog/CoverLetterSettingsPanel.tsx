@@ -49,12 +49,12 @@ export function CoverLetterSettingsPanel({
   const typographySummary = [
     PDF_FONT_LABELS[settings.font],
     formatSettingValue("fontSize", settings.fontSize),
-    `${formatSettingValue("lineHeight", settings.lineHeight)} line`,
+    tr("m7cf58a710a76", {v0: formatSettingValue("lineHeight", settings.lineHeight)}),
   ].join(" • ");
 
   const layoutSummary = [
-    `${settings.marginVertical} × ${settings.marginHorizontal} pt margins`,
-    `${settings.paragraphSpacing} pt paragraphs`,
+    tr("m167a128a2d71", {v0: settings.marginVertical, v1: settings.marginHorizontal}),
+    tr("m946796b88e5c", {v0: settings.paragraphSpacing}),
   ].join(" • ");
 
   return (

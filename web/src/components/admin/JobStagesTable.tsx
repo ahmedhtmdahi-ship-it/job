@@ -50,9 +50,7 @@ function JobStagesTable({ types, reloadTypes, onEdit }: JobStagesTableProps) {
       setAlert({
         openState: true,
         title: tr("m87317b0c8935"),
-        description: `This stage type is used by ${stages} job stage${
-          stages === 1 ? "" : "s"
-        }. Change or remove those stages before deleting the type.`,
+        description: tr("m0269fbb8d610", {v0: stages, v1: stages === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {

@@ -64,7 +64,7 @@ export function StageOverviewTab({ stage, onChanged }: StageOverviewTabProps) {
           <StageFact label={tr("m795349a1babd")} value={stage.format} icon={Monitor} />
           <StageFact
             label={tr("mebd293e02c29")}
-            value={stage.durationMins ? `${stage.durationMins} min` : null}
+            value={stage.durationMins ? tr("m4a1b30338cd5", {v0: stage.durationMins}) : null}
             icon={Clock}
           />
         </div>

@@ -137,7 +137,7 @@ export function LinkInterviewersDialog({
   const doneLabel =
     linkedCount === 0
       ? uiMessage("m11a6767d5674")
-      : `Done — ${linkedCount} interviewer${linkedCount === 1 ? "" : "s"} linked`;
+      : tr("me40b5b95d5fe", {v0: linkedCount, v1: linkedCount === 1 ? "" : "s"});
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

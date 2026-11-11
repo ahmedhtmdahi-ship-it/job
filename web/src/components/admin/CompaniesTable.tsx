@@ -61,9 +61,7 @@ function CompaniesTable({
       setAlert({
         openState: true,
         title: tr("mcaedc6cab895"),
-        description: `This company has ${totalJobs} associated job${
-          totalJobs === 1 ? "" : "s"
-        } (applied or not). Remove or reassign them before deleting this company.`,
+        description: tr("m738f3cc2ba5e", {v0: totalJobs, v1: totalJobs === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {
@@ -84,8 +82,8 @@ function CompaniesTable({
     if (res.success) {
       toastSuccess(
         tr(next
-          ? `${company.label} added to your watchlist`
-          : `${company.label} removed from your watchlist. It stays in your Library.`),
+          ? tr("m76503e1362b2", {v0: company.label})
+          : tr("m232855ebc5fd", {v0: company.label})),
       );
       reloadCompanies();
     } else {

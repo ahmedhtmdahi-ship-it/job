@@ -85,7 +85,7 @@ export default function GoalRow({
                 type="button"
                 variant="ghost"
                 className="size-11 rounded-none"
-                aria-label={`Fewer ${noun}`}
+                aria-label={tr("mc320a6b28198", {v0: noun})}
                 disabled={value <= min}
                 onClick={() => step(-1)}
               >
@@ -108,7 +108,7 @@ export default function GoalRow({
                 type="button"
                 variant="ghost"
                 className="size-11 rounded-none"
-                aria-label={`More ${noun}`}
+                aria-label={tr("m576c753de851", {v0: noun})}
                 disabled={value >= max}
                 onClick={() => step(1)}
               >

@@ -133,7 +133,7 @@ function ApiKeySettings() {
       if (!verifyData.success) {
         const title =
           verifyData.reason === "unreachable"
-            ? `Cannot reach ${PROVIDERS.find((p) => p.id === provider)?.name ?? provider}`
+            ? tr("m6bc055ded192", {v0: PROVIDERS.find((p) => p.id === provider)?.name ?? provider})
             : uiMessage("mf0f2383f8af8");
         toastError(tr(verifyData.error || uiMessage("m9d216344d134")), title);
         return;

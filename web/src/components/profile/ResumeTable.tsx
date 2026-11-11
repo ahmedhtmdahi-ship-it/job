@@ -306,8 +306,8 @@ function DocumentTable({
         alertTitle={tr("m525c79604b21")}
         alertDescription={
           currentDefault
-            ? `This will make "${documentToSetDefault?.title}" your default resume, replacing "${currentDefault.title}".`
-            : `This will make "${documentToSetDefault?.title}" your default resume, replacing your current default.`
+            ? tr("m0103ed527048", {v0: documentToSetDefault?.title, v1: currentDefault.title})
+            : tr("m5263415245a0", {v0: documentToSetDefault?.title})
         }
         actionLabel={tr("md09b4dd6265a")}
         actionVariant="default"

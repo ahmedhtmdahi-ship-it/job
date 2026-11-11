@@ -133,9 +133,7 @@ export function AddPrepQuestionsDialog({
   const doneLabel =
     selected.length === 0
       ? uiMessage("m11a6767d5674")
-      : `Done — ${selected.length} question${
-          selected.length === 1 ? "" : "s"
-        } added to prep list`;
+      : tr("m9940b9dc4bd6", {v0: selected.length, v1: selected.length === 1 ? "" : "s"});
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

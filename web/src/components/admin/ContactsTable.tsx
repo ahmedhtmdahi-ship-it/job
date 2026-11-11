@@ -48,7 +48,7 @@ function ContactsTable({
       title: jobs > 0 ? uiMessage("m54e5afac724c") : undefined,
       description:
         jobs > 0
-          ? `${contact.name} is linked to ${jobs} job${jobs === 1 ? "" : "s"}. Deleting the contact removes those links. This cannot be undone.`
+          ? tr("m9d96b10a7b49", {v0: contact.name, v1: jobs, v2: jobs === 1 ? "" : "s"})
           : undefined,
     });
   };

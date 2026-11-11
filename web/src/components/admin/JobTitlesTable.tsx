@@ -45,9 +45,7 @@ function JobTitlesTable({ jobTitles, reloadJobTitles }: JobTitlesTableProps) {
       setAlert({
         openState: true,
         title: tr("mcaedc6cab895"),
-        description: `This job title has ${totalJobs} associated job${
-          totalJobs === 1 ? "" : "s"
-        } (applied or not). Remove or reassign them before deleting this job title.`,
+        description: tr("m0e072a9a70b8", {v0: totalJobs, v1: totalJobs === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {

@@ -271,9 +271,7 @@ const ActivityFormComponent = ({
                         {" "}
                         ({duration.hours > 0 ? `${duration.hours} h` : ""}
                         {duration.minutes > 0
-                          ? `${duration.hours > 0 ? " " : ""}${
-                              duration.minutes
-                            } min`
+                          ? tr("m4e7a61bbf4d4", {v0: duration.hours > 0 ? " " : "", v1: duration.minutes})
                           : ""}
                         {!duration.hours && !duration.minutes ? tr("m0d2cd6b1dfdf") : ""})
                       </span>

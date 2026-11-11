@@ -90,7 +90,7 @@ export function JobsFilterPopover({
   const applyLabel =
     total === undefined
       ? uiMessage("mad9e86751605")
-      : `Show ${total} ${total === 1 ? "job" : "jobs"}`;
+      : tr("mc826674524ae", {v0: total, v1: total === 1 ? "job" : "jobs"});
 
   const segmented = (
     options: Record<string, string>,

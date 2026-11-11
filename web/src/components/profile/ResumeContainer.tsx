@@ -119,7 +119,7 @@ function ResumeContainer({
     } catch {
       // Reported by the action itself; the review still goes out.
     }
-    void sendMessage({ parts: [{ type: "text", text: `Review ${title}` }] });
+    void sendMessage({ parts: [{ type: "text", text: tr("mb732746458d1", {v0: title}) }] });
   };
 
   const onReviewClick = () => {

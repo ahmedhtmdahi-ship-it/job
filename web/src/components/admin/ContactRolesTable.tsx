@@ -46,12 +46,8 @@ function ContactRolesTable({ roles, reloadRoles }: ContactRolesTableProps) {
         openState: true,
         title: tr("m3ec946ac573d"),
         description: links
-          ? `This role is used by ${links} contact link${
-              links === 1 ? "" : "s"
-            }. Remove those links before deleting the role.`
-          : `This role is set on ${holders} contact${
-              holders === 1 ? "" : "s"
-            }. Change their role before deleting it.`,
+          ? tr("m65fb7c5621e5", {v0: links, v1: links === 1 ? "" : "s"})
+          : tr("mf25a1c11b311", {v0: holders, v1: holders === 1 ? "" : "s"}),
         deleteAction: false,
       });
     } else {
