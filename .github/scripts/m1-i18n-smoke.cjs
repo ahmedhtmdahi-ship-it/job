@@ -87,7 +87,12 @@ async function main() {
       ['/dashboard/profile','Add New Resume'],
     ]) {
       await page.goto(base+route);
-      await page.getByRole('button',{name:label(button),exact:true}).click();
+      if (route === '/dashboard/profile') {
+        await page.getByRole('button',{name:label('New'),exact:true}).click();
+        await page.getByRole('menuitem',{name:label(button),exact:true}).click();
+      } else {
+        await page.getByRole('button',{name:label(button),exact:true}).click();
+      }
       await expect(page.getByRole('dialog')).toBeVisible();
       await verify(page,'ar',`${route} creation dialog`);
     }
