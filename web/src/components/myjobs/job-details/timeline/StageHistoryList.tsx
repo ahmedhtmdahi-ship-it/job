@@ -45,7 +45,7 @@ function StageMarker({
       {hasNext && (
         <span
           className={cn(
-            "absolute start-1/2 top-full h-5 w-0.5 -translate-x-1/2",
+            "absolute start-1/2 top-full h-5 w-0.5 -translate-x-1/2 rtl:translate-x-1/2",
             nextReached ? "bg-emerald-500 dark:bg-emerald-400" : "bg-border",
           )}
         />

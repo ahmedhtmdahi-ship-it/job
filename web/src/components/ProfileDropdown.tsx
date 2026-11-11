@@ -1,6 +1,7 @@
 "use client";
 
 import {message as uiMessage} from "@/i18n/message";
+import {useLocale} from "next-intl";
 import {useT} from "@/i18n/useT";
 import {LanguageToggle} from "./LanguageToggle";
 import { useState } from "react";
@@ -40,6 +41,7 @@ export function ProfileDropdown({
   signOutAction,
 }: ProfileDropdownProps) {
   const tr = useT();
+  const locale = useLocale();
 
   const [supportDialogOpen, setSupportDialogOpen] = useState(false);
   const version = useAppVersion();
@@ -95,9 +97,9 @@ export function ProfileDropdown({
               </button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          {!expanded && <TooltipContent side="right">{label}</TooltipContent>}
+          {!expanded && <TooltipContent side={locale === "ar" ? "left" : "right"}>{label}</TooltipContent>}
         </Tooltip>
-        <DropdownMenuContent side="right" align="end">
+        <DropdownMenuContent side={locale === "ar" ? "left" : "right"} align="end">
           <DropdownMenuLabel>{label}</DropdownMenuLabel>
           <LanguageToggle />
           <DropdownMenuSeparator />

@@ -1,3 +1,4 @@
+import {useLocale} from "next-intl";
 import {useT} from "@/i18n/useT";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 import Link from "next/link";
@@ -22,6 +23,7 @@ interface NavLinkProps {
 
 function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
   const tr = useT();
+  const locale = useLocale();
 
   // "/dashboard" is a prefix of every other route, so it only matches exactly.
   const isActive =
@@ -66,7 +68,7 @@ function NavLink({ label, Icon, route, pathname, expanded }: NavLinkProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>{link}</TooltipTrigger>
-      {!expanded && <TooltipContent side="right">{tr(label)}</TooltipContent>}
+      {!expanded && <TooltipContent side={locale === "ar" ? "left" : "right"}>{tr(label)}</TooltipContent>}
     </Tooltip>
   );
 }

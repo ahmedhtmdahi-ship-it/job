@@ -248,3 +248,5 @@
 
 html[lang="ar"] { --font-sans: var(--font-arabic), var(--font-inter), sans-serif; }
 [dir="rtl"] .rtl-mirror { transform: scaleX(-1); }
+
+html[lang="ar"] body { font-family: var(--font-arabic), var(--font-inter), sans-serif; }

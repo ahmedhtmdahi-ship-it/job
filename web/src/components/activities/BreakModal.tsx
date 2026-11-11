@@ -126,7 +126,7 @@ export function BreakModal({ open, onClose }: BreakModalProps) {
           onEscapeKeyDown={(e) => e.preventDefault()}
           onPointerDownOutside={(e) => e.preventDefault()}
           onInteractOutside={(e) => e.preventDefault()}
-          className="fixed start-[50%] top-[50%] z-50 w-full max-w-sm translate-x-[-50%] translate-y-[-50%] rounded-lg border bg-background p-6 shadow-lg"
+          className="fixed start-[50%] top-[50%] z-50 w-full max-w-sm translate-x-[-50%] rtl:translate-x-1/2 translate-y-[-50%] rounded-lg border bg-background p-6 shadow-lg"
         >
           <DialogTitle className="sr-only">{tr("m0d3fe4a41975")}</DialogTitle>
 
