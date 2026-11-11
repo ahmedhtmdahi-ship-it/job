@@ -44,9 +44,10 @@ const FULL_TOTAL_HOLE = 96;
 // the name needs a custom component rather than a label formatter.
 // The budget arrives by ref because a new component type would remount the
 // whole label subtree on every frame the card resizes.
-function makeArcLinkLabel(maxChars: RefObject<number>) {
+function makeArcLinkLabel(maxChars: RefObject<number>, tr: ReturnType<typeof useT>) {
   return function ArcLinkLabel({ datum, style }: ArcLinkLabelProps) {
-    const [name, hours] = arcLabelLines(datum.data, maxChars.current);
+    const [name] = arcLabelLines(datum.data, maxChars.current);
+    const hours = tr("m5828ef1c1e95", {count: datum.data.value});
 
     return (
       <animated.g opacity={style.opacity}>
@@ -105,8 +106,8 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
   const maxLabelChars = useRef(layout.maxLabelChars);
   maxLabelChars.current = layout.maxLabelChars;
   const arcLinkLabelComponent = useMemo(
-    () => makeArcLinkLabel(maxLabelChars),
-    [],
+    () => makeArcLinkLabel(maxLabelChars, tr),
+    [tr],
   );
 
   return (
@@ -198,9 +199,9 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    <strong>{datum.data.label}</strong> — {datum.value}{tr("maaa9402664f1")}{datum.data.breakdown?.map((activity: TopActivityType) => (
+                    <strong>{datum.data.label}</strong> — {tr("m5828ef1c1e95", {count: datum.value})}{datum.data.breakdown?.map((activity: TopActivityType) => (
                       <div key={activity.label}>
-                        {activity.label} — {activity.hours}{tr("maaa9402664f1")}</div>
+                        {activity.label} — {tr("m5828ef1c1e95", {count: activity.hours})}</div>
                     ))}
                   </div>
                 )}
@@ -217,7 +218,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
                 roomyTotal ? "text-xl" : "text-base",
               )}
             >
-              {totalHours}{tr("maaa9402664f1")}</span>
+              {tr("m5828ef1c1e95", {count: totalHours})}</span>
             <span
               className={cn(
                 "text-muted-foreground tabular-nums",

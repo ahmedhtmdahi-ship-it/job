@@ -32,7 +32,7 @@ import {
 function PasteChip({ data }: { data: AgentPastePartData }) {
   const tr = useT();
 
-  const chars = data.chars.toLocaleString();
+  const chars = data.chars.toLocaleString("en-US", {numberingSystem: "latn"});
   return (
     <span className="inline-flex items-center gap-1.5 rounded-sm border bg-muted/30 px-2 py-1 text-xs text-muted-foreground">
       <FileTextIcon className="size-3" />

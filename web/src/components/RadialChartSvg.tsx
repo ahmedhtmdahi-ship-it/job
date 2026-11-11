@@ -149,7 +149,7 @@ export function RadialChartComponent({
         {/* Center label */}
         <text x={cx} y={cy - 16} textAnchor="middle" dominantBaseline="middle">
           <tspan className="fill-foreground text-2xl font-bold">
-            {Math.round(animatedScore).toLocaleString()}
+            {Math.round(animatedScore).toLocaleString("en-US", {numberingSystem: "latn"})}
           </tspan>
         </text>
         <text x={cx} y={cy + 8} textAnchor="middle" dominantBaseline="middle">

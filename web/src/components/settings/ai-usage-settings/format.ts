@@ -133,10 +133,10 @@ export const FAILURE_META: Record<
 // calculations remain unchanged, including the functions exercised by tests.
 const englishFormats = {formatTokens, formatCount, formatSeconds, formatCallTime};
 const arabicFormats = {
-  formatTokens: (n: number) => new Intl.NumberFormat('ar', {notation: n >= 1000 ? 'compact' : 'standard', maximumFractionDigits: 2}).format(n),
-  formatCount: (n: number | null) => n === null ? '—' : new Intl.NumberFormat('ar').format(n),
-  formatSeconds: (ms: number | null) => ms === null ? '—' : new Intl.NumberFormat('ar', {style: 'unit', unit: 'second', unitDisplay: 'long', minimumFractionDigits: 1, maximumFractionDigits: 1}).format(ms / 1000),
-  formatCallTime: (date: Date) => new Intl.DateTimeFormat('ar', {month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}).format(date),
+  formatTokens: (n: number) => new Intl.NumberFormat('ar', {numberingSystem: "latn", notation: n >= 1000 ? 'compact' : 'standard', maximumFractionDigits: 2}).format(n),
+  formatCount: (n: number | null) => n === null ? '—' : new Intl.NumberFormat('ar', {numberingSystem: 'latn'}).format(n),
+  formatSeconds: (ms: number | null) => ms === null ? '—' : new Intl.NumberFormat('ar', {numberingSystem: "latn", style: 'unit', unit: 'second', unitDisplay: 'long', minimumFractionDigits: 1, maximumFractionDigits: 1}).format(ms / 1000),
+  formatCallTime: (date: Date) => new Intl.DateTimeFormat('ar', {numberingSystem: "latn", month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'}).format(date),
 };
 export function useUsageFormats() {
   return useLocale() === 'ar' ? arabicFormats : englishFormats;

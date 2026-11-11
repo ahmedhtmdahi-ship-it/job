@@ -1,5 +1,8 @@
 "use client";
 
+import {useLocale} from "next-intl";
+import {formatNumber} from "@/i18n/formatting";
+import {weeklyDateLabel} from "./chartFormatting";
 import {useT} from "@/i18n/useT";
 import { useState, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
@@ -32,6 +35,7 @@ export default function WeeklyBarChartToggle({
   charts,
 }: WeeklyBarChartToggleProps) {
   const tr = useT();
+  const locale = useLocale();
 
   const [activeIndex, selectTab] = usePersistedTabIndex(
     APP_CONSTANTS.DASHBOARD_WEEKLY_CHART_STORAGE_KEY,
@@ -139,9 +143,9 @@ export default function WeeklyBarChartToggle({
       </CardHeader>
 
       <CardContent className="h-[240px] p-3 pt-1">
-        <div className="h-[200px]">
+        <div className="h-[200px]" dir="ltr" data-testid="weekly-chart">
           <ResponsiveBar
-            data={roundedData}
+            data={locale === "ar" ? [...roundedData].reverse() : roundedData}
             keys={current.keys}
             indexBy="day"
             margin={{
@@ -191,12 +195,10 @@ export default function WeeklyBarChartToggle({
               legendPosition: "middle",
               legendOffset: 32,
               truncateTickAt: 0,
-              format: isSmallScreen
-                ? (value: string) => String(value).split(", ")[1] ?? value
-                : (value: string) => String(value).replace(/\b[A-Za-z]+\b/g, word => tr(word)),
+              format: (value: string) => weeklyDateLabel(String(value), locale, isSmallScreen),
             }}
             axisLeft={{
-              tickSize: 5,
+              tickSize: 0,
               tickPadding: 5,
               tickRotation: 0,
               legend: tr(current.axisLeftLegend),
@@ -204,6 +206,13 @@ export default function WeeklyBarChartToggle({
               legendOffset: -40,
               truncateTickAt: 0,
               tickValues: intTickValues,
+              renderTick: ({x, y, textX, textY, value}) => (
+                <g transform={`translate(${x},${y})`}>
+                  <text transform={`translate(${textX},${textY})`} textAnchor="end" dominantBaseline="central" direction="ltr" unicodeBidi="isolate" fill="#9ca3af" fontSize={11}>
+                    {formatNumber(Number(value), locale)}
+                  </text>
+                </g>
+              ),
             }}
             motionConfig="gentle"
             tooltip={({ id, value, indexValue, color, data }) => (
@@ -217,7 +226,7 @@ export default function WeeklyBarChartToggle({
                   whiteSpace: "nowrap",
                 }}
               >
-                <div style={{ marginBottom: 4 }}>{indexValue}</div>
+                <div style={{ marginBottom: 4 }}>{weeklyDateLabel(String(indexValue), locale)}</div>
                 <span
                   style={{
                     display: "inline-block",
@@ -252,7 +261,7 @@ export default function WeeklyBarChartToggle({
                   (data as any).otherBreakdown.map(
                     (activity: { label: string; hours: number }) => (
                       <div key={activity.label}>
-                        {activity.label} – {activity.hours}{tr("maaa9402664f1")}</div>
+                        {activity.label} – {activity.hours}{" "}{tr("maaa9402664f1")}</div>
                     ),
                   )}
               </div>

@@ -32,7 +32,7 @@ export function AddJobFooter({
     <div className="flex flex-wrap items-center gap-2 border-t bg-muted/40 px-8 py-3.5">
       {missing.length > 0 && (
         <p className="text-sm text-muted-foreground">
-          {missing.length} {" "}{tr("m893ea02f6840")}{" "}
+          {tr("md50e40a2c113", {count: missing.length})}{" "}
           {missing.map((f, i) => (
             <Fragment key={f}>
               {i > 0 && ", "}

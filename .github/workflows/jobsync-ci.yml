@@ -1,9 +1,9 @@
-name: JobSync M1
+name: Awel Shoghlana M1.1
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [m1-i18n-rtl]
+    branches: [m1-polish]
 permissions:
   contents: read
 jobs:

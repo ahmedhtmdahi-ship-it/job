@@ -40,7 +40,7 @@ export function GetResumeResult({ output }: { output: AgentGetResumeResult }) {
         {sourceNote}.
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        {output.chars.toLocaleString()} {" "}{tr("m25d939ffd0d7")}{output.truncated ? tr("m0a59daa2612f") : ""}
+        {output.chars.toLocaleString("en-US", {numberingSystem: "latn"})} {" "}{tr("m25d939ffd0d7")}{output.truncated ? tr("m0a59daa2612f") : ""}
         {output.ambiguousTitle ? tr("ma308a585ec73") : ""}
       </p>
     </div>
