@@ -92,7 +92,7 @@ function AddJobStageType({
           )
         : await createJobStageType(values.label, values.statusId);
       toastActionResult(res, {
-        success: `Stage has been ${type ? "updated" : "added"} successfully.`,
+        success: type ? tr("m7b74fd91a8c2") : tr("m975210263f6d"),
         onSuccess: () => {
           onOpenChange(false);
           reset();

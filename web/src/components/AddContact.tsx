@@ -190,7 +190,7 @@ function AddContact({
         : await createContact(values);
       const name = values.name.trim();
       toastActionResult(res, {
-        success: `Contact has been ${editContact ? "updated" : "created"} successfully`,
+        success: editContact ? tr("m7aaa00602fee") : tr("m5a4307adf00a"),
         onSuccess: () => {
           onSaved?.({ id: res.data.id, label: name, value: name.toLowerCase() });
           reset();

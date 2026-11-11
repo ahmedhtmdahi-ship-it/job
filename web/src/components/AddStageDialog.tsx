@@ -134,7 +134,7 @@ export function AddStageDialog({
         ? await updateJobStage({ ...values, id: stage.id })
         : await addJobStage(values);
       toastActionResult(res, {
-        success: `Stage has been ${stage ? "updated" : "added"} successfully`,
+        success: stage ? tr("m88ebba625fb6") : tr("m77ba66c483f5"),
         onSuccess: () => {
           onSaved();
           onOpenChange(false);

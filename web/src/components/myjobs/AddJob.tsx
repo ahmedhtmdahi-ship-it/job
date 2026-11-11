@@ -227,7 +227,7 @@ export function AddJob({
     startTransition(async () => {
       const result = editJob ? await updateJob(data) : await addJob(data);
       toastActionResult(result, {
-        success: `Job has been ${editJob ? "updated" : "created"} successfully`,
+        success: editJob ? tr("m1c144f3d787c") : tr("m9c5a5ecb91b6"),
         onSuccess: () => {
           saveToLocalStorage(
             APP_CONSTANTS.LAST_JOB_LOCATION_STORAGE_KEY,

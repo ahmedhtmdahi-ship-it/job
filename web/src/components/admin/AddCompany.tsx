@@ -111,7 +111,7 @@ function AddCompany({
         ? await updateCompany(data)
         : await addCompany(data);
       toastActionResult(res, {
-        success: `Company has been ${editCompany ? "updated" : "created"} successfully`,
+        success: editCompany ? tr("me58ddc0fe58f") : tr("m7998c6a3d161"),
         onSuccess: () => {
           reset();
           setDialogOpen(false);

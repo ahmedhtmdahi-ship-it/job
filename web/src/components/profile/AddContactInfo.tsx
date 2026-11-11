@@ -104,9 +104,7 @@ function AddContactInfo({
         ? await updateContactInfo(data)
         : await addContactInfo(data);
       toastActionResult(res, {
-        success: `Contact Info has been ${
-          contactInfoToEdit ? "updated" : "created"
-        } successfully`,
+        success: contactInfoToEdit ? tr("m47e08d09f0f5") : tr("md0da528b4ae6"),
         onSuccess: () => {
           reset();
           setDialogOpen(false);

@@ -119,7 +119,7 @@ export function TaskForm({
     startTransition(async () => {
       const result = editTask ? await updateTask(data) : await createTask(data);
       toastActionResult<Task>(result, {
-        success: `Task has been ${editTask ? "updated" : "created"} successfully`,
+        success: editTask ? tr("mbe0a707fba55") : tr("m7d7a4a394047"),
         onSuccess: (task) => {
           reset();
           setDialogOpen(false);

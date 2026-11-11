@@ -1718,6 +1718,19 @@
     "m6ecb2acbbe0c": "Other activity types",
     "m3574459a743d": "Time Spent",
     "maabd1a894a2e": "Invalid credentials.",
-    "m0c953ab32c60": "Something went wrong."
+    "m0c953ab32c60": "Something went wrong.",
+    "m7aaa00602fee": "Contact has been updated successfully",
+    "m88ebba625fb6": "Stage has been updated successfully",
+    "m77ba66c483f5": "Stage has been added successfully",
+    "m47e08d09f0f5": "Contact Info has been updated successfully",
+    "md0da528b4ae6": "Contact Info has been created successfully",
+    "m1c144f3d787c": "Job has been updated successfully",
+    "m9c5a5ecb91b6": "Job has been created successfully",
+    "mbe0a707fba55": "Task has been updated successfully",
+    "m7d7a4a394047": "Task has been created successfully",
+    "me58ddc0fe58f": "Company has been updated successfully",
+    "m7998c6a3d161": "Company has been created successfully",
+    "m7b74fd91a8c2": "Stage has been updated successfully.",
+    "m975210263f6d": "Stage has been added successfully."
   }
 }
