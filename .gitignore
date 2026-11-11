@@ -18,3 +18,16 @@ __pycache__/
 .venv/
 dist/
 build/
+
+# Local web credentials and private user files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+web/node_modules/
+web/.next/
+web/data/
+web/jobsyncdb/
+web/private_assets/
+web/uploads/
