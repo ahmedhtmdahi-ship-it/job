@@ -218,9 +218,9 @@ function ApiKeySettings() {
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-base">{provider.name}</CardTitle>
+                    <CardTitle className="text-base">{tr(provider.name)}</CardTitle>
                     <CardDescription className="text-sm">
-                      {provider.description}
+                      {tr(provider.description)}
                       {isBaseUrl && (
                         <span className="block text-xs text-muted-foreground/70 mt-0.5">
                           {tr("md1f6d9e71b8b")}{" "}{provider.id === "ollama" ? defaultOllamaUrl : provider.placeholder}
@@ -351,7 +351,7 @@ function ApiKeySettings() {
                             <AlertDialogDescription>
                               {isBaseUrl ? (
                                 <>
-                                  {tr("m9a163eab87b8")}{" "}{provider.name} {" "}{tr("mfde41687c2ac")}{" "}
+                                  {tr("m9a163eab87b8")}{" "}{tr(provider.name)} {" "}{tr("mfde41687c2ac")}{" "}
                                   {provider.id === "ollama"
                                     ? defaultOllamaUrl
                                     : provider.placeholder}
@@ -360,7 +360,7 @@ function ApiKeySettings() {
                               ) : (
                                 <>
                                   {tr("mb6895971e24a")}{" "}
-                                  {provider.name} {" "}{tr("m34231ea8dec9")}</>
+                                  {tr(provider.name)} {" "}{tr("m34231ea8dec9")}</>
                               )}
                             </AlertDialogDescription>
                           </AlertDialogHeader>

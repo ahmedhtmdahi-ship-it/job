@@ -106,7 +106,7 @@ export function useResumeImport(resume: Resume) {
         }
       }
     },
-    [resume.id],
+    [resume.id, tr],
   );
 
   // Abort any in-flight import when the component unmounts.
@@ -191,7 +191,7 @@ export function useResumeImport(resume: Resume) {
         toastError(tr(result.message));
       }
     },
-    [pendingCards, resume.id, router],
+    [pendingCards, resume.id, router, tr],
   );
 
   const handleDiscardCard = useCallback((cardId: string) => {

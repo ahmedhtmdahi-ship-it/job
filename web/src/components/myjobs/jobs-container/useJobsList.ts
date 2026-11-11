@@ -113,7 +113,7 @@ export function useJobsList({
       titleFilter,
       locationFilter,
       sourceFilter,
-    ],
+    , tr],
   );
 
   const reloadJobs = useCallback(async () => {

@@ -172,7 +172,7 @@ export function useAutomationRun({
       stopped = true;
       clearInterval(interval);
     };
-  }, [runNowLoading, automationId, loadData, refreshNotifications]);
+  }, [runNowLoading, automationId, loadData, refreshNotifications, tr]);
 
   const handleRunNow = async () => {
     if (!automation) return;

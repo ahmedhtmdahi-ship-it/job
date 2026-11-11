@@ -66,7 +66,7 @@ async function main() {
     await page.getByLabel(label('Full Name'), {exact:true}).fill('مستخدم تجريبي وهمي');
     await page.getByLabel(label('Email'), {exact:true}).fill(email);
     await page.getByLabel(label('Password'), {exact:true}).fill(password);
-    await page.getByRole('button',{name:label('Create an account'),exact:true}).click();
+    await page.locator('form').getByRole('button',{name:label('Create an account'),exact:true}).click();
     await expect(page).toHaveURL(`${base}/dashboard`);
     const user = await db.user.findUniqueOrThrow({where:{email}});
     expect(user.locale).toBe('ar');

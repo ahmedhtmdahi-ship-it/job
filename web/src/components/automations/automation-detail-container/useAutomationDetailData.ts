@@ -104,7 +104,7 @@ export function useAutomationDetailData(automationId: string) {
       }
       if (showLoading) setLoading(false);
     },
-    [automationId, router, fetchJobs],
+    [automationId, router, fetchJobs, tr],
   );
 
   useEffect(() => {

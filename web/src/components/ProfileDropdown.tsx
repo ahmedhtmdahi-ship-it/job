@@ -92,15 +92,15 @@ export function ProfileDropdown({
                     expanded ? "opacity-100 delay-100" : "opacity-0"
                   )}
                 >
-                  {label}
+                  {tr(label)}
                 </span>
               </button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          {!expanded && <TooltipContent side={locale === "ar" ? "left" : "right"}>{label}</TooltipContent>}
+          {!expanded && <TooltipContent side={locale === "ar" ? "left" : "right"}>{tr(label)}</TooltipContent>}
         </Tooltip>
         <DropdownMenuContent side={locale === "ar" ? "left" : "right"} align="end">
-          <DropdownMenuLabel>{label}</DropdownMenuLabel>
+          <DropdownMenuLabel>{tr(label)}</DropdownMenuLabel>
           <LanguageToggle />
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>

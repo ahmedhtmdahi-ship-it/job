@@ -62,7 +62,7 @@ export function useTasksList({
       setInitialLoading(false);
       setLoadingMore(false);
     },
-    [tasksPerPage],
+    [tasksPerPage, tr],
   );
 
   const reloadTasks = useCallback(async () => {
