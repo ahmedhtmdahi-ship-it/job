@@ -82,7 +82,7 @@ async function main() {
     await page.screenshot({path:path.join(output,'job-form-ar.png'),fullPage:true,animations:'disabled'});
     await page.goto(`${base}/dashboard`);
     await page.getByRole('button',{name:label('User menu'),exact:true}).click();
-    await page.getByRole('button',{name:ar.locale.switch,exact:true}).click();
+    await page.getByRole('menuitem',{name:ar.locale.switch,exact:true}).click();
     await expect(page.locator('html')).toHaveAttribute('lang','en');
     expect((await db.user.findUniqueOrThrow({where:{email}})).locale).toBe('en');
     for(const route of routes) {await page.goto(base+route);await verify(page,'en',route);}

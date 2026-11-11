@@ -1684,6 +1684,7 @@
     "m3cc5c7d334f9": "Restored {v0} rows and {v1} file(s).{v2} Re-enter your AI provider API keys, reissue MCP tokens, and reload the page.",
     "m0d2bd882463c": "Activity not saved because duration was less than {v0} minutes",
     "mc8f48a68649d": "AM",
-    "m6b987654a411": "PM"
+    "m6b987654a411": "PM",
+    "m3ccd9d6586ef": "Something went wrong. Please try again."
   }
 }
