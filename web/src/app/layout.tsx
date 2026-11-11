@@ -20,13 +20,16 @@ const inter = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata() {
+ const tr = await getT();
+ return {
   title: {
     template: "%s | JobSync",
-    default: uiMessage("m00d43de3b952"),
+    default: tr("m00d43de3b952"),
   },
-  description: uiMessage("m2c533e8b1339"),
+  description: tr("m2c533e8b1339"),
 };
+}
 
 interface Props {
   children: React.ReactNode;

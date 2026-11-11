@@ -1,3 +1,4 @@
+import {getT} from "@/i18n/getT";
 import {message as uiMessage} from "@/i18n/message";
 import { Metadata } from "next";
 
@@ -8,9 +9,12 @@ import { getAllJobTitles } from "@/actions/jobtitle.actions";
 import { getAllJobLocations } from "@/actions/jobLocation.actions";
 import { getAllTags } from "@/actions/tag.actions";
 
-export const metadata: Metadata = {
-  title: uiMessage("mc523c7796fda"),
+export async function generateMetadata() {
+ const tr = await getT();
+ return {
+  title: tr("mc523c7796fda"),
 };
+}
 
 async function MyJobs() {
   const [statuses, companies, titles, locations, sources, tags] =

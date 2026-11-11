@@ -123,7 +123,7 @@ export default function DailyGoalsCalendar({
   return (
     <>
       <Card {...cardProps}>
-        <GcMonthSummary rings={rings} labels={{previousMonth: tr("Previous month"), nextMonth: tr("Next month"), goalHit: tr("Goal hit"), noData: tr("no data")}} data={summaries} {...monthProps} />
+        <GcMonthSummary rings={rings} labels={{previousMonth: tr("Previous month"), nextMonth: tr("Next month"), goalHit: tr("Goal hit"), noData: tr("no data")}} data={Object.fromEntries(Object.entries(summaries).map(([key, summary]) => [key, {...summary, stats: summary.stats?.map(stat => ({...stat, label: typeof stat.label === "string" ? tr(stat.label) : stat.label, value: locale === "ar" && typeof stat.value === "string" && /^\d+ days?$/.test(stat.value) ? new Intl.NumberFormat(locale, {style: "unit", unit: "day", unitDisplay: "long"}).format(parseInt(stat.value)) : stat.value}))}]))} {...monthProps} />
       </Card>
       <Card {...cardProps}>
         <GcMonthCalendar

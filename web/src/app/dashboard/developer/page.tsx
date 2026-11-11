@@ -1,3 +1,4 @@
+import {getT} from "@/i18n/getT";
 import {message as uiMessage} from "@/i18n/message";
 import {useT} from "@/i18n/useT";
 import { Metadata } from "next";
@@ -9,10 +10,13 @@ import {
 import { ClearAllDataButton } from "@/components/developer/ClearAllDataButton";
 import { GenerateMockDataButton } from "@/components/developer/GenerateMockDataButton";
 
-export const metadata: Metadata = {
-  title: uiMessage("mcfd95b2a1fc7"),
-  description: uiMessage("mdae0f7722d12"),
+export async function generateMetadata() {
+ const tr = await getT();
+ return {
+  title: tr("mcfd95b2a1fc7"),
+  description: tr("mdae0f7722d12"),
 };
+}
 
 export default function DeveloperPage() {
   const tr = useT();

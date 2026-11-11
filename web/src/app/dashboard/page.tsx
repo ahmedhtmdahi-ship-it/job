@@ -22,9 +22,12 @@ import WeeklyBarChartToggle from "@/components/dashboard/WeeklyBarChartToggle";
 
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: uiMessage("m67b696468610"),
+export async function generateMetadata() {
+ const tr = await getT();
+ return {
+  title: tr("m67b696468610"),
 };
+}
 
 export default async function Dashboard() {
   const tr = await getT();
