@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "result": {
+    "projects": [
+      {
+        "id": 105,
+        "title": "مشروع موقع وهمي",
+        "description": "تطوير واجهة تجريبية وهمية",
+        "type": "fixed",
+        "nonpublic": false,
+        "deleted": false,
+        "time_submitted": 1794312000,
+        "jobs": [
+          {
+            "name": "TypeScript"
+          }
+        ],
+        "budget": {
+          "minimum": 500,
+          "maximum": 900
+        },
+        "currency": {
+          "code": "USD"
+        },
+        "bid_stats": {
+          "bid_count": 3
+        },
+        "seo_url": "website-design/fictional-project-105"
+      }
+    ]
+  }
+}

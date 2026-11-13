@@ -13,6 +13,9 @@ datasource db {
 }
 
 model User {
+  opportunities Opportunity[]
+  sourceRuns SourceRun[]
+  opportunityPreferences OpportunityPreference?
   locale         String           @default("ar")
   id             String           @id @default(uuid())
   name           String
@@ -733,4 +736,70 @@ model ChatConversation {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Opportunity {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sourceId String
+  externalId String
+  canonicalUrl String
+  url String?
+  title String
+  description String
+  company String?
+  budgetMin Float?
+  budgetMax Float?
+  currency String?
+  jobType String
+  postedAt DateTime?
+  bidsCount Int?
+  skills String[]
+  country String?
+  language String
+  disposition String @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId, sourceId, canonicalUrl])
+  @@unique([userId, canonicalUrl])
+  @@index([userId, disposition, postedAt])
+}
+
+model SourceRun {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sourceId String
+  status String
+  reason String?
+  startedAt DateTime @default(now())
+  completedAt DateTime @default(now())
+  itemCount Int @default(0)
+  cached Boolean @default(false)
+  @@index([userId, sourceId, startedAt])
+}
+
+// User profile preferences apply to all of their resumes, without selecting a new default resume.
+model OpportunityPreference {
+  id String @id @default(uuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  minimumBudget Float?
+  currency String @default("USD")
+  language String @default("ar")
+  dailyRefresh Boolean @default(false)
+  nextRefreshAt DateTime @default(now())
+  refreshLeaseUntil DateTime @default(dbgenerated("'1970-01-01'::timestamp"))
+  @@index([dailyRefresh, nextRefreshAt])
+}
+
+// Public API data only. Never stores pasted content or user profile data.
+model SourceCache {
+  id String @id @default(uuid())
+  sourceId String @unique
+  nextFetchAt DateTime @default(dbgenerated("'1970-01-01'::timestamp"))
+  fetchedAt DateTime?
+  status String @default("blocked")
+  payload Json?
 }

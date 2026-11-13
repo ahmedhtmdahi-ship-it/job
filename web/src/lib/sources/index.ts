@@ -1,0 +1,11 @@
+import {freelancer} from './adapters/freelancer';
+import {remotive} from './adapters/remotive';
+import {jobicy} from './adapters/jobicy';
+import {remoteok} from './adapters/remoteok';
+import {arbeitnow} from './adapters/arbeitnow';
+export const apiSources=[freelancer,remotive,jobicy,remoteok,arbeitnow];
+export {pasteAdapter} from './adapters/paste';
+export {runSource} from './http';
+export {canonicalUrl,dedupe} from './canonical';
+export {rankOpportunity} from './ranking';
+export type {Opportunity,SourceAdapter,SourceQuery,SourceStatus} from './types';

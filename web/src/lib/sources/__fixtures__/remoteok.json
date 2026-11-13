@@ -1,0 +1,17 @@
+[
+  {
+    "legal": "Fixture metadata, no job"
+  },
+  {
+    "id": "103",
+    "url": "https://remoteok.com/remote-jobs/fictional-103",
+    "position": "Fictional developer",
+    "description": "Fictional TypeScript work",
+    "company": "Example Fictional",
+    "date": "2026-11-10T12:00:00Z",
+    "tags": [
+      "TypeScript"
+    ],
+    "location": "Worldwide"
+  }
+]

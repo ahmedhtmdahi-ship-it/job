@@ -1,9 +1,12 @@
-name: Awel Shoghlana M1.1
+name: Awel Shoghlana M2
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [m1-polish]
+    branches: [m2-sources]
+concurrency:
+  group: sources-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -35,6 +38,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -109,6 +113,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -140,7 +145,7 @@ jobs:
           fi
       - name: Start production application
         run: |
-          npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
+          NODE_OPTIONS="--require $GITHUB_WORKSPACE/.github/scripts/m2-network-fixtures.cjs" npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
           echo "$!" > "$RUNNER_TEMP/jobsync-server.pid"
       - name: Verify Arabic and English pages and capture screenshots
         run: node ../.github/scripts/m1-i18n-smoke.cjs
@@ -151,6 +156,15 @@ jobs:
           path: ${{ runner.temp }}/m1-screenshots/*.png
           if-no-files-found: error
           retention-days: 7
+      - name: Verify opportunity sources without live network
+        run: node ../.github/scripts/m2-opportunities-smoke.cjs
+      - name: Upload M2 screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: m2-opportunities
+          path: ${{ runner.temp }}/m2-screenshots/*.png
+          retention-days: 7
+          if-no-files-found: error
       - name: Stop application
         if: always()
         run: |
