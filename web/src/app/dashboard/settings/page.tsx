@@ -19,6 +19,7 @@ function Settings() {
     <div className="flex flex-col col-span-3">
       <h3 className="text-2xl font-semibold leading-none tracking-tight mb-4">
         {tr("m74a883a037bc")}</h3>
+      <p className="mb-4 text-xs text-muted-foreground" data-testid="upstream-credit">{tr("m8bb483f7be15")}</p>
       <div className="flex gap-3 sm:gap-6">
         <SettingsSidebar
           activeSection={activeSection}

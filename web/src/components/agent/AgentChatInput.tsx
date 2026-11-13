@@ -32,7 +32,7 @@ import {
 type ComposerPart = TextUIPart | AgentPastePart;
 
 function chipLabel(chip: AgentPastePartData, tr: ReturnType<typeof useT>): string {
-  const chars = chip.chars.toLocaleString();
+  const chars = chip.chars.toLocaleString("en-US", {numberingSystem: "latn"});
   return chip.truncated
     ? tr("m8375a3727606", {v0: chars})
     : tr("m74ec9ff10f3f", {v0: chars});

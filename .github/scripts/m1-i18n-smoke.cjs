@@ -26,10 +26,16 @@ async function verify(page, locale, url) {
   await expect(page.locator('html')).toHaveAttribute('lang', locale);
   await expect(page.locator('html')).toHaveAttribute('dir', locale === 'ar' ? 'rtl' : 'ltr');
   await page.waitForLoadState('networkidle');
+  const brand = locale === 'ar' ? 'أول شغلانة' : 'Awel Shoghlana';
+  await expect(page.locator('h1').filter({hasText:brand}).first()).toContainText(brand);
+  await expect(page).toHaveTitle(new RegExp(brand));
   if (locale === 'ar') {
     const placeholders = await page.locator('input[placeholder]:visible, textarea[placeholder]:visible').evaluateAll(nodes => nodes.map(n => n.getAttribute('placeholder')).join('\n'));
     const visible = (await page.locator('body').innerText()) + '\n' + placeholders;
+    expect(visible, `Latin digits and spaced units on ${url}`).not.toMatch(/[٠-٩۰-۹]|[0-9](?:ساعة|يوم|أيام|دقيقة|وظائف)/);
     const cleaned = visible
+      // Only the explicitly requested upstream attribution is exempted.
+      .replace(ar.ui.m8bb483f7be15, '')
       .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '')
       .replace(/https?:\/\/[^\s]+/g, '')
       .replace(/\b(?:JobSync|Google|Gemini|Ollama|PDF|CSV|URL)\b/g, '');
@@ -39,6 +45,36 @@ async function verify(page, locale, url) {
   pageChecks++;
   console.log(`CHECKED ${locale} ${url}`);
 }
+
+async function verifyChartPolish(page, locale) {
+  const chart = page.getByTestId('weekly-chart');
+  const today = new Date();
+  const dates = [6, 0].map(days => {const d = new Date(today);d.setDate(d.getDate()-days);return d;});
+  const labels = dates.map(d => locale === 'ar'
+    ? new Intl.DateTimeFormat('ar', {numberingSystem:'latn',weekday:'long',day:'numeric',month:'long'}).format(d).replace(/،/g,'')
+    : new Intl.DateTimeFormat('en-US', {weekday:'short',month:'short',day:'numeric'}).format(d));
+  const points = [];
+  for (const label of labels) {
+    const tick = chart.locator('svg text').filter({hasText:new RegExp(`^${label}$`)});
+    await expect(tick).toBeVisible();
+    points.push(await tick.boundingBox());
+  }
+  expect(locale === 'ar' ? points[0].x > points[1].x : points[0].x < points[1].x).toBe(true);
+  const calendar = page.getByTestId('activity-calendar-chart');
+  const months = [0,11].map(month => new Intl.DateTimeFormat(locale,{month:'short'}).format(new Date(2020,month,1)));
+  const monthPoints = [];
+  for(const label of months) {
+    const tick = calendar.locator('svg text').filter({hasText:new RegExp(`^${label}$`)});
+    await expect(tick).toBeVisible();
+    monthPoints.push(await tick.boundingBox());
+    if(locale === 'ar') await expect(tick).toHaveAttribute('transform', /scale\(-1,1\)$/);
+  }
+  expect(locale === 'ar' ? monthPoints[0].x > monthPoints[1].x : monthPoints[0].x < monthPoints[1].x).toBe(true);
+  if(locale === 'ar') {
+    await expect(page.getByText('الهدف',{exact:true})).toBeVisible();
+  }
+}
+
 async function signIn(page, locale='ar') {
   await page.goto(`${base}/signin`);
   await page.getByLabel(label('Email', locale), {exact:true}).fill(email);
@@ -71,11 +107,18 @@ async function main() {
     await expect(page).toHaveURL(`${base}/dashboard`);
     const user = await db.user.findUniqueOrThrow({where:{email}});
     expect(user.locale).toBe('ar');
+    await expect(page.getByTestId('jobs-activity-total')).toContainText('0 ساعة');
+    // Fictional completed activity makes the heatmap and donut reviewable.
+    const demoType = await db.activityType.create({data:{createdBy:user.id,label:'نشاط وهمي',value:'fictional-ci-activity'}});
+    const demoEnd = new Date();
+    await db.activity.create({data:{userId:user.id,activityTypeId:demoType.id,activityName:'تعلّم تجريبي وهمي',startTime:new Date(demoEnd.getTime()-3600000),endTime:demoEnd,duration:60}});
     const profile = await db.profile.create({data:{userId:user.id}});
     const resume = await db.resume.create({data:{profileId:profile.id,title:'سيرة تجريبية وهمية'}});
     const routes=[...pages,`/dashboard/profile/resume/${resume.id}`];
     for (const route of routes) {
       await page.goto(base+route);await verify(page,'ar',route);
+      if (route === '/dashboard') await verifyChartPolish(page, 'ar');
+      if (route === '/dashboard/settings') await expect(page.getByTestId('upstream-credit')).toHaveText(ar.ui.m8bb483f7be15);
       const file = {'/dashboard':'dashboard-ar.png','/dashboard/myjobs':'jobs-ar.png','/dashboard/settings':'settings-ar.png'}[route];
       if(file)await page.screenshot({path:path.join(output,file),fullPage:true,animations:'disabled'});
     }
@@ -121,13 +164,14 @@ async function main() {
     await page.goto(`${base}/dashboard/myjobs?add-job=true`);
     await expect(page.getByRole('dialog')).toBeVisible();
     await verify(page,'ar','job form dialog');
+    await expect(page.getByRole('dialog')).toContainText('باقي 4 حقول مطلوبة:');
     await page.screenshot({path:path.join(output,'job-form-ar.png'),fullPage:true,animations:'disabled'});
     await page.goto(`${base}/dashboard`);
     await page.getByRole('button',{name:label('User menu'),exact:true}).click();
     await page.getByRole('menuitem',{name:ar.locale.switch,exact:true}).click();
     await expect(page.locator('html')).toHaveAttribute('lang','en');
     expect((await db.user.findUniqueOrThrow({where:{email}})).locale).toBe('en');
-    for(const route of routes) {await page.goto(base+route);await verify(page,'en',route);}
+    for(const route of routes) {await page.goto(base+route);await verify(page,'en',route);if(route === '/dashboard')await verifyChartPolish(page,'en');}
     await page.goto(`${base}/dashboard/myjobs?add-job=true`);
     await expect(page.getByRole('dialog')).toBeVisible();
     await verify(page,'en','job form dialog');
@@ -146,11 +190,11 @@ async function main() {
     for(const route of ['/signin','/signup']) {await visitorPage.goto(base+route);await verify(visitorPage,'en',route);}
     await visitor.close();await context.close();
     if (untranslated.length) throw new Error(untranslated.join("\n"));
-    console.log(`::notice title=M1 acceptance passed::${pageChecks} locale/page checks; Arabic task/type creation; saved language across sessions; five screenshots`);
+    console.log(`::notice title=M1.1 acceptance passed::${pageChecks} locale/page checks; Arabic task/type creation; saved language across sessions; five screenshots`);
   } finally {await db.$disconnect();await browser.close();}
 }
 main().catch(error=>{
   const message=String(error.stack||error).replaceAll(password,'[REDACTED]');
-  console.error(`::error title=M1 acceptance failed::${message.replaceAll('%','%25').replaceAll('\r','%0D').replaceAll('\n','%0A')}`);
+  console.error(`::error title=M1.1 acceptance failed::${message.replaceAll('%','%25').replaceAll('\r','%0D').replaceAll('\n','%0A')}`);
   process.exitCode=1;
 });

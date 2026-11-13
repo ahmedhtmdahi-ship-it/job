@@ -1,4 +1,6 @@
 "use client";
+import {useRtlCalendar} from "./useRtlCalendar";
+import {formatDate} from "@/i18n/formatting";
 import {useDateFormat} from "@/i18n/useDateFormat";
 import {useLocale} from "next-intl";
 import {useT} from "@/i18n/useT";
@@ -30,6 +32,7 @@ export default function ActivityCalendar({
 
   const tr = useT();
   const locale = useLocale();
+  const calendarRef = useRtlCalendar(locale === "ar");
 
   const { resolvedTheme } = useTheme();
   const [year, setYear] = useState(years.at(-1));
@@ -58,8 +61,9 @@ export default function ActivityCalendar({
         </div>
       </CardHeader>
       <CardContent className="h-[200px]">
+        <div ref={calendarRef} data-testid="activity-calendar-chart" dir="ltr" className={locale === "ar" ? "rtl-activity-calendar h-full" : "h-full"}>
         <ResponsiveCalendar
-          monthLegend={(_year, month) => new Intl.DateTimeFormat(locale, {month: "short"}).format(new Date(2020, month, 1))}
+          monthLegend={(_year, month) => new Intl.DateTimeFormat(locale, {numberingSystem: "latn", month: "short"}).format(new Date(2020, month, 1))}
           data={data}
           from={`${year}-04-02`}
           to={`${year}-04-02`}
@@ -84,7 +88,7 @@ export default function ActivityCalendar({
                   whiteSpace: "nowrap",
                 }}
               >
-                <div><strong>{formatLocalized(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
+                <div><strong>{locale === "ar" ? formatDate(parseISO(day.day), locale, {weekday: "long", day: "numeric", month: "long", year: "numeric"}) : formatLocalized(parseISO(day.day), "EEE MMM d, yyyy")}</strong></div>
                 <div>{day.value} {" "}{tr("m5e8c9902207a")}{Number(day.value) === 1 ? "" : tr("m043a718774c5")} {" "}{tr("mb4267ce93cbb")}</div>
                 <div>{hours} {" "}{tr("m1b52f3a2e151")}{hours === 1 ? "" : tr("m043a718774c5")} {" "}{tr("m0651863bf5d9")}</div>
               </div>
@@ -114,6 +118,7 @@ export default function ActivityCalendar({
             },
           ]}
         />
+        </div>
       </CardContent>
     </Card>
   );

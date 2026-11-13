@@ -24,7 +24,7 @@ export async function generateMetadata() {
  const tr = await getT();
  return {
   title: {
-    template: "%s | JobSync",
+    template: `%s | ${tr("m00d43de3b952")}`,
     default: tr("m00d43de3b952"),
   },
   description: tr("m2c533e8b1339"),

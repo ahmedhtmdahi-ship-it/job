@@ -64,7 +64,7 @@ export function CompaniesScopeSelect({ scope, onScopeChange }: Props) {
               {PROVIDER_META[provider].label}
               {counts?.[provider] !== undefined && (
                 <span className="ms-2 text-xs text-muted-foreground">
-                  {counts[provider].toLocaleString()}
+                  {counts[provider].toLocaleString("en-US", {numberingSystem: "latn"})}
                 </span>
               )}
             </SelectItem>
