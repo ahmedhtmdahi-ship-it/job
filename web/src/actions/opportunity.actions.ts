@@ -45,7 +45,7 @@ export async function pasteOpportunity(input:unknown){
 }
 export async function setOpportunityDisposition(id:string,disposition:'new'|'saved'|'skipped'){
   const user=await requireUser();
-  if(!['new','saved','skipped'].includes(disposition))throw Error('Invalid disposition');
+  if(typeof id!=='string' || id.length>100 || !['new','saved','skipped'].includes(disposition))throw Error('Invalid disposition');
   const result=await db.opportunity.updateMany({where:{id,userId:user.id},data:{disposition}});
   revalidatePath('/dashboard/opportunities');return {ok:result.count===1,error:result.count?null:'failed'};
 }
