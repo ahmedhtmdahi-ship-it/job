@@ -44,7 +44,7 @@ export async function refreshOpportunities(userId:string) {
         const result=await cachedSource(source);
         // Failed refreshes leave previously imported opportunities intact.
         if(result.status==='ok')for(const item of result.items.slice(0,500))await persistOpportunity(userId,item);
-        await db.sourceRun.create({data:{userId,sourceId:source.id,status:result.status,reason:result.reason,startedAt,itemCount:result.status==='ok'?result.items.length:0,cached:result.cached}});
+        await db.sourceRun.create({data:{userId,sourceId:source.id,status:result.status,reason:result.reason,startedAt,itemCount:result.status==='ok'?Math.min(result.items.length,500):0,cached:result.cached}});
       }catch{
         await db.sourceRun.create({data:{userId,sourceId:source.id,status:'failed',reason:'storage_or_source',startedAt}});
       }

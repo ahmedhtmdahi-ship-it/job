@@ -51,6 +51,7 @@ export default function OpportunityFeed({data}:{data:Data}){
   </article>)}</div>{!items.length&&<p className="rounded border p-6 text-center">{t('empty')}</p>}
   <Dialog open={dialog} onOpenChange={setDialog}><DialogContent><DialogHeader><DialogTitle>{t('paste')}</DialogTitle><DialogDescription>{t('pasteHint')}</DialogDescription></DialogHeader>
    <form className="space-y-3" onSubmit={e=>{e.preventDefault();act(()=>pasteOpportunity({url,text,jobType:pasteType}),()=>{setDialog(false);setText('');setUrl('');setSource('');setDisposition('new');});}}>
+    {notice&&notice!=='done'&&<p role="alert">{t(notice)}</p>}
     <label className="block">{t('url')}<input className={fieldClass} dir="ltr" type="url" maxLength={2048} value={url} onChange={e=>setUrl(e.target.value)}/></label><label className="block">{t('text')}<textarea className={fieldClass} rows={7} maxLength={50000} value={text} onChange={e=>setText(e.target.value)}/></label><p className="text-xs">{t('parseHint')}</p>
     <label className="block">{t('type')}<select className={fieldClass} value={pasteType} onChange={e=>setPasteType(e.target.value as 'freelance'|'remote_job')}><option value="freelance">{t('freelance')}</option><option value="remote_job">{t('remote_job')}</option></select></label>
     <div className="flex gap-2 justify-end"><Button type="button" variant="outline" onClick={()=>setDialog(false)}>{t('cancel')}</Button><Button disabled={pending||(!url.trim()&&!text.trim())}>{t('create')}</Button></div>

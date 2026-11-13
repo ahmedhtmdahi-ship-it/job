@@ -3,6 +3,7 @@ import type {Opportunity} from '../types';
 export function object(value:unknown):Record<string,any>{if(!value||typeof value!=='object'||Array.isArray(value))throw Error('Expected object');return value as Record<string,any>;}
 export function list(value:unknown):unknown[]{if(!Array.isArray(value))throw Error('Expected list');return value;}
 export function normalized(sourceId:string,row:Record<string,any>):Opportunity{
+  if(!['string','number'].includes(typeof row.id))throw Error('Missing external ID');
   if(typeof row.title!=='string'||!row.title.trim()||typeof row.description!=='string')throw Error('Invalid content');
   const postedAt=row.postedAt===undefined||row.postedAt===null?null:new Date(row.postedAt);
   if(postedAt&&!Number.isFinite(postedAt.getTime()))throw Error('Invalid date');

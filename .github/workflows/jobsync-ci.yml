@@ -4,6 +4,9 @@ on:
     branches: [main]
   push:
     branches: [m2-sources]
+concurrency:
+  group: sources-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -35,6 +38,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -78,6 +82,8 @@ jobs:
           if-no-files-found: error
 
   browser-smoke:
+    permissions:
+      contents: write
     needs: original-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -108,7 +114,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: true
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -140,7 +147,7 @@ jobs:
           fi
       - name: Start production application
         run: |
-          npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
+          NODE_OPTIONS="--require $GITHUB_WORKSPACE/.github/scripts/m2-network-fixtures.cjs" npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
           echo "$!" > "$RUNNER_TEMP/jobsync-server.pid"
       - name: Verify Arabic and English pages and capture screenshots
         run: node ../.github/scripts/m1-i18n-smoke.cjs
@@ -151,6 +158,35 @@ jobs:
           path: ${{ runner.temp }}/m1-screenshots/*.png
           if-no-files-found: error
           retention-days: 7
+      - name: Verify opportunity sources without live network
+        run: node ../.github/scripts/m2-opportunities-smoke.cjs
+      - name: Upload M2 screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: m2-opportunities
+          path: ${{ runner.temp }}/m2-screenshots/*.png
+          retention-days: 7
+          if-no-files-found: error
+      - name: Commit fictional M2 screenshots
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'm2-sources' && github.event.pull_request.head.repo.full_name == github.repository
+        working-directory: .
+        run: |
+          git fetch origin m2-sources
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/m2-sources)" ]; then
+            echo "A newer commit exists; screenshots will be committed by its run."
+            exit 0
+          fi
+          if git log -1 --format=%s | rg -q '^chore\(ci\): validate committed M2 screenshots'; then
+            exit 0
+          fi
+          mkdir -p docs/screenshots/m2
+          cp "$RUNNER_TEMP"/m2-screenshots/*.png docs/screenshots/m2/
+          git add -f docs/screenshots/m2/*.png
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'ahmedhtmdahi-ship-it'
+          git config user.email '283218988+ahmedhtmdahi-ship-it@users.noreply.github.com'
+          git commit -m 'docs(screenshots): capture fictional M2 acceptance pages'
+          git push origin HEAD:m2-sources
       - name: Stop application
         if: always()
         run: |
