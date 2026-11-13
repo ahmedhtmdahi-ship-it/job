@@ -384,6 +384,7 @@ export const DISCOVERY_STATUSES = [
 ] as const;
 
 export const SIDEBAR_LINKS = [
+  {icon: BriefcaseBusiness, route: "/dashboard/opportunities", label: uiMessage("m8ec6e42a4f91")},
   {
     icon: LayoutDashboard,
     route: "/dashboard",
