@@ -18,6 +18,11 @@ async function runPrunes() {
 }
 
 async function runDueAutomations() {
+  // Opportunity refresh is isolated; existing automations still run on source failure.
+  try {
+    const {refreshDueOpportunityFeeds} = await import("@/lib/sources/service");
+    await refreshDueOpportunityFeeds();
+  } catch { log.warn("[Scheduler] Opportunity refresh failed"); }
   const now = new Date();
   log.info("[Scheduler] Checking for due automations", {
     "scheduler.checked_at": now.toISOString(),
@@ -210,7 +215,8 @@ export async function reapStaleRuns(): Promise<number> {
 export async function syncSchedulerState() {
   await reapStaleRuns();
   const activeCount = await db.automation.count({ where: { status: "active" } });
-  if (activeCount > 0) {
+  const feedCount = await db.opportunityPreference.count({where: {dailyRefresh: true}});
+  if (activeCount > 0 || feedCount > 0) {
     startScheduler();
   } else {
     stopScheduler();
