@@ -19,10 +19,10 @@ CREATE TABLE "SourceRun" (
 );
 CREATE INDEX "SourceRun_userId_sourceId_startedAt_idx" ON "SourceRun"("userId","sourceId","startedAt");
 CREATE TABLE "OpportunityPreference" (
- "userId" TEXT PRIMARY KEY REFERENCES "User"("id") ON DELETE CASCADE,
+ "id" TEXT PRIMARY KEY, "userId" TEXT NOT NULL UNIQUE REFERENCES "User"("id") ON DELETE CASCADE,
  "minimumBudget" DOUBLE PRECISION CHECK ("minimumBudget">=0),"currency" TEXT NOT NULL DEFAULT 'USD',"language" TEXT NOT NULL DEFAULT 'ar' CHECK ("language" IN ('ar','en')),
  "dailyRefresh" BOOLEAN NOT NULL DEFAULT FALSE,"nextRefreshAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
  "refreshLeaseUntil" TIMESTAMP(3) NOT NULL DEFAULT '1970-01-01'
 );
 CREATE INDEX "OpportunityPreference_dailyRefresh_nextRefreshAt_idx" ON "OpportunityPreference"("dailyRefresh","nextRefreshAt");
-CREATE TABLE "SourceCache" ("sourceId" TEXT PRIMARY KEY,"nextFetchAt" TIMESTAMP(3) NOT NULL DEFAULT '1970-01-01',"fetchedAt" TIMESTAMP(3),"status" TEXT NOT NULL DEFAULT 'blocked',"payload" JSONB);
+CREATE TABLE "SourceCache" ("id" TEXT PRIMARY KEY, "sourceId" TEXT NOT NULL UNIQUE,"nextFetchAt" TIMESTAMP(3) NOT NULL DEFAULT '1970-01-01',"fetchedAt" TIMESTAMP(3),"status" TEXT NOT NULL DEFAULT 'blocked',"payload" JSONB);

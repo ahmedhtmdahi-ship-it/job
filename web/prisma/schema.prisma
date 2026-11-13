@@ -782,7 +782,8 @@ model SourceRun {
 
 // User profile preferences apply to all of their resumes, without selecting a new default resume.
 model OpportunityPreference {
-  userId String @id
+  id String @id @default(uuid())
+  userId String @unique
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   minimumBudget Float?
   currency String @default("USD")
@@ -795,7 +796,8 @@ model OpportunityPreference {
 
 // Public API data only. Never stores pasted content or user profile data.
 model SourceCache {
-  sourceId String @id
+  id String @id @default(uuid())
+  sourceId String @unique
   nextFetchAt DateTime @default(dbgenerated("'1970-01-01'::timestamp"))
   fetchedAt DateTime?
   status String @default("blocked")
