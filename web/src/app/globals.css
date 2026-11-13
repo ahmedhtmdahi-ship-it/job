@@ -253,3 +253,6 @@ html[lang="ar"] body { font-family: var(--font-arabic), var(--font-inter), sans-
 
 /* Reverse the heatmap timeline; useRtlCalendar keeps text glyphs readable. */
 .rtl-activity-calendar svg { transform: scaleX(-1); }
+
+/* Goal summary labels need a full line in Arabic, including the streak window. */
+.daily-goals-calendar [class~="gcx:truncate"] { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }

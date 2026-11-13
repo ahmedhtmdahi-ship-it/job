@@ -144,8 +144,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
           {slices.length === 0 ? (
             <div className="flex h-full w-full items-center justify-center">
               <div className="h-[132px] w-[132px] rounded-full border-[18px] border-muted" />
-              <p className="absolute inset-x-0 bottom-0 text-center text-sm text-muted-foreground">
-                {tr("m7b4ec0fa225d")}</p>
+
             </div>
           ) : (
             chartWidth > 0 && (
@@ -244,6 +243,7 @@ export default function JobsActivityCard({ data }: JobsActivityCardProps) {
             )}
           </div>
         </div>
+        {slices.length === 0 && <p className="mt-3 text-center text-sm text-muted-foreground">{tr("m7b4ec0fa225d")}</p>}
       </CardContent>
     </Card>
   );
