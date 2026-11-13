@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "slug": "fictional-104",
+      "url": "https://www.arbeitnow.com/view/fictional-104",
+      "title": "Fictional engineer",
+      "description": "Fictional remote work",
+      "company_name": "Fictional Example",
+      "remote": true,
+      "created_at": 1794312000,
+      "tags": [
+        "TypeScript"
+      ],
+      "location": "Germany"
+    }
+  ]
+}

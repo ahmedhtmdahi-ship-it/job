@@ -1,0 +1,13 @@
+{
+  "jobs": [
+    {
+      "id": 102,
+      "url": "https://jobicy.com/jobs/fictional-102",
+      "jobTitle": "Fictional developer",
+      "jobDescription": "Fictional remote work",
+      "companyName": "Example Fictional",
+      "pubDate": "2026-11-10 12:00:00",
+      "jobGeo": "Worldwide"
+    }
+  ]
+}

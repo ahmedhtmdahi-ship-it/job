@@ -14,7 +14,7 @@ export function publicApi(id:string,name:string,endpoint:string,intervalMs:numbe
       const retry=response.headers.get('retry-after');
       const until=retry && /^\d+$/.test(retry)?now+Number(retry)*1000:retry?Date.parse(retry):NaN;
       if(Number.isFinite(until))nextAllowed.set(id,Math.max(nextAllowed.get(id)!,until));
-      throw new SourceError('blocked','Source access restricted');
+      throw new SourceError('blocked','Source access restricted',new Date(nextAllowed.get(id)!));
     }
     if(!response.ok)throw new SourceError('failed','Source response failed');
     try{return parse(await response.json());}catch{throw new SourceError('parser_error','Source response format changed');}
@@ -23,5 +23,5 @@ export function publicApi(id:string,name:string,endpoint:string,intervalMs:numbe
 export async function runSource(source:SourceAdapter,query:SourceQuery){
   const startedAt=new Date();
   try{const items=await source.fetch(query);return {sourceId:source.id,status:'ok' as const,startedAt,itemCount:items.length,items};}
-  catch(error){return {sourceId:source.id,status:error instanceof SourceError?error.status:'failed' as const,startedAt,itemCount:0,items:[]};}
+  catch(error){return {sourceId:source.id,retryAt:error instanceof SourceError?error.retryAt:undefined,status:error instanceof SourceError?error.status:'failed' as const,startedAt,itemCount:0,items:[]};}
 }

@@ -1,0 +1,16 @@
+{
+  "jobs": [
+    {
+      "id": 101,
+      "url": "https://remotive.com/remote-jobs/software-dev/fictional-101",
+      "title": "Fictional frontend engineer",
+      "description": "Build a fictional accessible application.",
+      "company_name": "Fictional Example Ltd",
+      "publication_date": "2026-11-10T12:00:00",
+      "tags": [
+        "TypeScript"
+      ],
+      "candidate_required_location": "Worldwide"
+    }
+  ]
+}
