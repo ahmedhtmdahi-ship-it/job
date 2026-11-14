@@ -1,9 +1,9 @@
-name: Awel Shoghlana M2
+name: Awel Shoghlana M3
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [m2-sources]
+    branches: [m3-proposals]
 concurrency:
   group: sources-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
