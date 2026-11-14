@@ -68,7 +68,7 @@ export async function recordApplication(userId:string,opportunityId:string) {
       const existing = await tx.proposal.findFirstOrThrow({where:{id:proposal.id,userId}});
       return {jobId:existing.jobId,appliedAt:existing.appliedAt};
     }
-    const job = await tx.job.create({data:{userId,jobTitleId:title.id,companyId:company.id,jobSourceId:source.id,statusId:status.id,jobUrl:o.url,description:o.description,jobType:o.jobType==='freelance'?'C':'FT',workplaceType:o.jobType==='remote_job'?'REMOTE':null,createdAt:now,applied:true,appliedDate:now,createdVia:'proposal',stages}});
+    const job = await tx.job.create({data:{userId,jobTitleId:title.id,companyId:company.id,jobSourceId:source.id,statusId:status.id,jobUrl:o.url,description:o.description,jobType:o.jobType==='freelance'?'C':'',workplaceType:o.jobType==='remote_job'?'REMOTE':null,createdAt:now,applied:true,appliedDate:now,createdVia:'proposal',stages}});
     await tx.proposal.update({where:{id:proposal.id},data:{jobId:job.id}});
     return {jobId:job.id,appliedAt:now};
   });
