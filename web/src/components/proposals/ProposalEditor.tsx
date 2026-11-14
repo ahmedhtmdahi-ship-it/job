@@ -46,7 +46,7 @@ export default function ProposalEditor({data}:{data:Data}) {
     </section>
     <section className="rounded border p-4 space-y-2"><h3 className="font-semibold">{t('summary')}</h3><p lang={draftLanguage} dir={draftLanguage==='ar'?'rtl':'ltr'}>{data.summary}</p><h3 className="font-semibold">{t('risks')}</h3><ul className="list-disc ps-5" lang={draftLanguage} dir={draftLanguage==='ar'?'rtl':'ltr'}>{data.risks.map((risk,index)=><li key={index}>{risk}</li>)}</ul></section>
     <details className="rounded border p-4" data-testid="price-settings"><summary className="cursor-pointer font-medium">{t('settings')}</summary>
-      <p className="mt-2">{t('platform')}: <bdi>{data.input.floor.platform==='paste'?t('unknownPlatform'):data.input.floor.platform}</bdi></p>
+      <p className="mt-2">{t('platform')}: <bdi>{t(`platformNames.${data.input.floor.platform}`)}</bdi></p>
       <p className="my-2 text-sm text-muted-foreground">{t('floorHint')} {t('defaultFloor')}</p>
       <form className="grid gap-3 sm:grid-cols-3" onSubmit={e=>{e.preventDefault();act(()=>setProposalFloor({opportunityId:id,minimum:Number(minimum),currency}));}}>
         <label>{t('floor')}<input className={field} type="number" min="0" max="1000000000" step="0.01" required value={minimum} onChange={e=>setMinimum(e.target.value)}/></label>

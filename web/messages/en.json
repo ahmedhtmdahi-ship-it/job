@@ -1929,6 +1929,22 @@
       "questions": "Could you clarify the scope, expected schedule and required revisions?",
       "close": "I would be happy to discuss the details and agree on a clear scope.",
       "honest": "Requirements not documented in my profile need clarification before I can confirm that I can deliver them."
+    },
+    "platformNames": {
+      "freelancer": "Freelancer",
+      "remotive": "Remotive",
+      "jobicy": "Jobicy",
+      "remoteok": "Remote OK",
+      "arbeitnow": "Arbeitnow",
+      "khamsat": "Khamsat",
+      "mostaql": "Mostaql",
+      "kafiil": "Kafiil",
+      "ureed": "Ureed",
+      "upwork": "Upwork",
+      "wuzzuf": "Wuzzuf",
+      "linkedin": "LinkedIn",
+      "bayt": "Bayt",
+      "paste": "Manual entry"
     }
   }
 }
