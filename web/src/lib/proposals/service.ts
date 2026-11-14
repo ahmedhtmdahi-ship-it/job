@@ -1,7 +1,7 @@
 import 'server-only';
 import db from '@/lib/db';
 import type {Prisma} from '@prisma/client';
-import {deterministicGate,evidenceSkills,fingerprint,matchedSkills,message,platformOf,words,type Claim,type ProposalInput} from './core';
+import {deterministicGate,evidenceSkills,fingerprint,matchedSkills,message,platformOf,words,type Claim,type Language,type ProposalInput} from './core';
 import {rankOpportunity} from '@/lib/sources/ranking';
 import type {Opportunity as SourceOpportunity} from '@/lib/sources/types';
 import {resolveCompany,resolveJobSource,resolveJobTitle} from '@/lib/jobs/resolve';
@@ -17,7 +17,7 @@ export async function loadProposalContext(userId:string,opportunityId:string) {
     db.proposalPriceFloor.findUnique({where:{userId_platform:{userId,platform}}}),
   ]);
   const skills = evidenceSkills(skillRows.map(s=>s.Tag.label));
-  const language = opportunity.language==='en'?'en':'ar';
+  const language:Language = opportunity.language==='en'?'en':'ar';
   const floor = {platform,minimum:floorRow?.minimum??20,currency:floorRow?.currency??'USD'};
   const input:ProposalInput = {evidence:{skills},opportunity:{title:opportunity.title,description:opportunity.description.slice(0,16000),skills:opportunity.skills,language,currency:opportunity.currency,budgetMin:opportunity.budgetMin,budgetMax:opportunity.budgetMax},floor};
   const profile = {skills,minimumBudget:preferences?.minimumBudget??undefined,currency:preferences?.currency??'USD',language};

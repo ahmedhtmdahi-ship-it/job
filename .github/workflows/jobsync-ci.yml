@@ -82,6 +82,8 @@ jobs:
           if-no-files-found: error
 
   browser-smoke:
+    permissions:
+      contents: write
     needs: original-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -112,7 +114,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: true
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
@@ -145,7 +147,7 @@ jobs:
           fi
       - name: Start production application
         run: |
-          NODE_OPTIONS="--require $GITHUB_WORKSPACE/.github/scripts/m2-network-fixtures.cjs" npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
+          NODE_OPTIONS="--require $GITHUB_WORKSPACE/.github/scripts/m3-network-fixtures.cjs" npm start > "$RUNNER_TEMP/jobsync-server.log" 2>&1 &
           echo "$!" > "$RUNNER_TEMP/jobsync-server.pid"
       - name: Verify Arabic and English pages and capture screenshots
         run: node ../.github/scripts/m1-i18n-smoke.cjs
@@ -165,6 +167,29 @@ jobs:
           path: ${{ runner.temp }}/m2-screenshots/*.png
           retention-days: 7
           if-no-files-found: error
+      - name: Verify proposal honesty gate and manual application tracking
+        run: node ../.github/scripts/m3-proposals-smoke.cjs
+      - name: Upload M3 screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: m3-proposals
+          path: ${{ runner.temp }}/m3-screenshots/*.png
+          retention-days: 7
+          if-no-files-found: error
+      - name: Commit initial fictional M3 screenshots
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'm3-proposals' && github.event.pull_request.head.repo.full_name == github.repository
+        working-directory: .
+        run: |
+          if [ -f docs/screenshots/m3/proposal-ar.png ]; then exit 0; fi
+          git fetch origin m3-proposals
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse FETCH_HEAD)" ]; then exit 0; fi
+          mkdir -p docs/screenshots/m3
+          cp "$RUNNER_TEMP"/m3-screenshots/*.png docs/screenshots/m3/
+          git add -f docs/screenshots/m3/*.png
+          git config user.name 'ahmedhtmdahi-ship-it'
+          git config user.email '283218988+ahmedhtmdahi-ship-it@users.noreply.github.com'
+          git commit -m 'docs(screenshots): capture fictional M3 acceptance pages'
+          git push origin HEAD:m3-proposals
       - name: Stop application
         if: always()
         run: |

@@ -25,6 +25,7 @@ export async function writeProposal(raw:unknown) {
   const {opportunityId,version,draft} = parsed.data;
   const context = await loadProposalContext(user.id,opportunityId);
   const proposal = await ensureProposal(user.id,context);
+  if(draft!==undefined && proposal.profileHash!==context.profileHash) return {ok:false,error:'stale'};
   const claimed = await db.proposal.updateMany({where:{id:proposal.id,userId:user.id,version,leaseUntil:{lte:new Date()}},data:{version:{increment:1},reviewStatus:'pending',leaseUntil:new Date(Date.now()+300000)}});
   if(!claimed.count) return {ok:false,error:'busy'};
   const nextVersion = version+1;
