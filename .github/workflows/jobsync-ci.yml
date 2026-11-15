@@ -1,9 +1,9 @@
-name: Awel Shoghlana M3
+name: Awel Shoghlana M3.1
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [m3-proposals]
+    branches: [m31-proposals]
 concurrency:
   group: sources-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
@@ -177,11 +177,11 @@ jobs:
           retention-days: 7
           if-no-files-found: error
       - name: Commit initial fictional M3 screenshots
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'm3-proposals' && github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'm31-proposals' && github.event.pull_request.head.repo.full_name == github.repository
         working-directory: .
         run: |
           if [ -f docs/screenshots/m3/proposal-ar.png ]; then exit 0; fi
-          git fetch origin m3-proposals
+          git fetch origin m31-proposals
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse FETCH_HEAD)" ]; then exit 0; fi
           mkdir -p docs/screenshots/m3
           cp "$RUNNER_TEMP"/m3-screenshots/*.png docs/screenshots/m3/
@@ -189,7 +189,7 @@ jobs:
           git config user.name 'ahmedhtmdahi-ship-it'
           git config user.email '283218988+ahmedhtmdahi-ship-it@users.noreply.github.com'
           git commit -m 'docs(screenshots): capture fictional M3 acceptance pages'
-          git push origin HEAD:m3-proposals
+          git push origin HEAD:m31-proposals
       - name: Stop application
         if: always()
         run: |

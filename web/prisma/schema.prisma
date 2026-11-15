@@ -812,6 +812,8 @@ model SourceCache {
 
 
 model Proposal {
+  sentences Json @default("[]")
+  userConfirmed Boolean @default(false)
   id String @id @default(uuid())
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

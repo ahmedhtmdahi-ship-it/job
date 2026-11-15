@@ -1,5 +1,7 @@
 'use server';
 import {z} from 'zod';
+import {editedSentences,readSentences} from '@/lib/proposals/document';
+import type {Prisma} from '@prisma/client';
 import {revalidatePath} from 'next/cache';
 import db from '@/lib/db';
 import {requireUser} from './shared';
@@ -17,27 +19,28 @@ export async function getProposalData(opportunityId:string) {
   const calls = await db.aiCall.findMany({where:{userId:user.id,proposalId:proposal.id},orderBy:{startedAt:'desc'},take:100,select:{id:true,provider:true,feature:true,status:true,inputTokens:true,outputTokens:true,startedAt:true}});
   return {...context,proposal,calls,copyAllowed:copyIssues(proposal,context.input).length===0,stale:!!proposal.profileHash&&proposal.profileHash!==context.profileHash};
 }
-const operationSchema = z.object({opportunityId:idSchema,version:z.number().int().nonnegative(),draft:z.string().max(6000).optional()});
+const operationSchema = z.object({opportunityId:idSchema,version:z.number().int().nonnegative(),draft:z.string().max(6000).optional(),userConfirmed:z.boolean().default(false)});
 export async function writeProposal(raw:unknown) {
   const user = await requireUser();
   const parsed = operationSchema.safeParse(raw);
   if(!parsed.success) return {ok:false,error:'failed'};
-  const {opportunityId,version,draft} = parsed.data;
+  const {opportunityId,version,draft,userConfirmed} = parsed.data;
   const context = await loadProposalContext(user.id,opportunityId);
   const proposal = await ensureProposal(user.id,context);
-  if(draft!==undefined && proposal.profileHash!==context.profileHash) return {ok:false,error:'stale'};
+  if(draft!==undefined && proposal.profileHash && proposal.profileHash!==context.profileHash) return {ok:false,error:'stale'};
   const claimed = await db.proposal.updateMany({where:{id:proposal.id,userId:user.id,version,leaseUntil:{lte:new Date()}},data:{version:{increment:1},reviewStatus:'pending',leaseUntil:new Date(Date.now()+300000)}});
   if(!claimed.count) return {ok:false,error:'busy'};
   const nextVersion = version+1;
   try {
     const call = (request:Parameters<typeof callProposalModel>[2])=>callProposalModel(user.id,proposal.id,request);
+    const sentences=editedSentences(draft??'',readSentences(proposal.sentences));
     const result = draft===undefined
       ? await generateProposal(context.input,call,proposal.draft || undefined)
-      : {draft,suggestedPrice:Math.max(proposal.suggestedPrice,context.input.floor.minimum),...await reviewDraft(context.input,draft,call)};
+      : {draft:sentences.map(s=>s.text).join('\n'),sentences,suggestedPrice:Math.max(proposal.suggestedPrice,context.input.floor.minimum),...await reviewDraft(context.input,sentences.map(s=>s.text).join('\n'),call,sentences,userConfirmed)};
     if(draft===undefined && characterCount(result.draft)>MAX_CHARS) throw Error('generationFailed');
     const latest = await loadProposalContext(user.id,opportunityId);
     if(latest.profileHash!==context.profileHash) result.unsupported_claims.push({text:'',reason:'stale'});
-    const saved = await db.proposal.updateMany({where:{id:proposal.id,userId:user.id,version:nextVersion},data:{draft:result.draft,suggestedPrice:result.suggestedPrice,currency:context.input.floor.currency,language:context.input.opportunity.language,score:context.score,summary:context.summary,risks:context.risks,profileHash:context.profileHash,unsupportedClaims:claimsJson(result.unsupported_claims),reviewStatus:result.unsupported_claims.length?'blocked':'passed'}});
+    const saved = await db.proposal.updateMany({where:{id:proposal.id,userId:user.id,version:nextVersion},data:{draft:result.draft,sentences:result.sentences as unknown as Prisma.InputJsonValue,userConfirmed:draft!==undefined&&userConfirmed,suggestedPrice:result.suggestedPrice,currency:context.input.floor.currency,language:context.input.opportunity.language,score:context.score,summary:context.summary,risks:context.risks,profileHash:context.profileHash,unsupportedClaims:claimsJson(result.unsupported_claims),reviewStatus:result.unsupported_claims.some(c=>c.reason!=='user_warning')?'blocked':'passed'}});
     if(!saved.count) return {ok:false,error:'conflict'};
     return {ok:true,error:null};
   } catch(error) {
