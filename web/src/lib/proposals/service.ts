@@ -1,4 +1,6 @@
 import 'server-only';
+import {structuredFacts} from './evidence';
+import {readSentences} from './document';
 import db from '@/lib/db';
 import type {Prisma} from '@prisma/client';
 import {deterministicGate,evidenceSkills,fingerprint,matchedSkills,message,platformOf,words,type Claim,type Language,type ProposalInput} from './core';
@@ -11,15 +13,17 @@ export async function loadProposalContext(userId:string,opportunityId:string) {
   const opportunity = await db.opportunity.findFirst({where:{id:opportunityId,userId}});
   if(!opportunity) throw Error('notFound');
   const platform = platformOf(opportunity.sourceId,opportunity.url);
-  const [skillRows,preferences,floorRow] = await Promise.all([
-    db.skill.findMany({where:{ResumeSection:{Resume:{profile:{userId}}}},select:{Tag:{select:{label:true}}}}),
+  const [skillRows,preferences,floorRow,experience,items] = await Promise.all([
+    db.skill.findMany({where:{ResumeSection:{Resume:{profile:{userId}}}},select:{id:true,Tag:{select:{label:true}}}}),
     db.opportunityPreference.findUnique({where:{userId}}),
     db.proposalPriceFloor.findUnique({where:{userId_platform:{userId,platform}}}),
+    db.workExperience.findMany({where:{ResumeSection:{Resume:{profile:{userId}}}},include:{Company:{select:{label:true}},jobTitle:{select:{label:true}}}}),
+    db.otherSection.findMany({where:{ResumeSection:{Resume:{profile:{userId}}}},include:{ResumeSection:{select:{sectionType:true,sectionTitle:true}}}}),
   ]);
   const skills = evidenceSkills(skillRows.map(s=>s.Tag.label));
   const language:Language = opportunity.language==='en'?'en':'ar';
   const floor = {platform,minimum:floorRow?.minimum??20,currency:floorRow?.currency??'USD'};
-  const input:ProposalInput = {evidence:{skills},opportunity:{title:opportunity.title,description:opportunity.description.slice(0,16000),skills:opportunity.skills,language,currency:opportunity.currency,budgetMin:opportunity.budgetMin,budgetMax:opportunity.budgetMax},floor};
+  const input:ProposalInput = {evidence:{skills,facts:structuredFacts(skillRows,experience,items)},opportunity:{title:opportunity.title,description:opportunity.description.slice(0,16000),skills:opportunity.skills,language,currency:opportunity.currency,budgetMin:opportunity.budgetMin,budgetMax:opportunity.budgetMax},floor};
   const profile = {skills,minimumBudget:preferences?.minimumBudget??undefined,currency:preferences?.currency??'USD',language};
   const ranked = rankOpportunity({...opportunity,company:opportunity.company??undefined,budgetMin:opportunity.budgetMin??undefined,budgetMax:opportunity.budgetMax??undefined,currency:opportunity.currency??undefined,bidsCount:opportunity.bidsCount??undefined,country:opportunity.country??undefined} as SourceOpportunity,profile);
   const matched = matchedSkills(input);
@@ -36,12 +40,12 @@ export async function loadProposalContext(userId:string,opportunityId:string) {
 export async function ensureProposal(userId:string,context:Awaited<ReturnType<typeof loadProposalContext>>) {
   return db.proposal.upsert({where:{opportunityId:context.opportunity.id},create:{userId,opportunityId:context.opportunity.id,language:context.input.opportunity.language,platform:context.input.floor.platform,risks:[]},update:{}});
 }
-export function copyIssues(proposal:{draft:string;reviewStatus:string;profileHash:string;unsupportedClaims:unknown},input:ProposalInput):Claim[] {
-  const issues = deterministicGate(proposal.draft,input);
+export function copyIssues(proposal:{draft:string;reviewStatus:string;profileHash:string;unsupportedClaims:unknown;sentences?:unknown;userConfirmed?:boolean},input:ProposalInput):Claim[] {
+  const issues = deterministicGate(proposal.draft,input,readSentences(proposal.sentences),proposal.userConfirmed??false);
   if(proposal.profileHash!==fingerprint(input)) issues.push({text:'',reason:'stale'});
   if(proposal.reviewStatus!=='passed') issues.push({text:'',reason:'unavailable'});
   const parsed = Array.isArray(proposal.unsupportedClaims)?proposal.unsupportedClaims:[];
-  if(parsed.length) issues.push(...parsed as Claim[]);
+  if(parsed.length) issues.push(...(parsed as Claim[]).filter(claim=>claim.reason!=='user_warning'));
   return issues;
 }
 export const claimsJson = (claims:Claim[]) => claims as unknown as Prisma.InputJsonValue;
