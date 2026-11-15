@@ -47,7 +47,7 @@ export function deterministicGate(draft:string,input:ProposalInput,sentences:Sen
     }
     const cited=sentence.factIds.map(id=>facts.get(id));
     if(!cited.length || cited.some(f=>!f)){claims.push({text:sentence.text,reason:'uncited'});continue;}
-    if(unsupportedTerms(sentence.text,cited as Fact[],[...input.opportunity.skills,...profileFacts(input).flatMap(f=>[...f.tools,...f.clients])]).length)claims.push({text:sentence.text,reason:'rule'});
+    if(unsupportedTerms(sentence.text,cited as Fact[],[...input.opportunity.skills,...profileFacts(input).flatMap(f=>[...f.tools,...f.clients,...(f.employer?[f.employer]:[])])]).length)claims.push({text:sentence.text,reason:'rule'});
   }
   return claims;
 }
