@@ -13,6 +13,8 @@ datasource db {
 }
 
 model User {
+  proposals Proposal[]
+  proposalPriceFloors ProposalPriceFloor[]
   opportunities Opportunity[]
   sourceRuns SourceRun[]
   opportunityPreferences OpportunityPreference?
@@ -439,6 +441,7 @@ model JobStagePrepQuestion {
 }
 
 model Job {
+  proposal Proposal?
   id          String      @id @default(uuid())
   userId      String
   User        User        @relation(fields: [userId], references: [id])
@@ -640,6 +643,8 @@ model Notification {
 }
 
 model AiCall {
+  proposalId String?
+  proposal Proposal? @relation(fields: [proposalId], references: [id], onDelete: SetNull)
   id           String   @id @default(uuid())
   userId       String
   user         User     @relation(fields: [userId], references: [id])
@@ -739,6 +744,7 @@ model ChatConversation {
 }
 
 model Opportunity {
+  proposal Proposal?
   id String @id @default(uuid())
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -802,4 +808,44 @@ model SourceCache {
   fetchedAt DateTime?
   status String @default("blocked")
   payload Json?
+}
+
+
+model Proposal {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunityId String @unique
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  draft String @default("")
+  language String
+  score Float @default(0)
+  summary String @default("")
+  risks String[]
+  suggestedPrice Float @default(20)
+  currency String @default("USD")
+  platform String
+  profileHash String @default("")
+  unsupportedClaims Json @default("[]")
+  reviewStatus String @default("pending")
+  version Int @default(0)
+  leaseUntil DateTime @default(dbgenerated("'1970-01-01'::timestamp"))
+  appliedAt DateTime?
+  jobId String? @unique
+  job Job? @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  aiCalls AiCall[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId, updatedAt])
+}
+
+model ProposalPriceFloor {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform String
+  minimum Float @default(20)
+  currency String @default("USD")
+  updatedAt DateTime @updatedAt
+  @@unique([userId, platform])
 }

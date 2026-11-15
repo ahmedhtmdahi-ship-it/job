@@ -1,5 +1,6 @@
 'use client';
 import {useState,useTransition} from 'react';
+import Link from 'next/link';
 import {useLocale,useTranslations} from 'next-intl';
 import {useRouter} from 'next/navigation';
 import {getOpportunityFeed,pasteOpportunity,refreshFeed,saveOpportunityPreferences,setOpportunityDisposition} from '@/actions/opportunity.actions';
@@ -11,7 +12,7 @@ type Data=Awaited<ReturnType<typeof getOpportunityFeed>>;
 const sourceNames:Record<string,string>={freelancer:'Freelancer',remotive:'Remotive',jobicy:'Jobicy',remoteok:'Remote OK',arbeitnow:'Arbeitnow'};
 const fieldClass='w-full rounded-md border bg-background p-2 text-sm';
 export default function OpportunityFeed({data}:{data:Data}){
- const t=useTranslations('opportunities');const locale=useLocale();const router=useRouter();
+ const t=useTranslations('opportunities');const p=useTranslations('proposals');const locale=useLocale();const router=useRouter();
  const [pending,start]=useTransition();const [notice,setNotice]=useState('');const [dialog,setDialog]=useState(false);
  const [source,setSource]=useState('');const [type,setType]=useState('');const [language,setLanguage]=useState('');const [budget,setBudget]=useState('');const [days,setDays]=useState('');const [disposition,setDisposition]=useState('new');
  const [currency,setCurrency]=useState(data.preferences.currency);const [minimum,setMinimum]=useState(data.preferences.minimumBudget?.toString()??'');const [preferred,setPreferred]=useState(data.preferences.language);const [daily,setDaily]=useState(data.preferences.dailyRefresh);
@@ -47,7 +48,7 @@ export default function OpportunityFeed({data}:{data:Data}){
    <p className="font-medium">{t.rich('score',{score:formatNumber(item.ranking.score,locale),value:chunks=><bdi dir="ltr">{chunks}</bdi>})}</p><details><summary className="cursor-pointer text-sm">{t('breakdown')}</summary><dl className="grid grid-cols-2 gap-1 text-sm mt-2">{Object.entries(item.ranking.breakdown).map(([key,value])=><div key={key}><dt>{t(key)}</dt><dd>{formatNumber(value,locale,{maximumFractionDigits:1})}</dd></div>)}</dl>{!item.ranking.budgetComparable&&<p className="text-xs">{t('unknownBudget')}</p>}</details>
    <details><summary className="cursor-pointer text-sm">{t('details')}</summary><p className="whitespace-pre-wrap break-words text-sm" dir="auto">{item.description.replace(/<[^>]*>/g,' ')}</p><p className="text-xs text-muted-foreground">{t('plainText')}</p></details>
    {!!item.skills.length&&<p dir="auto" className="text-sm">{item.skills.join(' · ')}</p>}
-   <div className="flex flex-wrap gap-2">{item.url&&<a className="rounded border px-3 py-2 text-sm" href={item.url} target="_blank" rel="noopener noreferrer">{t('open')}</a>}<Button variant="outline" disabled={pending||item.disposition==='saved'} onClick={()=>act(()=>setOpportunityDisposition(item.id,'saved'))}>{t(item.disposition==='saved'?'saved':'save')}</Button><Button variant="ghost" disabled={pending} onClick={()=>act(()=>setOpportunityDisposition(item.id,item.disposition==='skipped'?'new':'skipped'))}>{t(item.disposition==='skipped'?'restore':'skip')}</Button></div>
+   <div className="flex flex-wrap gap-2"><Link className="rounded border px-3 py-2 text-sm" href={`/dashboard/opportunities/${item.id}/proposal`}>{p('link')}</Link>{item.url&&<a className="rounded border px-3 py-2 text-sm" href={item.url} target="_blank" rel="noopener noreferrer">{t('open')}</a>}<Button variant="outline" disabled={pending||item.disposition==='saved'} onClick={()=>act(()=>setOpportunityDisposition(item.id,'saved'))}>{t(item.disposition==='saved'?'saved':'save')}</Button><Button variant="ghost" disabled={pending} onClick={()=>act(()=>setOpportunityDisposition(item.id,item.disposition==='skipped'?'new':'skipped'))}>{t(item.disposition==='skipped'?'restore':'skip')}</Button></div>
   </article>)}</div>{!items.length&&<p className="rounded border p-6 text-center">{t('empty')}</p>}
   <Dialog open={dialog} onOpenChange={setDialog}><DialogContent><DialogHeader><DialogTitle>{t('paste')}</DialogTitle><DialogDescription>{t('pasteHint')}</DialogDescription></DialogHeader>
    <form className="space-y-3" onSubmit={e=>{e.preventDefault();act(()=>pasteOpportunity({url,text,jobType:pasteType}),()=>{setDialog(false);setText('');setUrl('');setSource('');setDisposition('new');});}}>

@@ -2,6 +2,8 @@ import {message as uiMessage} from "@/i18n/message";
 // Own vocabulary, not telemetry's SURFACES: the two disagree on the Analyze
 // button (Automations here, job.match there) and SURFACES must not grow.
 export const AI_USAGE_FEATURES = {
+  proposal_draft: uiMessage("m3proposaldraft"),
+  proposal_review: uiMessage("m3proposalreview"),
   agent_chat: uiMessage("m3b6628926bd2"),
   job_match: uiMessage("md3f362f23515"),
   automations: uiMessage("mad1fb9ec0cb3"),
