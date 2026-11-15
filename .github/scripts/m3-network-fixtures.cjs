@@ -15,7 +15,7 @@ globalThis.fetch=async(input,init)=>{
     if(request.priceFloor) {
       const english=request.untrustedAdvertisement.language==='en';
       const facts=request.profileFacts;
-      const fact=(english?facts.find(f=>f.kind==='project'&&/Documentation/.test(f.text)):facts.find(f=>f.kind==='experience'))??facts.find(f=>f.kind==='project')??facts[0];
+      const fact=(english?facts.find(f=>f.kind==='project'&&/Documentation/.test(f.text)):facts.find(f=>f.kind==='experience'))??facts.find(f=>f.kind==='project'&&(english?/Documentation/.test(f.text):/مشروع/.test(f.text)))??facts[0];
       let text;
       if(fact?.kind==='experience')text=request.previousDraft?'لدى شركة تجريبية أنجزت 3 مشروعات باستخدام تصميم.':'أنجزت 3 مشروعات لدى شركة تجريبية باستخدام تصميم.';
       else text=fact?(english?'I worked on ':'عملت على ')+fact.text+'.':'';
