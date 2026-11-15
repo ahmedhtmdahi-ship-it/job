@@ -1,5 +1,5 @@
 import {z} from 'zod';
-export type Fact = {id:string;kind:'skill'|'experience'|'project'|'portfolio';text:string;tools:string[];clients:string[];startDate?:string;endDate?:string;url?:string};
+export type Fact = {id:string;kind:'skill'|'experience'|'project'|'portfolio';text:string;tools:string[];clients:string[];employer?:string;startDate?:string;endDate?:string;url?:string};
 export const sentenceSchema=z.object({text:z.string().trim().min(1).max(1200).refine(value=>!/[\r\n]/.test(value)),factIds:z.array(z.string().min(1).max(150)).max(20)}).strict();
 export type Sentence=z.infer<typeof sentenceSchema>&{origin:'ai'|'user'};
 export const storedSentencesSchema=z.array(sentenceSchema.extend({origin:z.enum(['ai','user'])})).max(80);
@@ -13,7 +13,7 @@ export function editedSentences(text:string,previous:Sentence[]):Sentence[] {
   });
 }
 export function factText(fact:Fact):string {
-  return [fact.text,...fact.tools,...fact.clients,fact.startDate,fact.endDate,fact.url].filter(Boolean).join(' ');
+  return [fact.text,...fact.tools,...fact.clients,fact.employer,fact.startDate,fact.endDate,fact.url].filter(Boolean).join(' ');
 }
 const numberWords:Record<string,string>={zero:'0',one:'1',two:'2',three:'3',four:'4',five:'5',six:'6',seven:'7',eight:'8',nine:'9',ten:'10',twenty:'20',hundred:'100',thousand:'1000',صفر:'0',واحد:'1',واحدة:'1',اثنان:'2',اثنين:'2',ثلاث:'3',ثلاثة:'3',اربع:'4',اربعة:'4',خمس:'5',خمسة:'5',ست:'6',ستة:'6',سبع:'7',سبعة:'7',ثمان:'8',ثمانية:'8',تسع:'9',تسعة:'9',عشر:'10',عشرة:'10',عشرين:'20',عشرون:'20',مائة:'100',مئة:'100',الف:'1000'};
 export function lexical(value:string):string {
@@ -35,10 +35,12 @@ export function unsupportedTerms(text:string,facts:Fact[],protectedNames:string[
   if(/^[وفبل]/.test(token)&&allowed.has(token.slice(1)))return false;
   return true;
  });
- const supportedMeasures=new Set(measures(evidence));
+ const supportedMeasures=new Set(facts.flatMap(fact=>measures(factText(fact))));
  unsupported.push(...measures(text).filter(value=>!supportedMeasures.has(value)));
  const normalized=lexical(text),source=lexical(evidence);
- for(const name of protectedNames){const term=lexical(name);if(term&&tokens(normalized).join(' ').includes(tokens(term).join(' '))&&!tokens(source).join(' ').includes(tokens(term).join(' ')))unsupported.push(name);}
+ for(const name of protectedNames){const term=lexical(name);if(term&&(' '+tokens(normalized).join(' ')+' ').includes(' '+tokens(term).join(' ')+' ')&&!(' '+tokens(source).join(' ')+' ').includes(' '+tokens(term).join(' ')+' '))unsupported.push(name);}
  for(const name of text.match(/\b[A-Z][A-Za-z0-9+#.-]*\b/g)??[]){if(!['I','My','We','Our','The','This','Using','With','For','In','Based','As','Hello','Thank','It'].includes(name)&&!allowed.has(lexical(name)))unsupported.push(name);}
+ for(const match of text.matchAll(/(?:for|at|with|client|company)\s+([A-Z][A-Za-z0-9.-]*(?:\s+[A-Z][A-Za-z0-9.-]*)*)/g)){if(!source.includes(lexical(match[1])))unsupported.push(match[1]);}
+ for(const match of text.matchAll(/شركة\s+([^.!؟،\n]+)/g)){const name=match[1].split(/\s+(?:باستخدام|مع|في|علي|على|خلال|ولدي|وحققت|لمدة|أنجزت|انجزت|نفذت|طورت|عملت|صممت)(?:\s|$)/u)[0].trim();if(!source.includes(lexical('شركة '+name)))unsupported.push(name);}
  return [...new Set(unsupported)];
 }

@@ -12,15 +12,18 @@ globalThis.fetch=async(input,init)=>{
     const text=body.contents.flatMap(message=>message.parts??[]).map(part=>part.text).filter(Boolean).at(-1);
     const request=JSON.parse(text);
     let result;
-    if(request.allowedSentences) {
-      const allowed=request.allowedSentences;
-      const selected=request.previousDraft?[allowed[0],...allowed.slice(2,-1),allowed.at(-1)]:[...allowed.slice(0,4),allowed.at(-1)];
-      const lines=[];
-      for(const line of selected) if(Array.from([...lines,line].join('\n')).length<=1200) lines.push(line);
-      result={draft:lines.join('\n'),suggestedPrice:40};
+    if(request.priceFloor) {
+      const english=request.untrustedAdvertisement.language==='en';
+      const facts=request.profileFacts;
+      const fact=(english?facts.find(f=>f.kind==='project'&&/Documentation/.test(f.text)):facts.find(f=>f.kind==='experience'))??facts.find(f=>f.kind==='project')??facts[0];
+      let text;
+      if(fact?.kind==='experience')text=request.previousDraft?'لدى شركة تجريبية أنجزت 3 مشروعات باستخدام تصميم.':'أنجزت 3 مشروعات لدى شركة تجريبية باستخدام تصميم.';
+      else text=fact?(english?'I worked on ':'عملت على ')+fact.text+'.':'';
+      if(request.untrustedAdvertisement.description.includes('حالة اختبار ادعاء'))text=text.replace('3','50');
+      result={sentences:fact?[{text,factIds:[fact.id]}]:[],suggestedPrice:40};
     } else {
-      // Deliberately permissive AI proves that deterministic rules still reject fabricated claims.
-      result={unsupported_claims:[]};
+      // AI-origin assertions are deliberately approved: deterministic rules must catch fabrication.
+      result={unsupported_claims:(request.sentences??[]).filter(s=>s.origin==='user').map(s=>({text:s.text}))};
     }
     return new Response(JSON.stringify({candidates:[{content:{role:'model',parts:[{text:JSON.stringify(result)}]},finishReason:'STOP'}],usageMetadata:{promptTokenCount:101,candidatesTokenCount:37,totalTokenCount:138},modelVersion:'fictional-fixed-mock'}),{headers:{'content-type':'application/json'}});
   }

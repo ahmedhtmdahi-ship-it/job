@@ -6,10 +6,10 @@ export function structuredFacts(
  items:{id:string;title:string;content:string;ResumeSection:{sectionType:string;sectionTitle:string}|null}[],
 ):Fact[]{
  const labels=skills.map(s=>s.Tag.label);
- const toolsIn=(text:string)=>labels.filter(label=>text.toLocaleLowerCase().includes(label.toLocaleLowerCase()));
+ const toolsIn=(text:string)=>labels.filter(label=>new RegExp('(^|[^\\p{L}\\p{N}])'+label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','iu').test(text));
  return [
   ...skills.map((s):Fact=>({id:`skill:${s.id}`,kind:'skill',text:s.Tag.label,tools:[s.Tag.label],clients:[]})),
-  ...experience.map((e):Fact=>({id:`experience:${e.id}`,kind:'experience',text:plain(`${e.jobTitle.label}: ${e.description}`),clients:[e.Company.label],tools:toolsIn(e.description),startDate:e.startDate.toISOString().slice(0,10),...(e.endDate?{endDate:e.endDate.toISOString().slice(0,10)}:{})})),
+  ...experience.map((e):Fact=>({id:`experience:${e.id}`,kind:'experience',text:plain(`${e.jobTitle.label}: ${e.description}`),clients:[],employer:e.Company.label,tools:toolsIn(e.description),startDate:e.startDate.toISOString().slice(0,10),...(e.endDate?{endDate:e.endDate.toISOString().slice(0,10)}:{})})),
   ...items.filter(item=>item.ResumeSection?.sectionType==='project'||/portfolio|بورتفوليو|معرض|اعمال|أعمال/i.test(`${item.title} ${item.ResumeSection?.sectionTitle}`)).map((item):Fact=>({id:`item:${item.id}`,kind:item.ResumeSection?.sectionType==='project'?'project':'portfolio',text:plain(`${item.title}: ${item.content}`),tools:toolsIn(item.content),clients:[],...(item.content.match(/https?:\/\/[^\s<>"']+/)?.[0]?{url:item.content.match(/https?:\/\/[^\s<>"']+/)![0]}:{})})),
  ];
 }

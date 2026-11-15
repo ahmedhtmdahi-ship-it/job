@@ -58,7 +58,7 @@ export default function ProposalEditor({data}:{data:Data}) {
         <Button className="self-end" disabled={pending}>{t('saveFloor')}</Button>
       </form>
     </details>
-    <details className="rounded border p-4" data-testid="profile-evidence"><summary>{t('evidence')}</summary>{data.input.evidence.facts?.map((fact,index)=><div key={fact.id} id={`fact-${index}`} className="my-3 border-s-2 ps-3"><p className="font-medium">{t('factRef',{number:index+1})} · {t(fact.kind)}</p><p dir="auto">{fact.text}</p><p dir="auto">{fact.clients.join(' · ')} {fact.tools.join(' · ')}</p><p><bdi>{fact.startDate} {fact.endDate}</bdi></p></div>)}</details>
+    <details className="rounded border p-4" data-testid="profile-evidence"><summary>{t('evidence')}</summary>{data.input.evidence.facts?.map((fact,index)=><div key={fact.id} id={`fact-${index}`} className="my-3 border-s-2 ps-3"><p className="font-medium">{t('factRef',{number:index+1})} · {t(fact.kind)}</p><p dir="auto">{fact.text}</p><p dir="auto">{fact.employer} {fact.clients.join(' · ')} {fact.tools.join(' · ')}</p><p><bdi>{fact.startDate} {fact.endDate}</bdi></p></div>)}</details>
     <section className="rounded border p-4 space-y-3" data-testid="honesty-gate" aria-live="polite">
       <h3 className="font-semibold">{t('gate')}</h3><p className={canCopy?'text-green-700 dark:text-green-400':'text-amber-700 dark:text-amber-400'}>{t(dirty?'edited':data.stale?'stale':data.copyAllowed?'passed':data.proposal.draft?'blocked':'pending')}</p>
       <p className="text-sm text-muted-foreground">{t('reviewHint')}</p>
