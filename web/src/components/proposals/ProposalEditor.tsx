@@ -6,6 +6,7 @@ import {useLocale,useTranslations} from 'next-intl';
 import {Button} from '@/components/ui/button';
 import {copyProposal,getProposalData,markProposalApplied,setProposalFloor,skipProposal,writeProposal} from '@/actions/proposal.actions';
 import {formatDate,formatNumber} from '@/i18n/formatting';
+import {editedSentences,readSentences} from '@/lib/proposals/document';
 import type {Claim} from '@/lib/proposals/core';
 
 type Data=Awaited<ReturnType<typeof getProposalData>>;
@@ -14,11 +15,14 @@ export default function ProposalEditor({data}:{data:Data}) {
   const t=useTranslations('proposals');const locale=useLocale();const router=useRouter();
   const [pending,start]=useTransition();const [notice,setNotice]=useState('');
   const [draft,setDraft]=useState(data.proposal.draft);
+  const [confirmed,setConfirmed]=useState(data.proposal.userConfirmed);
+  const sentences=editedSentences(draft,readSentences(data.proposal.sentences));
+  const hasUserLines=sentences.some(s=>s.origin==='user');
   const [minimum,setMinimum]=useState(String(data.input.floor.minimum));
   const [currency,setCurrency]=useState(data.input.floor.currency);
   const [copied,setCopied]=useState(false);
-  const dirty=draft!==data.proposal.draft;
-  const canCopy=data.copyAllowed&&!dirty&&!pending;
+  const dirty=draft!==data.proposal.draft||confirmed!==data.proposal.userConfirmed;
+  const canCopy=data.copyAllowed&&!dirty&&!pending&&(!hasUserLines||confirmed);
   const claims=(Array.isArray(data.proposal.unsupportedClaims)?data.proposal.unsupportedClaims:[]) as Claim[];
   const id=data.opportunity.id;
   const act=(action:()=>Promise<{ok:boolean;error:string|null}>,success='saved')=>start(async()=>{
@@ -54,17 +58,20 @@ export default function ProposalEditor({data}:{data:Data}) {
         <Button className="self-end" disabled={pending}>{t('saveFloor')}</Button>
       </form>
     </details>
+    <details className="rounded border p-4" data-testid="profile-evidence"><summary>{t('evidence')}</summary>{data.input.evidence.facts?.map((fact,index)=><div key={fact.id} id={`fact-${index}`} className="my-3 border-s-2 ps-3"><p className="font-medium">{t('factRef',{number:index+1})} · {t(fact.kind)}</p><p dir="auto">{fact.text}</p><p dir="auto">{fact.clients.join(' · ')} {fact.tools.join(' · ')}</p><p><bdi>{fact.startDate} {fact.endDate}</bdi></p></div>)}</details>
     <section className="rounded border p-4 space-y-3" data-testid="honesty-gate" aria-live="polite">
       <h3 className="font-semibold">{t('gate')}</h3><p className={canCopy?'text-green-700 dark:text-green-400':'text-amber-700 dark:text-amber-400'}>{t(dirty?'edited':data.stale?'stale':data.copyAllowed?'passed':data.proposal.draft?'blocked':'pending')}</p>
       <p className="text-sm text-muted-foreground">{t('reviewHint')}</p>
       {!!claims.length&&<div><h4>{t('claims')}</h4><ul className="list-disc ps-5">{claims.map((claim,index)=><li key={index}>{claim.text&&<blockquote className="break-words" dir="auto">{claim.text}</blockquote>}<span>{t(claim.reason)}</span></li>)}</ul></div>}
       <Link href="/dashboard/profile" className="inline-block underline">{t('profileLink')}</Link>
     </section>
-    <section className="space-y-3"><label className="block font-semibold">{t('draft')}<textarea data-testid="proposal-draft" className={`${field} mt-2 min-h-56 font-normal`} lang={draftLanguage} dir={draftLanguage==='ar'?'rtl':'ltr'} maxLength={6000} value={draft} onChange={e=>{setDraft(e.target.value);setCopied(false);}}/></label>
-      <p>{t('chars',{count:Array.from(draft).length})}</p><p className="text-sm text-muted-foreground">{t('privacy')}</p>
+    <section className="space-y-3"><label className="block font-semibold">{t('draft')}<textarea data-testid="proposal-draft" className={`${field} mt-2 min-h-56 font-normal`} lang={draftLanguage} dir={draftLanguage==='ar'?'rtl':'ltr'} maxLength={6000} value={draft} onChange={e=>{setDraft(e.target.value);setConfirmed(false);setCopied(false);}}/></label>
+      <div data-testid="sentence-sources" className="space-y-2"><h3>{t('citations')}</h3>{sentences.map((sentence,index)=><div key={index} className="rounded border p-2 text-sm"><span className="font-medium">{t(sentence.origin==='user'?'writtenByUser':'writtenByAi')}</span><p dir="auto">{sentence.text}</p>{sentence.factIds.map(id=>{const n=data.input.evidence.facts?.findIndex(f=>f.id===id)??-1;return n>=0?<a className="me-3 underline" key={id} href={`#fact-${n}`} onClick={()=>{const detail=document.querySelector<HTMLDetailsElement>('[data-testid="profile-evidence"]');if(detail)detail.open=true;}}>{t('factRef',{number:n+1})}</a>:null;})}</div>)}</div>
+      {hasUserLines&&<div className="rounded border p-3"><label className="flex items-center gap-2"><input type="checkbox" checked={confirmed} onChange={e=>{setConfirmed(e.target.checked);setCopied(false);}}/>{t('confirmTruth')}</label><p className="text-sm">{t('confirmHint')}</p></div>}
+      <p>{t('chars' ,{count:Array.from(draft).length})}</p><p className="text-sm text-muted-foreground">{t('privacy')}</p>
       <div className="flex flex-wrap gap-2">
         <Button disabled={pending} onClick={()=>act(()=>writeProposal({opportunityId:id,version:data.proposal.version}))}>{t(data.proposal.draft?'rewrite':'generate')}</Button>
-        <Button variant="outline" disabled={pending||!dirty} onClick={()=>act(()=>writeProposal({opportunityId:id,version:data.proposal.version,draft}))}>{t('review')}</Button>
+        <Button variant="outline" disabled={pending||!dirty} onClick={()=>act(()=>writeProposal({opportunityId:id,version:data.proposal.version,draft,userConfirmed:confirmed}))}>{t('review')}</Button>
         <Button variant="outline" disabled={!canCopy} onClick={copy}>{t('copy')}</Button>
         {data.opportunity.url&&<a className="rounded border px-4 py-2" href={data.opportunity.url} target="_blank" rel="noopener noreferrer">{t('open')}</a>}
         <Button variant="outline" disabled={pending||!!data.proposal.appliedAt} onClick={()=>act(()=>markProposalApplied(id),'applied')}>{t(data.proposal.appliedAt?'applied':'apply')}</Button>
